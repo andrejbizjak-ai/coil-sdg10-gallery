@@ -1,851 +1,1127 @@
 
+
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fotogalerija | Svet skozi objektiv</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10100f">
+<title>NOIR — Photography Experience</title>
 
-  <style>
-    :root {
-      --bg: #f5f5f7;
-      --card: #ffffff;
-      --text: #202124;
-      --muted: #686868;
-      --accent: #7c5cff;
-      --border: #e5e5e9;
-      --shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
-    }
+<style>
+:root {
+  --bg:#10100f;
+  --panel:#191917;
+  --text:#f4f0e8;
+  --muted:#a7a39b;
+  --accent:#d5b58a;
+  --line:#35332e;
+  --green:#a8c2a0;
+}
+* {box-sizing:border-box;margin:0;padding:0}
+html {scroll-behavior:smooth;scroll-padding-top:90px}
+body {
+  background:var(--bg);color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;line-height:1.65;
+  overflow-x:hidden;
+}
+body.light {
+  --bg:#f2eee7;--panel:#fffaf3;--text:#24211d;
+  --muted:#6d6860;--accent:#8b6540;--line:#d9d0c3;
+}
+button,input {font:inherit}
+button,a {-webkit-tap-highlight-color:transparent}
+button {cursor:pointer}
+a {color:inherit;text-decoration:none}
+img {display:block;width:100%}
+::selection {background:var(--accent);color:#111}
+.container {width:min(1200px,90%);margin:auto}
+section {scroll-margin-top:90px}
+button:focus-visible,a:focus-visible,input:focus-visible {
+  outline:2px solid var(--accent);outline-offset:4px
+}
 
-    body.dark {
-      --bg: #15151b;
-      --card: #22222b;
-      --text: #f4f4f8;
-      --muted: #b4b4c0;
-      --accent: #ad9aff;
-      --border: #383844;
-      --shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
-    }
+/* Intro */
+#intro {
+  position:fixed;inset:0;z-index:200;
+  display:grid;place-items:center;
+  background:#0b0b0a;
+  transition:opacity .8s,visibility .8s;
+}
+#intro.done {opacity:0;visibility:hidden;pointer-events:none}
+.intro-inner {text-align:center}
+.intro-mark {
+  font-family:Georgia,serif;font-size:clamp(48px,10vw,100px);
+  letter-spacing:.18em;animation:rise 1s both
+}
+.intro-caption {
+  color:var(--accent);letter-spacing:.35em;
+  text-transform:uppercase;font-size:10px;margin-top:12px
+}
+.intro-line {width:0;height:1px;background:var(--accent);
+  margin:24px auto;animation:line 1.3s .3s forwards}
+@keyframes rise {from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+@keyframes line {to{width:150px}}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+/* Navigation */
+header {
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--bg) 90%,transparent);
+  backdrop-filter:blur(18px);border-bottom:1px solid var(--line)
+}
+nav {
+  min-height:74px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px
+}
+.brand {font-family:Georgia,serif;font-size:23px;letter-spacing:.18em}
+.brand span {color:var(--accent)}
+.nav-links {display:flex;align-items:center;gap:25px}
+.nav-links a,.nav-links button {
+  background:none;border:0;color:var(--muted);font-size:12px;
+  transition:color .2s
+}
+.nav-links a:hover,.nav-links button:hover {color:var(--accent)}
+.menu-toggle {display:none;background:none;border:0;color:var(--text);font-size:25px}
+@media(max-width:760px) {
+  .menu-toggle {display:block}
+  .nav-links {
+    display:none;position:absolute;top:73px;left:0;right:0;
+    padding:24px 5%;background:var(--panel);border-bottom:1px solid var(--line);
+    flex-direction:column;align-items:flex-start
+  }
+  .nav-links.open {display:flex}
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+/* Hero */
+.hero {
+  min-height:min(790px,calc(100vh - 74px));
+  position:relative;display:flex;align-items:center;
+  background:
+    linear-gradient(90deg,rgba(8,8,7,.87),rgba(8,8,7,.18)),
+    linear-gradient(0deg,var(--bg),transparent 35%),
+    url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2200&q=90")
+    center 55%/cover;
+}
+.hero-content {padding:100px 0;max-width:760px}
+.eyebrow {
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:20px
+}
+.hero h1 {
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(48px,9vw,110px);font-weight:400;
+  line-height:.98;letter-spacing:-.045em
+}
+.hero h1 em {color:var(--accent);font-weight:400}
+.hero-description {max-width:470px;color:#d0ccc3;margin-top:25px;font-size:14px}
+.hero-actions {display:flex;gap:12px;flex-wrap:wrap;margin-top:35px}
+.btn {
+  border:1px solid var(--accent);padding:13px 21px;
+  background:var(--accent);color:#14120f;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  display:inline-flex;justify-content:center;align-items:center;gap:12px;
+  transition:transform .25s,background .25s,color .25s
+}
+.btn:hover {transform:translateY(-3px);background:transparent;color:var(--accent)}
+.btn.secondary {background:transparent;color:var(--text);border-color:#77736a}
+.btn.secondary:hover {border-color:var(--accent);color:var(--accent)}
+.hero-note {
+  position:absolute;right:5%;bottom:55px;
+  writing-mode:vertical-rl;color:#d0ccc3;font-size:10px;letter-spacing:.2em
+}
+.scroll-indicator {margin-top:70px;font-size:10px;color:#c5bfb4;letter-spacing:.2em}
+.scroll-indicator span {display:inline-block;margin-left:12px;animation:bob 1.4s infinite}
+@keyframes bob {50%{transform:translateY(7px)}}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.6;
-      transition: background 0.2s, color 0.2s;
-    }
+/* Shared sections */
+.section {padding:100px 0}
+.section-heading {
+  display:flex;justify-content:space-between;align-items:end;
+  gap:25px;margin-bottom:36px
+}
+.section-heading h2 {
+  font-family:Georgia,serif;font-weight:400;
+  font-size:clamp(35px,5vw,60px);line-height:1.1
+}
+.section-heading h2 em {color:var(--accent)}
+.section-heading p {max-width:330px;color:var(--muted);font-size:13px}
+@media(max-width:650px) {
+  .section {padding:70px 0}
+  .section-heading {align-items:flex-start;flex-direction:column}
+  .hero-note {display:none}
+}
 
-    button, input {
-      font: inherit;
-    }
+/* Gallery */
+.gallery-controls {
+  display:flex;gap:12px;flex-wrap:wrap;margin-bottom:25px
+}
+.gallery-controls input {
+  flex:1;min-width:180px;background:var(--panel);
+  color:var(--text);border:1px solid var(--line);
+  padding:12px 15px;outline:none
+}
+.gallery-controls input:focus {border-color:var(--accent)}
+.pill {
+  padding:10px 15px;border:1px solid var(--line);
+  color:var(--muted);background:transparent;font-size:11px;
+  transition:.2s
+}
+.pill:hover,.pill.active {background:var(--accent);border-color:var(--accent);color:#17130f}
+.gallery-meta {display:flex;justify-content:space-between;gap:12px;
+  color:var(--muted);font-size:11px;margin-bottom:18px}
+.gallery {
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px
+}
+.photo-card {
+  position:relative;background:var(--panel);border:1px solid var(--line);
+  overflow:hidden;transition:border-color .3s,transform .3s;
+  animation:cardIn .65s both;animation-delay:var(--delay,0ms)
+}
+@keyframes cardIn {from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.photo-card:hover {border-color:var(--accent);transform:translateY(-5px)}
+.photo-link {display:block}
+.photo-image-wrap {height:290px;overflow:hidden;position:relative;background:#25231f}
+.photo-image {
+  height:100%;object-fit:cover;
+  transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s
+}
+.photo-card:hover .photo-image {transform:scale(1.07);filter:brightness(.7)}
+.photo-number {
+  position:absolute;left:16px;top:15px;z-index:1;
+  font-size:10px;letter-spacing:.15em;color:white
+}
+.photo-overlay {
+  position:absolute;inset:0;display:flex;align-items:end;
+  padding:20px;color:white;opacity:0;transition:opacity .3s;
+  background:linear-gradient(transparent,rgba(0,0,0,.55))
+}
+.photo-card:hover .photo-overlay {opacity:1}
+.photo-overlay span {font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+.photo-info {padding:18px}
+.photo-category {font-size:9px;letter-spacing:.23em;text-transform:uppercase;color:var(--accent)}
+.photo-info h3 {font-family:Georgia,serif;font-size:24px;font-weight:400;margin:5px 0}
+.photo-info p {color:var(--muted);font-size:12px}
+.card-bottom {display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px}
+.favorite {
+  border:1px solid var(--line);background:transparent;color:var(--text);
+  padding:7px 10px;font-size:11px
+}
+.favorite.active {color:#ef9d9d;border-color:#ef9d9d}
+.open-label {font-size:10px;color:var(--accent);letter-spacing:.1em}
+.empty {display:none;padding:45px;text-align:center;color:var(--muted)}
+@media(max-width:900px) {.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px) {.gallery{grid-template-columns:1fr}.photo-image-wrap{height:300px}}
 
-    button {
-      cursor: pointer;
-    }
+/* Story detail */
+#detailPage {display:none;min-height:75vh;padding:55px 0 100px}
+.back-link {display:inline-block;color:var(--accent);font-size:12px;margin-bottom:30px}
+.detail-layout {display:grid;grid-template-columns:1.2fr .8fr;gap:45px;align-items:start}
+.detail-image {width:100%;max-height:720px;object-fit:cover;cursor:zoom-in}
+.detail-copy {padding:15px 0}
+.detail-copy h1 {font-family:Georgia,serif;font-size:clamp(40px,6vw,72px);font-weight:400;line-height:1.05}
+.detail-copy p {color:var(--muted);margin-top:20px;font-size:14px}
+.detail-facts {margin-top:30px;border-top:1px solid var(--line);padding-top:20px;font-size:12px}
+@media(max-width:750px){.detail-layout{grid-template-columns:1fr;gap:25px}}
 
-    a {
-      color: inherit;
-    }
+/* Quiz */
+.quiz-section {background:var(--panel);border-block:1px solid var(--line)}
+.quiz-shell {display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:start}
+.quiz-intro h2 {font-family:Georgia,serif;font-size:clamp(38px,5vw,60px);font-weight:400;line-height:1.08}
+.quiz-intro p {color:var(--muted);margin-top:20px;font-size:13px}
+.quiz-card {border:1px solid var(--line);padding:clamp(22px,4vw,40px);min-height:330px}
+.quiz-progress {height:2px;background:var(--line);margin-bottom:30px}
+.quiz-progress div {height:100%;width:0;background:var(--accent);transition:width .3s}
+.quiz-count {color:var(--accent);font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+.quiz-question {font-family:Georgia,serif;font-size:27px;font-weight:400;line-height:1.3;margin:12px 0 25px}
+.quiz-options {display:grid;gap:10px}
+.quiz-option {
+  text-align:left;width:100%;padding:14px 16px;
+  border:1px solid var(--line);background:transparent;color:var(--text);
+  transition:.2s;font-size:12px
+}
+.quiz-option:hover {border-color:var(--accent);padding-left:22px;color:var(--accent)}
+.quiz-result {display:none}
+.quiz-result h3 {font-family:Georgia,serif;font-size:38px;font-weight:400;color:var(--accent)}
+.quiz-result p {color:var(--muted);font-size:13px;margin:15px 0 25px}
+@media(max-width:800px){.quiz-shell{grid-template-columns:1fr;gap:30px}}
 
-    header {
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
+/* Achievements */
+.achievement-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.achievement {
+  padding:24px 15px;background:var(--panel);border:1px solid var(--line);
+  opacity:.48;transition:.3s;text-align:center
+}
+.achievement.unlocked {opacity:1;border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--panel))}
+.achievement-icon {font-size:27px;margin-bottom:10px}
+.achievement h3 {font-size:12px;font-weight:500}
+.achievement p {font-size:10px;color:var(--muted);margin-top:6px}
+@media(max-width:650px){.achievement-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-    .navbar {
-      max-width: 1200px;
-      margin: auto;
-      padding: 15px 24px;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
+/* Hidden surprise */
+.secret-box {
+  border:1px solid var(--line);padding:35px;text-align:center;
+  background:radial-gradient(ellipse at center,color-mix(in srgb,var(--accent) 10%,var(--bg)),var(--bg))
+}
+.secret-box h2 {font-family:Georgia,serif;font-weight:400;font-size:35px}
+.secret-box p {font-size:12px;color:var(--muted);margin:10px 0 20px}
+.secret-input {
+  background:transparent;border:1px solid var(--line);color:var(--text);
+  padding:12px;max-width:260px;width:100%;margin-right:8px
+}
+.secret-message {margin-top:20px;color:var(--accent);font-size:13px;min-height:25px}
+#secretSpark {font-size:23px;letter-spacing:8px;display:inline-block}
 
-    .navbar nav {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .navbar nav a {
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .navbar nav a:hover {
-      color: var(--accent);
-    }
-
-    .theme-button {
-      background: var(--bg);
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 8px 13px;
-      border-radius: 20px;
-    }
-
-    .hero {
-      max-width: 1200px;
-      margin: auto;
-      padding: 75px 24px 45px;
-      text-align: center;
-    }
-
-    .eyebrow {
-      color: var(--accent);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-weight: bold;
-    }
-
-    .hero h1 {
-      font-size: clamp(35px, 6vw, 64px);
-      line-height: 1.1;
-      margin: 15px 0;
-    }
-
-    .hero p {
-      color: var(--muted);
-      max-width: 650px;
-      margin: auto;
-      font-size: 17px;
-    }
-
-    .controls {
-      max-width: 1200px;
-      margin: 0 auto 35px;
-      padding: 0 24px;
-    }
-
-    .search-box {
-      display: block;
-      width: 100%;
-      padding: 14px 17px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      border-radius: 12px;
-      outline: none;
-      margin-bottom: 18px;
-    }
-
-    .search-box:focus {
-      border-color: var(--accent);
-    }
-
-    .filters {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .filter-button {
-      padding: 9px 16px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      border-radius: 22px;
-    }
-
-    .filter-button.active,
-    .filter-button:hover {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
-
-    .gallery {
-      max-width: 1200px;
-      padding: 0 24px 70px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
-    }
-
-    .photo-card {
-      position: relative;
-      min-width: 0;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: transform 0.2s;
-    }
-
-    .photo-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .photo-link {
-      display: block;
-      height: 100%;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .photo-link img {
-      display: block;
-      width: 100%;
-      height: 235px;
-      object-fit: cover;
-      background: var(--border);
-    }
-
-    .photo-content {
-      padding: 19px;
-    }
-
-    .category-label {
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .photo-content h3 {
-      margin: 7px 0;
-      font-size: 21px;
-    }
-
-    .photo-content p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .read-more {
-      display: inline-block;
-      color: var(--accent);
-      font-size: 14px;
-      font-weight: bold;
-      margin-top: 12px;
-    }
-
-    .favorite-button {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      z-index: 2;
-      width: 42px;
-      height: 42px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.95);
-      color: #252525;
-      font-size: 22px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    .favorite-button.selected {
-      color: #e63964;
-    }
-
-    .empty-message {
-      grid-column: 1 / -1;
-      text-align: center;
-      color: var(--muted);
-      padding: 40px 0;
-    }
-
-    section.info-section {
-      padding: 65px 24px;
-      border-top: 1px solid var(--border);
-    }
-
-    .section-inner {
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .section-inner h2 {
-      font-size: 32px;
-      margin-bottom: 15px;
-    }
-
-    .section-inner p,
-    .section-inner li {
-      color: var(--muted);
-    }
-
-    .section-inner ul {
-      padding-left: 22px;
-      margin-top: 12px;
-    }
-
-    /* Podrobna stran posamezne fotografije */
-
-    #detail-page {
-      display: none;
-      min-height: 70vh;
-      max-width: 1050px;
-      margin: auto;
-      padding: 35px 24px 70px;
-    }
-
-    .back-button {
-      display: inline-block;
-      margin-bottom: 25px;
-      padding: 10px 16px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .detail-image {
-      width: 100%;
-      max-height: 560px;
-      object-fit: cover;
-      border-radius: 18px;
-      display: block;
-      background: var(--border);
-    }
-
-    .detail-content {
-      max-width: 780px;
-      margin: 30px auto 0;
-    }
-
-    .detail-content h1 {
-      font-size: clamp(32px, 5vw, 48px);
-      line-height: 1.2;
-      margin: 8px 0 18px;
-    }
-
-    .detail-content p {
-      color: var(--muted);
-      margin: 14px 0;
-      font-size: 17px;
-    }
-
-    .detail-note {
-      padding: 20px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      margin-top: 25px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    @media (max-width: 850px) {
-      .gallery {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 560px) {
-      .gallery {
-        grid-template-columns: 1fr;
-      }
-
-      .photo-link img {
-        height: 250px;
-      }
-
-      .navbar {
-        justify-content: center;
-      }
-
-      .navbar nav {
-        justify-content: center;
-      }
-
-      .hero {
-        padding-top: 50px;
-      }
-    }
-  </style>
+/* About, footer, modal */
+.about-grid {display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about-grid img {height:400px;object-fit:cover;filter:grayscale(.3)}
+.about-copy h2 {font-family:Georgia,serif;font-weight:400;font-size:clamp(35px,5vw,58px)}
+.about-copy p {font-size:13px;color:var(--muted);margin-top:20px}
+footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
+.footer-inner {display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.toast {
+  position:fixed;bottom:25px;left:50%;z-index:300;
+  transform:translate(-50%,20px);opacity:0;pointer-events:none;
+  padding:13px 20px;background:var(--accent);color:#17130f;
+  font-size:12px;transition:.3s;text-align:center;max-width:90vw
+}
+.toast.show {opacity:1;transform:translate(-50%,0)}
+#lightbox {
+  display:none;position:fixed;inset:0;z-index:150;
+  background:rgba(0,0,0,.96);align-items:center;justify-content:center;padding:60px
+}
+#lightbox.open {display:flex}
+#lightbox img {width:auto;max-width:100%;max-height:85vh;object-fit:contain}
+.lightbox-btn {
+  position:absolute;top:20px;right:20px;background:transparent;
+  color:white;border:1px solid #555;padding:10px 15px;font-size:20px
+}
+.lightbox-prev,.lightbox-next {top:50%;right:auto;transform:translateY(-50%);font-size:28px}
+.lightbox-prev {left:15px}.lightbox-next {right:15px}
+#topButton {
+  position:fixed;bottom:22px;right:20px;z-index:40;
+  background:var(--accent);color:#17130f;border:0;width:42px;height:42px;
+  display:none;font-size:20px
+}
+#topButton.show {display:block}
+.reveal {opacity:0;transform:translateY(25px);transition:opacity .8s,transform .8s}
+.reveal.visible {opacity:1;transform:none}
+@media(max-width:750px) {
+  .about-grid{grid-template-columns:1fr}
+  .about-grid img{height:280px}
+  #lightbox{padding:55px 40px}
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
 </head>
 
 <body>
+<div id="intro" aria-label="Uvod">
+  <div class="intro-inner">
+    <div class="intro-mark">NOIR<span style="color:#d5b58a">.</span></div>
+    <div class="intro-line"></div>
+    <p class="intro-caption">The art of seeing</p>
+  </div>
+</div>
 
-  <header>
-    <div class="navbar">
-      <!-- Logotipa ni, kot si želela! -->
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="index.html#galerija">Galerija</a>
-        <a href="index.html#onas">O meni</a>
-        <a href="index.html#nasveti">Nasveti</a>
-        <a href="index.html#kontakt">Kontakt</a>
-      </nav>
-
-      <button class="theme-button" id="themeButton" type="button">
-        🌙 Temna tema
-      </button>
+<header>
+  <nav class="container">
+    <a href="index.html#home" class="brand" aria-label="NOIR domov">N<span>O</span>IR.</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Odpri meni">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#home">Domov</a>
+      <a href="index.html#gallery">Galerija</a>
+      <a href="index.html#quiz">Kviz</a>
+      <a href="index.html#achievements">Značke</a>
+      <a href="index.html#about">O projektu</a>
+      <button id="themeToggle" type="button">☼ Videz</button>
     </div>
-  </header>
+  </nav>
+</header>
 
-  <main id="home-page">
-
-    <section class="hero">
-      <div class="eyebrow">Ujemi trenutek</div>
-      <h1>Svet skozi objektiv</h1>
-      <p>
-        Dobrodošli v moji fotografski galeriji. Odkrij svet skozi
-        fotografije narave, mest, potovanj in drobnih trenutkov,
-        ki jih je vredno ohraniti.
-      </p>
-    </section>
-
-    <section class="controls" id="galerija">
-      <input
-        class="search-box"
-        id="searchInput"
-        type="search"
-        placeholder="🔎 Išči fotografije po naslovu ali opisu..."
-        aria-label="Išči fotografije"
-      >
-
-      <div class="filters">
-        <button class="filter-button active" data-filter="all">Vse fotografije</button>
-        <button class="filter-button" data-filter="nature">Narava</button>
-        <button class="filter-button" data-filter="cities">Mesta</button>
-        <button class="filter-button" data-filter="travel">Potovanja</button>
-        <button class="filter-button" data-filter="favorites">❤️ Priljubljene</button>
+<main id="mainPage">
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <p class="eyebrow">Independent photography journal · No. 001</p>
+        <h1>See beyond<br>the <em>ordinary.</em></h1>
+        <p class="hero-description">
+          Svetloba. Sence. Trenutki, ki trajajo le sekundo.
+          Vstopi v zbirko podob, ki pripovedujejo več, kot povedo besede.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="index.html#gallery">Razišči galerijo ↗</a>
+          <a class="btn secondary" href="index.html#quiz">Najdi svoj slog</a>
+        </div>
+        <p class="scroll-indicator">POMAKNI SE NAPREJ <span>↓</span></p>
       </div>
-    </section>
+    </div>
+    <div class="hero-note">A DIFFERENT WAY OF SEEING</div>
+  </section>
 
-    <section class="gallery" id="photoGallery" aria-label="Fotografska galerija">
+  <section class="section container" id="gallery">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">01 / Izbrana zbirka</p>
+        <h2>Ujeti <em>trenutki.</em></h2>
+      </div>
+      <p>Premakni miško čez fotografije. Klikni kartico za zgodbo. Shrani svoje najljubše in odkrij, kaj se skriva v podrobnostih.</p>
+    </div>
 
-      <article class="photo-card" data-id="forest" data-category="nature">
+    <div class="gallery-controls reveal">
+      <input type="search" id="search" placeholder="Išči fotografijo ..." aria-label="Iskanje">
+      <button class="pill active" data-filter="all">Vse</button>
+      <button class="pill" data-filter="narava">Narava</button>
+      <button class="pill" data-filter="mesta">Mesta</button>
+      <button class="pill" data-filter="morje">Morje</button>
+      <button class="pill" data-filter="potovanja">Potovanja</button>
+      <button class="pill" id="favoritesFilter">♡ Priljubljene</button>
+      <button class="pill" id="shuffle">↻ Naključno</button>
+    </div>
+
+    <div class="gallery-meta">
+      <span id="resultCount">9 fotografij</span>
+      <span>IZBERI SLIKO ZA OGLED ↗</span>
+    </div>
+
+    <div class="gallery" id="galleryGrid">
+      <article class="photo-card" data-id="forest" data-category="narava" data-title="Tišina gozda">
         <a class="photo-link" href="index.html#photo-forest" target="_blank" rel="noopener">
-          <img
-            src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=85"
-            alt="Zelena gozdna pokrajina"
-          >
-          <div class="photo-content">
-            <span class="category-label">Narava</span>
-            <h3>Čarobni gozd</h3>
-            <p>Mirna gozdna pot, obdana z visokimi drevesi in zelenjem.</p>
-            <span class="read-more">Preberi več →</span>
+          <div class="photo-image-wrap">
+            <span class="photo-number">01 / 09</span>
+            <img class="photo-image" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85" alt="Svetloba med gozdnimi drevesi" loading="lazy">
+            <div class="photo-overlay"><span>Odpri zgodbo ↗</span></div>
+          </div>
+          <div class="photo-info">
+            <span class="photo-category">Narava · Mir</span>
+            <h3>Tišina gozda</h3>
+            <p>Kjer čas za trenutek izgine.</p>
           </div>
         </a>
-        <button class="favorite-button" aria-label="Dodaj med priljubljene" aria-pressed="false" type="button">♡</button>
+        <div class="photo-info" style="padding-top:0">
+          <div class="card-bottom"><button class="favorite" type="button">♡ Shrani</button><span class="open-label">01 — NATURE</span></div>
+        </div>
       </article>
 
-      <article class="photo-card" data-id="mountains" data-category="nature">
+      <article class="photo-card" data-id="mountains" data-category="narava" data-title="Nad oblaki">
         <a class="photo-link" href="index.html#photo-mountains" target="_blank" rel="noopener">
-          <img
-            src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85"
-            alt="Visoke gore pod nebom"
-          >
-          <div class="photo-content">
-            <span class="category-label">Narava</span>
-            <h3>Vrhovi gora</h3>
-            <p>Veličastni gorski vrhovi, ki se dvigajo nad pokrajino.</p>
-            <span class="read-more">Preberi več →</span>
+          <div class="photo-image-wrap">
+            <span class="photo-number">02 / 09</span>
+            <img class="photo-image" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=85" alt="Vrhovi mogočnih gora" loading="lazy">
+            <div class="photo-overlay"><span>Odpri zgodbo ↗</span></div>
+          </div>
+          <div class="photo-info">
+            <span class="photo-category">Narava · Prostranost</span>
+            <h3>Nad oblaki</h3>
+            <p>Majhen človek, velik svet.</p>
           </div>
         </a>
-        <button class="favorite-button" aria-label="Dodaj med priljubljene" aria-pressed="false" type="button">♡</button>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Shrani</button><span class="open-label">02 — LANDSCAPE</span></div></div>
       </article>
 
-      <article class="photo-card" data-id="ocean" data-category="nature">
+      <article class="photo-card" data-id="ocean" data-category="morje" data-title="Modra tišina">
         <a class="photo-link" href="index.html#photo-ocean" target="_blank" rel="noopener">
-          <img
-            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85"
-            alt="Modro morje in peščena plaža"
-          >
-          <div class="photo-content">
-            <span class="category-label">Narava</span>
-            <h3>Modro morje</h3>
-            <p>Sončna obala in valovi, ki nežno objemajo peščeno plažo.</p>
-            <span class="read-more">Preberi več →</span>
+          <div class="photo-image-wrap">
+            <span class="photo-number">03 / 09</span>
+            <img class="photo-image" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1000&q=85" alt="Valovi na modrem morju" loading="lazy">
+            <div class="photo-overlay"><span>Odpri zgodbo ↗</span></div>
+          </div>
+          <div class="photo-info">
+            <span class="photo-category">Morje · Gibanje</span>
+            <h3>Modra tišina</h3>
+            <p>Vsak val je drugačen.</p>
           </div>
         </a>
-        <button class="favorite-button" aria-label="Dodaj med priljubljene" aria-pressed="false" type="button">♡</button>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Shrani</button><span class="open-label">03 — OCEAN</span></div></div>
       </article>
 
-      <article class="photo-card" data-id="city" data-category="cities">
+      <article class="photo-card" data-id="city" data-category="mesta" data-title="Po polnoči">
         <a class="photo-link" href="index.html#photo-city" target="_blank" rel="noopener">
-          <img
-            src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=900&q=85"
-            alt="Mesto s številnimi stavbami"
-          >
-          <div class="photo-content">
-            <span class="category-label">Mesta</span>
-            <h3>Mestni utrip</h3>
-            <p>Ulice, stavbe in svetloba ustvarjajo edinstveno mestno vzdušje.</p>
-            <span class="read-more">Preberi več →</span>
+          <div class="photo-image-wrap">
+            <span class="photo-number">04 / 09</span>
+            <img class="photo-image" src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1000&q=85" alt="Nočno mesto, polno luči" loading="lazy">
+            <div class="photo-overlay"><span>Odpri zgodbo ↗</span></div>
+          </div>
+          <div class="photo-info">
+            <span class="photo-category">Mesta · Noč</span>
+            <h3>Po polnoči</h3>
+            <p>Mesto ima po temi drug obraz.</p>
           </div>
         </a>
-        <button class="favorite-button" aria-label="Dodaj med priljubljene" aria-pressed="false" type="button">♡</button>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Shrani</button><span class="open-label">04 — CITY</span></div></div>
       </article>
 
-      <article class="photo-card" data-id="architecture" data-category="cities">
-        <a class="photo-link" href="index.html#photo-architecture" target="_blank" rel="noopener">
-          <img
-            src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=85"
-            alt="Zanimiva arhitektura"
-          >
-          <div class="photo-content">
-            <span class="category-label">Mesta</span>
-            <h3>Arhitekturne oblike</h3>
-            <p>Linije, oblike in podrobnosti, ki spremenijo stavbe v umetnost.</p>
-            <span class="read-more">Preberi več →</span>
-          </div>
-        </a>
-        <button class="favorite-button" aria-label="Dodaj med priljubljene" aria-pressed="false" type="button">♡</button>
-      </article>
-
-      <article class="photo-card" data-id="night" data-category="cities">
-        <a class="photo-link" href="index.html#photo-night" target="_blank" rel="noopener">
-          <img
-            src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=85"
-            alt="Mesto ponoči pod temnim nebom"
-          >
-          <div class="photo-content">
-            <span class="category-label">Mesta</span>
-            <h3>Mesto ponoči</h3>
-            <p>Nočne luči in temno nebo ustvarijo čisto drugačen pogled na mesto.</p>
-            <span class="read-more">Preberi več →</span>
-          </div>
-        </a>
-        <button class="favorite-button" aria-label="Dodaj med priljubljene" aria-pressed="false" type="button">♡</button>
-      </article>
-
-      <article class="photo-card" data-id="road" data-category="travel">
-        <a class="photo-link" href="index.html#photo-road" target="_blank" rel="noopener">
-          <img
-            src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=900&q=85"
-            alt="Cesta, ki vodi skozi pokrajino"
-          >
-          <div class="photo-content">
-            <span class="category-label">Potovanja</span>
-            <h3>Pot v neznano</h3>
-            <p>Vsaka cesta lahko vodi do nove dogodivščine in nepozabnih spominov.</p>
-            <span class="read-more">Preberi več →</span>
-          </div>
-        </a>
-        <button class="favorite-button" aria-label="Dodaj med priljubljene" aria-pressed="false" type="button">♡</button>
-      </article>
-
-      <article class="photo-card" data-id="lake" data-category="travel">
+      <article class="photo-card" data-id="lake" data-category="narava" data-title="Odsev jutra">
         <a class="photo-link" href="index.html#photo-lake" target="_blank" rel="noopener">
-          <img
-            src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=85"
-            alt="Jezero s pogledom na gore"
-          >
-          <div class="photo-content">
-            <span class="category-label">Potovanja</span>
-            <h3>Mir ob jezeru</h3>
-            <p>Čudovita pokrajina, kjer se gore in nebo zrcalijo v vodi.</p>
-            <span class="read-more">Preberi več →</span>
+          <div class="photo-image-wrap">
+            <span class="photo-number">05 / 09</span>
+            <img class="photo-image" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85" alt="Gore, jezero in jutranja svetloba" loading="lazy">
+            <div class="photo-overlay"><span>Odpri zgodbo ↗</span></div>
+          </div>
+          <div class="photo-info">
+            <span class="photo-category">Narava · Odsevi</span>
+            <h3>Odsev jutra</h3>
+            <p>Ko se nebo sreča z vodo.</p>
           </div>
         </a>
-        <button class="favorite-button" aria-label="Dodaj med priljubljene" aria-pressed="false" type="button">♡</button>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Shrani</button><span class="open-label">05 — REFLECTION</span></div></div>
       </article>
 
-      <article class="photo-card" data-id="desert" data-category="travel">
-        <a class="photo-link" href="index.html#photo-desert" target="_blank" rel="noopener">
-          <img
-            src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=85"
-            alt="Peščene sipine v puščavi"
-          >
-          <div class="photo-content">
-            <span class="category-label">Potovanja</span>
-            <h3>Puščavska pokrajina</h3>
-            <p>Valovite peščene sipine in zanimive sence v topli svetlobi.</p>
-            <span class="read-more">Preberi več →</span>
+      <article class="photo-card" data-id="travel" data-category="potovanja" data-title="Nekje drugje">
+        <a class="photo-link" href="index.html#photo-travel" target="_blank" rel="noopener">
+          <div class="photo-image-wrap">
+            <span class="photo-number">06 / 09</span>
+            <img class="photo-image" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1000&q=85" alt="Priprave na potovanje" loading="lazy">
+            <div class="photo-overlay"><span>Odpri zgodbo ↗</span></div>
+          </div>
+          <div class="photo-info">
+            <span class="photo-category">Potovanja · Odkritja</span>
+            <h3>Nekje drugje</h3>
+            <p>Najboljše zgodbe se začnejo s potjo.</p>
           </div>
         </a>
-        <button class="favorite-button" aria-label="Dodaj med priljubljene" aria-pressed="false" type="button">♡</button>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Shrani</button><span class="open-label">06 — JOURNEY</span></div></div>
       </article>
 
-      <p class="empty-message hidden" id="emptyMessage">
-        Ni fotografij, ki bi ustrezale tvojemu iskanju.
-      </p>
+      <article class="photo-card" data-id="sunset" data-category="morje" data-title="Zadnja svetloba">
+        <a class="photo-link" href="index.html#photo-sunset" target="_blank" rel="noopener">
+          <div class="photo-image-wrap">
+            <span class="photo-number">07 / 09</span>
+            <img class="photo-image" src="https://images.unsplash.com/photo-1472120435266-53107fd0c44a?auto=format&fit=crop&w=1000&q=85" alt="Topli odtenki sončnega zahoda" loading="lazy">
+            <div class="photo-overlay"><span>Odpri zgodbo ↗</span></div>
+          </div>
+          <div class="photo-info">
+            <span class="photo-category">Morje · Večer</span>
+            <h3>Zadnja svetloba</h3>
+            <p>Nebo, ki ne potrebuje filtrov.</p>
+          </div>
+        </a>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Shrani</button><span class="open-label">07 — SUNSET</span></div></div>
+      </article>
 
-    </section>
+      <article class="photo-card" data-id="architecture" data-category="mesta" data-title="Linije mesta">
+        <a class="photo-link" href="index.html#photo-architecture" target="_blank" rel="noopener">
+          <div class="photo-image-wrap">
+            <span class="photo-number">08 / 09</span>
+            <img class="photo-image" src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1000&q=85" alt="Geometrijske linije arhitekture" loading="lazy">
+            <div class="photo-overlay"><span>Odpri zgodbo ↗</span></div>
+          </div>
+          <div class="photo-info">
+            <span class="photo-category">Mesta · Arhitektura</span>
+            <h3>Linije mesta</h3>
+            <p>Vsaka stavba skriva kompozicijo.</p>
+          </div>
+        </a>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Shrani</button><span class="open-label">08 — DESIGN</span></div></div>
+      </article>
 
-    <section class="info-section" id="onas">
-      <div class="section-inner">
-        <h2>O fotografski galeriji</h2>
-        <p>
-          Fotografija nam omogoča, da za trenutek ustavimo čas.
-          Z njo lahko ohranimo spomine, pokažemo lepoto narave in
-          predstavimo svet iz svoje perspektive.
-        </p>
-        <p>
-          Ta galerija združuje različne motive, od mirnih naravnih
-          pokrajin do živahnih mest in zanimivih potovanj.
-          Vsaka fotografija pripoveduje svojo zgodbo.
-        </p>
+      <article class="photo-card" data-id="road" data-category="potovanja" data-title="Brez konca">
+        <a class="photo-link" href="index.html#photo-road" target="_blank" rel="noopener">
+          <div class="photo-image-wrap">
+            <span class="photo-number">09 / 09</span>
+            <img class="photo-image" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1000&q=85" alt="Cesta, ki vodi skozi pokrajino" loading="lazy">
+            <div class="photo-overlay"><span>Odpri zgodbo ↗</span></div>
+          </div>
+          <div class="photo-info">
+            <span class="photo-category">Potovanja · Svoboda</span>
+            <h3>Brez konca</h3>
+            <p>Včasih je dovolj samo smer.</p>
+          </div>
+        </a>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Shrani</button><span class="open-label">09 — FREEDOM</span></div></div>
+      </article>
+    </div>
+    <p class="empty" id="emptyState">Ni zadetkov. Poskusi drugo iskanje.</p>
+  </section>
+
+  <section class="section quiz-section" id="quiz">
+    <div class="container quiz-shell">
+      <div class="quiz-intro reveal">
+        <p class="eyebrow">02 / Odkrij svoj pogled</p>
+        <h2>Kakšen <em>fotograf</em> si?</h2>
+        <p>Odgovori na pet kratkih vprašanj. Na koncu te čaka tvoj osebni fotografski profil in priporočena galerija.</p>
       </div>
-    </section>
-
-    <section class="info-section" id="nasveti">
-      <div class="section-inner">
-        <h2>Nasveti za boljše fotografije</h2>
-        <ul>
-          <li><strong>Izkoristi svetlobo.</strong> Naravna svetloba lahko ustvari čudovito vzdušje.</li>
-          <li><strong>Premisli o kompoziciji.</strong> Pred fotografiranjem opazuj, kam vodi pogled.</li>
-          <li><strong>Ujemi pravi trenutek.</strong> Včasih so najlepši spontani prizori.</li>
-          <li><strong>Preizkušaj različne kote.</strong> Premik za nekaj korakov lahko spremeni fotografijo.</li>
-          <li><strong>Bodi ustvarjalen.</strong> Preizkušaj različne motive in načine fotografiranja.</li>
-        </ul>
+      <div class="quiz-card reveal">
+        <div class="quiz-progress"><div id="progressBar"></div></div>
+        <div id="quizBody">
+          <p class="quiz-count" id="quizCount">Vprašanje 01 / 05</p>
+          <h3 class="quiz-question" id="quizQuestion">Kaj te najbolj pritegne?</h3>
+          <div class="quiz-options" id="quizOptions"></div>
+        </div>
+        <div class="quiz-result" id="quizResult" aria-live="polite">
+          <p class="eyebrow">Tvoj rezultat</p>
+          <h3 id="resultTitle"></h3>
+          <p id="resultText"></p>
+          <button class="btn" id="resultGallery" type="button">Razišči priporočene fotografije ↗</button>
+          <button class="pill" id="restartQuiz" type="button" style="margin-top:12px">Ponovi kviz</button>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="info-section" id="kontakt">
-      <div class="section-inner">
-        <h2>Kontakt</h2>
-        <p>
-          Hvala za obisk fotografske galerije!
-          Upam, da si našel ali našla navdih za svoje naslednje fotografije.
-        </p>
-        <p>Fotografija je način, kako svet vidimo z lastnimi očmi.</p>
+  <section class="section container" id="achievements">
+    <div class="section-heading reveal">
+      <div><p class="eyebrow">03 / Zbirka dosežkov</p><h2>Tvoj <em>odtis.</em></h2></div>
+      <p>Raziskuj stran, shrani priljubljene, reši kviz in odkleni značke. Vsi dosežki se shranijo v tvojem brskalniku.</p>
+    </div>
+    <div class="achievement-grid">
+      <article class="achievement" id="badge-explorer"><div class="achievement-icon">◈</div><h3>Raziskovalec</h3><p>Odpri tri različne fotografije.</p></article>
+      <article class="achievement" id="badge-curator"><div class="achievement-icon">✦</div><h3>Kustos</h3><p>Shrani tri priljubljene fotografije.</p></article>
+      <article class="achievement" id="badge-personality"><div class="achievement-icon">◎</div><h3>Lasten pogled</h3><p>Dokončaj fotografski kviz.</p></article>
+      <article class="achievement" id="badge-secret"><div class="achievement-icon">✧</div><h3>Iskalec skrivnosti</h3><p>Odkrij skrito presenečenje.</p></article>
+    </div>
+  </section>
+
+  <section class="section container" id="secret">
+    <div class="secret-box reveal">
+      <p class="eyebrow">04 / Zaupno</p>
+      <h2>Vsaka zgodba ima <em style="color:var(--accent)">skrivnost.</em></h2>
+      <p>Vnesi skrivno besedo. Namig: nekaj, kar potrebuje vsak fotograf.</p>
+      <form id="secretForm">
+        <input class="secret-input" id="secretInput" placeholder="Skrivna beseda ..." aria-label="Skrivna beseda" autocomplete="off">
+        <button class="btn" type="submit">Odkleni</button>
+      </form>
+      <p class="secret-message" id="secretMessage" aria-live="polite"></p>
+      <div id="secretSpark" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="section container" id="about">
+    <div class="about-grid reveal">
+      <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=1200&q=85" alt="Fotoaparat za ustvarjalno fotografijo" loading="lazy">
+      <div class="about-copy">
+        <p class="eyebrow">05 / Filozofija</p>
+        <h2>Ne glej samo.<br><em style="color:var(--accent)">Opazuj.</em></h2>
+        <p>NOIR je interaktivna fotografska galerija, posvečena svetlobi, atmosferi in trenutkom, ki jih je vredno ohraniti.</p>
+        <p>Razišči zbirko, najdi svoj slog, odkleni dosežke in odkrij skrite podrobnosti. Ta stran je majhen opomnik, da se lahko nekaj izjemnega skriva tudi v povsem običajnem trenutku.</p>
+        <a href="index.html#gallery" class="btn" style="margin-top:25px">Vrni se v galerijo ↗</a>
       </div>
-    </section>
+    </div>
+  </section>
+</main>
 
-  </main>
-
-  <!-- Ta del se prikaže, ko nekdo klikne fotografijo. -->
-  <main id="detail-page">
-    <a class="back-button" href="index.html">← Nazaj v galerijo</a>
-
-    <img class="detail-image" id="detailImage" src="" alt="">
-
-    <article class="detail-content">
-      <span class="category-label" id="detailCategory"></span>
-      <h1 id="detailTitle"></h1>
-      <p id="detailDescription"></p>
-
-      <div class="detail-note">
-        <h2>O fotografiji</h2>
+<section id="detailPage">
+  <div class="container">
+    <a class="back-link" href="index.html#gallery">← Nazaj v galerijo</a>
+    <div class="detail-layout">
+      <img class="detail-image" id="detailImage" src="" alt="">
+      <div class="detail-copy">
+        <p class="eyebrow" id="detailCategory"></p>
+        <h1 id="detailTitle"></h1>
+        <p id="detailDescription"></p>
         <p id="detailExtra"></p>
+        <div class="detail-facts" id="detailFacts"></div>
+        <button class="btn" id="detailFavorite" type="button" style="margin-top:25px">♡ Shrani fotografijo</button>
+        <button class="pill" id="openDetailLightbox" type="button">Povečaj fotografijo ↗</button>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="detail-note">
-        <h2>Zakaj je ta motiv poseben?</h2>
-        <p id="detailWhy"></p>
-      </div>
-    </article>
-  </main>
+<footer>
+  <div class="container footer-inner">
+    <span>NOIR. — Independent photography journal</span>
+    <span>Ustvarjeno za tiste, ki opazijo več.</span>
+    <a href="index.html#home">Nazaj na vrh ↑</a>
+  </div>
+</footer>
 
-  <footer>
-    <p>© 2026 Fotografska galerija · Svet skozi objektiv</p>
-  </footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script>
-    // Podatki za podrobno stran vsake fotografije.
-    const photoDetails = {
-      forest: {
-        category: "Narava",
-        title: "Čarobni gozd",
-        description: "Mirna gozdna pot, obdana z visokimi drevesi in zelenjem.",
-        extra: "Gozd je poln različnih barv, tekstur in majhnih podrobnosti. Svetloba, ki prodira skozi drevesne krošnje, lahko ustvari zanimive vzorce in posebno vzdušje.",
-        why: "Gozd predstavlja mir, skrivnostnost in povezanost z naravo. Pri fotografiranju lahko opazujemo drevesa, listje, poti in igro svetlobe."
-      },
-      mountains: {
-        category: "Narava",
-        title: "Vrhovi gora",
-        description: "Veličastni gorski vrhovi, ki se dvigajo nad pokrajino.",
-        extra: "Gorske pokrajine so zanimive zaradi svoje velikosti, spreminjajoče se svetlobe in raznolikih oblik. Vreme lahko videz gora popolnoma spremeni.",
-        why: "Gore simbolizirajo moč, svobodo in pustolovščine. Pri fotografiranju je zanimivo vključiti tudi oblake ali manjše predmete, ki pokažejo velikost pokrajine."
-      },
-      ocean: {
-        category: "Narava",
-        title: "Modro morje",
-        description: "Sončna obala in valovi, ki nežno objemajo peščeno plažo.",
-        extra: "Morje se skozi dan spreminja glede na vreme, svetlobo in gibanje valov. Modri odtenki lahko ustvarijo občutek miru in odprtosti.",
-        why: "Obala ponuja veliko možnosti za fotografiranje: valove, pesek, odseve in obzorje. Preprosta kompozicija pogosto poudari lepoto prizora."
-      },
-      city: {
-        category: "Mesta",
-        title: "Mestni utrip",
-        description: "Ulice, stavbe in svetloba ustvarjajo edinstveno mestno vzdušje.",
-        extra: "Mesta združujejo arhitekturo, promet, ljudi in različne oblike vsakdanjega življenja. Vsaka ulica ima lahko svoj značaj.",
-        why: "Mestna fotografija pripoveduje zgodbe o prostoru in življenju v njem. Zanimivi so kontrasti med starimi in novimi stavbami ter med svetlobo in senco."
-      },
-      architecture: {
-        category: "Mesta",
-        title: "Arhitekturne oblike",
-        description: "Linije, oblike in podrobnosti, ki spremenijo stavbe v umetnost.",
-        extra: "Pri arhitekturi lahko opazujemo geometrijo, simetrijo, materiale in ponavljajoče se vzorce. Tudi majhen detajl je lahko zanimiv motiv.",
-        why: "Arhitekturna fotografija pokaže, kako so stavbe zasnovane in kako se vključujejo v okolje. Pomembni so kot fotografiranja, ravne linije in kompozicija."
-      },
-      night: {
-        category: "Mesta",
-        title: "Mesto ponoči",
-        description: "Nočne luči in temno nebo ustvarijo drugačen pogled na mesto.",
-        extra: "Ko se stemni, postanejo ulične svetilke, okna in svetlobni napisi pomemben del mestne pokrajine. Barve so lahko drugačne kot podnevi.",
-        why: "Nočna fotografija omogoča ustvarjanje zanimivih kontrastov med svetlobo in temo. Dobro je biti pozoren na odseve in razporeditev svetlobnih virov."
-      },
-      road: {
-        category: "Potovanja",
-        title: "Pot v neznano",
-        description: "Vsaka cesta lahko vodi do nove dogodivščine in nepozabnih spominov.",
-        extra: "Ceste pogosto vodijo pogled skozi fotografijo in ustvarjajo občutek globine. Okolica lahko razkrije veliko o kraju, skozi katerega potujemo.",
-        why: "Potovalna fotografija pomaga ohraniti spomine na kraje in doživetja. Fotografija ceste lahko simbolizira raziskovanje, radovednost in nove začetke."
-      },
-      lake: {
-        category: "Potovanja",
-        title: "Mir ob jezeru",
-        description: "Čudovita pokrajina, kjer se gore in nebo zrcalijo v vodi.",
-        extra: "Jezera ustvarjajo zanimive odseve, zlasti kadar je gladina vode mirna. Spreminjanje vremena lahko spremeni barve celotne pokrajine.",
-        why: "Jezerska pokrajina je odlična za fotografiranje odsevov, obzorja in naravnih oblik. Uravnotežena kompozicija lahko poudari občutek miru."
-      },
-      desert: {
-        category: "Potovanja",
-        title: "Puščavska pokrajina",
-        description: "Valovite peščene sipine in zanimive sence v topli svetlobi.",
-        extra: "Puščava je pokrajina velikih odprtih površin, peščenih oblik in izrazitih senc. Veter lahko nenehno spreminja videz sipin.",
-        why: "Puščavska fotografija poudarja preproste oblike, teksture in kontraste. Nizka sončna svetloba lahko na pesku ustvari dolge sence."
-      }
-    };
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Povečana fotografija">
+  <button class="lightbox-btn" id="lightboxClose" aria-label="Zapri">×</button>
+  <button class="lightbox-btn lightbox-prev" id="lightboxPrev" aria-label="Prejšnja fotografija">‹</button>
+  <img id="lightboxImage" src="" alt="">
+  <button class="lightbox-btn lightbox-next" id="lightboxNext" aria-label="Naslednja fotografija">›</button>
+</div>
+<button id="topButton" type="button" aria-label="Nazaj na vrh">↑</button>
 
-    const homePage = document.getElementById("home-page");
-    const detailPage = document.getElementById("detail-page");
-    const cards = [...document.querySelectorAll(".photo-card")];
-    const filterButtons = [...document.querySelectorAll(".filter-button")];
-    const searchInput = document.getElementById("searchInput");
-    const emptyMessage = document.getElementById("emptyMessage");
+<script>
+// =============================
+// NOIR — interaktivni sistem
+// =============================
 
-    let currentFilter = "all";
-    const favorites = new Set();
+const $ = (selector, root = document) => root.querySelector(selector);
+const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-    // Prikaže podrobno stran na podlagi povezave v naslovni vrstici.
-    function showCorrectPage() {
-      const match = window.location.hash.match(/^#photo-([a-z]+)$/);
-      const photoId = match ? match[1] : null;
+const cards = $$(".photo-card");
+const mainPage = $("#mainPage");
+const detailPage = $("#detailPage");
+const galleryGrid = $("#galleryGrid");
+const toastElement = $("#toast");
 
-      if (photoId && photoDetails[photoId]) {
-        const details = photoDetails[photoId];
-        const card = cards.find(item => item.dataset.id === photoId);
-        const image = card.querySelector("img");
+const photoDetails = {
+  forest: {
+    title:"Tišina gozda",category:"Narava / Atmosfera",
+    description:"Gozd ni nikoli zares tih. Veter, listje in svetloba ustvarijo majhne zgodbe, ki jih pogosto opazimo šele, ko se ustavimo.",
+    extra:"Pri fotografiranju išči plasti v kompoziciji. Drevesa v ospredju lahko ustvarijo globino, svetloba med vejami pa naravno vodi pogled.",
+    facts:"MOTIV: gozd · RAZPOLOŽENJE: mir · SLOG: naravna fotografija"
+  },
+  mountains: {
+    title:"Nad oblaki",category:"Narava / Prostranost",
+    description:"Gorska pokrajina nas spomni, kako veliko je lahko nekaj, kar gledamo z majhne razdalje. Vsaka plast gora spremeni občutek prostora.",
+    extra:"V fotografijo vključi ospredje, sredino in oddaljeno ozadje. Tako gledalec lažje začuti globino pokrajine.",
+    facts:"MOTIV: gore · RAZPOLOŽENJE: veličastno · SLOG: krajinska fotografija"
+  },
+  ocean: {
+    title:"Modra tišina",category:"Morje / Gibanje",
+    description:"Valovi se nikoli ne ponovijo popolnoma enako. Njihove linije, odsevi in teksture so lahko umirjeni ali dramatični.",
+    extra:"Opazuj, kako se spremeni fotografija, ko je val ujet v gibanju ali ko se voda za trenutek umiri.",
+    facts:"MOTIV: morje · RAZPOLOŽENJE: svoboda · SLOG: morska fotografija"
+  },
+  city: {
+    title:"Po polnoči",category:"Mesta / Noč",
+    description:"Ko se prižgejo luči, mesto postane drugačen prostor. Sence, okna in odsevi ustvarijo atmosfero, ki je podnevi ne opazimo.",
+    extra:"Pri nočni fotografiji išči ponavljajoče se luči, odseve na steklu in kontrast med svetlimi ter temnimi površinami.",
+    facts:"MOTIV: mesto · RAZPOLOŽENJE: filmsko · SLOG: urbana fotografija"
+  },
+  lake: {
+    title:"Odsev jutra",category:"Narava / Odsevi",
+    description:"Jezero lahko podvoji pokrajino in ustvari skoraj simetrično kompozicijo. Majhne spremembe svetlobe popolnoma spremenijo razpoloženje.",
+    extra:"Primerjaj odsev z dejansko pokrajino. Včasih je zanimiva prav razlika med njima.",
+    facts:"MOTIV: jezero · RAZPOLOŽENJE: tišina · SLOG: krajinska fotografija"
+  },
+  travel: {
+    title:"Nekje drugje",category:"Potovanja / Odkritja",
+    description:"Potovanja niso le oddaljeni kraji. So tudi drobni trenutki, ki jih srečamo na poti in zaradi katerih si kraj zapomnimo.",
+    extra:"Fotografiraj podrobnosti, ne samo znamenitosti. Barve, vrata, ulice in vsakdanji prizori lahko povedo zelo osebno zgodbo.",
+    facts:"MOTIV: potovanje · RAZPOLOŽENJE: radovednost · SLOG: dokumentarna fotografija"
+  },
+  sunset: {
+    title:"Zadnja svetloba",category:"Morje / Večer",
+    description:"Zahod spremeni nebo v paleto toplih barv. Mehka svetloba in dolge sence ustvarijo naraven občutek zaključka dneva.",
+    extra:"Poglej tudi, kaj je v ospredju. Silhueta ali mirna linija obzorja lahko fotografijo naredi še bolj izrazito.",
+    facts:"MOTIV: zahod · RAZPOLOŽENJE: sanjavo · SLOG: atmosferična fotografija"
+  },
+  architecture: {
+    title:"Linije mesta",category:"Mesta / Oblike",
+    description:"Arhitektura ponuja ponavljajoče se vzorce, ostre linije, teksture in zanimive geometrijske oblike.",
+    extra:"Poskusi spremeniti zorni kot. Včasih se zanimiva kompozicija pojavi, ko pogledaš navzgor ali stopiš nekoliko vstran.",
+    facts:"MOTIV: arhitektura · RAZPOLOŽENJE: grafično · SLOG: urbana fotografija"
+  },
+  road: {
+    title:"Brez konca",category:"Potovanja / Svoboda",
+    description:"Cesta lahko vodi pogled proti oddaljeni točki in v gledalcu vzbudi občutek pričakovanja. Ni treba vedeti, kam vodi, da bi bila zgodba zanimiva.",
+    extra:"Poišči linije, ki usmerjajo pogled, in preveri, kako svetloba spremeni razpoloženje prizora.",
+    facts:"MOTIV: cesta · RAZPOLOŽENJE: svoboda · SLOG: pripovedna fotografija"
+  }
+};
 
-        homePage.style.display = "none";
-        detailPage.style.display = "block";
+const categoryForStyle = {
+  nature:"narava",urban:"mesta",ocean:"morje",travel:"potovanja"
+};
 
-        document.getElementById("detailImage").src = image.src;
-        document.getElementById("detailImage").alt = image.alt;
-        document.getElementById("detailCategory").textContent = details.category;
-        document.getElementById("detailTitle").textContent = details.title;
-        document.getElementById("detailDescription").textContent = details.description;
-        document.getElementById("detailExtra").textContent = details.extra;
-        document.getElementById("detailWhy").textContent = details.why;
+const quizQuestions = [
+  {
+    q:"Kaj najprej pritegne tvoj pogled?",
+    options:[
+      {text:"Megla, drevesa in tišina",style:"nature"},
+      {text:"Luči in arhitektura mesta",style:"urban"},
+      {text:"Valovi in barve neba",style:"ocean"},
+      {text:"Neznane ceste in oddaljeni kraji",style:"travel"}
+    ]
+  },
+  {
+    q:"Kdaj bi najraje fotografiral?",
+    options:[
+      {text:"Zgodaj zjutraj, ko je vse mirno",style:"nature"},
+      {text:"Zvečer, ko mesto zasije",style:"urban"},
+      {text:"Ob sončnem zahodu ob vodi",style:"ocean"},
+      {text:"Kadarkoli se začne nova dogodivščina",style:"travel"}
+    ]
+  },
+  {
+    q:"Kakšno vzdušje želiš v svojih slikah?",
+    options:[
+      {text:"Mirno in skrivnostno",style:"nature"},
+      {text:"Filmsko in dramatično",style:"urban"},
+      {text:"Sanjsko in svobodno",style:"ocean"},
+      {text:"Radovedno in pripovedno",style:"travel"}
+    ]
+  },
+  {
+    q:"Kaj bi izbral za vikend?",
+    options:[
+      {text:"Sprehod skozi gozd",style:"nature"},
+      {text:"Raziskovanje skritih mestnih ulic",style:"urban"},
+      {text:"Dan ob morju",style:"ocean"},
+      {text:"Spontan izlet v nov kraj",style:"travel"}
+    ]
+  },
+  {
+    q:"Katera zgodba te najbolj zanima?",
+    options:[
+      {text:"Narava brez človeškega poseganja",style:"nature"},
+      {text:"Skrivno življenje mesta",style:"urban"},
+      {text:"Neskončno gibanje vode",style:"ocean"},
+      {text:"Ljudje in kraji, ki jih srečaš",style:"travel"}
+    ]
+  }
+];
 
-        document.title = details.title + " | Fotografska galerija";
-        window.scrollTo(0, 0);
-      } else {
-        homePage.style.display = "block";
-        detailPage.style.display = "none";
-        document.title = "Fotogalerija | Svet skozi objektiv";
-      }
+const styleResults = {
+  nature:{
+    title:"Tihi opazovalec",
+    text:"Opaziš podrobnosti, ki jih drugi pogosto spregledajo. Tvoj slog je umirjen, potrpežljiv in povezan z naravo. Začni pri gozdovih, jezerih in pokrajinah.",
+    category:"narava"
+  },
+  urban:{
+    title:"Lovec na svetlobo",
+    text:"Privlačijo te kontrasti, sence in zgodbe skritih kotičkov. Tvoje oko išče vzdušje, geometrijo in filmske trenutke v mestnem vrvežu.",
+    category:"mesta"
+  },
+  ocean:{
+    title:"Sanjač ob obzorju",
+    text:"Barve, odsevi in gibanje te pritegnejo bolj kot popolna simetrija. Tvoj slog je atmosferičen, svoboden in nekoliko sanjav.",
+    category:"morje"
+  },
+  travel:{
+    title:"Zbiralec zgodb",
+    text:"Rad raziskuješ nove kraje in odkrivaš nepričakovane podrobnosti. Tvoje fotografije lahko postanejo dnevnik poti, ljudi in trenutkov.",
+    category:"potovanja"
+  }
+};
+
+let currentFilter = "all";
+let favoritesOnly = false;
+let currentDetailId = null;
+let quizIndex = 0;
+let quizScores = {nature:0,urban:0,ocean:0,travel:0};
+let visited = new Set();
+let unlocked = new Set();
+let lightboxIndex = 0;
+let toastTimer;
+
+function notify(message) {
+  toastElement.textContent = message;
+  toastElement.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastElement.classList.remove("show"),2600);
+}
+
+function loadSet(key) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || "[]");
+    return new Set(Array.isArray(value) ? value : []);
+  } catch {
+    return new Set();
+  }
+}
+function saveSet(key,set) {
+  try {localStorage.setItem(key,JSON.stringify([...set]));} catch {}
+}
+
+let favoriteIds = loadSet("noirFavorites");
+let badgeIds = loadSet("noirBadges");
+let visitedIds = loadSet("noirVisited");
+
+function unlockBadge(id,message) {
+  if (badgeIds.has(id)) return;
+  badgeIds.add(id);
+  saveSet("noirBadges",badgeIds);
+  const badge = document.getElementById("badge-"+id);
+  if (badge) badge.classList.add("unlocked");
+  notify("Značka odklenjena: "+message);
+}
+function renderBadges() {
+  badgeIds.forEach(id => {
+    const element = document.getElementById("badge-"+id);
+    if (element) element.classList.add("unlocked");
+  });
+}
+function syncFavorites() {
+  cards.forEach(card => {
+    const active = favoriteIds.has(card.dataset.id);
+    const button = $(".favorite",card);
+    button.classList.toggle("active",active);
+    button.textContent = active ? "♥ Shranjeno" : "♡ Shrani";
+    button.setAttribute("aria-pressed",String(active));
+  });
+  if (favoriteIds.size >= 3) unlockBadge("curator","Kustos");
+}
+function recordVisit(id) {
+  if (!visitedIds.has(id)) {
+    visitedIds.add(id);
+    saveSet("noirVisited",visitedIds);
+  }
+  if (visitedIds.size >= 3) unlockBadge("explorer","Raziskovalec");
+}
+
+// Gallery filters and search.
+function applyFilters() {
+  const query = $("#search").value.trim().toLocaleLowerCase("sl");
+  let visible = 0;
+
+  cards.forEach(card => {
+    const matchText = (card.dataset.title+" "+card.textContent).toLocaleLowerCase("sl").includes(query);
+    const matchCategory = currentFilter === "all" || card.dataset.category === currentFilter;
+    const matchFavorite = !favoritesOnly || favoriteIds.has(card.dataset.id);
+    const show = matchText && matchCategory && matchFavorite;
+    card.style.display = show ? "" : "none";
+    if (show) visible++;
+  });
+
+  $("#resultCount").textContent = `${visible} / ${cards.length} fotografij`;
+  $("#emptyState").style.display = visible ? "none" : "block";
+}
+$("#search").addEventListener("input",applyFilters);
+
+$$("[data-filter]").forEach(button => {
+  button.addEventListener("click",() => {
+    currentFilter = button.dataset.filter;
+    $$("[data-filter]").forEach(b => b.classList.toggle("active",b === button));
+    applyFilters();
+  });
+});
+
+$("#favoritesFilter").addEventListener("click",() => {
+  favoritesOnly = !favoritesOnly;
+  $("#favoritesFilter").classList.toggle("active",favoritesOnly);
+  $("#favoritesFilter").textContent = favoritesOnly ? "♥ Pokaži vse" : "♡ Priljubljene";
+  applyFilters();
+});
+
+cards.forEach(card => {
+  $(".favorite",card).addEventListener("click",event => {
+    event.preventDefault();
+    event.stopPropagation();
+    const id = card.dataset.id;
+    if (favoriteIds.has(id)) favoriteIds.delete(id);
+    else favoriteIds.add(id);
+    saveSet("noirFavorites",favoriteIds);
+    syncFavorites();
+    applyFilters();
+  });
+});
+
+$("#shuffle").addEventListener("click",() => {
+  const shuffled = [...cards].sort(() => Math.random() - .5);
+  shuffled.forEach(card => galleryGrid.appendChild(card));
+  notify("Galerija je premešana.");
+});
+
+// Open photo detail in a new tab using its URL hash.
+function showRoute() {
+  const match = location.hash.match(/^#photo-([a-z]+)$/);
+  if (!match || !photoDetails[match[1]]) {
+    mainPage.style.display = "";
+    detailPage.style.display = "none";
+    currentDetailId = null;
+    document.title = "NOIR — Photography Experience";
+    return;
+  }
+
+  const id = match[1];
+  const details = photoDetails[id];
+  const card = cards.find(item => item.dataset.id === id);
+  if (!card) return;
+
+  currentDetailId = id;
+  mainPage.style.display = "none";
+  detailPage.style.display = "block";
+
+  $("#detailImage").src = $(".photo-image",card).src;
+  $("#detailImage").alt = $(".photo-image",card).alt;
+  $("#detailCategory").textContent = details.category;
+  $("#detailTitle").textContent = details.title;
+  $("#detailDescription").textContent = details.description;
+  $("#detailExtra").textContent = details.extra;
+  $("#detailFacts").textContent = details.facts;
+
+  document.title = details.title+" — NOIR";
+  recordVisit(id);
+  syncDetailFavorite();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",showRoute);
+
+function syncDetailFavorite() {
+  if (!currentDetailId) return;
+  const active = favoriteIds.has(currentDetailId);
+  $("#detailFavorite").textContent = active ? "♥ Shranjeno" : "♡ Shrani fotografijo";
+}
+$("#detailFavorite").addEventListener("click",() => {
+  if (!currentDetailId) return;
+  if (favoriteIds.has(currentDetailId)) favoriteIds.delete(currentDetailId);
+  else favoriteIds.add(currentDetailId);
+  saveSet("noirFavorites",favoriteIds);
+  syncFavorites();
+  syncDetailFavorite();
+});
+
+// Full-screen photo viewer.
+function visibleCards() {
+  return cards.filter(card => card.style.display !== "none");
+}
+function openLightbox(id) {
+  const list = cards;
+  const index = list.findIndex(card => card.dataset.id === id);
+  if (index < 0) return;
+  lightboxIndex = index;
+  renderLightbox();
+  $("#lightbox").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function renderLightbox() {
+  const card = cards[lightboxIndex];
+  $("#lightboxImage").src = $(".photo-image",card).src;
+  $("#lightboxImage").alt = $(".photo-image",card).alt;
+}
+function moveLightbox(step) {
+  lightboxIndex = (lightboxIndex + step + cards.length) % cards.length;
+  renderLightbox();
+}
+function closeLightbox() {
+  $("#lightbox").classList.remove("open");
+  document.body.style.overflow = "";
+}
+$("#detailImage").addEventListener("click",() => {
+  if (currentDetailId) openLightbox(currentDetailId);
+});
+$("#openDetailLightbox").addEventListener("click",() => {
+  if (currentDetailId) openLightbox(currentDetailId);
+});
+$("#lightboxClose").addEventListener("click",closeLightbox);
+$("#lightboxPrev").addEventListener("click",() => moveLightbox(-1));
+$("#lightboxNext").addEventListener("click",() => moveLightbox(1));
+$("#lightbox").addEventListener("click",event => {
+  if (event.target.id === "lightbox") closeLightbox();
+});
+document.addEventListener("keydown",event => {
+  if (!$("#lightbox").classList.contains("open")) return;
+  if (event.key === "Escape") closeLightbox();
+  if (event.key === "ArrowLeft") moveLightbox(-1);
+  if (event.key === "ArrowRight") moveLightbox(1);
+});
+
+// Quiz engine.
+function renderQuiz() {
+  const item = quizQuestions[quizIndex];
+  $("#quizCount").textContent = `Vprašanje ${String(quizIndex+1).padStart(2,"0")} / ${quizQuestions.length}`;
+  $("#quizQuestion").textContent = item.q;
+  $("#progressBar").style.width = (quizIndex/quizQuestions.length*100)+"%";
+  const options = $("#quizOptions");
+  options.replaceChildren();
+
+  item.options.forEach(option => {
+    const button = document.createElement("button");
+    button.className = "quiz-option";
+    button.type = "button";
+    button.textContent = option.text;
+    button.addEventListener("click",() => {
+      quizScores[option.style]++;
+      quizIndex++;
+      if (quizIndex < quizQuestions.length) renderQuiz();
+      else finishQuiz();
+    });
+    options.appendChild(button);
+  });
+}
+function finishQuiz() {
+  $("#quizBody").style.display = "none";
+  $("#quizResult").style.display = "block";
+  $("#progressBar").style.width = "100%";
+
+  const winner = Object.entries(quizScores).sort((a,b) => b[1]-a[1])[0][0];
+  const result = styleResults[winner];
+  $("#resultTitle").textContent = result.title;
+  $("#resultText").textContent = result.text;
+  $("#resultGallery").dataset.category = result.category;
+  unlockBadge("personality","Lasten pogled");
+  try {localStorage.setItem("noirQuizStyle",winner);} catch {}
+}
+function resetQuiz() {
+  quizIndex = 0;
+  quizScores = {nature:0,urban:0,ocean:0,travel:0};
+  $("#quizBody").style.display = "";
+  $("#quizResult").style.display = "none";
+  renderQuiz();
+}
+$("#restartQuiz").addEventListener("click",resetQuiz);
+$("#resultGallery").addEventListener("click",() => {
+  const category = $("#resultGallery").dataset.category;
+  location.hash = "gallery";
+  currentFilter = category;
+  $$("[data-filter]").forEach(button => button.classList.toggle("active",button.dataset.filter === category));
+  favoritesOnly = false;
+  $("#favoritesFilter").classList.remove("active");
+  $("#favoritesFilter").textContent = "♡ Priljubljene";
+  applyFilters();
+  $("#gallery").scrollIntoView({behavior:"smooth"});
+});
+
+// Secret word and surprise.
+$("#secretForm").addEventListener("submit",event => {
+  event.preventDefault();
+  const value = $("#secretInput").value.trim().toLocaleLowerCase("sl");
+  if (["svetloba","light","noir"].includes(value)) {
+    $("#secretMessage").textContent = "Skrivnost odklenjena. Najlepše fotografije se začnejo z opazovanjem.";
+    $("#secretSpark").textContent = "✦ ✧ ✦";
+    unlockBadge("secret","Iskalec skrivnosti");
+    notify("Odkril si skrito skrivnost.");
+    $("#secretInput").value = "";
+  } else {
+    $("#secretMessage").textContent = "To še ni prava beseda. Poskusi znova.";
+    $("#secretSpark").textContent = "";
+  }
+});
+
+// Navigation and theme.
+$("#menuToggle").addEventListener("click",() => {
+  $("#navLinks").classList.toggle("open");
+});
+$$(".nav-links a").forEach(link => link.addEventListener("click",() => {
+  $("#navLinks").classList.remove("open");
+}));
+
+$("#themeToggle").addEventListener("click",() => {
+  document.body.classList.toggle("light");
+  const theme = document.body.classList.contains("light") ? "light" : "dark";
+  try {localStorage.setItem("noirTheme",theme);} catch {}
+  $("#themeToggle").textContent = theme === "light" ? "◐ Temni videz" : "☼ Svetli videz";
+});
+
+try {
+  if (localStorage.getItem("noirTheme") === "light") {
+    document.body.classList.add("light");
+    $("#themeToggle").textContent = "◐ Temni videz";
+  }
+} catch {}
+
+// Scroll reveals.
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
     }
+  });
+},{threshold:.12});
+$$(".reveal").forEach(element => observer.observe(element));
 
-    window.addEventListener("hashchange", showCorrectPage);
-    showCorrectPage();
+// Back-to-top.
+window.addEventListener("scroll",() => {
+  $("#topButton").classList.toggle("show",window.scrollY > 500);
+});
+$("#topButton").addEventListener("click",() => window.scrollTo({top:0,behavior:"smooth"}));
 
-    // Iskanje in filtriranje fotografij.
-    function updateGallery() {
-      const query = searchInput.value.trim().toLowerCase();
-      let visibleCount = 0;
+// Intro.
+const intro = $("#intro");
+if (sessionStorage.getItem("noirIntroSeen")) {
+  intro.classList.add("done");
+} else {
+  setTimeout(() => {
+    intro.classList.add("done");
+    sessionStorage.setItem("noirIntroSeen","yes");
+  },1500);
+}
 
-      cards.forEach(card => {
-        const title = card.querySelector("h3").textContent.toLowerCase();
-        const description = card.querySelector(".photo-content p").textContent.toLowerCase();
-        const category = card.dataset.category;
-        const matchesSearch = title.includes(query) || description.includes(query);
-        const matchesCategory =
-          currentFilter === "all" ||
-          category === currentFilter ||
-          (currentFilter === "favorites" && favorites.has(card.dataset.id));
-
-        const visible = matchesSearch && matchesCategory;
-        card.classList.toggle("hidden", !visible);
-
-        if (visible) visibleCount++;
-      });
-
-      emptyMessage.classList.toggle("hidden", visibleCount !== 0);
-    }
-
-    searchInput.addEventListener("input", updateGallery);
-
-    filterButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        currentFilter = button.dataset.filter;
-
-        filterButtons.forEach(item => {
-          item.classList.toggle("active", item === button);
-        });
-
-        updateGallery();
-      });
-    });
-
-    // Priljubljene fotografije.
-    document.querySelectorAll(".favorite-button").forEach(button => {
-      button.addEventListener("click", event => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        const card = button.closest(".photo-card");
-        const id = card.dataset.id;
-
-        if (favorites.has(id)) {
-          favorites.delete(id);
-        } else {
-          favorites.add(id);
-        }
-
-        const selected = favorites.has(id);
-        button.classList.toggle("selected", selected);
-        button.textContent = selected ? "♥" : "♡";
-        button.setAttribute("aria-pressed", String(selected));
-        button.setAttribute(
-          "aria-label",
-          selected ? "Odstrani iz priljubljenih" : "Dodaj med priljubljene"
-        );
-
-        updateGallery();
-      });
-    });
-
-    // Preklapljanje med svetlo in temno temo.
-    const themeButton = document.getElementById("themeButton");
-
-    themeButton.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-
-      const isDark = document.body.classList.contains("dark");
-      themeButton.textContent = isDark ? "☀️ Svetla tema" : "🌙 Temna tema";
-    });
-  </script>
-
+// Initialize state.
+syncFavorites();
+renderBadges();
+renderQuiz();
+showRoute();
+</script>
 </body>
 </html>
