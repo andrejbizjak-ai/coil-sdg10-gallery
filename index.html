@@ -1,112 +1,258 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moj kraj skozi objektiv</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spletna galerija</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    color:#333;
+    line-height:1.7;
+}
+
+header{
+    background:linear-gradient(90deg,#0f4c81,#3b82f6);
+    color:white;
+    text-align:center;
+    padding:50px 20px;
+}
+
+header h1{
+    font-size:40px;
+}
+
+nav{
+    background:#222;
+    text-align:center;
+    padding:15px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 15px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#8ec5ff;
+}
+
+section{
+    max-width:1100px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+h2{
+    color:#0f4c81;
+    margin-bottom:20px;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 5px 10px rgba(0,0,0,.15);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.card div{
+    padding:20px;
+}
+
+footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+</style>
 </head>
+
 <body>
 
-<header class="hero">
-    <img src="images/naslovna.jpg" alt="Naslovna fotografija mojega kraja" class="hero-image">
-    <div class="hero-overlay">
-        <h1>IME KRAJA</h1>
-        <p>Moj kraj skozi objektiv</p>
-        <a href="#o-kraju" class="btn">Odkrij moj kraj</a>
-    </div>
+<header>
+    <h1>Svet fotografije</h1>
+    <p>Spletna galerija za projektno nalogo</p>
 </header>
 
-<main>
-    <section id="o-kraju" class="section">
-        <h2>O mojem kraju</h2>
-        <div class="title-line"></div>
-        <p class="intro">
-            Tukaj napiši 4–6 povedi o svojem kraju. Predstavi, kje se kraj nahaja,
-            po čem je znan, kaj je zanj značilno in zakaj si ga izbral za svojo fotografsko predstavitev.
-        </p>
-    </section>
+<nav>
+    <a href="#uvod">Domov</a>
+    <a href="#galerija">Galerija</a>
+    <a href="#opis">O fotografiji</a>
+    <a href="#kontakt">Kontakt</a>
+</nav>
 
-    <section class="section gallery-section">
-        <h2>Moj kraj skozi fotografije</h2>
-        <div class="title-line"></div>
-        <p class="section-description">Fotografije predstavljajo značilnosti, znamenitosti, naravo in življenje mojega kraja.</p>
+<section id="uvod">
 
-        <div class="gallery">
-            <article class="card">
-                <img src="images/foto1.jpg" alt="Opis prve fotografije">
-                <div class="card-content"><h3>Znamenitost</h3><p>Dodaj kratek opis fotografije in pojasni, zakaj je pomembna za tvoj kraj.</p></div>
-            </article>
-            <article class="card">
-                <img src="images/foto2.jpg" alt="Opis druge fotografije">
-                <div class="card-content"><h3>Arhitektura</h3><p>Dodaj kratek opis značilnega objekta ali arhitekture.</p></div>
-            </article>
-            <article class="card">
-                <img src="images/foto3.jpg" alt="Opis tretje fotografije">
-                <div class="card-content"><h3>Narava</h3><p>Predstavi naravno značilnost svojega kraja ali okolice.</p></div>
-            </article>
-            <article class="card">
-                <img src="images/foto4.jpg" alt="Opis četrte fotografije">
-                <div class="card-content"><h3>Ulica ali trg</h3><p>Predstavi značilno ulico, trg ali središče kraja.</p></div>
-            </article>
-            <article class="card">
-                <img src="images/foto5.jpg" alt="Opis pete fotografije">
-                <div class="card-content"><h3>Zanimiv detajl</h3><p>Prikaži manj opazen, vendar zanimiv detajl iz svojega kraja.</p></div>
-            </article>
-            <article class="card">
-                <img src="images/foto6.jpg" alt="Opis šeste fotografije">
-                <div class="card-content"><h3>Življenje v kraju</h3><p>Prikaži vsakdanje življenje ali dogajanje v kraju.</p></div>
-            </article>
-            <article class="card">
-                <img src="images/foto7.jpg" alt="Opis sedme fotografije">
-                <div class="card-content"><h3>Okolica</h3><p>Predstavi krajino ali širšo okolico kraja.</p></div>
-            </article>
-            <article class="card">
-                <img src="images/foto8.jpg" alt="Opis osme fotografije">
-                <div class="card-content"><h3>Prosta izbira</h3><p>Izberi motiv, ki po tvojem mnenju najbolje dopolni predstavitev kraja.</p></div>
-            </article>
-        </div>
-    </section>
+<h2>Dobrodošli</h2>
 
-    <section class="section favorite">
-        <div class="favorite-grid">
-            <div>
-                <h2>Moja najljubša fotografija</h2>
-                <div class="title-line left"></div>
-                <p>Izberi eno svojo fotografijo, ki ti je najbolj všeč, in razloži, zakaj.</p>
-                <p>Opišeš lahko motiv, svetlobo, kompozicijo, perspektivo ali zgodbo, ki jo fotografija predstavlja.</p>
-            </div>
-            <img src="images/foto3.jpg" alt="Moja najljubša fotografija">
-        </div>
-    </section>
+<p>
+Ta spletna galerija je izdelana kot primer projektne naloge pri predmetu
+informatika. Namen strani je predstaviti uporabo programskih jezikov HTML in
+CSS ter pokazati, kako lahko ustvarimo moderno spletno stran z navigacijskim
+menijem, galerijo slik in daljšim besedilom.
+</p>
 
-    <section class="section video-section">
-        <h2>Moj kraj v videu</h2>
-        <div class="title-line"></div>
-        <p class="section-description">Poišči primeren YouTube videoposnetek, ki predstavlja tvoj kraj ali njegovo okolico.</p>
-        <div class="video-container placeholder-video">
-            <div>
-                <strong>VSTAVI YOUTUBE VIDEO</strong>
-                <p>Zamenjaj vsebino tega okvirja z iframe kodo iz YouTube.</p>
-            </div>
-        </div>
-        <p class="video-source"><strong>Vir videa:</strong> YouTube – vpiši ime kanala in povezavo</p>
-    </section>
+<p>
+Fotografija je pomemben način izražanja ustvarjalnosti. Z njo lahko ujamemo
+trenutke iz narave, mest, potovanj in vsakdanjega življenja. Vsaka fotografija
+predstavlja posebno zgodbo, ki jo gledalec razume na svoj način.
+</p>
 
-    <section class="section about-project">
-        <h2>O projektu</h2>
-        <div class="title-line"></div>
-        <div class="project-info">
-            <div><span>Avtor</span><strong>Ime in priimek</strong></div>
-            <div><span>Razred</span><strong>Razred</strong></div>
-            <div><span>Predmet</span><strong>Multimedija</strong></div>
-            <div><span>Šolsko leto</span><strong>2026/27</strong></div>
-        </div>
-        <p class="copyright">Vse fotografije na spletni strani so lastno delo avtorja, razen če je navedeno drugače.</p>
-    </section>
-</main>
+<p>
+Pri izdelavi te strani je bil poudarek na pregledni postavitvi, odzivnem
+oblikovanju in enostavni uporabi na računalniku ter mobilnem telefonu.
+</p>
 
-<footer><p>Moj kraj skozi objektiv | Multimedija | 2026</p></footer>
+</section>
+
+<section id="galerija">
+
+<h2>Galerija fotografij</h2>
+
+<div class="gallery">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80">
+<div>
+<h3>Gorska pokrajina</h3>
+<p>
+Gore predstavljajo simbol naravne lepote. Fotografiranje pokrajin zahteva
+dobro izbiro svetlobe in pravilno kompozicijo.
+</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=800&q=80">
+<div>
+<h3>Nočno nebo</h3>
+<p>
+Nočna fotografija omogoča opazovanje zvezd, lune in svetlobnih učinkov, ki jih
+čez dan ne opazimo.
+</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=80">
+<div>
+<h3>Mestna arhitektura</h3>
+<p>
+Mesta ponujajo številne zanimive motive, od sodobnih stolpnic do zgodovinskih
+stavb.
+</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80">
+<div>
+<h3>Cvetje</h3>
+<p>
+Makrofotografija nam pomaga odkriti podrobnosti rastlin in barv, ki jih pogosto
+spregledamo.
+</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80">
+<div>
+<h3>Potovanja</h3>
+<p>
+Fotografije s potovanj ohranijo spomine in omogočajo deljenje doživetij z
+drugimi ljudmi.
+</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80">
+<div>
+<h3>Jezero</h3>
+<p>
+Mirna vodna gladina ustvarja čudovite odseve, ki fotografiji dodajo posebno
+vzdušje.
+</p>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<section id="opis">
+
+<h2>O fotografiji</h2>
+
+<p>
+Fotografija je skozi zgodovino postala eno najpomembnejših sredstev za
+dokumentiranje dogodkov in izražanje ustvarjalnosti. Danes skoraj vsak uporablja
+mobilni telefon za fotografiranje, vendar dobra fotografija ni odvisna samo od
+kamere. Pomembni so svetloba, kompozicija, perspektiva in pravi trenutek.
+</p>
+
+<p>
+Poznamo različne vrste fotografije, kot so portretna, pokrajinska,
+makrofotografija, športna, ulična in dokumentarna fotografija. Vsaka ima svoje
+posebnosti in zahteva drugačen pristop.
+</p>
+
+<p>
+Pri ustvarjanju kakovostnih fotografij fotograf pogosto čaka na idealne pogoje,
+saj lahko že majhna sprememba svetlobe popolnoma spremeni videz motiva.
+Fotografija tako združuje tehnično znanje in umetniški pogled na svet.
+</p>
+
+<p>
+Ta spletna stran prikazuje osnovne elemente spletnega razvoja. HTML skrbi za
+strukturo vsebine, CSS pa za oblikovanje, barve, postavitev in prilagajanje
+različnim velikostim zaslonov.
+</p>
+
+</section>
+
+<section id="kontakt">
+
+<h2>Kontakt</h2>
+
+<p><b>Projektna naloga:</b> Spletna galerija</p>
+<p><b>Avtor:</b> Vpiši svoje ime</p>
+<p><b>Šola:</b> Vpiši ime svoje šole</p>
+
+</section>
+
+<footer>
+<p>© 2026 Spletna galerija | Projektna naloga iz HTML in CSS</p>
+</footer>
 
 </body>
 </html>
