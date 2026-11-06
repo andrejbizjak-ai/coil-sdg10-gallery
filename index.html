@@ -6,7 +6,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#10100f">
-<title>SDG 10 — Photography Experience</title>
+<title>SDG 10 — Reduced Inequalities | A Fairer World</title>
+<meta name="description" content="Explore the United Nations Sustainable Development Goal 10: reduce inequalities within and among countries through inclusion, equal opportunity, fair systems, and shared progress.">
 
 <style>
 :root {
@@ -283,6 +284,21 @@ body.light .menu-toggle {color:#171717}
 .quiz-result p {color:var(--muted);font-size:13px;margin:15px 0 25px}
 @media(max-width:800px){.quiz-shell{grid-template-columns:1fr;gap:30px}}
 
+/* SDG 10 target cards and practical actions */
+.targets-grid,.action-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.target-card,.action-card {padding:24px;background:var(--panel);border:1px solid var(--line)}
+.target-card > span,.action-card > span {color:var(--accent);font-size:11px;letter-spacing:.15em}
+.target-card h3,.action-card h3 {font-family:Georgia,serif;font-size:22px;font-weight:400;margin:9px 0}
+.target-card p,.action-card p {font-size:12px;color:var(--muted)}
+.target-source {margin-top:24px;font-size:12px;color:var(--accent)}
+.target-source a {border-bottom:1px solid var(--accent);padding-bottom:4px}
+.achievement-heading {margin:70px 0 25px}
+.achievement-heading h2 {font-family:Georgia,serif;font-size:clamp(32px,4vw,48px);font-weight:400}
+.achievement-heading h2 em {color:var(--accent)}
+.achievement-heading > p:last-child {max-width:650px;color:var(--muted);font-size:13px;margin-top:10px}
+@media(max-width:800px) {.targets-grid,.action-grid {grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px) {.targets-grid,.action-grid {grid-template-columns:1fr}}
+
 /* Achievements */
 .achievement-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .achievement {
@@ -359,7 +375,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
   <div class="intro-inner">
     <div class="intro-mark">SDG 10</div>
     <div class="intro-line"></div>
-    <p class="intro-caption">The art of seeing</p>
+    <p class="intro-caption">A world where everyone belongs</p>
   </div>
 </div>
 
@@ -372,11 +388,11 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
         <summary>Categories <span aria-hidden="true">⌄</span></summary>
         <div class="category-dropdown">
           <a href="#home">Home</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#quiz">Photography quiz</a>
-          <a href="#achievements">Achievements</a>
-          <a href="#secret">Hidden surprise</a>
-          <a href="#about">About</a>
+          <a href="#gallery">Stories</a>
+          <a href="#targets">SDG 10 targets</a>
+          <a href="#quiz">Equality quiz</a>
+          <a href="#action">Take action</a>
+          <a href="#about">About the goal</a>
         </div>
       </details>
       <button id="themeToggle" type="button">☼ Appearance</button>
@@ -388,258 +404,287 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
   <section class="hero" id="home">
     <div class="container">
       <div class="hero-content">
-        <p class="eyebrow">Independent photography journal · No. 001</p>
-        <h1>See beyond<br>the <em>ordinary.</em></h1>
+        <p class="eyebrow">UNITED NATIONS · SUSTAINABLE DEVELOPMENT GOAL 10</p>
+        <h1>A fairer world<br>starts with <em>everyone.</em></h1>
         <p class="hero-description">
-          Light. Shadows. Moments that last only a second.
-          Step into a collection of images that tell more than words can say.
+          Inequality is not inevitable. Explore the barriers that keep people from opportunity,
+          the voices that deserve to be heard, and the changes that can help everyone participate.
         </p>
         <div class="hero-actions">
-          <a class="btn" href="index.html#gallery">Explore the gallery ↗</a>
-          <a class="btn secondary" href="index.html#quiz">Discover your style</a>
+          <a class="btn" href="index.html#gallery">Explore the stories ↗</a>
+          <a class="btn secondary" href="index.html#targets">Discover Goal 10</a>
         </div>
-        <p class="scroll-indicator">SCROLL TO EXPLORE <span>↓</span></p>
+        <p class="scroll-indicator">EXPLORE · QUESTION · TAKE ACTION <span>↓</span></p>
       </div>
     </div>
-    <div class="hero-note">A DIFFERENT WAY OF SEEING</div>
+    <div class="hero-note">EQUALITY IS EVERYONE'S RIGHT</div>
   </section>
 
   <section class="section container" id="gallery">
     <div class="section-heading reveal">
       <div>
-        <p class="eyebrow">01 / Curated collection</p>
-        <h2>Captured <em>moments.</em></h2>
+        <p class="eyebrow">01 / Stories behind the goal</p>
+        <h2>See the <em>inequality.</em></h2>
       </div>
-      <p>Hover over the photos. Click a photo to view it enlarged. Save your favorites and discover the details hidden within.</p>
+      <p>Each image is a visual prompt for a real issue: unequal access, exclusion, migration, and representation. The photographs are symbolic, not documentary evidence.</p>
     </div>
 
     <div class="gallery-controls reveal">
-      <input type="search" id="search" placeholder="Search photos ..." aria-label="Search">
-      <button class="pill active" data-filter="all">All</button>
-      <button class="pill" data-filter="nature">Nature</button>
-      <button class="pill" data-filter="cities">Cities</button>
-      <button class="pill" data-filter="ocean">Ocean</button>
-      <button class="pill" data-filter="travel">Travel</button>
-      <button class="pill" id="favoritesFilter">♡ Favorites</button>
+      <input type="search" id="search" placeholder="Search equality themes ..." aria-label="Search stories">
+      <button class="pill active" data-filter="all">All stories</button>
+      <button class="pill" data-filter="opportunity">Opportunity</button>
+      <button class="pill" data-filter="inclusion">Inclusion</button>
+      <button class="pill" data-filter="mobility">Migration &amp; mobility</button>
+      <button class="pill" data-filter="fair-systems">Fair systems</button>
+      <button class="pill" id="favoritesFilter">♡ Saved stories</button>
       <button class="pill" id="shuffle">↻ Shuffle</button>
     </div>
 
     <div class="gallery-meta">
-      <span id="resultCount">9 photos</span>
-      <span>SELECT A PHOTO TO VIEW ↗</span>
+      <span id="resultCount">9 stories</span>
+      <span>SELECT A STORY TO EXPLORE ↗</span>
     </div>
 
     <div class="gallery" id="galleryGrid">
-      <article class="photo-card" data-id="forest" data-category="nature" data-title="Forest Silence">
+      <article class="photo-card" data-id="forest" data-category="inclusion" data-title="Shared Spaces, Shared Belonging">
         <a class="photo-link" href="index.html#photo-forest">
           <div class="photo-image-wrap">
             <span class="photo-number">01 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85" alt="Light filtering through forest trees" loading="lazy">
+            <img class="photo-image" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85" alt="Sunlight filtering through a green forest" loading="lazy">
             <div class="photo-overlay"><span>Open story ↗</span></div>
           </div>
           <div class="photo-info">
-            <span class="photo-category">Nature · Tranquility</span>
-            <h3>Forest Silence</h3>
-            <p>Where time seems to disappear for a moment.</p>
+            <span class="photo-category">Inclusive Communities · Shared Spaces</span>
+            <h3>Shared Spaces, Shared Belonging</h3>
+            <p>A community is stronger when public spaces are safe and welcoming to everyone.</p>
           </div>
         </a>
         <div class="photo-info" style="padding-top:0">
-          <div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">01 — NATURE</span></div>
+          <div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">01 — INCLUSION</span></div>
         </div>
       </article>
 
-      <article class="photo-card" data-id="mountains" data-category="nature" data-title="Above the Clouds">
+      <article class="photo-card" data-id="mountains" data-category="opportunity" data-title="A Fair Starting Point">
         <a class="photo-link" href="index.html#photo-mountains">
           <div class="photo-image-wrap">
             <span class="photo-number">02 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=85" alt="Peaks of majestic mountains" loading="lazy">
+            <img class="photo-image" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=85" alt="Mountain peaks rising above the clouds" loading="lazy">
             <div class="photo-overlay"><span>Open story ↗</span></div>
           </div>
           <div class="photo-info">
-            <span class="photo-category">Nature · Vastness</span>
-            <h3>Above the Clouds</h3>
-            <p>A small person in a vast world.</p>
+            <span class="photo-category">Equal Opportunity · A Fair Start</span>
+            <h3>A Fair Starting Point</h3>
+            <p>A person's future should not be decided by their income, disability, origin, or background.</p>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">02 — LANDSCAPE</span></div></div>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">02 — OPPORTUNITY</span></div></div>
       </article>
 
-      <article class="photo-card" data-id="ocean" data-category="ocean" data-title="Blue Silence">
+      <article class="photo-card" data-id="ocean" data-category="mobility" data-title="Safe Routes, Dignified Journeys">
         <a class="photo-link" href="index.html#photo-ocean">
           <div class="photo-image-wrap">
             <span class="photo-number">03 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1000&q=85" alt="Waves on the blue ocean" loading="lazy">
+            <img class="photo-image" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1000&q=85" alt="Blue ocean waves moving toward the shore" loading="lazy">
             <div class="photo-overlay"><span>Open story ↗</span></div>
           </div>
           <div class="photo-info">
-            <span class="photo-category">Ocean · Motion</span>
-            <h3>Blue Silence</h3>
-            <p>Every wave is different.</p>
+            <span class="photo-category">Migration & Mobility · Human Dignity</span>
+            <h3>Safe Routes, Dignified Journeys</h3>
+            <p>People on the move deserve safety, dignity, and fair access to opportunity.</p>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">03 — OCEAN</span></div></div>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">03 — MOBILITY</span></div></div>
       </article>
 
-      <article class="photo-card" data-id="city" data-category="cities" data-title="After Midnight">
+      <article class="photo-card" data-id="city" data-category="fair-systems" data-title="The Unequal City">
         <a class="photo-link" href="index.html#photo-city">
           <div class="photo-image-wrap">
             <span class="photo-number">04 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1000&q=85" alt="A city illuminated at night" loading="lazy">
+            <img class="photo-image" src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1000&q=85" alt="A city skyline illuminated after dark" loading="lazy">
             <div class="photo-overlay"><span>Open story ↗</span></div>
           </div>
           <div class="photo-info">
-            <span class="photo-category">Cities · Night</span>
-            <h3>After Midnight</h3>
-            <p>The city takes on a different face after dark.</p>
+            <span class="photo-category">Economic Inequality · Life in Cities</span>
+            <h3>The Unequal City</h3>
+            <p>Where people live can shape their access to housing, services, decent work, and income.</p>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">04 — CITY</span></div></div>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">04 — FAIR SYSTEMS</span></div></div>
       </article>
 
-      <article class="photo-card" data-id="lake" data-category="nature" data-title="Morning Reflection">
+      <article class="photo-card" data-id="lake" data-category="opportunity" data-title="Education Without Barriers">
         <a class="photo-link" href="index.html#photo-lake">
           <div class="photo-image-wrap">
             <span class="photo-number">05 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85" alt="Mountains, a lake, and morning light" loading="lazy">
+            <img class="photo-image" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85" alt="A calm lake reflecting mountains in the morning" loading="lazy">
             <div class="photo-overlay"><span>Open story ↗</span></div>
           </div>
           <div class="photo-info">
-            <span class="photo-category">Nature · Reflections</span>
-            <h3>Morning Reflection</h3>
-            <p>Where the sky meets the water.</p>
+            <span class="photo-category">Equal Opportunity · Learning for All</span>
+            <h3>Education Without Barriers</h3>
+            <p>Education and skills can open doors. Access should never depend on a person's circumstances.</p>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">05 — REFLECTION</span></div></div>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">05 — OPPORTUNITY</span></div></div>
       </article>
 
-      <article class="photo-card" data-id="travel" data-category="travel" data-title="Somewhere Else">
+      <article class="photo-card" data-id="travel" data-category="mobility" data-title="A Place to Belong">
         <a class="photo-link" href="index.html#photo-travel">
           <div class="photo-image-wrap">
             <span class="photo-number">06 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1000&q=85" alt="Getting ready to travel" loading="lazy">
+            <img class="photo-image" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1000&q=85" alt="Travel essentials arranged for a journey" loading="lazy">
             <div class="photo-overlay"><span>Open story ↗</span></div>
           </div>
           <div class="photo-info">
-            <span class="photo-category">Travel · Discovery</span>
-            <h3>Somewhere Else</h3>
-            <p>The best stories begin with a journey.</p>
+            <span class="photo-category">Migration & Mobility · Belonging</span>
+            <h3>A Place to Belong</h3>
+            <p>Safe, well-managed migration and welcoming communities help people participate and thrive.</p>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">06 — JOURNEY</span></div></div>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">06 — MOBILITY</span></div></div>
       </article>
 
-      <article class="photo-card" data-id="sunset" data-category="ocean" data-title="The Last Light">
+      <article class="photo-card" data-id="sunset" data-category="fair-systems" data-title="Every Voice Counts">
         <a class="photo-link" href="index.html#photo-sunset">
           <div class="photo-image-wrap">
             <span class="photo-number">07 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1472120435266-53107fd0c44a?auto=format&fit=crop&w=1000&q=85" alt="Warm hues of a sunset" loading="lazy">
+            <img class="photo-image" src="https://images.unsplash.com/photo-1472120435266-53107fd0c44a?auto=format&fit=crop&w=1000&q=85" alt="A warm sunset spreading across the horizon" loading="lazy">
             <div class="photo-overlay"><span>Open story ↗</span></div>
           </div>
           <div class="photo-info">
-            <span class="photo-category">Ocean · Evening</span>
-            <h3>The Last Light</h3>
-            <p>A sky that needs no filters.</p>
+            <span class="photo-category">Representation · Being Heard</span>
+            <h3>Every Voice Counts</h3>
+            <p>Fair decisions require meaningful representation, especially for people too often left out.</p>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">07 — SUNSET</span></div></div>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">07 — FAIR SYSTEMS</span></div></div>
       </article>
 
-      <article class="photo-card" data-id="architecture" data-category="cities" data-title="City Lines">
+      <article class="photo-card" data-id="architecture" data-category="inclusion" data-title="Designed for Everyone">
         <a class="photo-link" href="index.html#photo-architecture">
           <div class="photo-image-wrap">
             <span class="photo-number">08 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1000&q=85" alt="Geometrijske linije arhitekture" loading="lazy">
+            <img class="photo-image" src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1000&q=85" alt="Geometric lines and details of modern architecture" loading="lazy">
             <div class="photo-overlay"><span>Open story ↗</span></div>
           </div>
           <div class="photo-info">
-            <span class="photo-category">Cities · Architecture</span>
-            <h3>City Lines</h3>
-            <p>Vsaka stavba skriva kompozicijo.</p>
+            <span class="photo-category">Accessibility · Inclusive Design</span>
+            <h3>Designed for Everyone</h3>
+            <p>Accessible design helps people of different ages and abilities take part in everyday life.</p>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">08 — DESIGN</span></div></div>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">08 — INCLUSION</span></div></div>
       </article>
 
-      <article class="photo-card" data-id="road" data-category="travel" data-title="Endless">
+      <article class="photo-card" data-id="road" data-category="fair-systems" data-title="Progress Across Borders">
         <a class="photo-link" href="index.html#photo-road">
           <div class="photo-image-wrap">
             <span class="photo-number">09 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1000&q=85" alt="A road winding through the landscape" loading="lazy">
+            <img class="photo-image" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1000&q=85" alt="A long open road leading through a landscape" loading="lazy">
             <div class="photo-overlay"><span>Open story ↗</span></div>
           </div>
           <div class="photo-info">
-            <span class="photo-category">Travel · Freedom</span>
-            <h3>Endless</h3>
-            <p>Sometimes, all you need is a direction.</p>
+            <span class="photo-category">Global Cooperation · Shared Progress</span>
+            <h3>Progress Across Borders</h3>
+            <p>Reducing inequality also means cooperation between countries and fairer access to resources and opportunity.</p>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">09 — FREEDOM</span></div></div>
+        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save</button><span class="open-label">09 — FAIR SYSTEMS</span></div></div>
       </article>
     </div>
-    <p class="empty" id="emptyState">No results. Try another search.</p>
+    <p class="empty" id="emptyState">No stories match that search. Try a different word or theme.</p>
   </section>
 
   <section class="section quiz-section" id="quiz">
     <div class="container quiz-shell">
       <div class="quiz-intro reveal">
-        <p class="eyebrow">02 / Discover your perspective</p>
-        <h2>What kind of <em>photographer</em> are you?</h2>
-        <p>Answer five quick questions. At the end, discover your personal photography profile and a recommended gallery.</p>
+        <p class="eyebrow">02 / Find your way to contribute</p>
+        <h2>How will you help build a more <em>equal world?</em></h2>
+        <p>Choose the action that matters most to you in each situation. Your result will suggest one way to support the aims of SDG 10.</p>
       </div>
       <div class="quiz-card reveal">
         <div class="quiz-progress"><div id="progressBar"></div></div>
         <div id="quizBody">
           <p class="quiz-count" id="quizCount">Question 01 / 05</p>
-          <h3 class="quiz-question" id="quizQuestion">What attracts you most?</h3>
+          <h3 class="quiz-question" id="quizQuestion">Where would you start?</h3>
           <div class="quiz-options" id="quizOptions"></div>
         </div>
         <div class="quiz-result" id="quizResult" aria-live="polite">
-          <p class="eyebrow">Your result</p>
+          <p class="eyebrow">Your equality action profile</p>
           <h3 id="resultTitle"></h3>
           <p id="resultText"></p>
-          <button class="btn" id="resultGallery" type="button">Explore recommended photos ↗</button>
-          <button class="pill" id="restartQuiz" type="button" style="margin-top:12px">Retake the quiz</button>
+          <button class="btn" id="resultGallery" type="button">Explore related stories ↗</button>
+          <button class="pill" id="restartQuiz" type="button" style="margin-top:12px">Take the quiz again</button>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section container" id="achievements">
+  <section class="section container" id="targets">
     <div class="section-heading reveal">
-      <div><p class="eyebrow">03 / Achievement collection</p><h2>Your <em>imprint.</em></h2></div>
-      <p>Explore the site, save your favorites, complete the quiz, and unlock achievements. All achievements are saved in your browser.</p>
+      <div><p class="eyebrow">03 / The global commitment</p><h2>What does Goal 10 <em>call for?</em></h2></div>
+      <p>The United Nations calls for reducing inequality within and among countries. These target areas turn that commitment into practical priorities for governments and institutions.</p>
+    </div>
+    <div class="targets-grid">
+      <article class="target-card"><span>10.1</span><h3>Income growth</h3><p>Improve income growth for the bottom 40 per cent of the population so it outpaces the national average.</p></article>
+      <article class="target-card"><span>10.2</span><h3>Inclusion for all</h3><p>Promote social, economic, and political inclusion regardless of age, sex, disability, race, ethnicity, origin, religion, or status.</p></article>
+      <article class="target-card"><span>10.3</span><h3>Equal opportunity</h3><p>Reduce unequal outcomes and challenge discriminatory laws, policies, and practices.</p></article>
+      <article class="target-card"><span>10.4</span><h3>Fair policies</h3><p>Use wage, fiscal, and social protection policies to move societies towards greater equality.</p></article>
+      <article class="target-card"><span>10.5</span><h3>Fairer finance</h3><p>Strengthen the regulation and monitoring of global financial markets and institutions.</p></article>
+      <article class="target-card"><span>10.6</span><h3>Representation</h3><p>Give developing countries a stronger voice in international economic and financial decision-making.</p></article>
+      <article class="target-card"><span>10.7</span><h3>Safe migration</h3><p>Support safe, orderly, regular, and responsible migration and mobility.</p></article>
+      <article class="target-card"><span>10.a–10.b</span><h3>Global cooperation</h3><p>Support developing countries through fair trade arrangements and development finance.</p></article>
+      <article class="target-card"><span>10.c</span><h3>Affordable remittances</h3><p>Lower the cost of sending money across borders so more reaches families and communities.</p></article>
+    </div>
+    <div class="target-source"><a href="https://sdgs.un.org/goals/goal10" target="_blank" rel="noopener noreferrer">Read the official United Nations Goal 10 targets ↗</a></div>
+    <div class="achievement-heading">
+      <p class="eyebrow">Your learning journey</p>
+      <h2>Small steps. <em>Shared progress.</em></h2>
+      <p>Explore the stories, save the ones that matter to you, complete the equality quiz, and unlock these learning milestones. Your progress is stored in this browser.</p>
     </div>
     <div class="achievement-grid">
-      <article class="achievement" id="badge-explorer"><div class="achievement-icon">◈</div><h3>Explorer</h3><p>Open three different photos.</p></article>
-      <article class="achievement" id="badge-curator"><div class="achievement-icon">✦</div><h3>Curator</h3><p>Save three favorite photos.</p></article>
-      <article class="achievement" id="badge-personality"><div class="achievement-icon">◎</div><h3>Unique Perspective</h3><p>Complete the photography quiz.</p></article>
-      <article class="achievement" id="badge-secret"><div class="achievement-icon">✧</div><h3>Secret Seeker</h3><p>Discover the hidden surprise.</p></article>
+      <article class="achievement" id="badge-explorer"><div class="achievement-icon">◈</div><h3>Story Explorer</h3><p>Open three different equality stories.</p></article>
+      <article class="achievement" id="badge-curator"><div class="achievement-icon">✦</div><h3>Issue Curator</h3><p>Save three stories that matter to you.</p></article>
+      <article class="achievement" id="badge-personality"><div class="achievement-icon">◎</div><h3>Equality Advocate</h3><p>Complete the SDG 10 action quiz.</p></article>
+      <article class="achievement" id="badge-secret"><div class="achievement-icon">✧</div><h3>Inclusion Pledge</h3><p>Unlock the equality pledge.</p></article>
     </div>
   </section>
 
-  <section class="section container" id="secret">
-    <div class="secret-box reveal">
-      <p class="eyebrow">04 / Hidden surprise</p>
-      <h2>Every story has a <em style="color:var(--accent)">secret.</em></h2>
-      <p>Enter the secret word. Hint: something every photographer needs.</p>
+  <section class="section container" id="action">
+    <div class="section-heading reveal">
+      <div><p class="eyebrow">04 / Turn awareness into action</p><h2>Equality is built by <em>what we do.</em></h2></div>
+      <p>Change happens through everyday choices and larger public decisions. These are practical starting points—not substitutes for the policies and systems that must also change.</p>
+    </div>
+    <div class="action-grid">
+      <article class="action-card"><span>01</span><h3>Notice the barriers</h3><p>Pay attention to who is missing, excluded, underpaid, or unable to access a service. Listen before assuming what people need.</p></article>
+      <article class="action-card"><span>02</span><h3>Make room for every voice</h3><p>Share opportunities, challenge stereotypes, credit people's work, and include affected communities in decisions.</p></article>
+      <article class="action-card"><span>03</span><h3>Support fair systems</h3><p>Learn about equal access, decent work, social protection, accessibility, anti-discrimination, and safe migration—and support policies that advance them.</p></article>
+    </div>
+    <div class="secret-box reveal" style="margin-top:45px">
+      <p class="eyebrow">A small personal commitment</p>
+      <h2>Unlock the <em style="color:var(--accent)">inclusion pledge.</em></h2>
+      <p>Enter the word that describes making sure everyone can participate and belong.</p>
       <form id="secretForm">
-        <input class="secret-input" id="secretInput" placeholder="Secret word ..." aria-label="Secret word" autocomplete="off">
-        <button class="btn" type="submit">Unlock</button>
+        <input class="secret-input" id="secretInput" placeholder="Enter the word ..." aria-label="Inclusion pledge word" autocomplete="off">
+        <button class="btn" type="submit">Unlock pledge</button>
       </form>
       <p class="secret-message" id="secretMessage" aria-live="polite"></p>
       <div id="secretSpark" aria-hidden="true"></div>
     </div>
   </section>
 
+  <section class="section container" id="about"></section>
+
   <section class="section container" id="about">
     <div class="about-grid reveal">
-      <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=1200&q=85" alt="Camera for creative photography" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=1200&q=85" alt="A camera ready to document stories and perspectives" loading="lazy">
       <div class="about-copy">
-        <p class="eyebrow">05 / Philosophy</p>
-        <h2>Do not just look.<br><em style="color:var(--accent)">Observe.</em></h2>
-        <p>SDG 10 is an interactive photography gallery dedicated to light, atmosphere, and moments worth preserving.</p>
-        <p>Explore the collection, discover your style, unlock achievements, and find hidden details. This site is a small reminder that something extraordinary can be found in even the most ordinary moment.</p>
-        <a href="index.html#gallery" class="btn" style="margin-top:25px">Return to gallery ↗</a>
+        <p class="eyebrow">05 / About Sustainable Development Goal 10</p>
+        <h2>Different lives.<br><em style="color:var(--accent)">Equal dignity.</em></h2>
+        <p>SDG 10 is the United Nations goal to reduce inequality within and among countries. It calls for more than equal treatment: people must have a fair chance to participate in society and shape the decisions that affect their lives.</p>
+        <p>Inequality can be linked to income, age, sex, disability, race, ethnicity, origin, religion, or other circumstances. Goal 10 responds through inclusion, equal opportunity, fairer policies, stronger representation, and safe migration.</p>
+        <p>This project uses photography as a starting point for reflection. The images are visual metaphors; the stories and target summaries explain the issues they invite us to consider.</p>
+        <a href="https://sdgs.un.org/goals/goal10" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top:25px">Explore the official Goal 10 page ↗</a>
       </div>
     </div>
   </section>
@@ -647,7 +692,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 
 <section id="detailPage">
   <div class="container">
-    <a class="back-link" href="index.html#gallery">← Back to gallery</a>
+    <a class="back-link" href="index.html#gallery">← Back to stories</a>
     <div class="detail-layout">
       <img class="detail-image" id="detailImage" src="" alt="">
       <div class="detail-copy">
@@ -657,7 +702,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
         <p id="detailExtra"></p>
         <div class="detail-facts" id="detailFacts"></div>
         <button class="btn" id="detailFavorite" type="button" style="margin-top:25px">♡ Save photo</button>
-        <button class="pill" id="openDetailLightbox" type="button">Enlarge photo ↗</button>
+        <button class="pill" id="openDetailLightbox" type="button">View photo full screen ↗</button>
       </div>
     </div>
   </div>
@@ -665,15 +710,15 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 
 <footer>
   <div class="container footer-inner">
-    <span>SDG 10. — Independent photography journal</span>
-    <span>Created for those who notice more.</span>
-    <a href="index.html#home">Back to top ↑</a>
+    <span>SDG 10 · REDUCED INEQUALITIES</span>
+    <span>Equal dignity. Fair opportunity. Inclusion for all.</span>
+    <a href="index.html#home">Back to the beginning ↑</a>
   </div>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<div id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged photo">
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
   <button class="lightbox-btn" id="lightboxClose" aria-label="Close">×</button>
   <button class="lightbox-btn lightbox-prev" id="lightboxPrev" aria-label="Previous photo">‹</button>
   <img id="lightboxImage" src="" alt="">
@@ -697,141 +742,137 @@ const toastElement = $("#toast");
 
 const photoDetails = {
   forest: {
-    title:"Forest Silence",category:"Nature / Atmosphere",
-    description:"A forest is never truly silent. Wind, leaves, and light create small stories that we often notice only when we stop.",
-    extra:"When taking photos, look for layers in your composition. Foreground trees can add depth, while light filtering through the branches naturally guides the eye.",
-    facts:"SUBJECT: forest · MOOD: tranquil · STYLE: nature photography"
+    title:"Shared Spaces, Shared Belonging",category:"Inclusion / Shared spaces",
+    description:"A welcoming public space can bring people together across age, income, background, and ability. Inclusion means removing the barriers that prevent people from using the places and services around them.",
+    extra:"Ask whose needs were considered when a space was designed. Step-free routes, clear signs, safe lighting, seating, and accessible transport can make participation possible for more people.",
+    facts:"SDG 10 FOCUS: inclusion · PRINCIPLE: belonging · QUESTION: who is left out?"
   },
   mountains: {
-    title:"Above the Clouds",category:"Nature / Vastness",
-    description:"A mountain landscape reminds us how vast something can feel, even from a short distance. Each mountain layer changes our sense of space.",
-    extra:"Include a foreground, middle ground, and distant background in your photo. This helps the viewer feel the depth of the landscape.",
-    facts:"SUBJECT: mountains · MOOD: majestic · STYLE: landscape photography"
+    title:"A Fair Starting Point",category:"Equal opportunity / A fair start",
+    description:"People do not begin life with the same resources or opportunities. A fair society recognises those differences and works to remove barriers that limit a person's choices or future.",
+    extra:"Access to quality education, healthcare, decent work, and social protection can help people build a future without being held back by the circumstances into which they were born.",
+    facts:"SDG 10 FOCUS: equal opportunity · PRINCIPLE: fairness · QUESTION: what barrier can be removed?"
   },
   ocean: {
-    title:"Blue Silence",category:"Ocean / Motion",
-    description:"Waves are never exactly the same. Their lines, reflections, and textures can feel calm or dramatic.",
-    extra:"Notice how a photo changes when a wave is captured in motion or when the water briefly becomes still.",
-    facts:"SUBJECT: ocean · MOOD: freedom · STYLE: seascape photography"
+    title:"Safe Routes, Dignified Journeys",category:"Migration and mobility / Human dignity",
+    description:"People move for many reasons, including work, family, education, safety, and opportunity. Migration policy should protect dignity, rights, and safety rather than expose people to exploitation or discrimination.",
+    extra:"A fair approach supports safe, orderly, regular, and responsible migration, while helping newcomers access services, work, and community life.",
+    facts:"SDG 10 TARGET: 10.7 · PRINCIPLE: safe mobility · QUESTION: how can journeys be safer?"
   },
   city: {
-    title:"After Midnight",category:"Cities / Night",
-    description:"When the lights come on, the city becomes a different place. Shadows, windows, and reflections create an atmosphere we do not notice during the day.",
-    extra:"In night photography, look for repeating lights, reflections in glass, and contrast between bright and dark surfaces.",
-    facts:"SUBJECT: city · MOOD: cinematic · STYLE: urban photography"
+    title:"The Unequal City",category:"Income and opportunity / Life in cities",
+    description:"A city can offer opportunity while also revealing deep gaps in income, housing, transport, education, and access to public services. Where someone lives should not determine whether they can participate fully.",
+    extra:"Fairer outcomes require good public services, decent work, social protection, inclusive planning, and policies that address the unequal distribution of resources.",
+    facts:"SDG 10 FOCUS: income inequality · PRINCIPLE: shared prosperity · QUESTION: who benefits from growth?"
   },
   lake: {
-    title:"Morning Reflection",category:"Nature / Reflections",
-    description:"A lake can mirror the landscape and create an almost symmetrical composition. Small changes in light can completely transform the mood.",
-    extra:"Compare the reflection with the actual landscape. Sometimes the difference between them is what makes the image interesting.",
-    facts:"SUBJECT: lake · MOOD: stillness · STYLE: landscape photography"
+    title:"Education Without Barriers",category:"Equal opportunity / Learning for all",
+    description:"Education and skills can widen choices, strengthen economic security, and help people take part in public life. Yet cost, disability, discrimination, location, and unequal resources can limit access.",
+    extra:"Inclusive learning requires accessible spaces and materials, support for different learning needs, and fair opportunities to continue education and develop skills throughout life.",
+    facts:"SDG 10 FOCUS: equal opportunity · PRINCIPLE: access to learning · QUESTION: who cannot reach the classroom?"
   },
   travel: {
-    title:"Somewhere Else",category:"Travel / Discovery",
-    description:"Travel is not only about distant places. It is also about the small moments we encounter along the way that make a place memorable.",
-    extra:"Photograph details, not just landmarks. Colors, doors, streets, and everyday scenes can tell a deeply personal story.",
-    facts:"SUBJECT: travel · MOOD: curiosity · STYLE: documentary photography"
+    title:"A Place to Belong",category:"Migration and inclusion / Belonging",
+    description:"Moving to a new country or community can bring opportunity, but it can also involve language barriers, insecure work, discrimination, and difficulty accessing services. Belonging grows when rights are respected and participation is possible.",
+    extra:"Communities can help by sharing accurate information, making services accessible, recognising skills and experience, and including newcomers in decisions that affect local life.",
+    facts:"SDG 10 TARGET: 10.7 · PRINCIPLE: participation · QUESTION: what helps people feel welcome?"
   },
   sunset: {
-    title:"The Last Light",category:"Ocean / Evening",
-    description:"Sunset turns the sky into a palette of warm colors. Soft light and long shadows create a natural sense of the day coming to an end.",
-    extra:"Also look at what is in the foreground. A silhouette or a calm horizon line can make the photo even more striking.",
-    facts:"SUBJECT: sunset · MOOD: dreamy · STYLE: atmospheric photography"
+    title:"Every Voice Counts",category:"Representation / Being heard",
+    description:"Decisions are fairer when the people affected by them can help shape them. Communities that are often excluded need meaningful representation—not just an invitation to listen after decisions have been made.",
+    extra:"Look for ways to share power: accessible public meetings, representative leadership, transparent institutions, and real opportunities for people to influence policy.",
+    facts:"SDG 10 TARGET: 10.6 · PRINCIPLE: representation · QUESTION: whose voice is missing?"
   },
   architecture: {
-    title:"City Lines",category:"Cities / Shapes",
-    description:"Architecture offers repeating patterns, sharp lines, textures, and interesting geometric shapes.",
-    extra:"Try changing your point of view. Sometimes an interesting composition appears when you look up or take a step to the side.",
-    facts:"SUBJECT: architecture · MOOD: graphic · STYLE: urban photography"
+    title:"Designed for Everyone",category:"Accessibility / Inclusive design",
+    description:"The way places, buildings, information, and services are designed can either include people or create barriers. Accessibility benefits people with disabilities and often makes everyday life easier for everyone.",
+    extra:"Consider physical access, digital access, readable information, sensory needs, affordability, and transport links. Inclusion works best when it is considered from the beginning.",
+    facts:"SDG 10 FOCUS: inclusion · PRINCIPLE: accessibility · QUESTION: can everyone participate?"
   },
   road: {
-    title:"Endless",category:"Travel / Freedom",
-    description:"A road can guide the eye toward a distant point and create a sense of anticipation. You do not need to know where it leads for the story to be compelling.",
-    extra:"Look for lines that guide the eye, and notice how light changes the mood of the scene.",
-    facts:"SUBJECT: road · MOOD: freedom · STYLE: storytelling photography"
+    title:"Progress Across Borders",category:"Global cooperation / Shared progress",
+    description:"Inequality exists within countries and between them. Global cooperation, fairer economic relationships, and support where needs are greatest can help widen opportunities across borders.",
+    extra:"Goal 10 includes stronger representation for developing countries, development finance, fair treatment in global trade, and more affordable international remittances.",
+    facts:"SDG 10 FOCUS: inequality among countries · PRINCIPLE: cooperation · QUESTION: how can progress be shared?"
   }
-};
-
-const categoryForStyle = {
-  nature:"nature",urban:"cities",ocean:"ocean",travel:"travel"
 };
 
 const quizQuestions = [
   {
-    q:"What catches your eye first?",
+    q:"Where would you start to reduce inequality?",
     options:[
-      {text:"Mist, trees, and silence",style:"nature"},
-      {text:"City lights and architecture",style:"urban"},
-      {text:"Waves and the colors of the sky",style:"ocean"},
-      {text:"Unknown roads and distant places",style:"travel"}
+      {text:"Make quality education and decent work accessible to more people",style:"opportunity"},
+      {text:"Remove barriers in public spaces and essential services",style:"inclusion"},
+      {text:"Challenge discriminatory rules and unequal systems",style:"systems"},
+      {text:"Protect safe, regular migration and freedom of movement",style:"mobility"}
     ]
   },
   {
-    q:"When would you most like to take photos?",
+    q:"What makes a community decision genuinely inclusive?",
     options:[
-      {text:"Early in the morning, when everything is quiet",style:"nature"},
-      {text:"In the evening, when the city lights up",style:"urban"},
-      {text:"At sunset by the water",style:"ocean"},
-      {text:"Whenever a new adventure begins",style:"travel"}
+      {text:"Everyone can access the information and take part",style:"inclusion"},
+      {text:"People affected by the decision help shape it",style:"systems"},
+      {text:"People can reach the education and skills they need",style:"opportunity"},
+      {text:"Newcomers and long-term residents are both heard",style:"mobility"}
     ]
   },
   {
-    q:"What mood do you want in your photos?",
+    q:"Which change would make the biggest difference?",
     options:[
-      {text:"Calm and mysterious",style:"nature"},
-      {text:"Cinematic and dramatic",style:"urban"},
-      {text:"Dreamlike and free",style:"ocean"},
-      {text:"Curious and storytelling",style:"travel"}
+      {text:"Fair access to training, jobs, and career progression",style:"opportunity"},
+      {text:"Accessible buildings, transport, and digital services",style:"inclusion"},
+      {text:"Transparent policies and action against discrimination",style:"systems"},
+      {text:"Safer routes and better support for people on the move",style:"mobility"}
     ]
   },
   {
-    q:"What would you choose for a weekend?",
+    q:"How would you respond when someone is excluded?",
     options:[
-      {text:"A walk through the forest",style:"nature"},
-      {text:"Exploring hidden city streets",style:"urban"},
-      {text:"A day by the ocean",style:"ocean"},
-      {text:"A spontaneous trip to somewhere new",style:"travel"}
+      {text:"Help connect them with learning or work opportunities",style:"opportunity"},
+      {text:"Ask what barrier is in the way and help remove it",style:"inclusion"},
+      {text:"Speak up and challenge the unfair rule or behaviour",style:"systems"},
+      {text:"Help them find trusted information and local support",style:"mobility"}
     ]
   },
   {
-    q:"Which story interests you most?",
+    q:"What does a fairer future look like to you?",
     options:[
-      {text:"Nature untouched by humans",style:"nature"},
-      {text:"The secret life of the city",style:"urban"},
-      {text:"The endless movement of water",style:"ocean"},
-      {text:"The people and places you encounter",style:"travel"}
+      {text:"Everyone has a real chance to develop their potential",style:"opportunity"},
+      {text:"Everyone belongs and can participate in daily life",style:"inclusion"},
+      {text:"Institutions share power and treat people fairly",style:"systems"},
+      {text:"People can move safely and build a life with dignity",style:"mobility"}
     ]
   }
 ];
 
 const styleResults = {
-  nature:{
-    title:"The Quiet Observer",
-    text:"You notice details that others often overlook. Your style is calm, patient, and connected to nature. Start with forests, lakes, and landscapes.",
-    category:"nature"
+  opportunity:{
+    title:"The Opportunity Builder",
+    text:"You focus on the barriers that limit people's choices. Support fair access to education, skills, decent work, and social protection so that a person's future is not decided by their starting point.",
+    category:"opportunity"
   },
-  urban:{
-    title:"The Light Seeker",
-    text:"You are drawn to contrasts, shadows, and stories hidden in quiet corners. Your eye seeks atmosphere, geometry, and cinematic moments in the city bustle.",
-    category:"cities"
+  inclusion:{
+    title:"The Inclusion Advocate",
+    text:"You notice who cannot fully participate. Champion accessibility, inclusive services, welcoming public spaces, and decisions shaped with the people affected by them.",
+    category:"inclusion"
   },
-  ocean:{
-    title:"The Dreamer on the Horizon",
-    text:"Colors, reflections, and movement attract you more than perfect symmetry. Your style is atmospheric, free, and a little dreamy.",
-    category:"ocean"
+  systems:{
+    title:"The Systems Changer",
+    text:"You look beyond individual actions to the rules and institutions that shape outcomes. Support anti-discrimination measures, fair policies, accountability, and meaningful representation.",
+    category:"fair-systems"
   },
-  travel:{
-    title:"The Story Collector",
-    text:"You love exploring new places and discovering unexpected details. Your photos can become a journal of journeys, people, and moments.",
-    category:"travel"
+  mobility:{
+    title:"The Bridge Builder",
+    text:"You understand that safe movement and belonging matter. Support dignified migration, access to reliable information and services, and communities where newcomers can participate.",
+    category:"mobility"
   }
 };
 
-let currentFilter = "all";
+let currentFilter =let currentFilter = "all";
 let favoritesOnly = false;
 let currentDetailId = null;
 let quizIndex = 0;
-let quizScores = {nature:0,urban:0,ocean:0,travel:0};
+let quizScores = {opportunity:0,inclusion:0,systems:0,mobility:0};
 let visited = new Set();
 let unlocked = new Set();
 let lightboxIndex = 0;
@@ -856,17 +897,17 @@ function saveSet(key,set) {
   try {localStorage.setItem(key,JSON.stringify([...set]));} catch {}
 }
 
-let favoriteIds = loadSet("SDG 10Favorites");
-let badgeIds = loadSet("SDG 10Badges");
-let visitedIds = loadSet("SDG 10Visited");
+let favoriteIds = loadSet("SDG 10EqualityFavorites");
+let badgeIds = loadSet("SDG 10EqualityMilestones");
+let visitedIds = loadSet("SDG 10EqualityStoriesVisited");
 
 function unlockBadge(id,message) {
   if (badgeIds.has(id)) return;
   badgeIds.add(id);
-  saveSet("SDG 10Badges",badgeIds);
+  saveSet("SDG 10EqualityMilestones",badgeIds);
   const badge = document.getElementById("badge-"+id);
   if (badge) badge.classList.add("unlocked");
-  notify("Achievement unlocked: "+message);
+  notify("Learning milestone unlocked: "+message);
 }
 function renderBadges() {
   badgeIds.forEach(id => {
@@ -879,17 +920,17 @@ function syncFavorites() {
     const active = favoriteIds.has(card.dataset.id);
     const button = $(".favorite",card);
     button.classList.toggle("active",active);
-    button.textContent = active ? "♥ Saved" : "♡ Save";
+    button.textContent = active ? "♥ Saved" : "♡ Save story";
     button.setAttribute("aria-pressed",String(active));
   });
-  if (favoriteIds.size >= 3) unlockBadge("curator","Curator");
+  if (favoriteIds.size >= 3) unlockBadge("curator","Issue Curator");
 }
 function recordVisit(id) {
   if (!visitedIds.has(id)) {
     visitedIds.add(id);
-    saveSet("SDG 10Visited",visitedIds);
+    saveSet("SDG 10EqualityStoriesVisited",visitedIds);
   }
-  if (visitedIds.size >= 3) unlockBadge("explorer","Explorer");
+  if (visitedIds.size >= 3) unlockBadge("explorer","Story Explorer");
 }
 
 // Gallery filters and search.
@@ -935,7 +976,7 @@ cards.forEach(card => {
     const id = card.dataset.id;
     if (favoriteIds.has(id)) favoriteIds.delete(id);
     else favoriteIds.add(id);
-    saveSet("SDG 10Favorites",favoriteIds);
+    saveSet("SDG 10EqualityFavorites",favoriteIds);
     syncFavorites();
     applyFilters();
   });
@@ -944,7 +985,7 @@ cards.forEach(card => {
 $("#shuffle").addEventListener("click",() => {
   const shuffled = [...cards].sort(() => Math.random() - .5);
   shuffled.forEach(card => galleryGrid.appendChild(card));
-  notify("Gallery shuffled.");
+  notify("Story order shuffled.");
 });
 
 // Photo detail route (available through a direct URL hash).
@@ -954,7 +995,7 @@ function showRoute() {
     mainPage.style.display = "";
     detailPage.style.display = "none";
     currentDetailId = null;
-    document.title = "SDG 10 — Photography Experience";
+    document.title = "SDG 10 — Reduced Inequalities | A Fairer World";
     return;
   }
 
@@ -994,13 +1035,13 @@ window.addEventListener("popstate",() => {
 function syncDetailFavorite() {
   if (!currentDetailId) return;
   const active = favoriteIds.has(currentDetailId);
-  $("#detailFavorite").textContent = active ? "♥ Saved" : "♡ Save photo";
+  $("#detailFavorite").textContent = active ? "♥ Saved" : "♡ Save story";
 }
 $("#detailFavorite").addEventListener("click",() => {
   if (!currentDetailId) return;
   if (favoriteIds.has(currentDetailId)) favoriteIds.delete(currentDetailId);
   else favoriteIds.add(currentDetailId);
-  saveSet("SDG 10Favorites",favoriteIds);
+  saveSet("SDG 10EqualityFavorites",favoriteIds);
   syncFavorites();
   syncDetailFavorite();
 });
@@ -1083,12 +1124,12 @@ function finishQuiz() {
   $("#resultTitle").textContent = result.title;
   $("#resultText").textContent = result.text;
   $("#resultGallery").dataset.category = result.category;
-  unlockBadge("personality","Unique Perspective");
-  try {localStorage.setItem("SDG 10QuizStyle",winner);} catch {}
+  unlockBadge("personality","Equality Advocate");
+  try {localStorage.setItem("SDG 10EqualityActionProfile",winner);} catch {}
 }
 function resetQuiz() {
   quizIndex = 0;
-  quizScores = {nature:0,urban:0,ocean:0,travel:0};
+  quizScores = {opportunity:0,inclusion:0,systems:0,mobility:0};
   $("#quizBody").style.display = "";
   $("#quizResult").style.display = "none";
   renderQuiz();
@@ -1110,20 +1151,20 @@ $("#resultGallery").addEventListener("click",() => {
 $("#secretForm").addEventListener("submit",event => {
   event.preventDefault();
   const value = $("#secretInput").value.trim().toLocaleLowerCase("en");
-  if (["light","SDG 10"].includes(value)) {
-    $("#secretMessage").textContent = "Secret unlocked. The best photographs begin with observation.";
+  if (value === "inclusion") {
+    $("#secretMessage").textContent = "Pledge unlocked. Every person deserves dignity, equal opportunity, and a voice.";
     $("#secretSpark").textContent = "✦ ✧ ✦";
-    unlockBadge("secret","Secret Seeker");
-    notify("You discovered a hidden secret.");
+    unlockBadge("secret","Inclusion Pledge");
+    notify("You unlocked the inclusion pledge.");
     $("#secretInput").value = "";
   } else {
-    $("#secretMessage").textContent = "That is not the right word yet. Try again.";
+    $("#secretMessage").textContent = "Not quite. Hint: making sure everyone can participate and belong.";
     $("#secretSpark").textContent = "";
   }
 });
 
 // Category navigation: display one section at a time.
-const categorySections = ["home","gallery","quiz","achievements","secret","about"];
+const categorySections = ["home","gallery","targets","quiz","action","about"];
 function showCategory(id,updateHash = true) {
   if (!categorySections.includes(id)) id = "home";
   mainPage.style.display = "";
@@ -1136,7 +1177,7 @@ function showCategory(id,updateHash = true) {
   $("#categoryMenu").open = false;
   $("#navLinks").classList.remove("open");
   if (updateHash && location.hash !== "#"+id) history.pushState(null,"","#"+id);
-  document.title = id === "home" ? "SDG 10 — Photography Experience" :
+  document.title = id === "home" ? "SDG 10 — Reduced Inequalities | A Fairer World" :
     (document.getElementById(id).querySelector("h1,h2")?.textContent.trim() || id)+" — SDG 10";
   window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -1187,12 +1228,12 @@ $("#topButton").addEventListener("click",() => window.scrollTo({top:0,behavior:"
 
 // Intro.
 const intro = $("#intro");
-if (sessionStorage.getItem("SDG 10IntroSeen")) {
+if (sessionStorage.getItem("SDG 10EqualityIntroSeen")) {
   intro.classList.add("done");
 } else {
   setTimeout(() => {
     intro.classList.add("done");
-    sessionStorage.setItem("SDG 10IntroSeen","yes");
+    sessionStorage.setItem("SDG 10EqualityIntroSeen","yes");
   },1500);
 }
 
