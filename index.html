@@ -1,1247 +1,769 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10100f">
-<title>SDG 10 — Reduced Inequalities | A Fairer World</title>
-<meta name="description" content="Explore the United Nations Sustainable Development Goal 10: reduce inequalities within and among countries through inclusion, equal opportunity, fair systems, and shared progress.">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111b22">
+<meta name="description" content="An editorial introduction to Sustainable Development Goal 10: reduce inequality within and among countries. Explore the issues, official targets, and ways to support fairer systems.">
+<title>SDG 10 — Reduced Inequalities</title>
+<link rel="preconnect" href="https://images.unsplash.com">
 <style>
 :root {
-  --bg:#10100f;
-  --panel:#191917;
-  --text:#f4f0e8;
-  --muted:#a7a39b;
-  --accent:#d5b58a;
-  --line:#35332e;
-  --green:#a8c2a0;
+  color-scheme: dark;
+  --bg:#111b22;
+  --surface:#18262e;
+  --surface-2:#20313a;
+  --text:#f2f0e9;
+  --muted:#aab6b8;
+  --accent:#d6b47a;
+  --accent-2:#91b7a6;
+  --line:rgba(235,239,232,.15);
+  --header:rgba(17,27,34,.94);
+  --max:1240px;
 }
 * {box-sizing:border-box;margin:0;padding:0}
-html {scroll-behavior:smooth;scroll-padding-top:90px}
+html {scroll-behavior:smooth;scroll-padding-top:88px}
 body {
   background:var(--bg);color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;line-height:1.65;
+  font:16px/1.65 Arial,Helvetica,sans-serif;
   overflow-x:hidden;
 }
 body.light {
-  --bg:#f2eee7;--panel:#fffaf3;--text:#24211d;
-  --muted:#6d6860;--accent:#8b6540;--line:#d9d0c3;
+  color-scheme:light;
+  --bg:#f3f0e9;--surface:#fffdf8;--surface-2:#ebe7dc;
+  --text:#1f292b;--muted:#657174;--accent:#8a6335;
+  --accent-2:#456e61;--line:rgba(31,41,43,.16);--header:rgba(243,240,233,.94);
 }
+a {color:inherit;text-decoration:none}
 button,input {font:inherit}
 button,a {-webkit-tap-highlight-color:transparent}
 button {cursor:pointer}
-a {color:inherit;text-decoration:none}
 img {display:block;width:100%}
 ::selection {background:var(--accent);color:#111}
-.container {width:min(1200px,90%);margin:auto}
-section {scroll-margin-top:90px}
-button:focus-visible,a:focus-visible,input:focus-visible {
-  outline:2px solid var(--accent);outline-offset:4px
-}
-
-/* Intro */
-#intro {
-  position:fixed;inset:0;z-index:200;
-  display:grid;place-items:center;
-  background:#0b0b0a;
-  transition:opacity .8s,visibility .8s;
-}
-#intro.done {opacity:0;visibility:hidden;pointer-events:none}
-.intro-inner {text-align:center}
-.intro-mark {
-  font-family:Georgia,serif;font-size:clamp(48px,10vw,100px);
-  letter-spacing:.18em;animation:rise 1s both
-}
-.intro-caption {
-  color:var(--accent);letter-spacing:.35em;
-  text-transform:uppercase;font-size:10px;margin-top:12px
-}
-.intro-line {width:0;height:1px;background:var(--accent);
-  margin:24px auto;animation:line 1.3s .3s forwards}
-@keyframes rise {from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
-@keyframes line {to{width:150px}}
+.container {width:min(var(--max),92%);margin-inline:auto}
+:focus-visible {outline:2px solid var(--accent);outline-offset:4px}
 
 /* Navigation */
-header {
+.site-header {
   position:sticky;top:0;z-index:50;
-  background:color-mix(in srgb,var(--bg) 90%,transparent);
-  backdrop-filter:blur(18px);border-bottom:1px solid var(--line)
+  background:var(--header);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line)
 }
-nav {
-  min-height:74px;display:flex;align-items:center;
-  justify-content:space-between;gap:20px
+.nav-shell {
+  min-height:76px;display:flex;align-items:center;
+  justify-content:space-between;gap:28px
 }
 .brand {
-  display:inline-flex;align-items:center;justify-content:center;
-  color:#fff;font-family:Georgia,serif;font-size:26px;
-  font-weight:700;letter-spacing:.08em;line-height:1;
-  transition:color .2s,transform .2s
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:10px;
+  font:700 24px/1 Georgia,serif;letter-spacing:.04em
 }
-body.light .brand {color:#171717}
-.brand:hover {color:var(--accent);transform:translateY(-1px)}
-.intro-mark {
-  color:#f4f0e8;font-family:Georgia,serif;
-  font-size:clamp(58px,11vw,112px);font-weight:700;
-  letter-spacing:.04em;line-height:1
+.brand-mark {
+  display:grid;place-items:center;width:34px;height:34px;
+  background:var(--accent);color:#172127;font:700 14px/1 Arial,sans-serif
 }
-.nav-links {display:flex;align-items:center;gap:0}
-.nav-links a,.nav-links button {
-  background:none;border:0;color:#fff;font-size:15px;font-weight:600;
-  letter-spacing:.025em;padding:9px 17px;white-space:nowrap;
-  transition:color .2s,background .2s
+.nav-links {display:flex;align-items:center;gap:clamp(14px,2.15vw,31px)}
+.nav-links a,.theme-toggle {
+  position:relative;padding:10px 0;border:0;background:none;
+  color:var(--muted);font-size:12px;font-weight:700;
+  letter-spacing:.055em;white-space:nowrap;transition:color .2s
 }
-body.light .nav-links a,body.light .nav-links button {color:#171717}
-.nav-links a + a,.nav-links button {
-  border-left:1px solid rgba(255,255,255,.42)
+.nav-links a:hover,.nav-links a[aria-current="page"],.theme-toggle:hover {color:var(--text)}
+.nav-links a[aria-current="page"]::after {
+  content:"";position:absolute;left:0;right:0;bottom:2px;height:2px;background:var(--accent)
 }
-body.light .nav-links a + a,body.light .nav-links button {
-  border-left-color:rgba(0,0,0,.28)
+.theme-toggle {
+  display:inline-flex;align-items:center;gap:8px;
+  border-left:1px solid var(--line);padding-left:clamp(14px,2.15vw,31px)
 }
- .nav-links a:hover,.nav-links button:hover {color:var(--accent)}
-.category-menu {position:relative}
-.category-menu summary {list-style:none;cursor:pointer;color:#fff;font-size:15px;font-weight:600;letter-spacing:.025em;padding:9px 17px;white-space:nowrap}
-.category-menu summary::-webkit-details-marker {display:none}
-body.light .category-menu summary {color:#171717}
-.category-menu summary:hover {color:var(--accent)}
-.category-dropdown {position:absolute;top:calc(100% + 22px);right:0;min-width:210px;display:grid;padding:8px;background:var(--panel);border:1px solid var(--line);box-shadow:0 16px 35px rgba(0,0,0,.25)}
-.category-dropdown a {padding:11px 13px;color:var(--text);font-size:13px}
-.category-dropdown a + a {border-top:1px solid var(--line)}
-.category-dropdown a:hover {background:color-mix(in srgb,var(--accent) 12%,var(--panel))}
-main#mainPage > section {display:none}
-main#mainPage > section.active-page {display:block}
-main#mainPage > section#home.active-page {display:flex}
-.menu-toggle {display:none;background:none;border:0;color:#fff;font-size:27px}
-body.light .menu-toggle {color:#171717}
-@media(max-width:760px) {
-  .menu-toggle {display:block}
-  .nav-links {
-    display:none;position:absolute;top:73px;left:0;right:0;
-    padding:14px 5%;background:var(--panel);border-bottom:1px solid var(--line);
-    flex-direction:column;align-items:stretch
-  }
-  .nav-links a,.nav-links button {width:100%;text-align:left;padding:13px 4px}
-  .nav-links a + a,.nav-links button {border-left:0;border-top:1px solid var(--line)}
-  .category-menu {width:100%;border-bottom:1px solid var(--line)}
-  .category-menu summary {padding:13px 4px}
-  .category-dropdown {position:static;min-width:0;border:0;box-shadow:none;padding:0 0 8px 12px}
-  .category-dropdown a {padding:10px 4px}
-  .nav-links.open {display:flex}
+.menu-toggle {
+  display:none;border:1px solid var(--line);background:transparent;
+  color:var(--text);padding:8px 11px;font-size:20px
 }
 
-/* Hero */
+/* Page routing */
+main#mainPage > .page {display:none}
+main#mainPage > .page.active-page {display:block}
+.section {padding:clamp(64px,8vw,108px) 0}
+.section-head {
+  display:flex;align-items:end;justify-content:space-between;
+  gap:35px;margin-bottom:38px
+}
+.kicker {
+  color:var(--accent);font-size:10px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;margin-bottom:15px
+}
+.section-head h2,.editorial-title {
+  max-width:760px;font:400 clamp(36px,5vw,62px)/1.06 Georgia,serif;
+  letter-spacing:-.035em
+}
+.section-head h2 em,.editorial-title em {color:var(--accent);font-style:normal}
+.section-head > p {max-width:420px;color:var(--muted);font-size:13px}
+.lead {max-width:760px;color:var(--muted);font-size:15px;line-height:1.85}
+
+/* Home */
 .hero {
-  min-height:min(790px,calc(100vh - 74px));
-  position:relative;display:flex;align-items:center;
+  min-height:min(760px,calc(100svh - 76px));
+  display:flex;align-items:center;position:relative;isolation:isolate;
   background:
-    linear-gradient(90deg,rgba(8,8,7,.87),rgba(8,8,7,.18)),
-    linear-gradient(0deg,var(--bg),transparent 35%),
-    url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2200&q=90")
-    center 55%/cover;
+    linear-gradient(90deg,rgba(9,17,22,.94) 0%,rgba(9,17,22,.74) 48%,rgba(9,17,22,.16) 100%),
+    linear-gradient(0deg,rgba(9,17,22,.45),transparent 45%),
+    url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=2200&q=88")
+    center 42%/cover;
 }
-.hero-content {padding:100px 0;max-width:760px}
-.eyebrow {
-  font-size:10px;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:20px
-}
+.hero-content {padding:110px 0 120px;max-width:780px}
+.hero .kicker {color:#e2c18b}
 .hero h1 {
-  font-family:Georgia,'Times New Roman',serif;
-  font-size:clamp(48px,9vw,110px);font-weight:400;
-  line-height:.98;letter-spacing:-.045em
+  font:400 clamp(54px,8vw,104px)/.98 Georgia,serif;
+  letter-spacing:-.05em;max-width:800px
 }
-.hero h1 em {color:var(--accent);font-weight:400}
-.hero-description {max-width:470px;color:#d0ccc3;margin-top:25px;font-size:14px}
+.hero h1 em {color:#e2c18b;font-style:normal}
+.hero-copy {max-width:550px;color:#e1e5e2;font-size:15px;line-height:1.85;margin-top:27px}
 .hero-actions {display:flex;gap:12px;flex-wrap:wrap;margin-top:35px}
-.btn {
-  border:1px solid var(--accent);padding:13px 21px;
-  background:var(--accent);color:#14120f;
-  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
-  display:inline-flex;justify-content:center;align-items:center;gap:12px;
-  transition:transform .25s,background .25s,color .25s
+.button {
+  display:inline-flex;align-items:center;justify-content:center;gap:12px;
+  min-height:46px;padding:12px 19px;border:1px solid var(--accent);
+  background:var(--accent);color:#172127;
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  transition:transform .2s,background .2s,color .2s
 }
-.btn:hover {transform:translateY(-3px);background:transparent;color:var(--accent)}
-.btn.secondary {background:transparent;color:var(--text);border-color:#77736a}
-.btn.secondary:hover {border-color:var(--accent);color:var(--accent)}
-.hero-note {
-  position:absolute;right:5%;bottom:55px;
-  writing-mode:vertical-rl;color:#d0ccc3;font-size:10px;letter-spacing:.2em
+.button:hover {transform:translateY(-2px);background:transparent;color:var(--accent)}
+.button.secondary {background:transparent;color:#f2f0e9;border-color:rgba(242,240,233,.48)}
+.button.secondary:hover {border-color:#e2c18b;color:#e2c18b}
+.hero-caption {
+  position:absolute;right:4%;bottom:36px;color:rgba(255,255,255,.75);
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  writing-mode:vertical-rl
 }
-.scroll-indicator {margin-top:70px;font-size:10px;color:#c5bfb4;letter-spacing:.2em}
-.scroll-indicator span {display:inline-block;margin-left:12px;animation:bob 1.4s infinite}
-@keyframes bob {50%{transform:translateY(7px)}}
+.intro-strip {display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--line)}
+.intro-point {padding:30px 28px}
+.intro-point + .intro-point {border-left:1px solid var(--line)}
+.intro-point span {color:var(--accent);font-size:10px;letter-spacing:.16em}
+.intro-point h3 {font:400 23px/1.2 Georgia,serif;margin:10px 0 7px}
+.intro-point p {max-width:310px;color:var(--muted);font-size:12px}
 
-/* Shared sections */
-.section {padding:100px 0}
-.section-heading {
-  display:flex;justify-content:space-between;align-items:end;
-  gap:25px;margin-bottom:36px
+/* Stories */
+.story-tools {display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.search-field {
+  flex:1 1 230px;min-height:43px;padding:10px 14px;
+  border:1px solid var(--line);background:var(--surface);color:var(--text);
+  outline:none;font-size:12px
 }
-.section-heading h2 {
-  font-family:Georgia,serif;font-weight:400;
-  font-size:clamp(35px,5vw,60px);line-height:1.1
+.search-field:focus {border-color:var(--accent)}
+.filter-list {display:flex;gap:7px;flex-wrap:wrap}
+.filter-button {
+  padding:10px 13px;border:1px solid var(--line);
+  background:transparent;color:var(--muted);font-size:10px;
+  font-weight:700;letter-spacing:.04em;transition:.2s
 }
-.section-heading h2 em {color:var(--accent)}
-.section-heading p {max-width:330px;color:var(--muted);font-size:13px}
-@media(max-width:650px) {
-  .section {padding:70px 0}
-  .section-heading {align-items:flex-start;flex-direction:column}
-  .hero-note {display:none}
+.filter-button:hover,.filter-button.active {
+  color:#172127;background:var(--accent);border-color:var(--accent)
 }
+.story-count {display:flex;justify-content:space-between;gap:12px;margin-bottom:18px;color:var(--muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.story-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.story-card {
+  min-width:0;background:var(--surface);border:1px solid var(--line);
+  transition:transform .25s,border-color .25s
+}
+.story-card:hover {transform:translateY(-4px);border-color:var(--accent)}
+.story-card a {display:block;height:100%}
+.story-image {height:245px;overflow:hidden;background:var(--surface-2)}
+.story-image img {height:100%;object-fit:cover;transition:transform .6s}
+.story-card:hover .story-image img {transform:scale(1.035)}
+.story-body {padding:20px}
+.story-tag {color:var(--accent);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.story-body h3 {font:400 25px/1.15 Georgia,serif;margin:9px 0}
+.story-body p {color:var(--muted);font-size:12px;line-height:1.7}
+.story-meta {display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:19px;padding-top:13px;border-top:1px solid var(--line)}
+.story-meta span {font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.story-meta strong {font-size:10px;color:var(--accent)}
+.empty-state {display:none;text-align:center;padding:48px 20px;color:var(--muted);font-size:13px}
 
-/* Gallery */
-.gallery-controls {
-  display:flex;gap:12px;flex-wrap:wrap;margin-bottom:25px
+/* Goal and targets */
+.goal-intro {
+  display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:end;
+  padding-bottom:45px;border-bottom:1px solid var(--line);margin-bottom:36px
 }
-.gallery-controls input {
-  flex:1;min-width:180px;background:var(--panel);
-  color:var(--text);border:1px solid var(--line);
-  padding:12px 15px;outline:none
-}
-.gallery-controls input:focus {border-color:var(--accent)}
-.pill {
-  padding:10px 15px;border:1px solid var(--line);
-  color:var(--muted);background:transparent;font-size:11px;
-  transition:.2s
-}
-.pill:hover,.pill.active {background:var(--accent);border-color:var(--accent);color:#17130f}
-.gallery-meta {display:flex;justify-content:space-between;gap:12px;
-  color:var(--muted);font-size:11px;margin-bottom:18px}
-.gallery {
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px
-}
-.photo-card {
-  position:relative;background:var(--panel);border:1px solid var(--line);
-  overflow:hidden;transition:border-color .3s,transform .3s;
-  animation:cardIn .65s both;animation-delay:var(--delay,0ms)
-}
-@keyframes cardIn {from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.photo-card:hover {border-color:var(--accent);transform:translateY(-5px)}
-.photo-link {display:block}
-.photo-image-wrap {height:290px;overflow:hidden;position:relative;background:#25231f}
-.photo-image {
-  height:100%;object-fit:cover;
-  transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s
-}
-.photo-card:hover .photo-image {transform:scale(1.07);filter:brightness(.7)}
-.photo-number {
-  position:absolute;left:16px;top:15px;z-index:1;
-  font-size:10px;letter-spacing:.15em;color:white
-}
-.photo-overlay {
-  position:absolute;inset:0;display:flex;align-items:end;
-  padding:20px;color:white;opacity:0;transition:opacity .3s;
-  background:linear-gradient(transparent,rgba(0,0,0,.55))
-}
-.photo-card:hover .photo-overlay {opacity:1}
-.photo-overlay span {font-size:10px;letter-spacing:.2em;text-transform:uppercase}
-.photo-info {padding:18px}
-.photo-category {font-size:9px;letter-spacing:.23em;text-transform:uppercase;color:var(--accent)}
-.photo-info h3 {font-family:Georgia,serif;font-size:24px;font-weight:400;margin:5px 0}
-.photo-info p {color:var(--muted);font-size:12px}
-.card-bottom {display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px}
-.favorite {
-  border:1px solid var(--line);background:transparent;color:var(--text);
-  padding:7px 10px;font-size:11px
-}
-.favorite.active {color:#ef9d9d;border-color:#ef9d9d}
-.open-label {font-size:10px;color:var(--accent);letter-spacing:.1em}
-.empty {display:none;padding:45px;text-align:center;color:var(--muted)}
-@media(max-width:900px) {.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px) {.gallery{grid-template-columns:1fr}.photo-image-wrap{height:300px}}
+.goal-aside {padding:25px;background:var(--surface);border-left:2px solid var(--accent)}
+.goal-aside strong {display:block;font:400 42px/1 Georgia,serif;color:var(--accent);margin-bottom:10px}
+.goal-aside p {font-size:12px;color:var(--muted)}
+.target-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.target-card {padding:24px 25px;background:var(--bg);display:grid;grid-template-columns:58px 1fr;gap:14px}
+.target-number {color:var(--accent);font:400 17px/1.4 Georgia,serif}
+.target-card h3 {font:400 22px/1.2 Georgia,serif;margin-bottom:7px}
+.target-card p {color:var(--muted);font-size:12px;line-height:1.7}
+.source-note {display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:24px}
+.source-note p {max-width:650px;color:var(--muted);font-size:11px}
+.text-link {color:var(--accent);font-size:11px;font-weight:700;white-space:nowrap;border-bottom:1px solid var(--accent);padding-bottom:4px}
 
-/* Story detail */
+/* Action */
+.action-lead {max-width:790px;margin-bottom:42px}
+.action-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.action-card {padding:28px;background:var(--surface);border:1px solid var(--line)}
+.action-number {display:block;color:var(--accent);font:400 28px/1 Georgia,serif;margin-bottom:27px}
+.action-card h3 {font:400 25px/1.2 Georgia,serif;margin-bottom:12px}
+.action-card p {color:var(--muted);font-size:12px;line-height:1.8}
+.levels {margin-top:58px;padding:30px;background:var(--surface-2)}
+.levels h3 {font:400 27px/1.2 Georgia,serif;margin-bottom:18px}
+.level-list {display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.level-list h4 {font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:7px}
+.level-list p {font-size:12px;color:var(--muted)}
+
+/* About */
+.about-grid {display:grid;grid-template-columns:.95fr 1.05fr;gap:58px;align-items:center}
+.about-image {height:500px;object-fit:cover}
+.about-copy p {margin-top:17px;color:var(--muted);font-size:13px;line-height:1.85}
+.about-sources {margin-top:26px;padding-top:18px;border-top:1px solid var(--line)}
+.about-sources p {font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 11px}
+.about-sources a {display:inline-block;color:var(--text);font-size:11px;border-bottom:1px solid var(--line);margin:0 15px 8px 0;padding-bottom:3px}
+
+/* Story detail and image viewer */
 #detailPage {display:none;min-height:75vh;padding:55px 0 100px}
-.back-link {display:inline-block;color:var(--accent);font-size:12px;margin-bottom:30px}
-.detail-layout {display:grid;grid-template-columns:1.2fr .8fr;gap:45px;align-items:start}
-.detail-image {width:100%;max-height:720px;object-fit:cover;cursor:zoom-in}
-.detail-copy {padding:15px 0}
-.detail-copy h1 {font-family:Georgia,serif;font-size:clamp(40px,6vw,72px);font-weight:400;line-height:1.05}
-.detail-copy p {color:var(--muted);margin-top:20px;font-size:14px}
-.detail-facts {margin-top:30px;border-top:1px solid var(--line);padding-top:20px;font-size:12px}
-@media(max-width:750px){.detail-layout{grid-template-columns:1fr;gap:25px}}
+.back-link {display:inline-block;color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:30px}
+.detail-layout {display:grid;grid-template-columns:1.1fr .9fr;gap:55px;align-items:start}
+.detail-image {width:100%;max-height:680px;object-fit:cover;cursor:zoom-in}
+.detail-copy h1 {font:400 clamp(40px,6vw,70px)/1.04 Georgia,serif;letter-spacing:-.035em}
+.detail-copy p {color:var(--muted);font-size:14px;line-height:1.85;margin-top:20px}
+.detail-facts {margin-top:28px;padding-top:17px;border-top:1px solid var(--line);font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase}
+.image-viewer {
+  display:none;position:fixed;inset:0;z-index:100;background:rgba(5,10,13,.97);
+  align-items:center;justify-content:center;padding:50px
+}
+.image-viewer.open {display:flex}
+.image-viewer img {width:auto;max-width:100%;max-height:88vh;object-fit:contain}
+.viewer-close {
+  position:absolute;top:18px;right:20px;border:1px solid rgba(255,255,255,.35);
+  background:transparent;color:white;padding:9px 14px;font-size:21px
+}
+.viewer-hint {position:absolute;bottom:18px;color:#b6c0bf;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
 
-/* Quiz */
-.quiz-section {background:var(--panel);border-block:1px solid var(--line)}
-.quiz-shell {display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:start}
-.quiz-intro h2 {font-family:Georgia,serif;font-size:clamp(38px,5vw,60px);font-weight:400;line-height:1.08}
-.quiz-intro p {color:var(--muted);margin-top:20px;font-size:13px}
-.quiz-card {border:1px solid var(--line);padding:clamp(22px,4vw,40px);min-height:330px}
-.quiz-progress {height:2px;background:var(--line);margin-bottom:30px}
-.quiz-progress div {height:100%;width:0;background:var(--accent);transition:width .3s}
-.quiz-count {color:var(--accent);font-size:10px;letter-spacing:.2em;text-transform:uppercase}
-.quiz-question {font-family:Georgia,serif;font-size:27px;font-weight:400;line-height:1.3;margin:12px 0 25px}
-.quiz-options {display:grid;gap:10px}
-.quiz-option {
-  text-align:left;width:100%;padding:14px 16px;
-  border:1px solid var(--line);background:transparent;color:var(--text);
-  transition:.2s;font-size:12px
-}
-.quiz-option:hover {border-color:var(--accent);padding-left:22px;color:var(--accent)}
-.quiz-result {display:none}
-.quiz-result h3 {font-family:Georgia,serif;font-size:38px;font-weight:400;color:var(--accent)}
-.quiz-result p {color:var(--muted);font-size:13px;margin:15px 0 25px}
-@media(max-width:800px){.quiz-shell{grid-template-columns:1fr;gap:30px}}
+/* Footer */
+.site-footer {border-top:1px solid var(--line);padding:27px 0;color:var(--muted);font-size:10px}
+.footer-row {display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.footer-row a {color:var(--accent)}
 
-/* SDG 10 target cards and practical actions */
-.targets-grid,.action-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
-.target-card,.action-card {padding:24px;background:var(--panel);border:1px solid var(--line)}
-.target-card > span,.action-card > span {color:var(--accent);font-size:11px;letter-spacing:.15em}
-.target-card h3,.action-card h3 {font-family:Georgia,serif;font-size:22px;font-weight:400;margin:9px 0}
-.target-card p,.action-card p {font-size:12px;color:var(--muted)}
-.target-source {margin-top:24px;font-size:12px;color:var(--accent)}
-.target-source a {border-bottom:1px solid var(--accent);padding-bottom:4px}
-.achievement-heading {margin:70px 0 25px}
-.achievement-heading h2 {font-family:Georgia,serif;font-size:clamp(32px,4vw,48px);font-weight:400}
-.achievement-heading h2 em {color:var(--accent)}
-.achievement-heading > p:last-child {max-width:650px;color:var(--muted);font-size:13px;margin-top:10px}
-@media(max-width:800px) {.targets-grid,.action-grid {grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:520px) {.targets-grid,.action-grid {grid-template-columns:1fr}}
-
-/* Achievements */
-.achievement-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.achievement {
-  padding:24px 15px;background:var(--panel);border:1px solid var(--line);
-  opacity:.48;transition:.3s;text-align:center
+body.light .hero {background:
+  linear-gradient(90deg,rgba(17,27,34,.92) 0%,rgba(17,27,34,.72) 48%,rgba(17,27,34,.13) 100%),
+  linear-gradient(0deg,rgba(17,27,34,.36),transparent 45%),
+  url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=2200&q=88") center 42%/cover}
+@media(max-width:1050px) {
+  .nav-links {gap:17px}
+  .nav-links a,.theme-toggle {font-size:11px}
+  .theme-toggle {padding-left:17px}
 }
-.achievement.unlocked {opacity:1;border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--panel))}
-.achievement-icon {font-size:27px;margin-bottom:10px}
-.achievement h3 {font-size:12px;font-weight:500}
-.achievement p {font-size:10px;color:var(--muted);margin-top:6px}
-@media(max-width:650px){.achievement-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-
-/* Hidden surprise */
-.secret-box {
-  border:1px solid var(--line);padding:35px;text-align:center;
-  background:radial-gradient(ellipse at center,color-mix(in srgb,var(--accent) 10%,var(--bg)),var(--bg))
+@media(max-width:900px) {
+  .menu-toggle {display:block}
+  .nav-shell {min-height:70px}
+  .nav-links {
+    display:none;position:absolute;top:69px;left:0;right:0;
+    padding:16px 4%;background:var(--surface);border-bottom:1px solid var(--line);
+    align-items:stretch;flex-direction:column;gap:0
+  }
+  .nav-links.open {display:flex}
+  .nav-links a,.theme-toggle {padding:13px 4px;text-align:left;border:0;border-bottom:1px solid var(--line);font-size:12px}
+  .nav-links a[aria-current="page"]::after {left:4px;right:auto;width:22px;bottom:7px}
+  .theme-toggle {padding-left:4px}
+  .hero {min-height:680px}
 }
-.secret-box h2 {font-family:Georgia,serif;font-weight:400;font-size:35px}
-.secret-box p {font-size:12px;color:var(--muted);margin:10px 0 20px}
-.secret-input {
-  background:transparent;border:1px solid var(--line);color:var(--text);
-  padding:12px;max-width:260px;width:100%;margin-right:8px
+@media(max-width:760px) {
+  .section-head,.goal-intro {display:block}
+  .section-head > p {margin-top:18px}
+  .goal-aside {margin-top:25px}
+  .story-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .action-grid {grid-template-columns:1fr}
+  .about-grid {grid-template-columns:1fr;gap:28px}
+  .about-image {height:330px}
+  .detail-layout {grid-template-columns:1fr;gap:28px}
+  .detail-image {max-height:480px}
 }
-.secret-message {margin-top:20px;color:var(--accent);font-size:13px;min-height:25px}
-#secretSpark {font-size:23px;letter-spacing:8px;display:inline-block}
-
-/* About, footer, modal */
-.about-grid {display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.about-grid img {height:400px;object-fit:cover;filter:grayscale(.3)}
-.about-copy h2 {font-family:Georgia,serif;font-weight:400;font-size:clamp(35px,5vw,58px)}
-.about-copy p {font-size:13px;color:var(--muted);margin-top:20px}
-footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
-.footer-inner {display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.toast {
-  position:fixed;bottom:25px;left:50%;z-index:300;
-  transform:translate(-50%,20px);opacity:0;pointer-events:none;
-  padding:13px 20px;background:var(--accent);color:#17130f;
-  font-size:12px;transition:.3s;text-align:center;max-width:90vw
-}
-.toast.show {opacity:1;transform:translate(-50%,0)}
-#lightbox {
-  display:none;position:fixed;inset:0;z-index:150;
-  background:rgba(0,0,0,.96);align-items:center;justify-content:center;padding:60px
-}
-#lightbox.open {display:flex}
-#lightbox img {width:auto;max-width:100%;max-height:85vh;object-fit:contain}
-.lightbox-btn {
-  position:absolute;top:20px;right:20px;background:transparent;
-  color:white;border:1px solid #555;padding:10px 15px;font-size:20px
-}
-.lightbox-prev,.lightbox-next {top:50%;right:auto;transform:translateY(-50%);font-size:28px}
-.lightbox-prev {left:15px}.lightbox-next {right:15px}
-#topButton {
-  position:fixed;bottom:22px;right:20px;z-index:40;
-  background:var(--accent);color:#17130f;border:0;width:42px;height:42px;
-  display:none;font-size:20px
-}
-#topButton.show {display:block}
-.reveal {opacity:0;transform:translateY(25px);transition:opacity .8s,transform .8s}
-.reveal.visible {opacity:1;transform:none}
-@media(max-width:750px) {
-  .about-grid{grid-template-columns:1fr}
-  .about-grid img{height:280px}
-  #lightbox{padding:55px 40px}
+@media(max-width:560px) {
+  .hero {min-height:650px;background-position:58% center}
+  .hero-content {padding:82px 0 105px}
+  .hero h1 {font-size:clamp(49px,14vw,72px)}
+  .hero-caption {display:none}
+  .hero-copy {font-size:14px}
+  .intro-strip {grid-template-columns:1fr}
+  .intro-point {padding:22px 5%}
+  .intro-point + .intro-point {border-left:0;border-top:1px solid var(--line)}
+  .story-grid,.target-grid,.level-list {grid-template-columns:1fr}
+  .story-image {height:230px}
+  .source-note {display:block}
+  .source-note .text-link {display:inline-block;margin-top:14px}
+  .target-card {padding:20px}
+  .levels {padding:22px}
+  .image-viewer {padding:48px 18px}
 }
 @media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+  *,*::before,*::after {scroll-behavior:auto!important;transition-duration:.01ms!important}
 }
 </style>
 </head>
 
 <body>
-<div id="intro" aria-label="Introduction">
-  <div class="intro-inner">
-    <div class="intro-mark">SDG 10</div>
-    <div class="intro-line"></div>
-    <p class="intro-caption">A world where everyone belongs</p>
-  </div>
-</div>
-
-<header>
-  <nav class="container">
-    <a href="#home" class="brand" id="brandHome" aria-label="SDG 10 – Home">SDG 10</a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+<header class="site-header">
+  <nav class="container nav-shell" aria-label="Main navigation">
+    <a class="brand" href="#home" id="brandHome" aria-label="SDG 10 home">
+      <span class="brand-mark">10</span><span>SDG 10</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
     <div class="nav-links" id="navLinks">
-      <details class="category-menu" id="categoryMenu">
-        <summary>Categories <span aria-hidden="true">⌄</span></summary>
-        <div class="category-dropdown">
-          <a href="#home">Home</a>
-          <a href="#gallery">Stories</a>
-          <a href="#targets">SDG 10 targets</a>
-          <a href="#quiz">Equality quiz</a>
-          <a href="#action">Take action</a>
-          <a href="#about">About the goal</a>
-        </div>
-      </details>
-      <button id="themeToggle" type="button">☼ Appearance</button>
+      <a href="#home" data-page="home">Home</a>
+      <a href="#gallery" data-page="gallery">Stories</a>
+      <a href="#targets" data-page="targets">The Goal</a>
+      <a href="#action" data-page="action">Take Action</a>
+      <a href="#about" data-page="about">About</a>
+      <button class="theme-toggle" id="themeToggle" type="button">◐ <span>Appearance</span></button>
     </div>
   </nav>
 </header>
 
 <main id="mainPage">
-  <section class="hero" id="home">
+  <section class="page home-page active-page" id="home">
+    <div class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <p class="kicker">United Nations · Sustainable Development Goal 10</p>
+          <h1>Equality is not a privilege.<br><em>It is the foundation.</em></h1>
+          <p class="hero-copy">A fairer world is one where background does not determine opportunity, every person can participate, and no country is left without a voice. Explore what reducing inequality really requires.</p>
+          <div class="hero-actions">
+            <a class="button" href="#gallery" data-page="gallery">Explore the stories <span>↗</span></a>
+            <a class="button secondary" href="#targets" data-page="targets">Understand Goal 10</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-caption">Reduce inequality within and among countries</div>
+    </div>
     <div class="container">
-      <div class="hero-content">
-        <p class="eyebrow">UNITED NATIONS · SUSTAINABLE DEVELOPMENT GOAL 10</p>
-        <h1>A fairer world<br>starts with <em>everyone.</em></h1>
-        <p class="hero-description">
-          Inequality is not inevitable. Explore the barriers that keep people from opportunity,
-          the voices that deserve to be heard, and the changes that can help everyone participate.
-        </p>
-        <div class="hero-actions">
-          <a class="btn" href="index.html#gallery">Explore the stories ↗</a>
-          <a class="btn secondary" href="index.html#targets">Discover Goal 10</a>
-        </div>
-        <p class="scroll-indicator">EXPLORE · QUESTION · TAKE ACTION <span>↓</span></p>
+      <div class="intro-strip">
+        <article class="intro-point">
+          <span>01 / OPPORTUNITY</span>
+          <h3>A fair chance to thrive</h3>
+          <p>Income, education, work, and essential services should not be restricted by someone's circumstances.</p>
+        </article>
+        <article class="intro-point">
+          <span>02 / INCLUSION</span>
+          <h3>Everyone has a place</h3>
+          <p>Social, economic, and political participation must be open to people of every background.</p>
+        </article>
+        <article class="intro-point">
+          <span>03 / SHARED POWER</span>
+          <h3>Every voice matters</h3>
+          <p>Fairness also means representation, accountable institutions, and cooperation between countries.</p>
+        </article>
       </div>
     </div>
-    <div class="hero-note">EQUALITY IS EVERYONE'S RIGHT</div>
   </section>
 
-  <section class="section container" id="gallery">
-    <div class="section-heading reveal">
+  <section class="page section container" id="gallery">
+    <div class="section-head">
       <div>
-        <p class="eyebrow">01 / Stories behind the goal</p>
-        <h2>See the <em>inequality.</em></h2>
+        <p class="kicker">01 / Issues behind the numbers</p>
+        <h2>Stories of <em>inequality.</em></h2>
       </div>
-      <p>Each image is a visual prompt for a real issue: unequal access, exclusion, migration, and representation. The photographs are symbolic, not documentary evidence.</p>
+      <p>Explore six perspectives on Goal 10. Each story connects a visual prompt to a structural issue and an official SDG 10 target.</p>
     </div>
-
-    <div class="gallery-controls reveal">
-      <input type="search" id="search" placeholder="Search equality themes ..." aria-label="Search stories">
-      <button class="pill active" data-filter="all">All stories</button>
-      <button class="pill" data-filter="opportunity">Opportunity</button>
-      <button class="pill" data-filter="inclusion">Inclusion</button>
-      <button class="pill" data-filter="mobility">Migration &amp; mobility</button>
-      <button class="pill" data-filter="fair-systems">Fair systems</button>
-      <button class="pill" id="favoritesFilter">♡ Saved stories</button>
-      <button class="pill" id="shuffle">↻ Shuffle</button>
+    <div class="story-tools">
+      <input class="search-field" type="search" id="search" placeholder="Search stories or themes..." aria-label="Search stories">
+      <div class="filter-list" aria-label="Filter stories">
+        <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter-button" type="button" data-filter="opportunity" aria-pressed="false">Opportunity</button>
+        <button class="filter-button" type="button" data-filter="inclusion" aria-pressed="false">Inclusion</button>
+        <button class="filter-button" type="button" data-filter="migration" aria-pressed="false">Migration</button>
+        <button class="filter-button" type="button" data-filter="systems" aria-pressed="false">Fair systems</button>
+      </div>
     </div>
-
-    <div class="gallery-meta">
-      <span id="resultCount">9 stories</span>
-      <span>SELECT A STORY TO EXPLORE ↗</span>
-    </div>
-
-    <div class="gallery" id="galleryGrid">
-      <article class="photo-card" data-id="forest" data-category="inclusion" data-title="Shared Spaces, Shared Belonging">
-        <a class="photo-link" href="index.html#photo-forest">
-          <div class="photo-image-wrap">
-            <span class="photo-number">01 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85" alt="Sunlight filtering through a green forest" loading="lazy">
-            <div class="photo-overlay"><span>Open story ↗</span></div>
-          </div>
-          <div class="photo-info">
-            <span class="photo-category">Inclusive Communities · Shared Spaces</span>
-            <h3>Shared Spaces, Shared Belonging</h3>
-            <p>A community is stronger when public spaces are safe and welcoming to everyone.</p>
+    <div class="story-count"><span id="resultCount">6 stories</span><span>Select a story to read more</span></div>
+    <div class="story-grid" id="storyGrid">
+      <article class="story-card" data-id="income" data-category="opportunity" data-title="A fair share">
+        <a href="#story-income" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85" alt="Colleagues working together around a table" loading="lazy"></div>
+          <div class="story-body">
+            <span class="story-tag">Income · Decent work</span>
+            <h3>A fair share</h3>
+            <p>Economic growth only reduces inequality when its benefits reach people on lower incomes.</p>
+            <div class="story-meta"><span>Targets 10.1 · 10.4</span><strong>Read story ↗</strong></div>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0">
-          <div class="card-bottom"><button class="favorite" type="button">♡ Save story</button><span class="open-label">01 — INCLUSION</span></div>
-        </div>
       </article>
-
-      <article class="photo-card" data-id="mountains" data-category="opportunity" data-title="A Fair Starting Point">
-        <a class="photo-link" href="index.html#photo-mountains">
-          <div class="photo-image-wrap">
-            <span class="photo-number">02 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=85" alt="Mountain peaks rising above the clouds" loading="lazy">
-            <div class="photo-overlay"><span>Open story ↗</span></div>
-          </div>
-          <div class="photo-info">
-            <span class="photo-category">Equal Opportunity · A Fair Start</span>
-            <h3>A Fair Starting Point</h3>
-            <p>A person's future should not be decided by their income, disability, origin, or background.</p>
+      <article class="story-card" data-id="access" data-category="inclusion" data-title="Access by design">
+        <a href="#story-access" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=85" alt="Students collaborating on a shared task" loading="lazy"></div>
+          <div class="story-body">
+            <span class="story-tag">Accessibility · Participation</span>
+            <h3>Access by design</h3>
+            <p>Inclusive spaces, services, and information remove barriers before people are excluded.</p>
+            <div class="story-meta"><span>Targets 10.2 · 10.3</span><strong>Read story ↗</strong></div>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save story</button><span class="open-label">02 — OPPORTUNITY</span></div></div>
       </article>
-
-      <article class="photo-card" data-id="ocean" data-category="mobility" data-title="Safe Routes, Dignified Journeys">
-        <a class="photo-link" href="index.html#photo-ocean">
-          <div class="photo-image-wrap">
-            <span class="photo-number">03 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1000&q=85" alt="Blue ocean waves moving toward the shore" loading="lazy">
-            <div class="photo-overlay"><span>Open story ↗</span></div>
-          </div>
-          <div class="photo-info">
-            <span class="photo-category">Migration & Mobility · Human Dignity</span>
-            <h3>Safe Routes, Dignified Journeys</h3>
-            <p>People on the move deserve safety, dignity, and fair access to opportunity.</p>
+      <article class="story-card" data-id="learning" data-category="opportunity" data-title="Learning without barriers">
+        <a href="#story-learning" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=85" alt="Students learning together in a classroom" loading="lazy"></div>
+          <div class="story-body">
+            <span class="story-tag">Education · Equal opportunity</span>
+            <h3>Learning without barriers</h3>
+            <p>Access to education and skills can widen choices, but opportunity depends on more than admission alone.</p>
+            <div class="story-meta"><span>Targets 10.2 · 10.3</span><strong>Read story ↗</strong></div>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save story</button><span class="open-label">03 — MOBILITY</span></div></div>
       </article>
-
-      <article class="photo-card" data-id="city" data-category="fair-systems" data-title="The Unequal City">
-        <a class="photo-link" href="index.html#photo-city">
-          <div class="photo-image-wrap">
-            <span class="photo-number">04 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1000&q=85" alt="A city skyline illuminated after dark" loading="lazy">
-            <div class="photo-overlay"><span>Open story ↗</span></div>
-          </div>
-          <div class="photo-info">
-            <span class="photo-category">Economic Inequality · Life in Cities</span>
-            <h3>The Unequal City</h3>
-            <p>Where people live can shape their access to housing, services, decent work, and income.</p>
+      <article class="story-card" data-id="migration" data-category="migration" data-title="Safe to move">
+        <a href="#story-migration" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1000&q=85" alt="Travel belongings prepared for a journey" loading="lazy"></div>
+          <div class="story-body">
+            <span class="story-tag">Migration · Human dignity</span>
+            <h3>Safe to move</h3>
+            <p>Migration should be safe, orderly, regular, and grounded in the rights and dignity of people on the move.</p>
+            <div class="story-meta"><span>Target 10.7</span><strong>Read story ↗</strong></div>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save story</button><span class="open-label">04 — FAIR SYSTEMS</span></div></div>
       </article>
-
-      <article class="photo-card" data-id="lake" data-category="opportunity" data-title="Education Without Barriers">
-        <a class="photo-link" href="index.html#photo-lake">
-          <div class="photo-image-wrap">
-            <span class="photo-number">05 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85" alt="A calm lake reflecting mountains in the morning" loading="lazy">
-            <div class="photo-overlay"><span>Open story ↗</span></div>
-          </div>
-          <div class="photo-info">
-            <span class="photo-category">Equal Opportunity · Learning for All</span>
-            <h3>Education Without Barriers</h3>
-            <p>Education and skills can open doors. Access should never depend on a person's circumstances.</p>
+      <article class="story-card" data-id="voice" data-category="systems" data-title="A voice in the room">
+        <a href="#story-voice" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1000&q=85" alt="A group taking part in a collaborative discussion" loading="lazy"></div>
+          <div class="story-body">
+            <span class="story-tag">Representation · Decision-making</span>
+            <h3>A voice in the room</h3>
+            <p>People affected by decisions should have a meaningful voice in shaping them—including across borders.</p>
+            <div class="story-meta"><span>Targets 10.3 · 10.6</span><strong>Read story ↗</strong></div>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save story</button><span class="open-label">05 — OPPORTUNITY</span></div></div>
       </article>
-
-      <article class="photo-card" data-id="travel" data-category="mobility" data-title="A Place to Belong">
-        <a class="photo-link" href="index.html#photo-travel">
-          <div class="photo-image-wrap">
-            <span class="photo-number">06 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1000&q=85" alt="Personal belongings arranged for a journey" loading="lazy">
-            <div class="photo-overlay"><span>Open story ↗</span></div>
-          </div>
-          <div class="photo-info">
-            <span class="photo-category">Migration & Mobility · Belonging</span>
-            <h3>A Place to Belong</h3>
-            <p>Safe, well-managed migration and welcoming communities help people participate and thrive.</p>
+      <article class="story-card" data-id="global" data-category="systems" data-title="Progress across borders">
+        <a href="#story-global" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1000&q=85" alt="An open road crossing a wide landscape" loading="lazy"></div>
+          <div class="story-body">
+            <span class="story-tag">Global cooperation · Shared progress</span>
+            <h3>Progress across borders</h3>
+            <p>Trade, investment, development finance, and affordable remittances shape inequalities between countries.</p>
+            <div class="story-meta"><span>Targets 10.5 · 10.a–10.c</span><strong>Read story ↗</strong></div>
           </div>
         </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save story</button><span class="open-label">06 — MOBILITY</span></div></div>
-      </article>
-
-      <article class="photo-card" data-id="sunset" data-category="fair-systems" data-title="Every Voice Counts">
-        <a class="photo-link" href="index.html#photo-sunset">
-          <div class="photo-image-wrap">
-            <span class="photo-number">07 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1472120435266-53107fd0c44a?auto=format&fit=crop&w=1000&q=85" alt="A warm sunset spreading across the horizon" loading="lazy">
-            <div class="photo-overlay"><span>Open story ↗</span></div>
-          </div>
-          <div class="photo-info">
-            <span class="photo-category">Representation · Being Heard</span>
-            <h3>Every Voice Counts</h3>
-            <p>Fair decisions require meaningful representation, especially for people too often left out.</p>
-          </div>
-        </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save story</button><span class="open-label">07 — FAIR SYSTEMS</span></div></div>
-      </article>
-
-      <article class="photo-card" data-id="architecture" data-category="inclusion" data-title="Designed for Everyone">
-        <a class="photo-link" href="index.html#photo-architecture">
-          <div class="photo-image-wrap">
-            <span class="photo-number">08 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1000&q=85" alt="Geometric lines and details of modern architecture" loading="lazy">
-            <div class="photo-overlay"><span>Open story ↗</span></div>
-          </div>
-          <div class="photo-info">
-            <span class="photo-category">Accessibility · Inclusive Design</span>
-            <h3>Designed for Everyone</h3>
-            <p>Accessible design helps people of different ages and abilities take part in everyday life.</p>
-          </div>
-        </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save story</button><span class="open-label">08 — INCLUSION</span></div></div>
-      </article>
-
-      <article class="photo-card" data-id="road" data-category="fair-systems" data-title="Progress Across Borders">
-        <a class="photo-link" href="index.html#photo-road">
-          <div class="photo-image-wrap">
-            <span class="photo-number">09 / 09</span>
-            <img class="photo-image" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1000&q=85" alt="A long open road leading through a landscape" loading="lazy">
-            <div class="photo-overlay"><span>Open story ↗</span></div>
-          </div>
-          <div class="photo-info">
-            <span class="photo-category">Global Cooperation · Shared Progress</span>
-            <h3>Progress Across Borders</h3>
-            <p>Reducing inequality also means cooperation between countries and fairer access to resources and opportunity.</p>
-          </div>
-        </a>
-        <div class="photo-info" style="padding-top:0"><div class="card-bottom"><button class="favorite" type="button">♡ Save story</button><span class="open-label">09 — FAIR SYSTEMS</span></div></div>
       </article>
     </div>
-    <p class="empty" id="emptyState">No stories match that search. Try a different word or theme.</p>
+    <p class="empty-state" id="emptyState">No stories match your search. Try another term or topic.</p>
   </section>
 
-  <section class="section quiz-section" id="quiz">
-    <div class="container quiz-shell">
-      <div class="quiz-intro reveal">
-        <p class="eyebrow">02 / Find your way to contribute</p>
-        <h2>How will you help build a more <em>equal world?</em></h2>
-        <p>Choose the action that matters most to you in each situation. Your result will suggest one way to support the aims of SDG 10.</p>
+  <section class="page section container" id="targets">
+    <div class="goal-intro">
+      <div>
+        <p class="kicker">02 / The global commitment</p>
+        <h2 class="editorial-title">Reduce inequality <em>within and among countries.</em></h2>
+        <p class="lead" style="margin-top:22px">SDG 10 recognises that inequality is about more than income. It is also about unequal access to opportunity, services, rights, representation, and the power to influence decisions. Its targets address both disparities inside countries and gaps between them.</p>
       </div>
-      <div class="quiz-card reveal">
-        <div class="quiz-progress"><div id="progressBar"></div></div>
-        <div id="quizBody">
-          <p class="quiz-count" id="quizCount">Question 01 / 05</p>
-          <h3 class="quiz-question" id="quizQuestion">Where would you start?</h3>
-          <div class="quiz-options" id="quizOptions"></div>
-        </div>
-        <div class="quiz-result" id="quizResult" aria-live="polite">
-          <p class="eyebrow">Your equality action profile</p>
-          <h3 id="resultTitle"></h3>
-          <p id="resultText"></p>
-          <button class="btn" id="resultGallery" type="button">Explore related stories ↗</button>
-          <button class="pill" id="restartQuiz" type="button" style="margin-top:12px">Take the quiz again</button>
-        </div>
+      <aside class="goal-aside">
+        <strong>10 targets</strong>
+        <p>One connected agenda: shared prosperity, inclusion, fair institutions, safe migration, and stronger international cooperation.</p>
+      </aside>
+    </div>
+    <div class="section-head">
+      <div>
+        <p class="kicker">The targets explained</p>
+        <h2>From ambition to <em>action.</em></h2>
       </div>
+      <p>These concise summaries follow the official United Nations wording. Select the source link below for the full target text and indicators.</p>
+    </div>
+    <div class="target-grid">
+      <article class="target-card"><span class="target-number">10.1</span><div><h3>Income growth</h3><p>By 2030, sustain income growth for the bottom 40 per cent of the population at a rate higher than the national average.</p></div></article>
+      <article class="target-card"><span class="target-number">10.2</span><div><h3>Inclusion for all</h3><p>Promote social, economic, and political inclusion regardless of age, sex, disability, race, ethnicity, origin, religion, or status.</p></div></article>
+      <article class="target-card"><span class="target-number">10.3</span><div><h3>Equal opportunity</h3><p>Reduce unequal outcomes, eliminate discriminatory laws and practices, and strengthen equal opportunity.</p></div></article>
+      <article class="target-card"><span class="target-number">10.4</span><div><h3>Fairer policies</h3><p>Use fiscal, wage, and social protection policies to progressively achieve greater equality.</p></div></article>
+      <article class="target-card"><span class="target-number">10.5</span><div><h3>Responsible finance</h3><p>Improve the regulation and monitoring of global financial markets and institutions.</p></div></article>
+      <article class="target-card"><span class="target-number">10.6</span><div><h3>Representation</h3><p>Strengthen the voice and representation of developing countries in international economic and financial institutions.</p></div></article>
+      <article class="target-card"><span class="target-number">10.7</span><div><h3>Safe migration</h3><p>Support orderly, safe, regular, and responsible migration through planned and well-managed policies.</p></div></article>
+      <article class="target-card"><span class="target-number">10.a</span><div><h3>Fair trade treatment</h3><p>Apply special and differential treatment for developing countries, particularly least developed countries, under WTO agreements.</p></div></article>
+      <article class="target-card"><span class="target-number">10.b</span><div><h3>Development finance</h3><p>Encourage aid and financial flows towards countries where development needs are greatest.</p></div></article>
+      <article class="target-card"><span class="target-number">10.c</span><div><h3>Affordable remittances</h3><p>By 2030, reduce remittance transaction costs to below 3 per cent and eliminate corridors costing more than 5 per cent.</p></div></article>
+    </div>
+    <div class="source-note">
+      <p>Targets describe commitments for governments and institutions. Progress depends on policy, resources, implementation, and reliable data—not individual goodwill alone.</p>
+      <a class="text-link" href="https://sdgs.un.org/goals/goal10" target="_blank" rel="noopener noreferrer">Official UN targets and indicators ↗</a>
     </div>
   </section>
 
-  <section class="section container" id="targets">
-    <div class="section-heading reveal">
-      <div><p class="eyebrow">03 / The global commitment</p><h2>What does Goal 10 <em>call for?</em></h2></div>
-      <p>The United Nations calls for reducing inequality within and among countries. These target areas turn that commitment into practical priorities for governments and institutions.</p>
-    </div>
-    <div class="targets-grid">
-      <article class="target-card"><span>10.1</span><h3>Income growth</h3><p>Improve income growth for the bottom 40 per cent of the population so it outpaces the national average.</p></article>
-      <article class="target-card"><span>10.2</span><h3>Inclusion for all</h3><p>Promote social, economic, and political inclusion regardless of age, sex, disability, race, ethnicity, origin, religion, or status.</p></article>
-      <article class="target-card"><span>10.3</span><h3>Equal opportunity</h3><p>Reduce unequal outcomes and challenge discriminatory laws, policies, and practices.</p></article>
-      <article class="target-card"><span>10.4</span><h3>Fair policies</h3><p>Use wage, fiscal, and social protection policies to move societies towards greater equality.</p></article>
-      <article class="target-card"><span>10.5</span><h3>Fairer finance</h3><p>Strengthen the regulation and monitoring of global financial markets and institutions.</p></article>
-      <article class="target-card"><span>10.6</span><h3>Representation</h3><p>Give developing countries a stronger voice in international economic and financial decision-making.</p></article>
-      <article class="target-card"><span>10.7</span><h3>Safe migration</h3><p>Support safe, orderly, regular, and responsible migration and mobility.</p></article>
-      <article class="target-card"><span>10.a</span><h3>Fair trade treatment</h3><p>Apply special and differential treatment in trade for developing countries, particularly least developed countries.</p></article>
-      <article class="target-card"><span>10.b</span><h3>Development finance</h3><p>Encourage aid and investment flows towards countries and communities where development needs are greatest.</p></article>
-      <article class="target-card"><span>10.c</span><h3>Affordable remittances</h3><p>By 2030, reduce the cost of sending money across borders to less than 3 per cent of the amount sent.</p></article>
-    </div>
-    <div class="target-source"><a href="https://sdgs.un.org/goals/goal10" target="_blank" rel="noopener noreferrer">Read the official United Nations Goal 10 targets ↗</a></div>
-    <div class="achievement-heading">
-      <p class="eyebrow">Your learning journey</p>
-      <h2>Small steps. <em>Shared progress.</em></h2>
-      <p>Explore the stories, save the ones that matter to you, complete the equality quiz, and unlock these learning milestones. Your progress is stored in this browser.</p>
-    </div>
-    <div class="achievement-grid">
-      <article class="achievement" id="badge-explorer"><div class="achievement-icon">◈</div><h3>Story Explorer</h3><p>Open three different equality stories.</p></article>
-      <article class="achievement" id="badge-curator"><div class="achievement-icon">✦</div><h3>Issue Curator</h3><p>Save three stories that matter to you.</p></article>
-      <article class="achievement" id="badge-personality"><div class="achievement-icon">◎</div><h3>Equality Advocate</h3><p>Complete the SDG 10 action quiz.</p></article>
-      <article class="achievement" id="badge-secret"><div class="achievement-icon">✧</div><h3>Inclusion Pledge</h3><p>Unlock the equality pledge.</p></article>
-    </div>
-  </section>
-
-  <section class="section container" id="action">
-    <div class="section-heading reveal">
-      <div><p class="eyebrow">04 / Turn awareness into action</p><h2>Equality is built by <em>what we do.</em></h2></div>
-      <p>Change happens through everyday choices and larger public decisions. These are practical starting points—not substitutes for the policies and systems that must also change.</p>
+  <section class="page section container" id="action">
+    <div class="section-head">
+      <div>
+        <p class="kicker">03 / From understanding to change</p>
+        <h2>Make equality <em>part of the system.</em></h2>
+      </div>
+      <p>Individual choices matter, but lasting change also requires institutions, employers, and governments to remove structural barriers and make fair outcomes possible.</p>
     </div>
     <div class="action-grid">
-      <article class="action-card"><span>01</span><h3>Notice the barriers</h3><p>Pay attention to who is missing, excluded, underpaid, or unable to access a service. Listen before assuming what people need.</p></article>
-      <article class="action-card"><span>02</span><h3>Make room for every voice</h3><p>Share opportunities, challenge stereotypes, credit people's work, and include affected communities in decisions.</p></article>
-      <article class="action-card"><span>03</span><h3>Support fair systems</h3><p>Learn about equal access, decent work, social protection, accessibility, anti-discrimination, and safe migration—and support policies that advance them.</p></article>
+      <article class="action-card">
+        <span class="action-number">01</span>
+        <h3>Listen to lived experience</h3>
+        <p>Include people affected by a policy, service, or design in decisions from the beginning. Do not assume one person's experience represents an entire community.</p>
+      </article>
+      <article class="action-card">
+        <span class="action-number">02</span>
+        <h3>Remove practical barriers</h3>
+        <p>Make information, education, public spaces, transport, and digital services accessible. Review recruitment, pay, and progression for unequal outcomes.</p>
+      </article>
+      <article class="action-card">
+        <span class="action-number">03</span>
+        <h3>Back fair rules and accountability</h3>
+        <p>Support anti-discrimination protections, decent work, social protection, transparent institutions, and safe migration pathways.</p>
+      </article>
     </div>
-    <div class="secret-box reveal" style="margin-top:45px">
-      <p class="eyebrow">A small personal commitment</p>
-      <h2>Unlock the <em style="color:var(--accent)">inclusion pledge.</em></h2>
-      <p>Enter the word that describes making sure everyone can participate and belong.</p>
-      <form id="secretForm">
-        <input class="secret-input" id="secretInput" placeholder="Enter the word ..." aria-label="Inclusion pledge word" autocomplete="off">
-        <button class="btn" type="submit">Unlock pledge</button>
-      </form>
-      <p class="secret-message" id="secretMessage" aria-live="polite"></p>
-      <div id="secretSpark" aria-hidden="true"></div>
+    <div class="levels">
+      <h3>Change happens at every level.</h3>
+      <div class="level-list">
+        <div><h4>In everyday life</h4><p>Challenge stereotypes, share access to opportunities, and make room for voices that are often ignored.</p></div>
+        <div><h4>In organisations</h4><p>Audit accessibility, pay, recruitment, representation, and the way decisions are made.</p></div>
+        <div><h4>In public policy</h4><p>Invest in fair services and social protection, enforce equal rights, and strengthen international cooperation.</p></div>
+      </div>
     </div>
   </section>
 
-  <section class="section container" id="about">
-    <div class="about-grid reveal">
-      <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=1200&q=85" alt="A camera ready to document stories and perspectives" loading="lazy">
+  <section class="page section container" id="about">
+    <div class="about-grid">
+      <img class="about-image" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=85" alt="A diverse team collaborating around a table" loading="lazy">
       <div class="about-copy">
-        <p class="eyebrow">05 / About Sustainable Development Goal 10</p>
-        <h2>Different lives.<br><em style="color:var(--accent)">Equal dignity.</em></h2>
-        <p>SDG 10 is the United Nations goal to reduce inequality within and among countries. It calls for more than equal treatment: people must have a fair chance to participate in society and shape the decisions that affect their lives.</p>
-        <p>Inequality can be linked to income, age, sex, disability, race, ethnicity, origin, religion, or other circumstances. Goal 10 responds through inclusion, equal opportunity, fairer policies, stronger representation, and safe migration.</p>
-        <p>This project uses photography as a starting point for reflection. The images are visual metaphors; the stories and target summaries explain the issues they invite us to consider.</p>
-        <a href="https://sdgs.un.org/goals/goal10" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top:25px">Explore the official Goal 10 page ↗</a>
+        <p class="kicker">04 / About this project</p>
+        <h2 class="editorial-title">A closer look at <em>who gets to participate.</em></h2>
+        <p>This project introduces Sustainable Development Goal 10, the United Nations commitment to reduce inequality within and among countries. It is designed as a small editorial learning space: a set of visual prompts, clear explanations, and links to the original global targets.</p>
+        <p>The photographs are illustrative, not statistical evidence or documentary proof of a particular person's circumstances. The stories use them to open questions about access, opportunity, dignity, representation, and the systems that shape people's lives.</p>
+        <p>Reducing inequality is a shared public responsibility. It requires listening to people affected by exclusion and changing the rules, institutions, and conditions that produce unequal outcomes.</p>
+        <div class="about-sources">
+          <p>Primary sources</p>
+          <a href="https://sdgs.un.org/goals/goal10" target="_blank" rel="noopener noreferrer">United Nations · Goal 10</a>
+          <a href="https://sdgs.un.org/2030agenda" target="_blank" rel="noopener noreferrer">The 2030 Agenda</a>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
-<section id="detailPage">
+<section id="detailPage" aria-live="polite">
   <div class="container">
-    <a class="back-link" href="index.html#gallery">← Back to stories</a>
+    <a class="back-link" href="#gallery" data-page="gallery">← Back to stories</a>
     <div class="detail-layout">
       <img class="detail-image" id="detailImage" src="" alt="">
       <div class="detail-copy">
-        <p class="eyebrow" id="detailCategory"></p>
+        <p class="kicker" id="detailCategory"></p>
         <h1 id="detailTitle"></h1>
         <p id="detailDescription"></p>
         <p id="detailExtra"></p>
         <div class="detail-facts" id="detailFacts"></div>
-        <button class="btn" id="detailFavorite" type="button" style="margin-top:25px">♡ Save story</button>
-        <button class="pill" id="openDetailLightbox" type="button">View photo full screen ↗</button>
       </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="container footer-inner">
+<footer class="site-footer">
+  <div class="container footer-row">
     <span>SDG 10 · REDUCED INEQUALITIES</span>
     <span>Equal dignity. Fair opportunity. Inclusion for all.</span>
-    <a href="index.html#home">Back to the beginning ↑</a>
+    <a href="https://sdgs.un.org/goals/goal10" target="_blank" rel="noopener noreferrer">United Nations Goal 10 ↗</a>
   </div>
 </footer>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
-  <button class="lightbox-btn" id="lightboxClose" aria-label="Close">×</button>
-  <button class="lightbox-btn lightbox-prev" id="lightboxPrev" aria-label="Previous photo">‹</button>
-  <img id="lightboxImage" src="" alt="">
-  <button class="lightbox-btn lightbox-next" id="lightboxNext" aria-label="Next photo">›</button>
+<div class="image-viewer" id="imageViewer" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="viewer-close" id="viewerClose" type="button" aria-label="Close image">×</button>
+  <img id="viewerImage" src="" alt="">
+  <span class="viewer-hint">Press Escape or select close to return</span>
 </div>
-<button id="topButton" type="button" aria-label="Back to top">↑</button>
 
 <script>
-// =============================
-// SDG 10 — interactive system
-// =============================
-
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-const cards = $$(".photo-card");
+const pageIds = ["home","gallery","targets","action","about"];
 const mainPage = $("#mainPage");
 const detailPage = $("#detailPage");
-const galleryGrid = $("#galleryGrid");
-const toastElement = $("#toast");
-
-const photoDetails = {
-  forest: {
-    title:"Shared Spaces, Shared Belonging",category:"Inclusion / Shared spaces",
-    description:"A welcoming public space can bring people together across age, income, background, and ability. Inclusion means removing the barriers that prevent people from using the places and services around them.",
-    extra:"Ask whose needs were considered when a space was designed. Step-free routes, clear signs, safe lighting, seating, and accessible transport can make participation possible for more people.",
-    facts:"SDG 10 FOCUS: inclusion · PRINCIPLE: belonging · QUESTION: who is left out?"
-  },
-  mountains: {
-    title:"A Fair Starting Point",category:"Equal opportunity / A fair start",
-    description:"People do not begin life with the same resources or opportunities. A fair society recognises those differences and works to remove barriers that limit a person's choices or future.",
-    extra:"Access to quality education, healthcare, decent work, and social protection can help people build a future without being held back by the circumstances into which they were born.",
-    facts:"SDG 10 FOCUS: equal opportunity · PRINCIPLE: fairness · QUESTION: what barrier can be removed?"
-  },
-  ocean: {
-    title:"Safe Routes, Dignified Journeys",category:"Migration and mobility / Human dignity",
-    description:"People move for many reasons, including work, family, education, safety, and opportunity. Migration policy should protect dignity, rights, and safety rather than expose people to exploitation or discrimination.",
-    extra:"A fair approach supports safe, orderly, regular, and responsible migration, while helping newcomers access services, work, and community life.",
-    facts:"SDG 10 TARGET: 10.7 · PRINCIPLE: safe mobility · QUESTION: how can journeys be safer?"
-  },
-  city: {
-    title:"The Unequal City",category:"Income and opportunity / Life in cities",
-    description:"A city can offer opportunity while also revealing deep gaps in income, housing, transport, education, and access to public services. Where someone lives should not determine whether they can participate fully.",
-    extra:"Fairer outcomes require good public services, decent work, social protection, inclusive planning, and policies that address the unequal distribution of resources.",
-    facts:"SDG 10 FOCUS: income inequality · PRINCIPLE: shared prosperity · QUESTION: who benefits from growth?"
-  },
-  lake: {
-    title:"Education Without Barriers",category:"Equal opportunity / Learning for all",
-    description:"Education and skills can widen choices, strengthen economic security, and help people take part in public life. Yet cost, disability, discrimination, location, and unequal resources can limit access.",
-    extra:"Inclusive learning requires accessible spaces and materials, support for different learning needs, and fair opportunities to continue education and develop skills throughout life.",
-    facts:"SDG 10 FOCUS: equal opportunity · PRINCIPLE: access to learning · QUESTION: who cannot reach the classroom?"
-  },
-  travel: {
-    title:"A Place to Belong",category:"Migration and inclusion / Belonging",
-    description:"Moving to a new country or community can bring opportunity, but it can also involve language barriers, insecure work, discrimination, and difficulty accessing services. Belonging grows when rights are respected and participation is possible.",
-    extra:"Communities can help by sharing accurate information, making services accessible, recognising skills and experience, and including newcomers in decisions that affect local life.",
-    facts:"SDG 10 TARGET: 10.7 · PRINCIPLE: participation · QUESTION: what helps people feel welcome?"
-  },
-  sunset: {
-    title:"Every Voice Counts",category:"Representation / Being heard",
-    description:"Decisions are fairer when the people affected by them can help shape them. Communities that are often excluded need meaningful representation—not just an invitation to listen after decisions have been made.",
-    extra:"Look for ways to share power: accessible public meetings, representative leadership, transparent institutions, and real opportunities for people to influence policy.",
-    facts:"SDG 10 TARGET: 10.6 · PRINCIPLE: representation · QUESTION: whose voice is missing?"
-  },
-  architecture: {
-    title:"Designed for Everyone",category:"Accessibility / Inclusive design",
-    description:"The way places, buildings, information, and services are designed can either include people or create barriers. Accessibility benefits people with disabilities and often makes everyday life easier for everyone.",
-    extra:"Consider physical access, digital access, readable information, sensory needs, affordability, and transport links. Inclusion works best when it is considered from the beginning.",
-    facts:"SDG 10 FOCUS: inclusion · PRINCIPLE: accessibility · QUESTION: can everyone participate?"
-  },
-  road: {
-    title:"Progress Across Borders",category:"Global cooperation / Shared progress",
-    description:"Inequality exists within countries and between them. Global cooperation, fairer economic relationships, and support where needs are greatest can help widen opportunities across borders.",
-    extra:"Goal 10 includes stronger representation for developing countries, development finance, fair treatment in global trade, and more affordable international remittances.",
-    facts:"SDG 10 FOCUS: inequality among countries · PRINCIPLE: cooperation · QUESTION: how can progress be shared?"
-  }
-};
-
-const quizQuestions = [
-  {
-    q:"Where would you start to reduce inequality?",
-    options:[
-      {text:"Make quality education and decent work accessible to more people",style:"opportunity"},
-      {text:"Remove barriers in public spaces and essential services",style:"inclusion"},
-      {text:"Challenge discriminatory rules and unequal systems",style:"systems"},
-      {text:"Protect safe, regular migration and freedom of movement",style:"mobility"}
-    ]
-  },
-  {
-    q:"What makes a community decision genuinely inclusive?",
-    options:[
-      {text:"Everyone can access the information and take part",style:"inclusion"},
-      {text:"People affected by the decision help shape it",style:"systems"},
-      {text:"People can reach the education and skills they need",style:"opportunity"},
-      {text:"Newcomers and long-term residents are both heard",style:"mobility"}
-    ]
-  },
-  {
-    q:"Which change would make the biggest difference?",
-    options:[
-      {text:"Fair access to training, jobs, and career progression",style:"opportunity"},
-      {text:"Accessible buildings, transport, and digital services",style:"inclusion"},
-      {text:"Transparent policies and action against discrimination",style:"systems"},
-      {text:"Safer routes and better support for people on the move",style:"mobility"}
-    ]
-  },
-  {
-    q:"How would you respond when someone is excluded?",
-    options:[
-      {text:"Help connect them with learning or work opportunities",style:"opportunity"},
-      {text:"Ask what barrier is in the way and help remove it",style:"inclusion"},
-      {text:"Speak up and challenge the unfair rule or behaviour",style:"systems"},
-      {text:"Help them find trusted information and local support",style:"mobility"}
-    ]
-  },
-  {
-    q:"What does a fairer future look like to you?",
-    options:[
-      {text:"Everyone has a real chance to develop their potential",style:"opportunity"},
-      {text:"Everyone belongs and can participate in daily life",style:"inclusion"},
-      {text:"Institutions share power and treat people fairly",style:"systems"},
-      {text:"People can move safely and build a life with dignity",style:"mobility"}
-    ]
-  }
-];
-
-const styleResults = {
-  opportunity:{
-    title:"The Opportunity Builder",
-    text:"You focus on the barriers that limit people's choices. Support fair access to education, skills, decent work, and social protection so that a person's future is not decided by their starting point.",
-    category:"opportunity"
-  },
-  inclusion:{
-    title:"The Inclusion Advocate",
-    text:"You notice who cannot fully participate. Champion accessibility, inclusive services, welcoming public spaces, and decisions shaped with the people affected by them.",
-    category:"inclusion"
-  },
-  systems:{
-    title:"The Systems Changer",
-    text:"You look beyond individual actions to the rules and institutions that shape outcomes. Support anti-discrimination measures, fair policies, accountability, and meaningful representation.",
-    category:"fair-systems"
-  },
-  mobility:{
-    title:"The Bridge Builder",
-    text:"You understand that safe movement and belonging matter. Support dignified migration, access to reliable information and services, and communities where newcomers can participate.",
-    category:"mobility"
-  }
-};
-
+const navLinks = $("#navLinks");
+const menuToggle = $("#menuToggle");
+const themeToggle = $("#themeToggle");
+const cards = $$(".story-card");
+let activeStoryId = null;
 let currentFilter = "all";
-let favoritesOnly = false;
-let currentDetailId = null;
-let quizIndex = 0;
-let quizScores = {opportunity:0,inclusion:0,systems:0,mobility:0};
-let visited = new Set();
-let unlocked = new Set();
-let lightboxIndex = 0;
-let toastTimer;
 
-function notify(message) {
-  toastElement.textContent = message;
-  toastElement.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toastElement.classList.remove("show"),2600);
-}
-
-function loadSet(key) {
-  try {
-    const value = JSON.parse(localStorage.getItem(key) || "[]");
-    return new Set(Array.isArray(value) ? value : []);
-  } catch {
-    return new Set();
+const storyDetails = {
+  income: {
+    category:"Targets 10.1 and 10.4 · Income and work",
+    title:"A fair share",
+    description:"Goal 10.1 focuses on the income growth of the bottom 40 per cent of a country's population. The aim is not simply to grow the economy, but to ensure that people on lower incomes share in that growth at a higher rate than the national average.",
+    extra:"Target 10.4 adds the role of wage, fiscal, and social protection policies. Fair pay, secure work, effective tax systems, and social protection can all influence how the benefits of economic activity are distributed.",
+    facts:"KEY QUESTION: Who benefits from economic growth?"
+  },
+  access: {
+    category:"Targets 10.2 and 10.3 · Inclusion and equal opportunity",
+    title:"Access by design",
+    description:"A service is not truly open to everyone if its buildings, information, cost, technology, or procedures exclude some people. Inclusion means identifying barriers and changing the conditions that create them.",
+    extra:"Accessibility should be considered from the start, with the people who use a service involved in its design. Goal 10 also calls for eliminating discriminatory laws, policies, and practices—not merely asking individuals to adapt.",
+    facts:"KEY QUESTION: Who cannot use this space, service, or information?"
+  },
+  learning: {
+    category:"Targets 10.2 and 10.3 · Education and opportunity",
+    title:"Learning without barriers",
+    description:"Education and skills can widen choices and strengthen participation in society. Yet unequal resources, disability, discrimination, location, and cost can affect who is able to learn and progress.",
+    extra:"An equal-opportunity approach looks beyond enrolment. It asks whether learning environments, materials, support, and pathways are accessible and whether learners can move forward without unfair barriers.",
+    facts:"KEY QUESTION: What prevents people from learning and progressing?"
+  },
+  migration: {
+    category:"Target 10.7 · Migration and human dignity",
+    title:"Safe to move",
+    description:"People migrate for many reasons, including work, family, education, and safety. Goal 10.7 calls for migration that is orderly, safe, regular, and responsible, supported by planned and well-managed policies.",
+    extra:"A rights-based approach protects people from exploitation and discrimination and recognises that access to information, services, decent work, and participation can shape whether newcomers are able to build secure lives.",
+    facts:"KEY QUESTION: Are routes, rights, and support systems safe and accessible?"
+  },
+  voice: {
+    category:"Targets 10.3 and 10.6 · Representation and voice",
+    title:"A voice in the room",
+    description:"Inequality is also about power: whose experience is recognised, whose priorities shape policy, and who gets to make decisions. Goal 10.6 specifically calls for stronger representation of developing countries in international economic and financial institutions.",
+    extra:"Meaningful representation requires more than being present. It means having access to information, the ability to influence decisions, and institutions that are transparent and accountable to the people affected by them.",
+    facts:"KEY QUESTION: Who has influence—and who is missing?"
+  },
+  global: {
+    category:"Targets 10.5 and 10.a–10.c · Global systems",
+    title:"Progress across borders",
+    description:"Inequality between countries is shaped by global finance, trade, development resources, and the cost of sending money across borders. Goal 10 recognises that national progress is connected to international rules and relationships.",
+    extra:"Its targets cover financial regulation, fair trade treatment for developing countries, development assistance and investment, and the cost of remittances. These are structural issues that require cooperation between countries.",
+    facts:"KEY QUESTION: Do global systems create fair opportunities for every country?"
   }
-}
-function saveSet(key,set) {
-  try {localStorage.setItem(key,JSON.stringify([...set]));} catch {}
-}
+};
 
-let favoriteIds = loadSet("SDG 10EqualityFavorites");
-let badgeIds = loadSet("SDG 10EqualityMilestones");
-let visitedIds = loadSet("SDG 10EqualityStoriesVisited");
-
-function unlockBadge(id,message) {
-  if (badgeIds.has(id)) return;
-  badgeIds.add(id);
-  saveSet("SDG 10EqualityMilestones",badgeIds);
-  const badge = document.getElementById("badge-"+id);
-  if (badge) badge.classList.add("unlocked");
-  notify("Learning milestone unlocked: "+message);
+function closeMobileMenu() {
+  navLinks.classList.remove("open");
+  menuToggle.setAttribute("aria-expanded","false");
 }
-function renderBadges() {
-  badgeIds.forEach(id => {
-    const element = document.getElementById("badge-"+id);
-    if (element) element.classList.add("unlocked");
+function setCurrentNav(id) {
+  $$(".nav-links [data-page]").forEach(link => {
+    if (link.dataset.page === id) link.setAttribute("aria-current","page");
+    else link.removeAttribute("aria-current");
   });
 }
-function syncFavorites() {
-  cards.forEach(card => {
-    const active = favoriteIds.has(card.dataset.id);
-    const button = $(".favorite",card);
-    button.classList.toggle("active",active);
-    button.textContent = active ? "♥ Saved" : "♡ Save story";
-    button.setAttribute("aria-pressed",String(active));
+function showPage(id, updateHistory = true) {
+  if (!pageIds.includes(id)) id = "home";
+  activeStoryId = null;
+  detailPage.style.display = "none";
+  mainPage.style.display = "";
+  pageIds.forEach(pageId => {
+    const page = document.getElementById(pageId);
+    page.classList.toggle("active-page", pageId === id);
   });
-  if (favoriteIds.size >= 3) unlockBadge("curator","Issue Curator");
+  setCurrentNav(id);
+  closeMobileMenu();
+  if (updateHistory && location.hash !== "#" + id) history.pushState(null,"","#" + id);
+  const heading = document.getElementById(id).querySelector("h1,h2");
+  document.title = (id === "home" ? "SDG 10 — Reduced Inequalities" : heading.textContent.replace(/\s+/g," ").trim() + " | SDG 10");
+  window.scrollTo({top:0,behavior:"smooth"});
 }
-function recordVisit(id) {
-  if (!visitedIds.has(id)) {
-    visitedIds.add(id);
-    saveSet("SDG 10EqualityStoriesVisited",visitedIds);
+function showStory(id) {
+  const story = storyDetails[id];
+  const card = cards.find(item => item.dataset.id === id);
+  if (!story || !card) { showPage("gallery",false); return; }
+  activeStoryId = id;
+  mainPage.style.display = "none";
+  detailPage.style.display = "block";
+  $("#detailImage").src = $(".story-image img",card).src;
+  $("#detailImage").alt = $(".story-image img",card).alt;
+  $("#detailCategory").textContent = story.category;
+  $("#detailTitle").textContent = story.title;
+  $("#detailDescription").textContent = story.description;
+  $("#detailExtra").textContent = story.extra;
+  $("#detailFacts").textContent = story.facts;
+  document.title = story.title + " | SDG 10";
+  setCurrentNav("gallery");
+  closeMobileMenu();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function routeFromHash(updateHistory = false) {
+  const hash = location.hash.slice(1);
+  if (hash.startsWith("story-")) showStory(hash.slice(6));
+  else showPage(pageIds.includes(hash) ? hash : "home",updateHistory);
+}
+function navigate(id) {
+  if (id.startsWith("story-")) {
+    history.pushState(null,"","#" + id);
+    showStory(id.slice(6));
+  } else {
+    showPage(id);
   }
-  if (visitedIds.size >= 3) unlockBadge("explorer","Story Explorer");
 }
 
-// Gallery filters and search.
-function applyFilters() {
+$$("[data-page]").forEach(link => {
+  link.addEventListener("click",event => {
+    event.preventDefault();
+    navigate(link.dataset.page);
+  });
+});
+$("#brandHome").addEventListener("click",event => {
+  event.preventDefault();
+  showPage("home");
+});
+menuToggle.addEventListener("click",() => {
+  const isOpen = navLinks.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded",String(isOpen));
+});
+window.addEventListener("hashchange",() => routeFromHash(false));
+window.addEventListener("popstate",() => routeFromHash(false));
+
+function applyStoryFilters() {
   const query = $("#search").value.trim().toLocaleLowerCase("en");
   let visible = 0;
-
   cards.forEach(card => {
-    const matchText = (card.dataset.title+" "+card.textContent).toLocaleLowerCase("en").includes(query);
-    const matchCategory = currentFilter === "all" || card.dataset.category === currentFilter;
-    const matchFavorite = !favoritesOnly || favoriteIds.has(card.dataset.id);
-    const show = matchText && matchCategory && matchFavorite;
-    card.style.display = show ? "" : "none";
+    const text = (card.dataset.title + " " + card.textContent).toLocaleLowerCase("en");
+    const categoryMatch = currentFilter === "all" || card.dataset.category === currentFilter;
+    const queryMatch = text.includes(query);
+    const show = categoryMatch && queryMatch;
+    card.hidden = !show;
     if (show) visible++;
   });
-
-  $("#resultCount").textContent = `${visible} / ${cards.length} stories`;
+  $("#resultCount").textContent = visible + " of " + cards.length + " stories";
   $("#emptyState").style.display = visible ? "none" : "block";
 }
-$("#search").addEventListener("input",applyFilters);
-
-// Photo cards use their in-page URL hash to open the story detail view.
-
+$("#search").addEventListener("input",applyStoryFilters);
 $$("[data-filter]").forEach(button => {
   button.addEventListener("click",() => {
     currentFilter = button.dataset.filter;
-    $$("[data-filter]").forEach(b => b.classList.toggle("active",b === button));
-    applyFilters();
-  });
-});
-
-$("#favoritesFilter").addEventListener("click",() => {
-  favoritesOnly = !favoritesOnly;
-  $("#favoritesFilter").classList.toggle("active",favoritesOnly);
-  $("#favoritesFilter").textContent = favoritesOnly ? "♥ Show all stories" : "♡ Saved stories";
-  applyFilters();
-});
-
-cards.forEach(card => {
-  $(".favorite",card).addEventListener("click",event => {
-    event.preventDefault();
-    event.stopPropagation();
-    const id = card.dataset.id;
-    if (favoriteIds.has(id)) favoriteIds.delete(id);
-    else favoriteIds.add(id);
-    saveSet("SDG 10EqualityFavorites",favoriteIds);
-    syncFavorites();
-    applyFilters();
-  });
-});
-
-$("#shuffle").addEventListener("click",() => {
-  const shuffled = [...cards].sort(() => Math.random() - .5);
-  shuffled.forEach(card => galleryGrid.appendChild(card));
-  notify("Story order shuffled.");
-});
-
-// Photo detail route (available through a direct URL hash).
-function showRoute() {
-  const match = location.hash.match(/^#photo-([a-z]+)$/);
-  if (!match || !photoDetails[match[1]]) {
-    mainPage.style.display = "";
-    detailPage.style.display = "none";
-    currentDetailId = null;
-    document.title = "SDG 10 — Reduced Inequalities | A Fairer World";
-    return;
-  }
-
-  const id = match[1];
-  const details = photoDetails[id];
-  const card = cards.find(item => item.dataset.id === id);
-  if (!card) return;
-
-  currentDetailId = id;
-  mainPage.style.display = "none";
-  detailPage.style.display = "block";
-
-  $("#detailImage").src = $(".photo-image",card).src;
-  $("#detailImage").alt = $(".photo-image",card).alt;
-  $("#detailCategory").textContent = details.category;
-  $("#detailTitle").textContent = details.title;
-  $("#detailDescription").textContent = details.description;
-  $("#detailExtra").textContent = details.extra;
-  $("#detailFacts").textContent = details.facts;
-
-  document.title = details.title+" — SDG 10";
-  recordVisit(id);
-  syncDetailFavorite();
-  window.scrollTo(0,0);
-}
-window.addEventListener("hashchange",() => {
-  const id = location.hash.slice(1);
-  if (id.startsWith("photo-")) showRoute();
-  else if (categorySections.includes(id)) showCategory(id,false);
-});
-window.addEventListener("popstate",() => {
-  const id = location.hash.slice(1);
-  if (id.startsWith("photo-")) showRoute();
-  else showCategory(id || "home",false);
-});
-
-function syncDetailFavorite() {
-  if (!currentDetailId) return;
-  const active = favoriteIds.has(currentDetailId);
-  $("#detailFavorite").textContent = active ? "♥ Saved" : "♡ Save story";
-}
-$("#detailFavorite").addEventListener("click",() => {
-  if (!currentDetailId) return;
-  if (favoriteIds.has(currentDetailId)) favoriteIds.delete(currentDetailId);
-  else favoriteIds.add(currentDetailId);
-  saveSet("SDG 10EqualityFavorites",favoriteIds);
-  syncFavorites();
-  syncDetailFavorite();
-});
-
-// Full-screen photo viewer.
-function visibleCards() {
-  return cards.filter(card => card.style.display !== "none");
-}
-function openLightbox(id) {
-  const list = cards;
-  const index = list.findIndex(card => card.dataset.id === id);
-  if (index < 0) return;
-  lightboxIndex = index;
-  renderLightbox();
-  $("#lightbox").classList.add("open");
-  document.body.style.overflow = "hidden";
-}
-function renderLightbox() {
-  const card = cards[lightboxIndex];
-  $("#lightboxImage").src = $(".photo-image",card).src;
-  $("#lightboxImage").alt = $(".photo-image",card).alt;
-}
-function moveLightbox(step) {
-  lightboxIndex = (lightboxIndex + step + cards.length) % cards.length;
-  renderLightbox();
-}
-function closeLightbox() {
-  $("#lightbox").classList.remove("open");
-  document.body.style.overflow = "";
-}
-$("#detailImage").addEventListener("click",() => {
-  if (currentDetailId) openLightbox(currentDetailId);
-});
-$("#openDetailLightbox").addEventListener("click",() => {
-  if (currentDetailId) openLightbox(currentDetailId);
-});
-$("#lightboxClose").addEventListener("click",closeLightbox);
-$("#lightboxPrev").addEventListener("click",() => moveLightbox(-1));
-$("#lightboxNext").addEventListener("click",() => moveLightbox(1));
-$("#lightbox").addEventListener("click",event => {
-  if (event.target.id === "lightbox") closeLightbox();
-});
-document.addEventListener("keydown",event => {
-  if (!$("#lightbox").classList.contains("open")) return;
-  if (event.key === "Escape") closeLightbox();
-  if (event.key === "ArrowLeft") moveLightbox(-1);
-  if (event.key === "ArrowRight") moveLightbox(1);
-});
-
-// Quiz engine.
-function renderQuiz() {
-  const item = quizQuestions[quizIndex];
-  $("#quizCount").textContent = `Question ${String(quizIndex+1).padStart(2,"0")} / ${quizQuestions.length}`;
-  $("#quizQuestion").textContent = item.q;
-  $("#progressBar").style.width = (quizIndex/quizQuestions.length*100)+"%";
-  const options = $("#quizOptions");
-  options.replaceChildren();
-
-  item.options.forEach(option => {
-    const button = document.createElement("button");
-    button.className = "quiz-option";
-    button.type = "button";
-    button.textContent = option.text;
-    button.addEventListener("click",() => {
-      quizScores[option.style]++;
-      quizIndex++;
-      if (quizIndex < quizQuestions.length) renderQuiz();
-      else finishQuiz();
+    $$("[data-filter]").forEach(item => {
+      const active = item === button;
+      item.classList.toggle("active",active);
+      item.setAttribute("aria-pressed",String(active));
     });
-    options.appendChild(button);
+    applyStoryFilters();
   });
-}
-function finishQuiz() {
-  $("#quizBody").style.display = "none";
-  $("#quizResult").style.display = "block";
-  $("#progressBar").style.width = "100%";
-
-  const winner = Object.entries(quizScores).sort((a,b) => b[1]-a[1])[0][0];
-  const result = styleResults[winner];
-  $("#resultTitle").textContent = result.title;
-  $("#resultText").textContent = result.text;
-  $("#resultGallery").dataset.category = result.category;
-  unlockBadge("personality","Equality Advocate");
-  try {localStorage.setItem("SDG 10EqualityActionProfile",winner);} catch {}
-}
-function resetQuiz() {
-  quizIndex = 0;
-  quizScores = {opportunity:0,inclusion:0,systems:0,mobility:0};
-  $("#quizBody").style.display = "";
-  $("#quizResult").style.display = "none";
-  renderQuiz();
-}
-$("#restartQuiz").addEventListener("click",resetQuiz);
-$("#resultGallery").addEventListener("click",() => {
-  const category = $("#resultGallery").dataset.category;
-  location.hash = "gallery";
-  currentFilter = category;
-  $$("[data-filter]").forEach(button => button.classList.toggle("active",button.dataset.filter === category));
-  favoritesOnly = false;
-  $("#favoritesFilter").classList.remove("active");
-  $("#favoritesFilter").textContent = "♡ Favorites";
-  applyFilters();
-  $("#gallery").scrollIntoView({behavior:"smooth"});
 });
 
-// Secret word and surprise.
-$("#secretForm").addEventListener("submit",event => {
-  event.preventDefault();
-  const value = $("#secretInput").value.trim().toLocaleLowerCase("en");
-  if (value === "inclusion") {
-    $("#secretMessage").textContent = "Pledge unlocked. Every person deserves dignity, equal opportunity, and a voice.";
-    $("#secretSpark").textContent = "✦ ✧ ✦";
-    unlockBadge("secret","Inclusion Pledge");
-    notify("You unlocked the inclusion pledge.");
-    $("#secretInput").value = "";
-  } else {
-    $("#secretMessage").textContent = "Not quite. Hint: making sure everyone can participate and belong.";
-    $("#secretSpark").textContent = "";
-  }
-});
-
-// Category navigation: display one section at a time.
-const categorySections = ["home","gallery","targets","quiz","action","about"];
-function showCategory(id,updateHash = true) {
-  if (!categorySections.includes(id)) id = "home";
-  mainPage.style.display = "";
-  detailPage.style.display = "none";
-  currentDetailId = null;
-  categorySections.forEach(sectionId => {
-    const section = document.getElementById(sectionId);
-    if (section) section.classList.toggle("active-page",sectionId === id);
-  });
-  $("#categoryMenu").open = false;
-  $("#navLinks").classList.remove("open");
-  if (updateHash && location.hash !== "#"+id) history.pushState(null,"","#"+id);
-  document.title = id === "home" ? "SDG 10 — Reduced Inequalities | A Fairer World" :
-    (document.getElementById(id).querySelector("h1,h2")?.textContent.trim() || id)+" — SDG 10";
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-$("#brandHome").addEventListener("click",event => {
-  event.preventDefault();
-  showCategory("home");
-});
-$("#menuToggle").addEventListener("click",() => $("#navLinks").classList.toggle("open"));
-$$(".category-dropdown a").forEach(link => link.addEventListener("click",event => {
-  event.preventDefault();
-  showCategory(link.getAttribute("href").slice(1));
-}));
-$$(".hero-actions a").forEach(link => link.addEventListener("click",event => {
-  const id = link.getAttribute("href").split("#")[1];
-  if (categorySections.includes(id)) {event.preventDefault();showCategory(id);}
-}));
-
-$("#themeToggle").addEventListener("click",() => {
+themeToggle.addEventListener("click",() => {
   document.body.classList.toggle("light");
-  const theme = document.body.classList.contains("light") ? "light" : "dark";
-  try {localStorage.setItem("SDG 10Theme",theme);} catch {}
-  $("#themeToggle").textContent = theme === "light" ? "◐ Dark mode" : "☼ Light mode";
+  const light = document.body.classList.contains("light");
+  themeToggle.innerHTML = light ? "◑ <span>Dark mode</span>" : "◐ <span>Appearance</span>";
+  try {localStorage.setItem("sdg10-theme",light ? "light" : "dark");} catch {}
 });
-
 try {
-  if (localStorage.getItem("SDG 10Theme") === "light") {
+  if (localStorage.getItem("sdg10-theme") === "light") {
     document.body.classList.add("light");
-    $("#themeToggle").textContent = "◐ Dark mode";
+    themeToggle.innerHTML = "◑ <span>Dark mode</span>";
   }
 } catch {}
 
-// Scroll reveals.
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
-    }
-  });
-},{threshold:.12});
-$$(".reveal").forEach(element => observer.observe(element));
-
-// Back-to-top.
-window.addEventListener("scroll",() => {
-  $("#topButton").classList.toggle("show",window.scrollY > 500);
-});
-$("#topButton").addEventListener("click",() => window.scrollTo({top:0,behavior:"smooth"}));
-
-// Intro.
-const intro = $("#intro");
-if (sessionStorage.getItem("SDG 10EqualityIntroSeen")) {
-  intro.classList.add("done");
-} else {
-  setTimeout(() => {
-    intro.classList.add("done");
-    sessionStorage.setItem("SDG 10EqualityIntroSeen","yes");
-  },1500);
+function openImageViewer() {
+  if (!activeStoryId) return;
+  const image = $("#detailImage");
+  $("#viewerImage").src = image.src;
+  $("#viewerImage").alt = image.alt;
+  $("#imageViewer").classList.add("open");
+  document.body.style.overflow = "hidden";
+  $("#viewerClose").focus();
 }
+function closeImageViewer() {
+  $("#imageViewer").classList.remove("open");
+  document.body.style.overflow = "";
+  $("#detailImage").focus?.();
+}
+$("#detailImage").addEventListener("click",openImageViewer);
+$("#imageViewer").addEventListener("click",event => {
+  if (event.target === $("#imageViewer") || event.target === $("#viewerClose")) closeImageViewer();
+});
+$("#viewerClose").addEventListener("click",closeImageViewer);
+document.addEventListener("keydown",event => {
+  if (event.key === "Escape" && $("#imageViewer").classList.contains("open")) closeImageViewer();
+});
 
-// Initialize state.
-syncFavorites();
-renderBadges();
-renderQuiz();
-if (location.hash.startsWith("#photo-")) showRoute();
-else showCategory(categorySections.includes(location.hash.slice(1)) ? location.hash.slice(1) : "home",false);
+routeFromHash(false);
+applyStoryFilters();
 </script>
 </body>
 </html>
