@@ -75,30 +75,42 @@ nav {
 }
 .brand {
   display:inline-flex;align-items:center;justify-content:center;
-  color:var(--accent);font-family:Georgia,serif;font-size:22px;
+  color:#fff;font-family:Georgia,serif;font-size:26px;
   font-weight:700;letter-spacing:.08em;line-height:1;
   transition:color .2s,transform .2s
 }
-.brand:hover {color:var(--text);transform:translateY(-1px)}
+body.light .brand {color:#171717}
+.brand:hover {color:var(--accent);transform:translateY(-1px)}
 .intro-mark {
   color:#f4f0e8;font-family:Georgia,serif;
   font-size:clamp(58px,11vw,112px);font-weight:700;
   letter-spacing:.04em;line-height:1
 }
-.nav-links {display:flex;align-items:center;gap:25px}
+.nav-links {display:flex;align-items:center;gap:0}
 .nav-links a,.nav-links button {
-  background:none;border:0;color:var(--muted);font-size:12px;
-  transition:color .2s
+  background:none;border:0;color:#fff;font-size:15px;font-weight:600;
+  letter-spacing:.025em;padding:9px 17px;white-space:nowrap;
+  transition:color .2s,background .2s
+}
+body.light .nav-links a,body.light .nav-links button {color:#171717}
+.nav-links a + a,.nav-links button {
+  border-left:1px solid rgba(255,255,255,.42)
+}
+body.light .nav-links a + a,body.light .nav-links button {
+  border-left-color:rgba(0,0,0,.28)
 }
 .nav-links a:hover,.nav-links button:hover {color:var(--accent)}
-.menu-toggle {display:none;background:none;border:0;color:var(--text);font-size:25px}
+.menu-toggle {display:none;background:none;border:0;color:#fff;font-size:27px}
+body.light .menu-toggle {color:#171717}
 @media(max-width:760px) {
   .menu-toggle {display:block}
   .nav-links {
     display:none;position:absolute;top:73px;left:0;right:0;
-    padding:24px 5%;background:var(--panel);border-bottom:1px solid var(--line);
-    flex-direction:column;align-items:flex-start
+    padding:14px 5%;background:var(--panel);border-bottom:1px solid var(--line);
+    flex-direction:column;align-items:stretch
   }
+  .nav-links a,.nav-links button {width:100%;text-align:left;padding:13px 4px}
+  .nav-links a + a,.nav-links button {border-left:0;border-top:1px solid var(--line)}
   .nav-links.open {display:flex}
 }
 
@@ -344,7 +356,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
       <a href="index.html#gallery">Gallery</a>
       <a href="index.html#quiz">Quiz</a>
       <a href="index.html#achievements">Achievements</a>
-      <a href="index.html#about">O projektu</a>
+      <a href="index.html#about">About</a>
       <button id="themeToggle" type="button">☼ Appearance</button>
     </div>
   </nav>
