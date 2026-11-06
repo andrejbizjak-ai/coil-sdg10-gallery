@@ -73,8 +73,9 @@ nav {
   min-height:74px;display:flex;align-items:center;
   justify-content:space-between;gap:20px
 }
-.brand {font-family:Georgia,serif;font-size:23px;letter-spacing:.18em}
-.brand span {color:var(--accent)}
+.brand {display:flex;align-items:center}
+.brand img {width:48px;height:48px;object-fit:contain}
+.intro-mark img {width:112px;height:112px;object-fit:contain;margin:auto}
 .nav-links {display:flex;align-items:center;gap:25px}
 .nav-links a,.nav-links button {
   background:none;border:0;color:var(--muted);font-size:12px;
@@ -319,7 +320,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 <body>
 <div id="intro" aria-label="Uvod">
   <div class="intro-inner">
-    <div class="intro-mark">NOIR<span style="color:#d5b58a">.</span></div>
+    <div class="intro-mark"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Sustainable_Development_Goal_10ReducedInequalities.svg" alt="Cilj 10: Zmanjšanje neenakosti"></div>
     <div class="intro-line"></div>
     <p class="intro-caption">The art of seeing</p>
   </div>
@@ -327,7 +328,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 
 <header>
   <nav class="container">
-    <a href="index.html#home" class="brand" aria-label="NOIR domov">N<span>O</span>IR.</a>
+    <a href="index.html#home" class="brand" aria-label="Cilj trajnostnega razvoja 10 – Zmanjšanje neenakosti"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Sustainable_Development_Goal_10ReducedInequalities.svg" alt="Cilj 10: Zmanjšanje neenakosti"></a>
     <button class="menu-toggle" id="menuToggle" aria-label="Odpri meni">☰</button>
     <div class="nav-links" id="navLinks">
       <a href="index.html#home">Domov</a>
@@ -867,14 +868,7 @@ function applyFilters() {
 }
 $("#search").addEventListener("input",applyFilters);
 
-// Open gallery photos in the in-page lightbox instead of navigating to another tab.
-galleryGrid.addEventListener("click",event => {
-  const link = event.target.closest(".photo-link");
-  if (!link) return;
-  event.preventDefault();
-  const card = link.closest(".photo-card");
-  if (card) openLightbox(card.dataset.id);
-});
+// Photo cards use their in-page URL hash to open the story detail view.
 
 $$("[data-filter]").forEach(button => {
   button.addEventListener("click",() => {
