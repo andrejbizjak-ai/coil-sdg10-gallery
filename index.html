@@ -73,9 +73,18 @@ nav {
   min-height:74px;display:flex;align-items:center;
   justify-content:space-between;gap:20px
 }
-.brand {display:flex;align-items:center}
-.brand img {width:48px;height:48px;object-fit:contain}
-.intro-mark img {width:112px;height:112px;object-fit:contain;margin:auto}
+.brand {
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--accent);font-family:Georgia,serif;font-size:22px;
+  font-weight:700;letter-spacing:.08em;line-height:1;
+  transition:color .2s,transform .2s
+}
+.brand:hover {color:var(--text);transform:translateY(-1px)}
+.intro-mark {
+  color:#f4f0e8;font-family:Georgia,serif;
+  font-size:clamp(58px,11vw,112px);font-weight:700;
+  letter-spacing:.04em;line-height:1
+}
 .nav-links {display:flex;align-items:center;gap:25px}
 .nav-links a,.nav-links button {
   background:none;border:0;color:var(--muted);font-size:12px;
@@ -320,7 +329,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 <body>
 <div id="intro" aria-label="Uvod">
   <div class="intro-inner">
-    <div class="intro-mark"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Sustainable_Development_Goal_10ReducedInequalities.svg" alt="Cilj 10: Zmanjšanje neenakosti"></div>
+    <div class="intro-mark">SDG 11</div>
     <div class="intro-line"></div>
     <p class="intro-caption">The art of seeing</p>
   </div>
@@ -328,7 +337,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 
 <header>
   <nav class="container">
-    <a href="index.html#home" class="brand" aria-label="Cilj trajnostnega razvoja 10 – Zmanjšanje neenakosti"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Sustainable_Development_Goal_10ReducedInequalities.svg" alt="Cilj 10: Zmanjšanje neenakosti"></a>
+    <a href="#home" class="brand" id="brandHome" aria-label="SDG 11 – Domov">SDG 11</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Odpri meni">☰</button>
     <div class="nav-links" id="navLinks">
       <a href="index.html#home">Domov</a>
@@ -1071,6 +1080,13 @@ $("#secretForm").addEventListener("submit",event => {
 });
 
 // Navigation and theme.
+$("#brandHome").addEventListener("click",event => {
+  event.preventDefault();
+  $("#navLinks").classList.remove("open");
+  if (location.hash !== "#home") location.hash = "home";
+  showRoute();
+  window.scrollTo({top:0,behavior:"smooth"});
+});
 $("#menuToggle").addEventListener("click",() => {
   $("#navLinks").classList.toggle("open");
 });
