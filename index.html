@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#10100f">
-<title>NOIR — Photography Experience</title>
+<title>SDG 10 — Photography Experience</title>
 
 <style>
 :root {
@@ -341,7 +341,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 <body>
 <div id="intro" aria-label="Introduction">
   <div class="intro-inner">
-    <div class="intro-mark">SDG 11</div>
+    <div class="intro-mark">SDG 10</div>
     <div class="intro-line"></div>
     <p class="intro-caption">The art of seeing</p>
   </div>
@@ -349,7 +349,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 
 <header>
   <nav class="container">
-    <a href="#home" class="brand" id="brandHome" aria-label="SDG 11 – Home">SDG 11</a>
+    <a href="#home" class="brand" id="brandHome" aria-label="SDG 10 – Home">SDG 10</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
     <div class="nav-links" id="navLinks">
       <a href="index.html#home">Home</a>
@@ -615,7 +615,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
       <div class="about-copy">
         <p class="eyebrow">05 / Filozofija</p>
         <h2>Ne glej samo.<br><em style="color:var(--accent)">Opazuj.</em></h2>
-        <p>NOIR is an interactive photography gallery dedicated to light, atmosphere, and moments worth preserving.</p>
+        <p>SDG 10 is an interactive photography gallery dedicated to light, atmosphere, and moments worth preserving.</p>
         <p>Explore the collection, discover your style, unlock achievements, and find hidden details. This site is a small reminder that something extraordinary can be found in even the most ordinary moment.</p>
         <a href="index.html#gallery" class="btn" style="margin-top:25px">Vrni se v galerijo ↗</a>
       </div>
@@ -643,7 +643,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 
 <footer>
   <div class="container footer-inner">
-    <span>NOIR. — Independent photography journal</span>
+    <span>SDG 10. — Independent photography journal</span>
     <span>Created for those who notice more.</span>
     <a href="index.html#home">Back to top ↑</a>
   </div>
@@ -661,7 +661,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 
 <script>
 // =============================
-// NOIR — interaktivni sistem
+// SDG 10 — interaktivni sistem
 // =============================
 
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -834,14 +834,14 @@ function saveSet(key,set) {
   try {localStorage.setItem(key,JSON.stringify([...set]));} catch {}
 }
 
-let favoriteIds = loadSet("noirFavorites");
-let badgeIds = loadSet("noirBadges");
-let visitedIds = loadSet("noirVisited");
+let favoriteIds = loadSet("SDG 10Favorites");
+let badgeIds = loadSet("SDG 10Badges");
+let visitedIds = loadSet("SDG 10Visited");
 
 function unlockBadge(id,message) {
   if (badgeIds.has(id)) return;
   badgeIds.add(id);
-  saveSet("noirBadges",badgeIds);
+  saveSet("SDG 10Badges",badgeIds);
   const badge = document.getElementById("badge-"+id);
   if (badge) badge.classList.add("unlocked");
   notify("Achievement unlocked: "+message);
@@ -865,7 +865,7 @@ function syncFavorites() {
 function recordVisit(id) {
   if (!visitedIds.has(id)) {
     visitedIds.add(id);
-    saveSet("noirVisited",visitedIds);
+    saveSet("SDG 10Visited",visitedIds);
   }
   if (visitedIds.size >= 3) unlockBadge("explorer","Explorer");
 }
@@ -913,7 +913,7 @@ cards.forEach(card => {
     const id = card.dataset.id;
     if (favoriteIds.has(id)) favoriteIds.delete(id);
     else favoriteIds.add(id);
-    saveSet("noirFavorites",favoriteIds);
+    saveSet("SDG 10Favorites",favoriteIds);
     syncFavorites();
     applyFilters();
   });
@@ -932,7 +932,7 @@ function showRoute() {
     mainPage.style.display = "";
     detailPage.style.display = "none";
     currentDetailId = null;
-    document.title = "NOIR — Photography Experience";
+    document.title = "SDG 10 — Photography Experience";
     return;
   }
 
@@ -953,7 +953,7 @@ function showRoute() {
   $("#detailExtra").textContent = details.extra;
   $("#detailFacts").textContent = details.facts;
 
-  document.title = details.title+" — NOIR";
+  document.title = details.title+" — SDG 10";
   recordVisit(id);
   syncDetailFavorite();
   window.scrollTo(0,0);
@@ -969,7 +969,7 @@ $("#detailFavorite").addEventListener("click",() => {
   if (!currentDetailId) return;
   if (favoriteIds.has(currentDetailId)) favoriteIds.delete(currentDetailId);
   else favoriteIds.add(currentDetailId);
-  saveSet("noirFavorites",favoriteIds);
+  saveSet("SDG 10Favorites",favoriteIds);
   syncFavorites();
   syncDetailFavorite();
 });
@@ -1053,7 +1053,7 @@ function finishQuiz() {
   $("#resultText").textContent = result.text;
   $("#resultGallery").dataset.category = result.category;
   unlockBadge("personality","Unique Perspective");
-  try {localStorage.setItem("noirQuizStyle",winner);} catch {}
+  try {localStorage.setItem("SDG 10QuizStyle",winner);} catch {}
 }
 function resetQuiz() {
   quizIndex = 0;
@@ -1079,7 +1079,7 @@ $("#resultGallery").addEventListener("click",() => {
 $("#secretForm").addEventListener("submit",event => {
   event.preventDefault();
   const value = $("#secretInput").value.trim().toLocaleLowerCase("en");
-  if (["light","noir"].includes(value)) {
+  if (["light","SDG 10"].includes(value)) {
     $("#secretMessage").textContent = "Secret unlocked. The best photographs begin with observation.";
     $("#secretSpark").textContent = "✦ ✧ ✦";
     unlockBadge("secret","Secret Seeker");
@@ -1109,12 +1109,12 @@ $$(".nav-links a").forEach(link => link.addEventListener("click",() => {
 $("#themeToggle").addEventListener("click",() => {
   document.body.classList.toggle("light");
   const theme = document.body.classList.contains("light") ? "light" : "dark";
-  try {localStorage.setItem("noirTheme",theme);} catch {}
+  try {localStorage.setItem("SDG 10Theme",theme);} catch {}
   $("#themeToggle").textContent = theme === "light" ? "◐ Dark mode" : "☼ Light mode";
 });
 
 try {
-  if (localStorage.getItem("noirTheme") === "light") {
+  if (localStorage.getItem("SDG 10Theme") === "light") {
     document.body.classList.add("light");
     $("#themeToggle").textContent = "◐ Dark mode";
   }
@@ -1139,12 +1139,12 @@ $("#topButton").addEventListener("click",() => window.scrollTo({top:0,behavior:"
 
 // Intro.
 const intro = $("#intro");
-if (sessionStorage.getItem("noirIntroSeen")) {
+if (sessionStorage.getItem("SDG 10IntroSeen")) {
   intro.classList.add("done");
 } else {
   setTimeout(() => {
     intro.classList.add("done");
-    sessionStorage.setItem("noirIntroSeen","yes");
+    sessionStorage.setItem("SDG 10IntroSeen","yes");
   },1500);
 }
 
