@@ -114,6 +114,8 @@ body.light .menu-toggle {color:#171717}
   .nav-links.open {display:flex}
 }
 
+.page-view {display:none}
+.page-view.active {display:block}
 /* Hero */
 .hero {
   min-height:min(790px,calc(100vh - 74px));
@@ -363,7 +365,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 </header>
 
 <main id="mainPage">
-  <section class="hero" id="home">
+  <section class="hero page-view" data-page="home" id="home">
     <div class="container">
       <div class="hero-content">
         <p class="eyebrow">Independent photography journal · No. 001</p>
@@ -382,7 +384,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
     <div class="hero-note">A DIFFERENT WAY OF SEEING</div>
   </section>
 
-  <section class="section container" id="gallery">
+  <section class="section container page-view" data-page="gallery" id="gallery">
     <div class="section-heading reveal">
       <div>
         <p class="eyebrow">01 / Curated collection</p>
@@ -557,7 +559,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
     <p class="empty" id="emptyState">No results. Try another search.</p>
   </section>
 
-  <section class="section quiz-section" id="quiz">
+  <section class="section quiz-section page-view" data-page="quiz" id="quiz">
     <div class="container quiz-shell">
       <div class="quiz-intro reveal">
         <p class="eyebrow">02 / Discover your perspective</p>
@@ -582,7 +584,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
     </div>
   </section>
 
-  <section class="section container" id="achievements">
+  <section class="section container page-view" data-page="achievements" id="achievements">
     <div class="section-heading reveal">
       <div><p class="eyebrow">03 / Achievement collection</p><h2>Your <em>imprint.</em></h2></div>
       <p>Explore the site, save your favorites, complete the quiz, and unlock achievements. All achievements are saved in your browser.</p>
@@ -595,13 +597,13 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
     </div>
   </section>
 
-  <section class="section container" id="secret">
+  <section class="section container page-view" data-page="achievements" id="secret">
     <div class="secret-box reveal">
-      <p class="eyebrow">04 / Zaupno</p>
+      <p class="eyebrow">04 / The secret</p>
       <h2>Every story has a <em style="color:var(--accent)">secret.</em></h2>
-      <p>Vnesi skrivno besedo. Namig: nekaj, kar potrebuje vsak fotograf.</p>
+      <p>Enter the secret word. Hint: something every photographer needs.</p>
       <form id="secretForm">
-        <input class="secret-input" id="secretInput" placeholder="Skrivna beseda ..." aria-label="Skrivna beseda" autocomplete="off">
+        <input class="secret-input" id="secretInput" placeholder="Secret word ..." aria-label="Secret word" autocomplete="off">
         <button class="btn" type="submit">Unlock</button>
       </form>
       <p class="secret-message" id="secretMessage" aria-live="polite"></p>
@@ -609,15 +611,15 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
     </div>
   </section>
 
-  <section class="section container" id="about">
+  <section class="section container page-view" data-page="about" id="about">
     <div class="about-grid reveal">
       <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=1200&q=85" alt="Camera for creative photography" loading="lazy">
       <div class="about-copy">
-        <p class="eyebrow">05 / Filozofija</p>
-        <h2>Ne glej samo.<br><em style="color:var(--accent)">Opazuj.</em></h2>
+        <p class="eyebrow">05 / Philosophy</p>
+        <h2>Do not just look.<br><em style="color:var(--accent)">Opazuj.</em></h2>
         <p>NOIR is an interactive photography gallery dedicated to light, atmosphere, and moments worth preserving.</p>
         <p>Explore the collection, discover your style, unlock achievements, and find hidden details. This site is a small reminder that something extraordinary can be found in even the most ordinary moment.</p>
-        <a href="index.html#gallery" class="btn" style="margin-top:25px">Vrni se v galerijo ↗</a>
+        <a href="index.html#gallery" class="btn" style="margin-top:25px">Return to the gallery ↗</a>
       </div>
     </div>
   </section>
@@ -625,7 +627,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
 
 <section id="detailPage">
   <div class="container">
-    <a class="back-link" href="index.html#gallery">← Nazaj v galerijo</a>
+    <a class="back-link" href="index.html#gallery">← Back to gallery</a>
     <div class="detail-layout">
       <img class="detail-image" id="detailImage" src="" alt="">
       <div class="detail-copy">
@@ -634,7 +636,7 @@ footer {padding:35px 0;border-top:1px solid var(--line);color:var(--muted);font-
         <p id="detailDescription"></p>
         <p id="detailExtra"></p>
         <div class="detail-facts" id="detailFacts"></div>
-        <button class="btn" id="detailFavorite" type="button" style="margin-top:25px">♡ Save fotografijo</button>
+        <button class="btn" id="detailFavorite" type="button" style="margin-top:25px">♡ Save photo</button>
         <button class="pill" id="openDetailLightbox" type="button">Enlarge photo ↗</button>
       </div>
     </div>
@@ -932,7 +934,12 @@ function showRoute() {
     mainPage.style.display = "";
     detailPage.style.display = "none";
     currentDetailId = null;
-    document.title = "NOIR — Photography Experience";
+    const requestedPage = (location.hash || "#home").slice(1);
+    const page = ["home","gallery","quiz","achievements","about"].includes(requestedPage) ? requestedPage : "home";
+    $(".page-view").forEach(section => {
+      section.classList.toggle("active", section.dataset.page === page);
+    });
+    document.title = "NOIR — " + page.charAt(0).toUpperCase() + page.slice(1);
     return;
   }
 
