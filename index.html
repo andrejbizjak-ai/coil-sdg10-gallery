@@ -318,6 +318,26 @@ main#mainPage > .page.active-page {display:block}
 .about-context h3 {font:400 32px/1.1 Georgia,serif}
 .about-context > div:last-child > p {color:var(--muted);font-size:13px;line-height:1.85;margin-bottom:14px}
 
+/* Achievements */
+.achievements {margin-top:70px;padding-top:38px;border-top:1px solid var(--line)}
+.achievements-head {display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:24px}
+.achievements-head h3 {font:400 clamp(29px,4vw,40px)/1.1 Georgia,serif}
+.achievements-head h3 em {color:var(--accent);font-style:normal}
+.achievements-head p {max-width:360px;color:var(--muted);font-size:11px}
+.achievement-progress {height:4px;margin-bottom:22px;background:var(--surface-2);overflow:hidden}
+.achievement-progress span {display:block;width:0;height:100%;background:var(--accent);transition:width .3s}
+.achievement-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.achievement-card {min-width:0;padding:18px 14px;background:var(--surface);border:1px solid var(--line);opacity:.62;transition:opacity .2s,border-color .2s}
+.achievement-card.unlocked {opacity:1;border-color:var(--accent)}
+.achievement-icon {display:grid;place-items:center;width:42px;height:42px;margin-bottom:15px;border:1px solid var(--line);border-radius:50%;color:var(--muted);font-size:19px}
+.achievement-card.unlocked .achievement-icon {border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.achievement-card h4 {font:400 18px/1.2 Georgia,serif;margin-bottom:7px}
+.achievement-card p {min-height:52px;color:var(--muted);font-size:10px;line-height:1.6}
+.achievement-status {display:block;margin-top:14px;color:var(--muted);font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.achievement-card.unlocked .achievement-status {color:var(--accent)}
+@media(max-width:760px) {.achievement-grid {grid-template-columns:repeat(2,minmax(0,1fr))}.achievements-head {display:block}.achievements-head > p {margin-top:12px}}
+@media(max-width:560px) {.achievement-grid {grid-template-columns:1fr 1fr}.achievement-card {padding:15px 12px}}
+
 /* About */
 .about-grid {display:grid;grid-template-columns:.95fr 1.05fr;gap:58px;align-items:center}
 .about-image {height:500px;object-fit:cover}
@@ -780,6 +800,51 @@ body.light .hero {background:
         </div>
       </div>
     </div>
+
+    <section class="achievements" aria-labelledby="achievementsTitle">
+      <div class="achievements-head">
+        <div>
+          <p class="kicker">Your progress</p>
+          <h3 id="achievementsTitle">Your <em>achievements.</em></h3>
+        </div>
+        <p>Explore the site and complete the quiz to collect all five badges. Your progress is saved on this device.</p>
+      </div>
+      <div class="achievement-progress" role="progressbar" aria-label="Achievements unlocked" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0">
+        <span id="achievementProgressFill"></span>
+      </div>
+      <div class="achievement-grid" id="achievementGrid">
+        <article class="achievement-card" data-achievement="stories">
+          <span class="achievement-icon" aria-hidden="true">⌕</span>
+          <h4>Story Seeker</h4>
+          <p>Visit the Stories page and explore real-world perspectives on inequality.</p>
+          <span class="achievement-status">Not unlocked yet</span>
+        </article>
+        <article class="achievement-card" data-achievement="targets">
+          <span class="achievement-icon" aria-hidden="true">◎</span>
+          <h4>Goal Guardian</h4>
+          <p>Visit The Goal page to discover the targets behind SDG 10.</p>
+          <span class="achievement-status">Not unlocked yet</span>
+        </article>
+        <article class="achievement-card" data-achievement="action">
+          <span class="achievement-icon" aria-hidden="true">↗</span>
+          <h4>Action Starter</h4>
+          <p>Visit Take Action and find ways to help build a fairer world.</p>
+          <span class="achievement-status">Not unlocked yet</span>
+        </article>
+        <article class="achievement-card" data-achievement="quiz">
+          <span class="achievement-icon" aria-hidden="true">✦</span>
+          <h4>Quiz Finisher</h4>
+          <p>Complete all five scenarios in the SDG 10 challenge.</p>
+          <span class="achievement-status">Not unlocked yet</span>
+        </article>
+        <article class="achievement-card" data-achievement="perfect">
+          <span class="achievement-icon" aria-hidden="true">★</span>
+          <h4>Sharp Thinker</h4>
+          <p>Get every answer right and earn a perfect 100-point quiz score.</p>
+          <span class="achievement-status">Not unlocked yet</span>
+        </article>
+      </div>
+    </section>
   </section>
 </main>
 
@@ -827,6 +892,42 @@ const themeToggle = $("#themeToggle");
 const cards = $$(".story-card");
 let activeStoryId = null;
 let currentFilter = "all";
+
+const achievementDefinitions = [
+  {id:"stories",page:"gallery"},
+  {id:"targets",page:"targets"},
+  {id:"action",page:"action"},
+  {id:"quiz"},
+  {id:"perfect"}
+];
+function getUnlockedAchievements() {
+  try {
+    const saved = JSON.parse(localStorage.getItem("sdg10-achievements") || "[]");
+    return Array.isArray(saved) ? saved.filter(id => achievementDefinitions.some(item => item.id === id)) : [];
+  } catch { return []; }
+}
+function unlockAchievement(id) {
+  if (!achievementDefinitions.some(item => item.id === id)) return;
+  const unlocked = getUnlockedAchievements();
+  if (!unlocked.includes(id)) {
+    unlocked.push(id);
+    try {localStorage.setItem("sdg10-achievements",JSON.stringify(unlocked));} catch {}
+  }
+  renderAchievements();
+}
+function renderAchievements() {
+  const unlocked = getUnlockedAchievements();
+  $(".achievement-card").forEach(card => {
+    const earned = unlocked.includes(card.dataset.achievement);
+    card.classList.toggle("unlocked",earned);
+    card.querySelector(".achievement-status").textContent = earned ? "✓ Unlocked" : "Not unlocked yet";
+    card.setAttribute("aria-label",card.querySelector("h4").textContent + (earned ? ", unlocked" : ", not unlocked yet"));
+  });
+  const count = unlocked.length;
+  $("#achievementProgressFill").style.width = (count / achievementDefinitions.length * 100) + "%";
+  $(".achievement-progress").setAttribute("aria-valuenow",String(count));
+  $(".achievements-head > p").textContent = count + " of 5 achievements unlocked. " + (count === 5 ? "You've collected every badge—well done!" : "Your progress is saved on this device.");
+}
 
 const storyDetails = {
   income: {
@@ -893,6 +994,8 @@ function showPage(id, updateHistory = true) {
     page.classList.toggle("active-page", pageId === id);
   });
   setCurrentNav(id);
+  const pageAchievement = achievementDefinitions.find(item => item.page === id);
+  if (pageAchievement) unlockAchievement(pageAchievement.id);
   closeMobileMenu();
   if (updateHistory && location.hash !== "#" + id) history.pushState(null,"","#" + id);
   const heading = document.getElementById(id).querySelector("h1,h2");
@@ -1117,6 +1220,8 @@ function answerGame(choice) {
   $("#gameNext").textContent = gameIndex === gameScenarios.length-1 ? "See my result" : "Next scenario →";
 }
 function finishGame() {
+  unlockAchievement("quiz");
+  if (gameScore === 100) unlockAchievement("perfect");
   $("#gamePanel").hidden = true;
   $("#gameResult").hidden = false;
   $("#gameProgress").style.width = "100%";
@@ -1149,6 +1254,7 @@ $("#gameRestart").addEventListener("click",restartGame);
 $("#gameToAction").addEventListener("click",() => showPage("action"));
 
 renderGame();
+renderAchievements();
 routeFromHash(false);
 applyStoryFilters();
 </script>
