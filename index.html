@@ -284,6 +284,33 @@ main#mainPage > .page.active-page {display:block}
 .fun-fact span {font-size:9px;color:var(--accent);font-weight:700;letter-spacing:.15em}
 .fun-fact p {font:400 20px/1.45 Georgia,serif}
 
+/* Memory matching game */
+.memory-intro {display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;padding:28px;background:var(--surface-2)}
+.memory-intro h3 {font:400 clamp(29px,4vw,44px)/1.08 Georgia,serif}
+.memory-intro h3 em,.match-success h3 em {color:var(--accent);font-style:normal}
+.memory-intro > p {max-width:490px;color:var(--muted);font-size:12px;line-height:1.8}
+.memory-stats {display:flex;align-items:center;gap:30px;margin:25px 0}
+.memory-stats > div {display:grid;gap:3px}
+.memory-stat-value {font:400 27px/1 Georgia,serif;color:var(--accent)}
+.memory-stat-label {font-size:8px;color:var(--muted);font-weight:700;letter-spacing:.15em}
+.memory-stats .button {margin-left:auto}
+.match-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.match-card {min-height:150px;padding:17px;border:1px solid var(--line);background:var(--surface);color:var(--text);display:flex;flex-direction:column;justify-content:space-between;text-align:left;transition:border-color .2s,background .2s,transform .2s}
+.match-card:hover:not(:disabled) {transform:translateY(-3px);border-color:var(--accent)}
+.match-card:disabled {cursor:default;opacity:1}
+.match-card.is-open {border-color:var(--accent);background:var(--surface-2)}
+.match-card.is-matched {border-color:var(--accent-2);background:color-mix(in srgb,var(--accent-2) 12%,var(--surface))}
+.match-kind {font-size:8px;color:var(--accent);font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.match-face {font:400 clamp(16px,2vw,23px)/1.2 Georgia,serif;overflow-wrap:anywhere}
+.match-card[data-kind="meaning"] .match-face {font:400 13px/1.55 Arial,Helvetica,sans-serif}
+.match-hidden {align-self:center;margin:auto;font:400 45px/1 Georgia,serif;color:var(--accent)}
+.match-card.is-hidden .match-kind,.match-card.is-hidden .match-face {visibility:hidden}
+.match-status {min-height:25px;margin:18px 0;color:var(--muted);font-size:11px;text-align:center}
+.match-success {padding:30px;margin-top:10px;background:var(--surface-2);border-left:2px solid var(--accent)}
+.match-success h3 {font:400 clamp(27px,4vw,38px)/1.1 Georgia,serif}
+.match-success > p:not(.kicker) {max-width:650px;margin:12px 0 20px;color:var(--muted);font-size:12px}
+@media(max-width:760px) {.memory-intro {grid-template-columns:1fr;gap:15px}.match-grid {grid-template-columns:repeat(2,minmax(0,1fr))}.match-card {min-height:135px}}
+
 /* About us and team video slots */
 .about-intro {max-width:820px}
 .team-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:52px}
@@ -326,7 +353,7 @@ main#mainPage > .page.active-page {display:block}
 .achievements-head p {max-width:360px;color:var(--muted);font-size:11px}
 .achievement-progress {height:4px;margin-bottom:22px;background:var(--surface-2);overflow:hidden}
 .achievement-progress span {display:block;width:0;height:100%;background:var(--accent);transition:width .3s}
-.achievement-grid {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.achievement-grid {display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
 .achievement-card {min-width:0;padding:18px 14px;background:var(--surface);border:1px solid var(--line);opacity:.62;transition:opacity .2s,border-color .2s}
 .achievement-card.unlocked {opacity:1;border-color:var(--accent)}
 .achievement-icon {display:grid;place-items:center;width:42px;height:42px;margin-bottom:15px;border:1px solid var(--line);border-radius:50%;color:var(--muted);font-size:19px}
@@ -335,7 +362,7 @@ main#mainPage > .page.active-page {display:block}
 .achievement-card p {min-height:52px;color:var(--muted);font-size:10px;line-height:1.6}
 .achievement-status {display:block;margin-top:14px;color:var(--muted);font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .achievement-card.unlocked .achievement-status {color:var(--accent)}
-@media(max-width:760px) {.achievement-grid {grid-template-columns:repeat(2,minmax(0,1fr))}.achievements-head {display:block}.achievements-head > p {margin-top:12px}}
+@media(max-width:760px) {.achievement-grid {grid-template-columns:repeat(3,minmax(0,1fr))}.achievements-head {display:block}.achievements-head > p {margin-top:12px}}
 @media(max-width:560px) {.achievement-grid {grid-template-columns:1fr 1fr}.achievement-card {padding:15px 12px}}
 
 /* About */
@@ -450,7 +477,8 @@ body.light .hero {background:
       <a href="#gallery" data-page="gallery">Stories</a>
       <a href="#targets" data-page="targets">The Goal</a>
       <a href="#action" data-page="action">Take Action</a>
-      <a href="#fun" data-page="fun">Fun</a>
+      <a href="#quiz" data-page="quiz">Quiz</a>
+      <a href="#game" data-page="game">Game</a>
       <a href="#about" data-page="about">About us</a>
       <button class="theme-toggle" id="themeToggle" type="button">◐ <span>Appearance</span></button>
     </div>
@@ -692,28 +720,28 @@ body.light .hero {background:
     </div>
   </section>
 
-  <section class="page section container" id="fun">
+  <section class="page section container" id="quiz">
     <a class="page-home-link" href="#home" data-page="home"><span aria-hidden="true">←</span> Home</a>
     <div class="section-head">
       <div>
-        <p class="kicker">04 / Learn through play</p>
-        <h2>The fairness <em>challenge.</em></h2>
+        <p class="kicker">04 / Test what you know</p>
+        <h2>The SDG 10 <em>quiz.</em></h2>
       </div>
-      <p>Five everyday situations. Choose the response that removes barriers and makes participation fairer. Each answer includes a short explanation, so the game is also a way to test what you have learned about SDG 10.</p>
+      <p>Ten questions take you from the basics to real-world decisions. Choose your answers, learn from instant explanations, and practise again whenever you like. There is no timer and no penalty for getting something wrong.</p>
     </div>
     <div class="game-layout">
       <aside class="game-intro">
         <p class="kicker">How to play</p>
         <h3>Think about the <em>system,</em> not just the individual.</h3>
-        <p>Read the situation, choose the strongest response, and learn why it matters. You earn 20 points for each answer that best supports inclusion and equal opportunity.</p>
+        <p>Read the situation, choose the strongest response, and learn why it matters. Each question is worth 10 points. Read the feedback after every answer to understand why it matters.</p>
         <div class="game-note"><strong>Remember</strong><span>Fairness is not always about treating everyone identically. It is about removing barriers so everyone can participate.</span></div>
       </aside>
       <div class="game-panel" id="gamePanel" aria-live="polite">
         <div class="game-topline">
-          <span id="gameRound">SCENARIO 01 / 05</span>
+          <span id="gameRound">QUESTION 01 / 10</span>
           <span id="gameScore">0 POINTS</span>
         </div>
-        <div class="game-progress" role="progressbar" aria-label="Game progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0">
+        <div class="game-progress" role="progressbar" aria-label="Game progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0>
           <div id="gameProgress"></div>
         </div>
         <p class="game-context" id="gameContext">A public meeting is being planned.</p>
@@ -739,10 +767,35 @@ body.light .hero {background:
     </div>
   </section>
 
+  <section class="page section container" id="game">
+    <a class="page-home-link" href="#home" data-page="home"><span aria-hidden="true">←</span> Home</a>
+    <div class="section-head">
+      <div><p class="kicker">05 / Play and remember</p><h2>The equality <em>match game.</em></h2></div>
+      <p>Match each SDG 10 idea with the meaning that best explains it. Turn over two cards at a time, remember where each one is, and find all four pairs. Take your time—the aim is to learn, not to race.</p>
+    </div>
+    <div class="memory-intro">
+      <div><p class="kicker">Four ideas · Eight cards</p><h3>Find the pairs.<br><em>Build a fairer picture.</em></h3></div>
+      <p>Look for the connection between each concept and its real-world meaning. Match all four pairs to complete the game and earn an achievement.</p>
+    </div>
+    <div class="memory-stats" aria-live="polite">
+      <div><span class="memory-stat-value" id="matchMoves">0</span><span class="memory-stat-label">MOVES</span></div>
+      <div><span class="memory-stat-value" id="matchPairs">0 / 4</span><span class="memory-stat-label">PAIRS FOUND</span></div>
+      <button class="button secondary" id="matchRestart" type="button">Restart game ↻</button>
+    </div>
+    <div class="match-grid" id="matchGrid" aria-label="Memory matching cards"></div>
+    <p class="match-status" id="matchStatus" role="status" aria-live="polite">Choose any two cards to reveal them.</p>
+    <div class="match-success" id="matchSuccess" hidden>
+      <p class="kicker">All pairs found</p><h3>Great memory. <em>Stronger understanding.</em></h3>
+      <p>You matched all four ideas. Inclusion, access, equal opportunity, and representation work together to reduce inequality.</p>
+      <button class="button" id="matchPlayAgain" type="button">Play again ↻</button>
+    </div>
+    <div class="fun-fact"><span>REMEMBER</span><p>Fair systems are designed with the people affected by them—not just for them.</p></div>
+  </section>
+
   <section class="page section container" id="about">
     <a class="page-home-link" href="#home" data-page="home"><span aria-hidden="true">←</span> Home</a>
     <div class="about-intro">
-      <p class="kicker">05 / About us</p>
+      <p class="kicker">06 / About us</p>
       <h2 class="editorial-title">Two people.<br><em>One shared purpose.</em></h2>
       <p class="lead">We created this project to make Sustainable Development Goal 10 easier to understand and connect its global ambitions to real experiences. In the videos below, each of us can introduce ourselves, explain our contribution, and share why reducing inequality matters.</p>
     </div>
@@ -807,9 +860,9 @@ body.light .hero {background:
           <p class="kicker">Your progress</p>
           <h3 id="achievementsTitle">Your <em>achievements.</em></h3>
         </div>
-        <p>Explore the site and complete the quiz to collect all five badges. Your progress is saved on this device.</p>
+        <p>Explore the site, finish the quiz, and complete the Game to collect all six badges. Your progress is saved on this device.</p>
       </div>
-      <div class="achievement-progress" role="progressbar" aria-label="Achievements unlocked" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0">
+      <div class="achievement-progress" role="progressbar" aria-label="Achievements unlocked" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0>
         <span id="achievementProgressFill"></span>
       </div>
       <div class="achievement-grid" id="achievementGrid">
@@ -834,13 +887,19 @@ body.light .hero {background:
         <article class="achievement-card" data-achievement="quiz">
           <span class="achievement-icon" aria-hidden="true">✦</span>
           <h4>Quiz Finisher</h4>
-          <p>Complete all five scenarios in the SDG 10 challenge.</p>
+          <p>Complete all ten questions in the SDG 10 quiz.</p>
           <span class="achievement-status">Not unlocked yet</span>
         </article>
         <article class="achievement-card" data-achievement="perfect">
           <span class="achievement-icon" aria-hidden="true">★</span>
           <h4>Sharp Thinker</h4>
           <p>Get every answer right and earn a perfect 100-point quiz score.</p>
+          <span class="achievement-status">Not unlocked yet</span>
+        </article>
+        <article class="achievement-card" data-achievement="game">
+          <span class="achievement-icon" aria-hidden="true">◇</span>
+          <h4>Fairness Matcher</h4>
+          <p>Match all four pairs in the SDG 10 memory game.</p>
           <span class="achievement-status">Not unlocked yet</span>
         </article>
       </div>
@@ -883,7 +942,7 @@ body.light .hero {background:
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-const pageIds = ["home","gallery","targets","action","fun","about"];
+const pageIds = ["home","gallery","targets","action","quiz","game","about"]
 const mainPage = $("#mainPage");
 const detailPage = $("#detailPage");
 const navLinks = $("#navLinks");
@@ -898,7 +957,8 @@ const achievementDefinitions = [
   {id:"targets",page:"targets"},
   {id:"action",page:"action"},
   {id:"quiz"},
-  {id:"perfect"}
+  {id:"perfect"},
+  {id:"game"}
 ];
 function getUnlockedAchievements() {
   try {
@@ -917,7 +977,7 @@ function unlockAchievement(id) {
 }
 function renderAchievements() {
   const unlocked = getUnlockedAchievements();
-  $(".achievement-card").forEach(card => {
+  $$(".achievement-card").forEach(card => {
     const earned = unlocked.includes(card.dataset.achievement);
     card.classList.toggle("unlocked",earned);
     card.querySelector(".achievement-status").textContent = earned ? "✓ Unlocked" : "Not unlocked yet";
@@ -926,7 +986,7 @@ function renderAchievements() {
   const count = unlocked.length;
   $("#achievementProgressFill").style.width = (count / achievementDefinitions.length * 100) + "%";
   $(".achievement-progress").setAttribute("aria-valuenow",String(count));
-  $(".achievements-head > p").textContent = count + " of 5 achievements unlocked. " + (count === 5 ? "You've collected every badge—well done!" : "Your progress is saved on this device.");
+  $(".achievements-head > p").textContent = count + " of 6 achievements unlocked. " + (count === 6 ? "All badges collected—well done!" : "Your progress is saved on this device.");
 }
 
 const storyDetails = {
@@ -1170,7 +1230,12 @@ const gameScenarios = [
     ],
     answer:2,
     explanation:"Careful analysis can reveal structural patterns while protecting individual privacy. Evidence is the basis for an effective response."
-  }
+  },
+  {context:"A school is reviewing how students take part in class activities.",question:"Which change best supports equal participation?",options:["Offer different accessible ways to contribute, such as speaking, writing, or using assistive technology.","Allow only the fastest students to answer.","Keep one fixed format even when it prevents some students from taking part."],answer:0,explanation:"Different ways to contribute remove barriers while keeping the learning goal consistent."},
+  {context:"A report compares average incomes across a country.",question:"Why should researchers also look at data for different population groups?",options:["Group data always makes the average higher.","A national average can hide large differences between groups.","Breaking down data is unrelated to inequality."],answer:1,explanation:"Disaggregated data can show whether progress is reaching people who are most likely to be left behind."},
+  {context:"A public service is supporting people who have recently arrived in the country.",question:"What is the most inclusive first step?",options:["Provide clear information in accessible formats and arrange interpretation where needed.","Give everyone the same leaflet, regardless of language or access needs.","Ask people to return only after they have learned the main local language."],answer:0,explanation:"Accessible information helps people understand their rights and services. Equal access may require different forms of support."},
+  {context:"A workplace discovers a persistent pay gap.",question:"What should it do before deciding on a response?",options:["Assume the gap is explained by personal choices and take no further action.","Publish individual employees’ salaries so everyone can compare them.","Examine pay, roles, hours, contracts, and progression patterns using privacy-respecting data."],answer:2,explanation:"Careful analysis can reveal structural patterns while protecting individual privacy."},
+  {context:"A country wants to make progress on inequality between countries.",question:"Which action is most closely connected to SDG 10?",options:["Reduce the voice of developing countries in global institutions.","Improve representation of developing countries in international economic decision-making.","Ignore the effects of trade and financial systems."],answer:1,explanation:"Target 10.6 calls for stronger voice and representation of developing countries in international economic and financial institutions."}
 ];
 let gameIndex = 0;
 let gameScore = 0;
@@ -1178,7 +1243,7 @@ let gameAnswered = false;
 
 function renderGame() {
   const item = gameScenarios[gameIndex];
-  $("#gameRound").textContent = "SCENARIO " + String(gameIndex+1).padStart(2,"0") + " / " + gameScenarios.length;
+  $("#gameRound").textContent = "QUESTION " + String(gameIndex+1).padStart(2,"0") + " / " + gameScenarios.length;
   $("#gameScore").textContent = gameScore + " POINTS";
   $("#gameContext").textContent = item.context;
   $("#gameQuestion").textContent = item.question;
@@ -1204,14 +1269,14 @@ function answerGame(choice) {
   gameAnswered = true;
   const item = gameScenarios[gameIndex];
   const correct = choice === item.answer;
-  if (correct) gameScore += 20;
+  if (correct) gameScore += 10;
   $(".game-option").forEach((button,index) => {
     button.disabled = true;
     if (index === item.answer) button.classList.add("correct");
     else if (index === choice) button.classList.add("incorrect");
   });
   const heading = document.createElement("strong");
-  heading.textContent = correct ? "Good judgement · +20 points" : "A chance to learn · 0 points";
+  heading.textContent = correct ? "Good judgement · +10 points" : "A chance to learn · 0 points";
   const explanation = document.createElement("span");
   explanation.textContent = item.explanation;
   $("#gameFeedback").replaceChildren(heading,explanation);
@@ -1252,6 +1317,56 @@ $("#gameNext").addEventListener("click",() => {
 });
 $("#gameRestart").addEventListener("click",restartGame);
 $("#gameToAction").addEventListener("click",() => showPage("action"));
+
+const memoryDeck=[
+ {pair:"inclusion",kind:"CONCEPT",face:"Inclusion"},{pair:"inclusion",kind:"WHAT IT MEANS",face:"Everyone can take part in social, economic, and political life."},
+ {pair:"access",kind:"CONCEPT",face:"Accessibility"},{pair:"access",kind:"WHAT IT MEANS",face:"Removing barriers in spaces, information, and services."},
+ {pair:"opportunity",kind:"CONCEPT",face:"Equal opportunity"},{pair:"opportunity",kind:"WHAT IT MEANS",face:"Fair chances to progress without discrimination."},
+ {pair:"representation",kind:"CONCEPT",face:"Representation"},{pair:"representation",kind:"WHAT IT MEANS",face:"People affected by decisions have a meaningful voice."}
+];
+let matchCards=[],matchFirst=null,matchLocked=false,matchMoves=0,matchFound=0;
+function renderMemoryGame(){
+ const shuffled=[...memoryDeck];
+ for(let i=shuffled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];}
+ matchCards=shuffled.map((card,index)=>({...card,index,open:false,matched:false}));
+ matchFirst=null;matchLocked=false;matchMoves=0;matchFound=0;
+ $("#matchMoves").textContent="0";$("#matchPairs").textContent="0 / 4";$("#matchStatus").textContent="Choose any two cards to reveal them.";
+ $("#matchSuccess").hidden=true;$("#matchGrid").replaceChildren();
+ matchCards.forEach(card=>{
+  const b=document.createElement("button");b.type="button";b.className="match-card is-hidden";b.dataset.index=String(card.index);
+  b.dataset.kind=card.kind==="CONCEPT"?"concept":"meaning";b.setAttribute("aria-label","Hidden card "+(card.index+1)+" of 8");
+  b.innerHTML='<span class="match-kind" aria-hidden="true">'+card.kind+'</span><strong class="match-face" aria-hidden="true">'+card.face+'</strong><span class="match-hidden" aria-hidden="true">?</span>';
+  b.addEventListener("click",()=>revealMemoryCard(card.index,b));$("#matchGrid").appendChild(b);
+ });
+}
+function revealMemoryCard(index,button){
+ const card=matchCards[index];if(matchLocked||card.open||card.matched)return;
+ card.open=true;button.classList.remove("is-hidden");button.classList.add("is-open");button.setAttribute("aria-label",card.kind+": "+card.face);
+ if(matchFirst===null){matchFirst=index;$("#matchStatus").textContent="One card revealed. Find its matching pair.";return;}
+ matchMoves++;$("#matchMoves").textContent=String(matchMoves);
+ const first=matchCards[matchFirst],firstButton=$('.match-card[data-index="'+matchFirst+'"]',$("#matchGrid"));
+ if(first.pair===card.pair&&first.index!==card.index){
+  first.matched=true;card.matched=true;
+  [firstButton,button].forEach(b=>{b.classList.remove("is-open");b.classList.add("is-matched");b.disabled=true;b.setAttribute("aria-label","Matched pair: "+first.pair);});
+  matchFound++;$("#matchPairs").textContent=matchFound+" / 4";matchFirst=null;
+  $("#matchStatus").textContent="A match! "+(4-matchFound)+" pair"+(4-matchFound===1?"":"s")+" left.";
+  if(matchFound===4){$("#matchStatus").textContent="All four pairs found in "+matchMoves+" moves.";$("#matchSuccess").hidden=false;unlockAchievement("game");}
+ }else{
+  matchLocked=true;$("#matchStatus").textContent="Not a match. Remember these cards and try another pair.";
+  const firstIndex=matchFirst;matchFirst=null;
+  setTimeout(()=>{
+   [firstIndex,index].forEach(cardIndex=>{
+    const c=matchCards[cardIndex];if(c.matched)return;c.open=false;
+    const b=$('.match-card[data-index="'+cardIndex+'"]',$("#matchGrid"));
+    b.classList.remove("is-open");b.classList.add("is-hidden");b.setAttribute("aria-label","Hidden card "+(cardIndex+1)+" of 8");
+   });
+   matchLocked=false;$("#matchStatus").textContent="Choose two cards and look for another connection.";
+  },850);
+ }
+}
+$("#matchRestart").addEventListener("click",renderMemoryGame);
+$("#matchPlayAgain").addEventListener("click",renderMemoryGame);
+renderMemoryGame();
 
 renderGame();
 renderAchievements();
