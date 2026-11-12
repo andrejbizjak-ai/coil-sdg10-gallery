@@ -792,6 +792,17 @@ body.light .hero {background:
  .sdg-choice-intro span{display:none}
 }
 
+
+.sdg-map-pin.severity-high,.sdg-fallback-pin.severity-high{background:#d94750}
+.sdg-map-pin.severity-medium,.sdg-fallback-pin.severity-medium{background:#e59a39}
+.sdg-map-pin.severity-low,.sdg-fallback-pin.severity-low{background:#328b7d}
+.sdg-map-pin.is-current,.sdg-fallback-pin.is-current{outline:4px solid rgba(255,255,255,.4);box-shadow:0 0 0 8px rgba(242,184,68,.24),0 2px 10px rgba(0,0,0,.45)}
+.sdg-map-pin.is-visited,.sdg-fallback-pin.is-visited{background:#368d87}
+.sdg-map-legend{position:absolute;z-index:12;left:50%;top:8px;transform:translateX(-50%);display:flex;gap:10px;padding:7px 10px;background:rgba(7,27,40,.86);color:#f5fafb;font:700 7px Arial,sans-serif;letter-spacing:.08em;white-space:nowrap}
+.sdg-map-legend span{display:inline-flex;align-items:center;gap:4px}
+.sdg-map-legend i{display:inline-block;width:7px;height:7px;border-radius:50%}
+.sdg-map-legend .red{background:#d94750}.sdg-map-legend .amber{background:#e59a39}.sdg-map-legend .green{background:#328b7d}
+@media(max-width:560px){.sdg-map-legend{top:4px;gap:6px;padding:5px 6px;font-size:6px}}
 </style>
 </head>
 
@@ -1185,7 +1196,7 @@ body.light .hero {background:
             <g fill="none" stroke="#fff4d7" stroke-width="1.1" stroke-dasharray="3 3" opacity=".7"><path d="M180 95l-8 65 18 60M245 108l-8 55 20 44M318 130l-18 64 10 54M575 120l14 50-12 48M630 110l-8 52 17 41M700 115l-5 55 18 42M770 117l-14 56 21 46M850 140l-15 55 20 49M920 162l-15 45 17 40M590 245l23 41-10 51M640 254l-15 47 16 38"/></g>
             <g font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#315a65" opacity=".8" letter-spacing="2"><text x="210" y="205">NORTH AMERICA</text><text x="345" y="390">SOUTH AMERICA</text><text x="615" y="300">AFRICA</text><text x="620" y="140">EUROPE</text><text x="850" y="190">ASIA</text><text x="970" y="455">AUSTRALIA</text></g>
           </svg></div>
-          <div id="realWorldMap"></div><div id="sdgMapFallbackPins"></div>
+          <div id="realWorldMap"></div><div id="sdgMapFallbackPins"></div><div class="sdg-map-legend"><span><i class="red"></i> HIGH PRESSURE</span><span><i class="amber"></i> NEEDS ACTION</span><span><i class="green"></i> IMPROVING</span></div>
           <div class="map-attribution">Map tiles © OpenStreetMap · CARTO</div>
         </div>
         <div class="earth-view-top"><span>COIL · SDG 10 — REDUCED INEQUALITIES</span><button class="button secondary" id="earthBack" type="button">← MENU</button></div>
@@ -1952,7 +1963,32 @@ const sdgRegionStories=[
  {place:"Mumbai, India",issue:"Digital inclusion & access to services",lat:19.08,lng:72.88,brief:"Public services are moving onto digital platforms. People with older devices, limited connectivity, disabilities, language barriers or incomplete identity records struggle to access benefits. The city must decide whether technology becomes a bridge or another gate.",voice:"“A digital service is not modern if the people who need it most cannot use it.” — An accessibility advocate, in this fictional scenario"},
  {place:"Addis Ababa, Ethiopia",issue:"Global representation & shared decisions",lat:8.98,lng:38.76,brief:"Countries are preparing a century-defining agreement on trade, technology and shared resources. Developing countries want a meaningful voice, clear accountability and decisions that reflect the needs of communities, not only the influence of powerful institutions.",voice:"“Partnership means more than being in the room. It means being able to change the outcome.” — A youth delegate, in this fictional scenario"}
 ];
-let sdg10State={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,history:[],selected:false,finished:false};
+const SDG10_SAVE_KEY="coil-sdg10-world-rescue-v1";
+function loadSDG10State(){
+ const fresh={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,history:[],selected:false,selectedChoice:null,lastPublicMood:0,finished:false};
+ try{const raw=localStorage.getItem(SDG10_SAVE_KEY);if(!raw)return fresh;const saved=JSON.parse(raw);if(saved.version!==1||!Number.isInteger(saved.index)||saved.index<0||saved.index>10)return fresh;
+ ["opportunity","inclusion","wellbeing","equality","popularity"].forEach(key=>{if(Number.isFinite(saved[key]))fresh[key]=Math.max(0,Math.min(100,saved[key]));});
+ fresh.index=saved.index;fresh.history=Array.isArray(saved.history)?saved.history.slice(-10):[];fresh.selected=Boolean(saved.selected);fresh.selectedChoice=Number.isInteger(saved.selectedChoice)?saved.selectedChoice:null;fresh.lastPublicMood=Number(saved.lastPublicMood)||0;fresh.finished=Boolean(saved.finished);return fresh;
+ }catch{return fresh;}
+}
+let sdg10State=loadSDG10State();
+function saveSDG10State(){try{localStorage.setItem(SDG10_SAVE_KEY,JSON.stringify({...sdg10State,version:1}));}catch(e){console.warn("Could not save progress.",e);}}
+
+const additionalMapStories=[
+ {place:"Lagos, Nigeria",issue:"Housing, transport & informal work",lat:6.52,lng:3.38,decisionIndex:0,severity:88,brief:"Fast urban growth is putting pressure on affordable homes, safe transport and secure work. Neighbourhoods with fewer services are often farthest from reliable jobs and public facilities. A fair city plan must include residents in decisions and bring essential services closer.",voice:"“We need a city where the people who keep it running can afford to live in it.” — A market trader, fictional scenario"},
+ {place:"Cochabamba, Bolivia",issue:"Rural education & accessible technology",lat:-17.39,lng:-66.16,decisionIndex:1,severity:74,brief:"Schools in remote communities face uneven access to trained teachers, assistive materials and reliable connectivity. Families want learning opportunities that do not depend on household income or distance from a city.",voice:"“The future should not be decided by the road between our village and the nearest school.” — A parent, fictional scenario"},
+ {place:"Pittsburgh, United States",issue:"Automation & worker transition",lat:40.44,lng:-80.00,decisionIndex:2,severity:69,brief:"Employers are introducing new automated systems, while workers ask who pays for retraining and how productivity gains will be shared. Local leaders are weighing investment incentives against strong labour standards and worker voice.",voice:"“Innovation is progress only when people can share in it.” — A machinist, fictional scenario"},
+ {place:"Marrakesh, Morocco",issue:"Healthcare access & income gaps",lat:31.63,lng:-7.99,decisionIndex:3,severity:77,brief:"A regional health system is trying to bring affordable care to outlying communities. Transport costs, language access, disability access and staffing shortages all shape whether people can receive timely treatment.",voice:"“The service should meet people where they are, not only where the hospitals are.” — A nurse, fictional scenario"},
+ {place:"Athens, Greece",issue:"Migration, housing & equal rights",lat:37.98,lng:23.73,decisionIndex:4,severity:72,brief:"New arrivals and long-time residents are navigating high housing costs, uncertain work and complex public services. Local organisations are calling for clear information, fair labour protections and practical routes into community life.",voice:"“People settle when they can work fairly, find a home and be heard.” — A volunteer, fictional scenario"},
+ {place:"Suva, Fiji",issue:"Community voice in climate planning",lat:-18.14,lng:178.44,decisionIndex:5,severity:66,brief:"Coastal adaptation plans will affect homes, livelihoods and cultural places. Residents want early participation and transparent choices, not a consultation after the plan has already been decided.",voice:"“Our knowledge belongs in the plan from the beginning.” — A youth organiser, fictional scenario"},
+ {place:"Nairobi, Kenya",issue:"Public finance & equal services",lat:-1.29,lng:36.82,decisionIndex:6,severity:81,brief:"Rapid growth in the region is increasing demand for schools, health services, transport and accessible public spaces. Sustainable public revenue and fair allocation matter because households cannot be expected to replace essential services privately.",voice:"“A public budget is a promise about who gets included.” — A civic advocate, fictional scenario"},
+ {place:"Maputo, Mozambique",issue:"Climate recovery & unequal risk",lat:-25.97,lng:32.58,decisionIndex:7,severity:86,brief:"Communities facing repeated severe weather need resilient homes, safer infrastructure and fair access to recovery funds. The greatest losses can fall on households least able to rebuild without support.",voice:"“Recovery should start with the families who have the fewest ways to recover alone.” — A community volunteer, fictional scenario"},
+ {place:"Jakarta, Indonesia",issue:"Digital access & public services",lat:-6.21,lng:106.85,decisionIndex:8,severity:79,brief:"Digital services can make public support easier to reach, but only when devices, connectivity, language, accessibility and offline help are considered. Residents are asking for technology that opens doors rather than adding new checks.",voice:"“A service is not universal until everyone can actually use it.” — An accessibility designer, fictional scenario"},
+ {place:"Brussels, Belgium",issue:"Global decision-making & representation",lat:50.85,lng:4.35,decisionIndex:9,severity:71,brief:"An international policy forum is reviewing rules that affect trade, technology and public revenue. Smaller countries and affected communities want more than observer status: they want a meaningful role in setting priorities and monitoring results.",voice:"“Representation means having the power to shape the decision, not just attend the meeting.” — A delegate, fictional scenario"}
+];
+sdgRegionStories.push(...additionalMapStories);
+sdgRegionStories.forEach((item,index)=>{if(item.decisionIndex===undefined)item.decisionIndex=index;if(item.severity===undefined)item.severity=[82,74,69,77,72,66,81,86,79,71][index%10];});
+
 function clampSDG(n){return Math.max(0,Math.min(100,n));}
 function renderSDGMetrics(){
  const state=sdg10State;
@@ -1986,12 +2022,19 @@ function renderSDGDecision(){
  $("#sdgGameHint").textContent="Every choice has long-term consequences.";
  $("#sdgGameNext").disabled=true;
  $("#sdgGameNext").textContent="Continue to "+(year+10)+" →";
+ if(sdg10State.selected&&sdg10State.selectedChoice!==null){
+  const savedChoice=event.choices[sdg10State.selectedChoice];
+  if(savedChoice){$("#sdgGameOutcome").textContent=savedChoice.impact+" Public support "+(sdg10State.lastPublicMood>=0?"rose by ":"fell by ")+Math.abs(sdg10State.lastPublicMood)+" points.";}
+  $("#sdgGameOutcome").classList.add("visible");$("#sdgGameHint").textContent="Your last decision is saved. Continue your campaign.";
+  $("#sdgGameNext").disabled=false;$("#sdgGameNext").textContent=sdg10State.index===9?"See your 2126 outcome →":"Continue to "+(year+10)+" →";
+ }
  $("#sdgGameChoices").replaceChildren();
  event.choices.forEach((choice,index)=>{
   const button=document.createElement("button");button.type="button";button.className="sdg-choice";
   button.innerHTML='<span class="sdg-choice-index">'+String.fromCharCode(65+index)+'</span><span class="sdg-choice-copy"><strong></strong><small></small></span>';
   button.querySelector("strong").textContent=choice.title;
   button.querySelector("small").textContent=choice.detail;
+  if(sdg10State.selected&&sdg10State.selectedChoice!==null){button.disabled=true;if(index===sdg10State.selectedChoice)button.classList.add("selected");}
   button.addEventListener("click",()=>chooseSDGDecision(index));
   $("#sdgGameChoices").appendChild(button);
  });
@@ -2002,8 +2045,10 @@ function chooseSDGDecision(choiceIndex){
  ["opportunity","inclusion","wellbeing","equality"].forEach((key,i)=>sdg10State[key]=clampSDG(sdg10State[key]+choice.effect[i]));
  const publicMood=Math.round((choice.effect.reduce((sum,value)=>sum+value,0)/4)*1.15);
  sdg10State.popularity=clampSDG(sdg10State.popularity+publicMood);
+ sdg10State.lastPublicMood=publicMood;sdg10State.selectedChoice=choiceIndex;
  sdg10State.selected=true;
  sdg10State.history.push({year:2026+sdg10State.index*10,decision:event.title,choice:choice.title});
+ saveSDG10State();
  renderSDGMetrics();
  $("#sdgGameOutcome").textContent=choice.impact+" Public support "+(publicMood>=0?"rose by ":"fell by ")+Math.abs(publicMood)+" points.";
  $("#sdgGameOutcome").classList.add("visible");
@@ -2013,7 +2058,7 @@ function chooseSDGDecision(choiceIndex){
  $("#sdgGameNext").textContent=sdg10State.index===9?"See your 2126 outcome →":"Continue to "+(2036+sdg10State.index*10)+" →";
 }
 function finishSDGJourney(){
- sdg10State.finished=true;sdg10State.index=10;
+ sdg10State.finished=true;sdg10State.index=10;saveSDG10State();
  renderSDGMetrics();$("#sdgGameYear").textContent="2126";$("#sdgGameStep").textContent="CENTURY COMPLETE";
  $("#sdgGameCounter").textContent="10 / 10";$("#sdgGameTag").textContent="THE WORLD IN 2126 · YOUR LEGACY";
  const score=Math.round((sdg10State.opportunity+sdg10State.inclusion+sdg10State.wellbeing+sdg10State.equality)/4);
@@ -2031,11 +2076,11 @@ function advanceSDGJourney(){
  if(sdg10State.finished){restartSDGJourney();return;}
  if(!sdg10State.selected)return;
  if(sdg10State.index===9){finishSDGJourney();return;}
- sdg10State.index++;sdg10State.selected=false;renderSDGDecision();
+ sdg10State.index++;sdg10State.selected=false;sdg10State.selectedChoice=null;sdg10State.lastPublicMood=0;saveSDG10State();renderSDGDecision();
 }
 function restartSDGJourney(){
- sdg10State={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,history:[],selected:false,finished:false};
- renderSDGDecision();
+ sdg10State={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,history:[],selected:false,selectedChoice:null,lastPublicMood:0,finished:false};
+ saveSDG10State();renderSDGDecision();
 }
 $("#sdgGameNext").addEventListener("click",advanceSDGJourney);
 $("#sdgMapInsightClose").addEventListener("click",()=>{$("#sdgMapInsight").hidden=true;});
@@ -2051,11 +2096,9 @@ function showSDGMapInsight(index){
  $("#sdgMapInsight").hidden=false;
 }
 function updateSDGMapHighlights(){
- sdgMapMarkers.forEach((marker,index)=>{
-  const el=marker.getElement?.();const pin=el?.querySelector(".sdg-map-pin");
-  if(pin){pin.classList.toggle("is-current",index===sdg10State.index);pin.classList.toggle("is-visited",index<sdg10State.index);}
- });
- $(".sdg-fallback-pin").forEach((pin,index)=>{pin.classList.toggle("is-current",index===sdg10State.index);pin.classList.toggle("is-visited",index<sdg10State.index);});
+ const current=sdg10State.index>=10?9:sdg10State.index;
+ sdgMapMarkers.forEach((marker,index)=>{const pin=marker.getElement?.()?.querySelector(".sdg-map-pin");const step=sdgRegionStories[index]?.decisionIndex??index;if(pin){pin.classList.toggle("is-current",step===current);pin.classList.toggle("is-visited",step<current);}});
+ $(".sdg-fallback-pin").forEach((pin,index)=>{const step=sdgRegionStories[index]?.decisionIndex??index;pin.classList.toggle("is-current",step===current);pin.classList.toggle("is-visited",step<current);});
 }
 function renderSDGMapPins(){
  const fallback=$("#sdgMapFallbackPins");
@@ -2064,7 +2107,7 @@ function renderSDGMapPins(){
   sdgRegionStories.forEach((item,index)=>{
    const pin=document.createElement("button");pin.type="button";pin.className="sdg-fallback-pin";pin.title=item.place+" — "+item.issue;pin.setAttribute("aria-label","Show problem in "+item.place);
    const x=(item.lng+180)/360*100;const y=(90-item.lat)/180*100;
-   pin.style.left=x+"%";pin.style.top=y+"%";pin.innerHTML="<span>"+String(index+1).padStart(2,"0")+"</span>";
+   pin.style.left=x+"%";pin.style.top=y+"%";pin.classList.add(item.severity>=80?"severity-high":item.severity>=70?"severity-medium":"severity-low");pin.innerHTML="<span>"+String(index+1).padStart(2,"0")+"</span>";
    pin.addEventListener("click",()=>showSDGMapInsight(index));fallback.appendChild(pin);
   });
  }
@@ -2093,6 +2136,7 @@ function initInteractiveEarth(){
 }
 
 function openEarthView(){
+ try{localStorage.setItem("coil-sdg10-earth-open","1");}catch{}
  $("#worldMainMenu").hidden=true;
  $("#worldPreview").hidden=true;
  $("#earthView").hidden=false;
@@ -2100,6 +2144,7 @@ function openEarthView(){
  requestAnimationFrame(initInteractiveEarth);
 }
 function closeEarthView(){
+ try{localStorage.removeItem("coil-sdg10-earth-open");}catch{}
  $("#earthView").hidden=true;
  $("#worldMainMenu").hidden=false;
  $("#worldGame").classList.remove("earth-open");
@@ -2171,6 +2216,7 @@ renderMemoryGame();
 renderGame();
 renderAchievements();
 routeFromHash(false);
+try{if(location.hash==="#game"&&localStorage.getItem("coil-sdg10-earth-open")==="1"){requestAnimationFrame(openEarthView);}}catch{}
 applyStoryFilters();
 </script>
 </body>
