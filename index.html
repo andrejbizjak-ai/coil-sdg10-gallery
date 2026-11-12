@@ -928,6 +928,33 @@ body.light .hero {background:
 .field-slider-steps {display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:8px;letter-spacing:.08em;text-transform:uppercase}
 .field-slider-hint {margin-top:9px;color:var(--muted);font-size:9px}
 @media(max-width:760px){.field-notes-head,.field-slider{grid-template-columns:1fr}.field-slider-visual{min-height:270px}.field-slider-copy{padding:25px}.field-slider{min-height:0}}
+
+/* Smooth image controls and interactive photo comparison */
+.field-slider-controls {position:relative}
+.field-slider-controls input {height:30px;appearance:none;-webkit-appearance:none;background:transparent;position:relative;z-index:2}
+.field-slider-controls input::-webkit-slider-runnable-track {height:4px;border-radius:10px;background:var(--line)}
+.field-slider-controls input::-moz-range-track {height:4px;border-radius:10px;background:var(--line)}
+.field-slider-controls input::-webkit-slider-thumb {-webkit-appearance:none;appearance:none;width:17px;height:17px;margin-top:-6.5px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 1px var(--accent);cursor:grab}
+.field-slider-controls input::-moz-range-thumb {width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 1px var(--accent);cursor:grab}
+.field-slider-controls input:focus-visible {outline:2px solid var(--accent);outline-offset:5px}
+.field-slider-visual img {transition:opacity .45s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.photo-compare {margin-top:34px;border:1px solid var(--line);background:var(--surface);padding:clamp(18px,3vw,30px)}
+.photo-compare-head {display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}
+.photo-compare-head h3 {font:400 clamp(24px,3vw,34px)/1.1 Georgia,serif;margin-top:8px}
+.photo-compare-head p {max-width:380px;color:var(--muted);font-size:11px;line-height:1.7}
+.photo-compare-stage {position:relative;height:clamp(230px,38vw,440px);overflow:hidden;background:var(--surface-2);--split:50%}
+.photo-compare-stage img {position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo-compare-after {clip-path:inset(0 0 0 var(--split))}
+.photo-compare-divider {position:absolute;top:0;bottom:0;left:var(--split);width:2px;background:#fff;transform:translateX(-1px);pointer-events:none}
+.photo-compare-knob {position:absolute;left:var(--split);top:50%;width:42px;height:42px;display:grid;place-items:center;border:2px solid #fff;border-radius:50%;background:rgba(10,20,25,.8);color:#fff;font-size:19px;transform:translate(-50%,-50%);pointer-events:none}
+.photo-compare-label {position:absolute;top:14px;padding:8px 10px;background:rgba(8,15,19,.76);color:#fff;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+.photo-compare-label.left {left:14px}.photo-compare-label.right {right:14px}
+.photo-compare-range {position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.photo-compare-range:focus-visible {outline:3px solid var(--accent);outline-offset:-5px;opacity:.01}
+.photo-compare-caption {display:flex;justify-content:space-between;gap:18px;margin-top:12px;color:var(--muted);font-size:10px;line-height:1.6}
+.photo-compare-caption strong {color:var(--text)}
+@media(max-width:650px){.photo-compare-head,.photo-compare-caption{display:block}.photo-compare-head p{margin-top:10px}.photo-compare-caption span{display:block;margin-top:5px}}
+@media(prefers-reduced-motion:reduce){.field-slider-visual img{transition:none}.photo-compare-after{transition:none}}
 </style>
 </head>
 
@@ -1109,6 +1136,22 @@ body.light .hero {background:
             <div class="field-slider-steps" aria-hidden="true"><span>Income</span><span>Discrimination</span><span>Work</span><span>Displacement</span></div>
             <p class="field-slider-hint">Drag the dot or use your arrow keys to change the story.</p>
           </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="photo-compare">
+          <div class="photo-compare-head">
+            <div><p class="kicker">One world / Unequal conditions</p><h3>Move between two urban realities.</h3></div>
+            <p>Income, housing and access to services can differ sharply between communities. Slide across the photographs to explore contrasting urban environments.</p>
+          </div>
+          <div class="photo-compare-stage" id="urbanCompareStage" style="--split:50%">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=88" alt="Modern high-rise buildings in a city centre" loading="lazy">
+            <img class="photo-compare-after" src="https://cdn.myportfolio.com/7110bd9a9c83d97ed90b4758be565c85/a98dbae3164947c4d78637f0_rw_1200.jpg?h=4200cc448251b569f8e17cea1f7e2582" alt="Aerial view showing a sharp contrast between wealthy housing and a densely built low-income neighbourhood" loading="lazy">
+            <span class="photo-compare-label left">High-rise city</span><span class="photo-compare-label right">Unequal housing</span>
+            <span class="photo-compare-divider" aria-hidden="true"></span><span class="photo-compare-knob" aria-hidden="true">↔</span>
+            <input class="photo-compare-range" id="urbanCompareRange" type="range" min="0" max="100" value="50" aria-label="Slide to compare two contrasting urban environments">
+          </div>
+          <div class="photo-compare-caption"><strong>Housing is part of equality.</strong><span>Illustrative photographs of different urban environments, not a before-and-after comparison or the same location.</span></div>
         </div>
       </div>
     </section>
@@ -2633,8 +2676,19 @@ applyStoryFilters();
     {label:"Forced displacement",tag:"04 / 04 · TARGET 10.7",title:"Where you are born can shape whether you are safe.",stat:"444 per 100,000",text:"By mid-2025, the global refugee population under UNHCR's mandate and other people needing international protection equalled 444 per 100,000 people worldwide—more than twice the 2015 rate.",image:"https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1400&q=88",alt:"Travel belongings prepared for a journey",source:"United Nations SDG Report 2026 · Goal 10",url:"https://unstats.un.org/sdgs/report/2026/Goal-10/"}
   ];
   const image=document.getElementById("fieldSlideImage"),label=document.getElementById("fieldImageLabel"),tag=document.getElementById("fieldSlideIndex"),title=document.getElementById("fieldSlideTitle"),stat=document.getElementById("fieldSlideStat"),copy=document.getElementById("fieldSlideText"),source=document.getElementById("fieldSlideSource"),number=document.getElementById("fieldSlideNumber");
-  function render(){const i=Number(range.value),d=slides[i];image.style.opacity="0.25";window.setTimeout(()=>{image.src=d.image;image.alt=d.alt;image.style.opacity="1";},100);label.textContent=d.label;tag.textContent=d.tag;title.textContent=d.title;stat.textContent=d.stat;copy.textContent=d.text;source.innerHTML='Source: <a href="'+d.url+'" target="_blank" rel="noopener noreferrer">'+d.source+'</a>';number.textContent=String(i+1).padStart(2,"0")+" / 04";}
+  let renderFrame=0;
+  function render(){const i=Number(range.value),d=slides[i];cancelAnimationFrame(renderFrame);image.style.opacity="0";renderFrame=requestAnimationFrame(()=>{image.src=d.image;image.alt=d.alt;image.onload=()=>{image.style.opacity="1";};if(image.complete)image.style.opacity="1";});label.textContent=d.label;tag.textContent=d.tag;title.textContent=d.title;stat.textContent=d.stat;copy.textContent=d.text;source.innerHTML='Source: <a href="'+d.url+'" target="_blank" rel="noopener noreferrer">'+d.source+'</a>';number.textContent=String(i+1).padStart(2,"0")+" / 04";}
   range.addEventListener("input",render);render();
+})();
+</script>
+<script>
+(() => {
+  const range=document.getElementById("urbanCompareRange"),stage=document.getElementById("urbanCompareStage");
+  if(!range||!stage)return;
+  let current=50,target=50,frame=0;
+  function animate(){current+=(target-current)*.22;if(Math.abs(target-current)<.08)current=target;stage.style.setProperty("--split",current+"%");if(current!==target)frame=requestAnimationFrame(animate);else frame=0;}
+  range.addEventListener("input",()=>{target=Number(range.value);if(!frame)frame=requestAnimationFrame(animate);});
+})();
 })();
 </script>
 </body>
