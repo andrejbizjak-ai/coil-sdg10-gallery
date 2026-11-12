@@ -1923,13 +1923,13 @@ function restartSDGJourney(){
 $("#sdgGameNext").addEventListener("click",advanceSDGJourney);
 
 function initInteractiveEarth(){
+ renderSDGDecision();
  const el=$("#realWorldMap");if(!el||!window.L)return;
  if(!window.worldMapInstance){
   window.worldMapInstance=L.map(el,{center:[18,0],zoom:2,minZoom:2,maxZoom:2,zoomControl:false,attributionControl:false,dragging:false,scrollWheelZoom:false,doubleClickZoom:false,boxZoom:false,keyboard:false,touchZoom:false,zoomSnap:1,zoomDelta:1,worldCopyJump:false}).setView([18,0],2);
   L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{subdomains:"abcd",maxZoom:19,noWrap:true,attribution:"&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"https://carto.com/attributions\">CARTO</a>"}).addTo(window.worldMapInstance);
  }
  requestAnimationFrame(()=>window.worldMapInstance.invalidateSize());
- renderSDGDecision();
 }
 
 function openEarthView(){
