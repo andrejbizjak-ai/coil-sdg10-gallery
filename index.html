@@ -1650,7 +1650,32 @@ function loadWorldProgress(){
   setWorldScreen("world");$("#worldSaveStatus").textContent="Saved journey loaded.";
  }catch{$("#worldSaveStatus").textContent="Could not read the saved journey. Press Play to start again.";}
 }
-$("#worldPlay").addEventListener("click",()=>{worldState={index:0,opportunity:50,wellbeing:50,inclusion:50,answered:false,finished:false};setWorldScreen("world");});
+function openEarthSandbox(){
+ worldState={index:0,opportunity:50,wellbeing:50,inclusion:50,answered:false,finished:false};
+ const shell=$("#worldGame");$("#worldMainMenu").hidden=false;$("#worldSandbox").hidden=true;$("#worldPreview").hidden=true;
+ shell.classList.add("launching");
+ window.setTimeout(()=>{ $("#worldMainMenu").hidden=true;shell.classList.remove("launching");$("#worldSandbox").hidden=false;initEarthSandbox(); },1850);
+}
+let sandboxBiome="forest",sandboxTiles=[],sandboxPeople=0,sandboxVillages=0;
+function updateSandboxStats(){ $("#sandboxPeople").textContent=sandboxPeople;$("#sandboxVillages").textContent=sandboxVillages; }
+function initEarthSandbox(){
+ const map=$("#sandboxMap");
+ if(!sandboxTiles.length)sandboxTiles=Array.from({length:180},(_,i)=>({biome:["forest","grass","water","forest","mountain","grass","desert"][(i*7+Math.floor(i/18)*3)%7],village:false,people:0}));
+ map.replaceChildren();
+ sandboxTiles.forEach((tile,index)=>{
+  const cell=document.createElement("button");cell.type="button";cell.className="sandbox-tile "+tile.biome;cell.setAttribute("aria-label","Tile "+(index+1)+", "+tile.biome);
+  const mark=document.createElement("span");mark.className="settlement";mark.textContent=tile.village?"🏘️":tile.people?"•".repeat(Math.min(tile.people,3)):"";cell.appendChild(mark);
+  cell.addEventListener("click",()=>{tile.biome=sandboxBiome;cell.className="sandbox-tile "+tile.biome;cell.setAttribute("aria-label","Tile "+(index+1)+", "+tile.biome);$("#sandboxBiome").textContent=sandboxBiome[0].toUpperCase()+sandboxBiome.slice(1);});
+  map.appendChild(cell);
+ });
+ updateSandboxStats();
+}
+document.querySelectorAll(".biome-tool").forEach(btn=>btn.addEventListener("click",()=>{sandboxBiome=btn.dataset.biome;document.querySelectorAll(".biome-tool").forEach(b=>b.classList.toggle("selected",b===btn));$("#sandboxBiome").textContent=sandboxBiome[0].toUpperCase()+sandboxBiome.slice(1);}));
+$("#sandboxPeopleBtn").addEventListener("click",()=>{const land=sandboxTiles.map((t,i)=>({t,i})).filter(x=>x.t.biome!=="water");if(!land.length)return;for(let n=0;n<5;n++){const x=land[Math.floor(Math.random()*land.length)];x.t.people++;}sandboxPeople+=5;initEarthSandbox();$("#sandboxMessage").textContent="Five new people have joined your world. Make sure every community can thrive.";});
+$("#sandboxVillageBtn").addEventListener("click",()=>{const spot=sandboxTiles.find(t=>t.biome!=="water"&&!t.village);if(!spot){$("#sandboxMessage").textContent="Choose more land before founding another settlement.";return;}spot.village=true;sandboxVillages++;initEarthSandbox();$("#sandboxMessage").textContent="A new settlement has been founded. Add people and build a welcoming community.";});
+$("#sandboxReset").addEventListener("click",()=>{sandboxTiles=[];sandboxPeople=0;sandboxVillages=0;initEarthSandbox();$("#sandboxMessage").textContent="A fresh planet is ready for your ideas.";});
+$("#sandboxExit").addEventListener("click",()=>{$("#worldSandbox").hidden=true;setWorldScreen("menu");});
+$("#worldPlay").addEventListener("click",openEarthSandbox);
 $("#worldContinue").addEventListener("click",loadWorldProgress);
 $("#worldSave").addEventListener("click",saveWorldProgress);
 $("#worldSaveFromPlay").addEventListener("click",saveWorldProgress);
