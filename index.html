@@ -783,8 +783,7 @@ body.light .hero {background:
  .sdg-metric{min-height:55px;padding:7px 9px}
  .sdg-metric strong{font-size:19px}
  .sdg-decision-panel{width:min(560px,100%);max-height:calc(100% - 125px);padding:16px}
- .sdg-map-note{display:none}
-}
+ }
 @media(max-width:560px){
  .earth-view-top{top:8px;left:10px;right:10px}
  .earth-view-top span{font-size:8px;letter-spacing:.09em}
@@ -900,8 +899,6 @@ body.light .hero {background:
 
 .sdg-map-insight blockquote{display:block;margin-top:8px;padding:8px 10px;border-left:2px solid #edc064;background:rgba(255,255,255,.06);font:italic 11px/1.5 Georgia,serif;color:#f4e5c5}
 .sdg-map-insight{max-height:45%;overflow:auto}
-.sdg-map-note{font-weight:800}
-
 /* Interactive SDG 10 field notes */
 .home-field-notes {padding:clamp(64px,8vw,100px) 0;background:var(--bg)}
 .field-notes-head {display:grid;grid-template-columns:1fr .8fr;gap:35px;align-items:end;margin-bottom:30px}
@@ -2691,6 +2688,7 @@ function chooseSDGDecision(choiceIndex){
 }
 function finishSDGJourney(){
  sdg10State.finished=true;sdg10State.index=20;saveSDG10State();
+ if(typeof unlockAchievement==="function")unlockAchievement("game");
  renderSDGMetrics();$("#sdgGameYear").textContent="2126";$("#sdgGameStep").textContent="CENTURY COMPLETE";
  $("#sdgGameCounter").textContent="20 / 20";$("#sdgGameTag").textContent="THE WORLD IN 2126 · YOUR LEGACY";
  const metrics=[["Opportunity",sdg10State.opportunity],["Inclusion",sdg10State.inclusion],["Wellbeing",sdg10State.wellbeing],["Equality",sdg10State.equality]];
