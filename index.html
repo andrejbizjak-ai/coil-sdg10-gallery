@@ -2573,7 +2573,7 @@ function renderSDGDecision(){
  $("#sdgGameStep").textContent="DECISION "+(sdg10State.index+1)+" OF 20";
  $("#sdgGameCounter").textContent=String(sdg10State.index+1).padStart(2,"0")+" / 20";
  const event=sdg10Decisions[sdg10State.index];
- $("#sdgGameTag").textContent=event.tag;$("#sdgGameTitle").textContent=event.title;$("#sdgGameScenario").textContent=event.scenario;
+ $("#sdgGameTag").textContent=event.tag;$("#sdgGameTitle").textContent=event.title;$("#sdgGameScenario").textContent=event.scenario.replace(/\b20\d{2}\b/g,String(year));
  const region=sdgRegionStories[sdg10State.index%sdgRegionStories.length];
  $("#sdgGamePlace").textContent=region.place.toUpperCase();$("#sdgGameIssue").textContent=region.issue.toUpperCase();
  $("#sdgGameBrief").textContent=region.brief;$("#sdgGameVoice").textContent=region.voice;
