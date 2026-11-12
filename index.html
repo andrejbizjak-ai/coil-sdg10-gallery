@@ -1142,10 +1142,86 @@ main#mainPage>.page.section-arriving img,#detailPage.section-arriving img{animat
 .sdg-panel-open[hidden],.sdg-decision-panel[hidden]{display:none!important}
 @media(max-width:560px){.sdg-panel-close{font-size:7px;padding:6px 7px}.sdg-panel-open{min-height:38px;padding:0 12px;font-size:8px}}
 @media(prefers-reduced-motion:reduce){.section-transition,.section-transition-card{transition:none}.section-transition.is-active .section-transition-lens::before,.section-transition.is-active .section-transition-track span{animation:none}.section-transition-track span{transform:scaleX(1)}main#mainPage>.page.section-arriving,#detailPage.section-arriving,main#mainPage>.page.section-arriving img,#detailPage.section-arriving img{animation:none}}
+.section-transition{background:radial-gradient(ellipse at center,rgba(28,59,70,.97),rgba(2,8,14,.985));backdrop-filter:blur(12px)}
+.section-transition-card{width:min(340px,88vw);gap:16px;padding:31px 32px 27px;border-color:rgba(221,195,143,.38);background:linear-gradient(145deg,rgba(17,39,48,.97),rgba(5,16,24,.98));box-shadow:0 28px 100px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.06)}
+.section-transition-kicker{font-size:9px;letter-spacing:.25em}
+.section-transition-lens{width:68px;height:68px;border-color:rgba(214,180,122,.62);box-shadow:0 0 35px rgba(145,183,166,.1),inset 0 0 22px rgba(145,183,166,.06)}
+.section-transition-lens::before{inset:5px;border:2px dashed rgba(214,180,122,.9)}
+.section-transition-lens::after{inset:15px;border:1px solid rgba(145,183,166,.9);box-shadow:0 0 24px rgba(145,183,166,.28)}
+.section-transition.is-active .section-transition-lens::before{animation:section-lens-turn .95s linear infinite}
+.section-transition.is-active .section-transition-lens::after{animation:section-lens-pulse 1.25s ease-in-out infinite alternate}
+.section-transition-lens span{font-size:22px;text-shadow:0 0 14px rgba(214,180,122,.45)}
+.section-transition-label{font-size:21px;letter-spacing:.01em}
+.section-transition-track{height:3px;border-radius:8px;background:rgba(242,240,233,.12)}
+.section-transition-track span{border-radius:8px;box-shadow:0 0 13px rgba(214,180,122,.35)}
+.section-transition.is-active .section-transition-track span{animation:section-load-line .88s cubic-bezier(.2,.7,.25,1) forwards}
+.section-transition-hint{color:rgba(222,232,227,.62);font:700 8px/1.4 Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+.section-transition.is-active .section-transition-hint::after{content:"";display:inline-block;width:15px;text-align:left;animation:section-loading-dots 1.1s steps(4,end) infinite}
+@keyframes section-lens-turn{to{transform:rotate(360deg)}}
+@keyframes section-lens-pulse{from{transform:scale(.94);opacity:.55}to{transform:scale(1.06);opacity:1}}
+@keyframes section-loading-dots{0%{content:""}25%{content:"."}50%{content:".."}75%,100%{content:"..."}}
+.site-entry-loader{position:fixed;inset:0;z-index:1000000;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at 50% 43%,#173b49 0%,#081a25 48%,#02070d 100%);opacity:1;visibility:visible;transition:opacity .48s ease,visibility .48s ease}
+.site-entry-loader.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.site-entry-loader-card{width:min(360px,88vw);display:grid;justify-items:center;gap:17px;padding:34px 32px 29px;border:1px solid rgba(221,195,143,.34);background:linear-gradient(145deg,rgba(17,39,48,.96),rgba(5,16,24,.97));box-shadow:0 30px 100px rgba(0,0,0,.5),inset 0 1px rgba(255,255,255,.06);animation:entry-card-arrive .55s cubic-bezier(.2,.8,.25,1) both}
+.site-entry-loader-mark{width:42px;height:42px;display:grid;place-items:center;background:#d6b47a;color:#14232b;font:800 16px/1 Arial,sans-serif;box-shadow:0 0 28px rgba(214,180,122,.2)}
+.site-entry-loader-kicker{color:#d6b47a;font:700 9px/1.4 Arial,sans-serif;letter-spacing:.25em}
+.site-entry-loader-spinner{position:relative;width:74px;height:74px;display:grid;place-items:center;border:1px solid rgba(145,183,166,.3);border-radius:50%}
+.site-entry-loader-spinner::before,.site-entry-loader-spinner::after{content:"";position:absolute;inset:5px;border:2px solid transparent;border-top-color:#d6b47a;border-right-color:rgba(214,180,122,.25);border-radius:50%;animation:entry-spin 1s linear infinite}
+.site-entry-loader-spinner::after{inset:14px;border-top-color:#91b7a6;border-right-color:rgba(145,183,166,.2);animation-duration:1.55s;animation-direction:reverse}
+.site-entry-loader-spinner span{color:#f2f0e9;font:400 22px Georgia,serif;text-shadow:0 0 15px rgba(214,180,122,.45)}
+.site-entry-loader-title{color:#f2f0e9;font:400 24px/1.15 Georgia,serif;text-align:center}
+.site-entry-loader-subtitle{color:rgba(222,232,227,.65);font:700 8px/1.4 Arial,sans-serif;letter-spacing:.18em;text-align:center}
+.site-entry-loader-progress{width:100%;height:3px;overflow:hidden;border-radius:8px;background:rgba(242,240,233,.12)}
+.site-entry-loader-progress span{display:block;width:38%;height:100%;border-radius:8px;background:linear-gradient(90deg,#91b7a6,#d6b47a);box-shadow:0 0 13px rgba(214,180,122,.4);animation:entry-progress 1.25s ease-in-out infinite}
+@keyframes entry-spin{to{transform:rotate(360deg)}}
+@keyframes entry-progress{0%{transform:translateX(-115%)}100%{transform:translateX(370%)}}
+@keyframes entry-card-arrive{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:480px){.site-entry-loader-card{padding:28px 23px 24px}.site-entry-loader-title{font-size:22px}}
+@media(prefers-reduced-motion:reduce){
+ .section-transition.is-active .section-transition-lens::before,.section-transition.is-active .section-transition-lens::after,.section-transition.is-active .section-transition-track span{animation:none}
+ .section-transition-track span{transform:scaleX(1)}
+ .site-entry-loader-card,.site-entry-loader-spinner::before,.site-entry-loader-spinner::after,.site-entry-loader-progress span{animation:none}
+ .site-entry-loader-progress span{width:100%;transform:none}
+ .site-entry-loader,.section-transition,.section-transition-card{transition:none}
+}
 </style>
 </head>
 
 <body>
+<div class="site-entry-loader" id="siteEntryLoader" role="status" aria-live="polite" aria-label="Loading SDG 10 website">
+  <div class="site-entry-loader-card">
+    <span class="site-entry-loader-mark" aria-hidden="true">10</span>
+    <span class="site-entry-loader-kicker">COIL · INTERACTIVE EXPERIENCE</span>
+    <div class="site-entry-loader-spinner" aria-hidden="true"><span>✦</span></div>
+    <strong class="site-entry-loader-title">A fairer world starts here.</strong>
+    <span class="site-entry-loader-subtitle">PREPARING YOUR EXPERIENCE</span>
+    <div class="site-entry-loader-progress" aria-hidden="true"><span></span></div>
+  </div>
+</div>
+<script>
+(() => {
+  const loader=document.getElementById("siteEntryLoader");
+  if(!loader)return;
+  const started=Date.now();
+  let dismissed=false;
+  let fallbackTimer=0;
+  function dismissEntryLoader(){
+    if(dismissed)return;
+    dismissed=true;
+    window.clearTimeout(fallbackTimer);
+    const elapsed=Date.now()-started;
+    const minimum=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches?120:1050;
+    window.setTimeout(()=>{
+      loader.classList.add("is-leaving");
+      window.setTimeout(()=>loader.remove(),550);
+    },Math.max(0,minimum-elapsed));
+  }
+  window.addEventListener("load",dismissEntryLoader,{once:true});
+  window.addEventListener("pageshow",event=>{if(event.persisted)dismissEntryLoader();});
+  fallbackTimer=window.setTimeout(dismissEntryLoader,3600);
+  if(document.readyState==="complete")dismissEntryLoader();
+})();
+</script>
 <header class="site-header">
   <nav class="container nav-shell" aria-label="Main navigation">
     <a class="brand" href="#home" id="brandHome" aria-label="SDG 10 home">
@@ -1815,6 +1891,7 @@ main#mainPage>.page.section-arriving img,#detailPage.section-arriving img{animat
     <span class="section-transition-kicker">COIL · SDG 10</span>
     <div class="section-transition-lens" aria-hidden="true"><span>✦</span></div>
     <strong class="section-transition-label" id="sectionTransitionLabel">Opening section</strong>
+    <span class="section-transition-hint">LOADING</span>
     <div class="section-transition-track" aria-hidden="true"><span></span></div>
   </div>
 </div>
