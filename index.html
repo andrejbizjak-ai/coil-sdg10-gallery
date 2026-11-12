@@ -1554,7 +1554,7 @@ function loadWorldProgress(){
   if(!raw){$("#worldSaveStatus").textContent="No saved journey yet. Press Play to begin.";return;}
   const save=JSON.parse(raw);
   if(save.version!==2||!Number.isInteger(save.index)||save.index<0||save.index>worldScenarios.length)throw new Error("Invalid save");
-  worldState={index:save.index,opportunity:clampWorldScore(Number(save.opportunity)||50),wellbeing:clampWorldScore(Number(save.wellbeing)||50),inclusion:clampWorldScore(Number(save.inclusion)||50),answered:Boolean(save.answered),finished:Boolean(save.finished)};
+  const savedAnswered=Boolean(save.answered);const savedFinished=Boolean(save.finished)||(savedAnswered&&save.index===worldScenarios.length-1);worldState={index:Math.min(worldScenarios.length,save.index+(savedAnswered&&!savedFinished?1:0)),opportunity:clampWorldScore(Number(save.opportunity)||50),wellbeing:clampWorldScore(Number(save.wellbeing)||50),inclusion:clampWorldScore(Number(save.inclusion)||50),answered:false,finished:savedFinished};
   setWorldScreen("world");$("#worldSaveStatus").textContent="Saved journey loaded.";
  }catch{$("#worldSaveStatus").textContent="Could not read the saved journey. Press Play to start again.";}
 }
