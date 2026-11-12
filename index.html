@@ -583,36 +583,15 @@ body.light .hero {background:
   *,*::before,*::after {scroll-behavior:auto!important;transition-duration:.01ms!important}
 }
 
-/* Cinematic launch and playable Earth sandbox */
-.world-game-shell.launching .world-earth{z-index:7;opacity:1;animation:earth-camera-zoom 2.35s cubic-bezier(.55,0,.8,.25) forwards}
-.world-game-shell.launching .world-earth .earth-spin{animation-duration:1.1s}
-.world-game-shell.launching .world-menu-card{animation:menu-fade .55s ease forwards}
-@keyframes earth-camera-zoom{0%{transform:translate(-50%,-50%) scale(1) rotate(0deg);filter:brightness(1)}48%{transform:translate(-50%,-50%) scale(2.7) rotate(115deg);filter:brightness(1.5)}82%{transform:translate(-50%,-50%) scale(7) rotate(260deg);filter:brightness(2.1)}100%{transform:translate(-50%,-50%) scale(11) rotate(360deg);filter:brightness(2.8);opacity:0}}
-@keyframes menu-fade{to{opacity:0;transform:scale(.94);filter:blur(5px)}}
-.world-launch-flash{position:absolute;inset:0;z-index:8;display:grid;place-items:center;background:#07141d;opacity:0;pointer-events:none;color:#d7f4ed;font-size:12px;letter-spacing:.3em;transition:opacity .35s}
-.world-game-shell.launching .world-launch-flash{opacity:1;animation:launch-flash 2.35s ease forwards}
-@keyframes launch-flash{0%,68%{opacity:0}78%{opacity:.35}100%{opacity:0}}
-.world-sandbox{position:absolute;z-index:6;inset:0;overflow:auto;padding:clamp(16px,3vw,34px);background:radial-gradient(ellipse at 50% 0%,#244653,#0b1720 70%);color:#f5f2e9;animation:sandbox-arrive .7s ease both}
-@keyframes sandbox-arrive{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1)}}
-.sandbox-header{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid #ffffff24;padding-bottom:18px}
-.sandbox-header h3{font:400 clamp(25px,4vw,39px)/1.1 Georgia,serif;margin:5px 0}
-.sandbox-header p:not(.world-menu-kicker){color:#b8c8c9;margin:0;font-size:13px}
-.sandbox-stats{display:flex;gap:24px;flex-wrap:wrap;padding:15px 0;color:#d5e2df;font-size:13px}.sandbox-stats b{color:#fff;font-size:17px}
-.sandbox-layout{display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:22px;align-items:start}
-.sandbox-map{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:3px;padding:9px;border:1px solid #ffffff20;border-radius:12px;background:#08121b;box-shadow:0 15px 45px #0005;position:relative;overflow:hidden}
-.sandbox-map:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 38%,#07121a88 100%);z-index:1}
-.sandbox-tile{position:relative;aspect-ratio:1;border:0;border-radius:3px;min-width:0;padding:0;cursor:pointer;transition:filter .15s,transform .15s}
-.sandbox-tile:hover{filter:brightness(1.35);transform:scale(1.08);z-index:1;outline:1px solid #fff}
-.sandbox-tile.forest{background:#39734e}.sandbox-tile.water{background:#286b91}.sandbox-tile.desert{background:#b99454}.sandbox-tile.grass{background:#85a95c}.sandbox-tile.snow{background:#b8d2d5}.sandbox-tile.mountain{background:#737b7b}
-.sandbox-tile .settlement{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(9px,1.5vw,17px);text-shadow:0 1px 4px #000}
-.sandbox-hint,.sandbox-message{font-size:12px;color:#b8c8c9;line-height:1.5}
-.sandbox-tools{padding:17px;border:1px solid #ffffff24;border-radius:12px;background:#ffffff08}.sandbox-tools h4{font-size:11px;letter-spacing:.18em;margin:0 0 14px}
-.sandbox-biomes{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px}
-.biome-tool{padding:10px 6px;border:1px solid #ffffff25;border-radius:7px;background:#ffffff08;color:#eef4ef;font-size:11px;cursor:pointer}
-.biome-tool.selected{border-color:#83d9c7;background:#83d9c71b}
-.sandbox-tools>.button{width:100%;margin:5px 0;font-size:10px}
-@media(max-width:760px){.sandbox-layout{grid-template-columns:1fr}.sandbox-map{gap:2px;padding:5px}.sandbox-tools{padding:13px}.sandbox-header{align-items:flex-start}.sandbox-header>.button{font-size:9px;padding:10px}.sandbox-stats{gap:12px}}
-@media(prefers-reduced-motion:reduce){.world-game-shell.launching .world-earth,.world-game-shell.launching .world-menu-card,.world-sandbox{animation:none}}
+/* Simple Earth view shown after Start */
+.world-game-shell.earth-open .world-earth{z-index:3;width:min(78vw,650px);opacity:1;filter:drop-shadow(0 0 58px rgba(62,164,176,.32))}
+.world-game-shell.earth-open .world-menu-card{display:none}
+.earth-view{position:absolute;inset:0;z-index:4;display:flex;align-items:flex-end;justify-content:center;padding:clamp(22px,5vw,54px);pointer-events:none}
+.earth-view[hidden]{display:none}
+.earth-view-caption{width:min(100%,720px);text-align:center;padding:22px 24px;background:linear-gradient(180deg,transparent,rgba(5,15,22,.88));color:#f5f2e9;pointer-events:auto}
+.earth-view-caption p{font-size:10px;letter-spacing:.22em;color:#e2c18b;font-weight:700}
+.earth-view-caption h3{font:400 clamp(30px,5vw,52px)/1.05 Georgia,serif;margin:10px 0 20px}
+.earth-view-caption h3 em{font-style:normal;color:#e2c18b}
 
 </style>
 </head>
@@ -984,13 +963,9 @@ body.light .hero {background:
         </div>
         <p class="world-save-status" id="worldScreenStatus" role="status" aria-live="polite"></p>
       </div>
-      <div class="world-sandbox" id="worldSandbox" hidden aria-label="Earth sandbox">
-        <header class="sandbox-header"><div><p class="world-menu-kicker">COIL · SDG 10 SANDBOX</p><h3>Your world, your choices.</h3><p>Shape the land. Welcome people. Grow inclusive communities.</p></div><button class="button secondary" id="sandboxExit" type="button">MAIN MENU</button></header>
-        <div class="sandbox-stats"><span>🌱 <b id="sandboxPeople">0</b> people</span><span>🏘️ <b id="sandboxVillages">0</b> settlements</span><span>🌍 <b id="sandboxBiome">Forest</b> selected</span></div>
-        <div class="sandbox-layout"><div class="sandbox-map-wrap"><div class="sandbox-map" id="sandboxMap" aria-label="Clickable world map"></div><p class="sandbox-hint">Choose a terrain, then click squares on the map to paint your planet.</p></div>
-        <aside class="sandbox-tools"><h4>WORLD TOOLS</h4><div class="sandbox-biomes"><button class="biome-tool selected" data-biome="forest" type="button">🌲 Forest</button><button class="biome-tool" data-biome="water" type="button">🌊 Water</button><button class="biome-tool" data-biome="desert" type="button">🏜️ Desert</button><button class="biome-tool" data-biome="grass" type="button">🌿 Grassland</button><button class="biome-tool" data-biome="snow" type="button">❄️ Tundra</button><button class="biome-tool" data-biome="mountain" type="button">⛰️ Mountain</button></div><button class="button world-play" id="sandboxPeopleBtn" type="button">＋ PLACE PEOPLE</button><button class="button secondary" id="sandboxVillageBtn" type="button">⌂ FOUND A VILLAGE</button><button class="button secondary" id="sandboxReset" type="button">RESET WORLD</button><p id="sandboxMessage" class="sandbox-message" role="status">Your planet is waiting to be shaped.</p></aside></div>
+      <div class="earth-view" id="earthView" hidden>
+        <div class="earth-view-caption"><p>COIL · SUSTAINABLE DEVELOPMENT GOAL 10</p><h3>One world.<br><em>Equal possibilities.</em></h3><button class="button secondary" id="earthBack" type="button">BACK TO MENU</button></div>
       </div>
-      <div class="world-launch-flash" id="worldLaunchFlash" aria-hidden="true"><span>ENTERING YOUR WORLD</span></div>
     </div>
   </section>
   <section class="page section container" id="about">
@@ -1652,14 +1627,18 @@ function loadWorldProgress(){
   setWorldScreen("world");$("#worldSaveStatus").textContent="Saved journey loaded.";
  }catch{$("#worldSaveStatus").textContent="Could not read the saved journey. Press Play to start again.";}
 }
-function openEarthSandbox(){
- worldState={index:0,opportunity:50,wellbeing:50,inclusion:50,answered:false,finished:false};
- const shell=$("#worldGame"),sandbox=$("#worldSandbox");
- $("#worldMainMenu").hidden=false;$("#worldPreview").hidden=true;sandbox.hidden=true;
- shell.classList.add("launching");
- window.setTimeout(()=>{ $("#worldMainMenu").hidden=true;sandbox.hidden=false;initEarthSandbox(); },1450);
- window.setTimeout(()=>{ shell.classList.remove("launching"); },2400);
+function openEarthView(){
+ $("#worldMainMenu").hidden=true;
+ $("#worldPreview").hidden=true;
+ $("#earthView").hidden=false;
+ $("#worldGame").classList.add("earth-open");
 }
+function closeEarthView(){
+ $("#earthView").hidden=true;
+ $("#worldMainMenu").hidden=false;
+ $("#worldGame").classList.remove("earth-open");
+}
+
 let sandboxBiome="forest",sandboxTiles=[],sandboxPeople=0,sandboxVillages=0;
 function updateSandboxStats(){ $("#sandboxPeople").textContent=sandboxPeople;$("#sandboxVillages").textContent=sandboxVillages; }
 function initEarthSandbox(){
@@ -1687,7 +1666,8 @@ $("#sandboxPeopleBtn").addEventListener("click",()=>{const land=sandboxTiles.map
 $("#sandboxVillageBtn").addEventListener("click",()=>{const spot=sandboxTiles.find(t=>t.biome!=="water"&&!t.village);if(!spot){$("#sandboxMessage").textContent="Choose more land before founding another settlement.";return;}spot.village=true;sandboxVillages++;initEarthSandbox();$("#sandboxMessage").textContent="A new settlement has been founded. Add people and build a welcoming community.";});
 $("#sandboxReset").addEventListener("click",()=>{sandboxTiles=[];sandboxPeople=0;sandboxVillages=0;initEarthSandbox();$("#sandboxMessage").textContent="A fresh planet is ready for your ideas.";});
 $("#sandboxExit").addEventListener("click",()=>{$("#worldSandbox").hidden=true;setWorldScreen("menu");});
-$("#worldPlay").addEventListener("click",openEarthSandbox);
+$("#worldPlay").addEventListener("click",openEarthView);
+$("#earthBack").addEventListener("click",closeEarthView);
 $("#worldContinue").addEventListener("click",loadWorldProgress);
 $("#worldSave").addEventListener("click",saveWorldProgress);
 $("#worldSaveFromPlay").addEventListener("click",saveWorldProgress);
