@@ -334,6 +334,7 @@ main#mainPage > .page.active-page {display:block}
 }
 .world-earth svg {display:block;width:100%;height:100%;overflow:visible}
 .world-earth .earth-spin {transform-origin:200px 200px;animation:earth-turn 42s linear infinite}
+.world-game-shell.motion-paused .earth-spin {animation-play-state:paused}
 @keyframes earth-turn {to {transform:rotate(360deg)}}
 .world-menu-card {
   position:relative;z-index:2;width:min(100%,540px);padding:clamp(25px,5vw,48px);
@@ -827,8 +828,8 @@ body.light .hero {background:
   <section class="page section container" id="game">
     <a class="page-home-link" href="#home" data-page="home"><span aria-hidden="true">←</span> Home</a>
     <div class="section-head">
-      <div><p class="kicker">05 / Play and remember</p><h2>The equality <em>match game.</em></h2></div>
-      <p>Match each SDG 10 idea with the meaning that best explains it. Turn over two cards at a time, remember where each one is, and find all four pairs. Take your time—the aim is to learn, not to race.</p>
+      <div><p class="kicker">05 / Explore, decide, make a difference</p><h2>A world of <em>choices.</em></h2></div>
+      <p>Step into a world shaped by your decisions. Start from the main menu, save your journey, and discover how choices can move the planet towards—or away from—greater equality. The SDG 10 matching cards are still here below.</p>
     </div>
 
     <div class="world-game-shell" id="worldGame" aria-label="A World of Choices game menu">
@@ -874,7 +875,7 @@ body.light .hero {background:
         <p class="world-save-status" id="worldSaveStatus" role="status" aria-live="polite">Your journey is ready when you are.</p>
         <div class="world-menu-footer">
           <button id="worldHowTo" type="button">How to play</button>
-          <button id="worldSettings" type="button">Settings</button>
+          <button id="worldSettings" type="button">Pause globe</button>
         </div>
       </div>
 
@@ -892,6 +893,7 @@ body.light .hero {background:
           <button class="button" id="worldBackMenu" type="button">Main menu</button>
           <button class="button secondary" id="worldSaveFromPlay" type="button">Save progress</button>
         </div>
+        <p class="world-save-status" id="worldScreenStatus" role="status" aria-live="polite"></p>
       </div>
     </div>
     <div class="memory-intro">
@@ -1454,9 +1456,11 @@ function saveWorldProgress(){
   try {
     localStorage.setItem(WORLD_SAVE_KEY,JSON.stringify(save));
     $("#worldSaveStatus").textContent="Progress saved on this device.";
+    $("#worldScreenStatus").textContent="Progress saved on this device.";
     return true;
   } catch {
     $("#worldSaveStatus").textContent="Save unavailable in this browser.";
+    $("#worldScreenStatus").textContent="Save unavailable in this browser.";
     return false;
   }
 }
@@ -1467,6 +1471,7 @@ function loadWorldProgress(){
     const save=JSON.parse(raw);
     setWorldScreen(save.screen==="world"?"world":"menu");
     $("#worldSaveStatus").textContent="Saved journey loaded.";
+    $("#worldScreenStatus").textContent="Saved journey loaded.";
   } catch {
     $("#worldSaveStatus").textContent="Could not read the saved journey.";
   }
@@ -1479,9 +1484,12 @@ $("#worldBackMenu").addEventListener("click",()=>setWorldScreen("menu"));
 $("#worldHowTo").addEventListener("click",()=>{
   $("#worldSaveStatus").textContent="Explore the world, weigh each decision, and try to make opportunity and participation fairer for everyone.";
 });
+let worldMotionPaused=false;
 $("#worldSettings").addEventListener("click",()=>{
-  const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  $("#worldSaveStatus").textContent=reduced?"Reduced motion is enabled in your device settings.":"The globe follows your device's motion preference. More game settings will be added as the world grows.";
+  worldMotionPaused=!worldMotionPaused;
+  $("#worldGame").classList.toggle("motion-paused",worldMotionPaused);
+  $("#worldSettings").textContent=worldMotionPaused?"Resume globe":"Pause globe";
+  $("#worldSaveStatus").textContent=worldMotionPaused?"Globe rotation paused.":"Globe rotation resumed.";
 });
 
 const memoryDeck=[
