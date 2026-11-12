@@ -1940,7 +1940,19 @@ const sdg10Decisions=[
   {title:"Keep the existing power structure",detail:"Preserve current arrangements and ask others to adapt.",effect:[-8,-7,-5,-8],impact:"Without reform, unequal influence remains embedded in global institutions."}
  ]}
 ];
-let sdg10State={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,history:[],selected:false,finished:false};
+const sdgRegionStories=[
+ {place:"Dhaka, Bangladesh",issue:"Affordable housing & access to services",lat:23.81,lng:90.41,brief:"A growing neighbourhood sits between busy transport routes and rising rents. Families are spending more of their income on housing, while safe transport, nearby schools and public spaces have not kept pace. The city must decide whether development will include the people who already live here.",voice:"“We do not want to be moved farther away. We want safe homes, good transport and a say in how our neighbourhood changes.” — A resident, in this fictional scenario"},
+ {place:"Rural Guatemala",issue:"Digital learning & equal opportunity",lat:14.63,lng:-90.51,brief:"A group of rural schools is connected to the national learning network, but devices, reliable power, accessible materials and teacher support remain uneven. Children in remote communities risk being locked out of the same opportunities as children in larger towns.",voice:"“A connection is only useful when there is a device, electricity, accessible lessons and someone who can help us learn.” — A student, in this fictional scenario"},
+ {place:"Detroit, United States",issue:"Automation, wages & secure work",lat:42.33,lng:-83.05,brief:"New automated industries are creating wealth, but many workers face insecure jobs and expensive retraining. Local businesses want to modernise; workers want a fair share of productivity gains and a route into the new economy.",voice:"“We are not against new technology. We want a future in it, not to be left behind by it.” — A worker, in this fictional scenario"},
+ {place:"Kisumu, Kenya",issue:"Affordable and accessible healthcare",lat:-0.10,lng:34.76,brief:"A regional health network serves lakeside communities and outlying villages. Clinics need trained staff, accessible facilities, essential medicines and transport links. People with disabilities, older residents and low-income families face extra barriers when care is far away.",voice:"“A clinic cannot be equal access if the journey costs more than the appointment.” — A community health volunteer, in this fictional scenario"},
+ {place:"Palermo, Italy",issue:"Migration, rights & participation",lat:38.12,lng:13.36,brief:"New arrivals and long-time residents are competing for affordable housing and stable work. Language support is limited, qualifications are not always recognised and some workers are vulnerable to exploitation. The city needs an approach that protects rights while helping everyone participate.",voice:"“People can contribute when they are safe, treated fairly and given a chance to belong.” — A local organiser, in this fictional scenario"},
+ {place:"Nunavut, Canada",issue:"Representation & community voice",lat:63.75,lng:-68.52,brief:"A national infrastructure programme will affect remote communities for generations. Decisions are being made far from the people who will live with the consequences. Community leaders are asking for accessible information, meaningful consultation and a real role in setting priorities.",voice:"“Being invited to speak is not the same as having the power to shape the decision.” — A community representative, in this fictional scenario"},
+ {place:"Geneva, Switzerland",issue:"Fair finance & global cooperation",lat:46.20,lng:6.14,brief:"A new international finance agreement is being negotiated. Smaller economies want fairer tax cooperation and more influence over rules that affect public revenue, debt and investment in essential services. The challenge is to make global institutions transparent and representative.",voice:"“Rules that affect every country should not be written by only the countries with the most money.” — A delegate, in this fictional scenario"},
+ {place:"Port Vila, Vanuatu",issue:"Climate resilience & fair recovery",lat:-17.73,lng:168.32,brief:"After repeated severe storms, coastal communities need safer housing, reliable infrastructure and funds to rebuild. The people facing the greatest risks have the fewest resources to recover. Adaptation plans must be locally led and protect livelihoods and culture.",voice:"“Recovery should not depend on how wealthy your island or household happens to be.” — A local planner, in this fictional scenario"},
+ {place:"Mumbai, India",issue:"Digital inclusion & access to services",lat:19.08,lng:72.88,brief:"Public services are moving onto digital platforms. People with older devices, limited connectivity, disabilities, language barriers or incomplete identity records struggle to access benefits. The city must decide whether technology becomes a bridge or another gate.",voice:"“A digital service is not modern if the people who need it most cannot use it.” — An accessibility advocate, in this fictional scenario"},
+ {place:"Addis Ababa, Ethiopia",issue:"Global representation & shared decisions",lat:8.98,lng:38.76,brief:"Countries are preparing a century-defining agreement on trade, technology and shared resources. Developing countries want a meaningful voice, clear accountability and decisions that reflect the needs of communities, not only the influence of powerful institutions.",voice:"“Partnership means more than being in the room. It means being able to change the outcome.” — A youth delegate, in this fictional scenario"}
+];
+let sdg10State={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,history:[],selected:false,finished:false};
 function clampSDG(n){return Math.max(0,Math.min(100,n));}
 function renderSDGMetrics(){
  const state=sdg10State;
@@ -1948,7 +1960,10 @@ function renderSDGMetrics(){
   $("#sdg"+label).textContent=state[key];
   $("#sdg"+label+"Bar").style.width=state[key]+"%";
  });
- $("#sdgGameProgress").style.width=(state.index/10*100)+"%";
+ $("#sdgPopularity").textContent=state.popularity+"%";
+ $("#sdgPopularityBar").style.width=state.popularity+"%";
+ $("#sdgSupporters").textContent=(8.2*state.popularity/100).toFixed(1)+"B simulated supporters";
+ $("#sdgGameProgress").style.width=(Math.min(state.index,10)/10*100)+"%";
 }
 function renderSDGDecision(){
  renderSDGMetrics();
@@ -1960,6 +1975,12 @@ function renderSDGDecision(){
  $("#sdgGameTag").textContent=event.tag;
  $("#sdgGameTitle").textContent=event.title;
  $("#sdgGameScenario").textContent=event.scenario;
+ const region=sdgRegionStories[sdg10State.index];
+ $("#sdgGamePlace").textContent=region.place.toUpperCase();
+ $("#sdgGameIssue").textContent=region.issue.toUpperCase();
+ $("#sdgGameBrief").textContent=region.brief;
+ $("#sdgGameVoice").textContent=region.voice;
+ if(typeof updateSDGMapHighlights==="function")updateSDGMapHighlights();
  $("#sdgGameOutcome").textContent="Choose a policy. Your decision will shape the next decade.";
  $("#sdgGameOutcome").classList.remove("visible");
  $("#sdgGameHint").textContent="Every choice has long-term consequences.";
@@ -1979,12 +2000,14 @@ function chooseSDGDecision(choiceIndex){
  if(sdg10State.selected||sdg10State.finished)return;
  const event=sdg10Decisions[sdg10State.index],choice=event.choices[choiceIndex];
  ["opportunity","inclusion","wellbeing","equality"].forEach((key,i)=>sdg10State[key]=clampSDG(sdg10State[key]+choice.effect[i]));
+ const publicMood=Math.round((choice.effect.reduce((sum,value)=>sum+value,0)/4)*1.15);
+ sdg10State.popularity=clampSDG(sdg10State.popularity+publicMood);
  sdg10State.selected=true;
  sdg10State.history.push({year:2026+sdg10State.index*10,decision:event.title,choice:choice.title});
  renderSDGMetrics();
- $("#sdgGameOutcome").textContent=choice.impact;
+ $("#sdgGameOutcome").textContent=choice.impact+" Public support "+(publicMood>=0?"rose by ":"fell by ")+Math.abs(publicMood)+" points.";
  $("#sdgGameOutcome").classList.add("visible");
- $("#sdgGameHint").textContent="Decision recorded · see how your indicators changed.";
+ $("#sdgGameHint").textContent="Your policy is now in effect. Public reaction and global indicators have changed.";
  $(".sdg-choice",$("#sdgGameChoices")).forEach((button,index)=>{button.disabled=true;if(index===choiceIndex)button.classList.add("selected");});
  $("#sdgGameNext").disabled=false;
  $("#sdgGameNext").textContent=sdg10State.index===9?"See your 2126 outcome →":"Continue to "+(2036+sdg10State.index*10)+" →";
@@ -1998,10 +2021,10 @@ function finishSDGJourney(){
  const message=score>=75?"Your decisions expanded access, opportunity and representation across generations. Many barriers were reduced because people and countries shared power and resources.":score>=55?"Your decisions helped improve lives, but some groups and regions still face barriers. The next step is to listen to those left behind and keep improving systems.":"The century brought difficult trade-offs and some inequalities remained. A fairer future needs stronger protections, inclusive institutions and decisions shaped by the people most affected.";
  $("#sdgGameTitle").textContent=tier;
  $("#sdgGameScenario").textContent="You guided the world from 2026 to 2126. Your final equality, opportunity, inclusion and wellbeing indicators reflect the choices made along the way.";
- $("#sdgGameChoices").innerHTML='<div class="sdg-ending"><strong>100 years. 10 decisions. One shared planet.</strong>'+message+'<div class="sdg-final-stats">'+[["Opportunity",sdg10State.opportunity],["Inclusion",sdg10State.inclusion],["Wellbeing",sdg10State.wellbeing],["Equality",sdg10State.equality]].map(([name,value])=>'<span>'+name+'<b>'+value+'</b></span>').join("")+'</div></div>';
- $("#sdgGameOutcome").textContent="Your journey is complete. Every decade offered a chance to make systems fairer.";
+ $("#sdgGameChoices").innerHTML='<div class="sdg-ending"><strong>100 years. 10 decisions. One shared planet.</strong>'+message+'<div class="sdg-final-stats">'+[["Opportunity",sdg10State.opportunity],["Inclusion",sdg10State.inclusion],["Wellbeing",sdg10State.wellbeing],["Equality",sdg10State.equality],["Public support",sdg10State.popularity]].map(([name,value])=>'<span>'+name+'<b>'+value+'</b></span>').join("")+'</div></div>';
+ $("#sdgGameOutcome").textContent="Your journey is complete. Final public support: "+sdg10State.popularity+"%. This approval score and supporter count are simulated game indicators.";
  $("#sdgGameOutcome").classList.add("visible");
- $("#sdgGameHint").textContent="Try again and explore a different path.";
+ $("#sdgGameHint").textContent="Final public support: "+sdg10State.popularity+"% · "+(8.2*sdg10State.popularity/100).toFixed(1)+"B simulated supporters.";
  $("#sdgGameNext").disabled=false;$("#sdgGameNext").textContent="Play again from 2026 ↻";
 }
 function advanceSDGJourney(){
@@ -2011,19 +2034,62 @@ function advanceSDGJourney(){
  sdg10State.index++;sdg10State.selected=false;renderSDGDecision();
 }
 function restartSDGJourney(){
- sdg10State={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,history:[],selected:false,finished:false};
+ sdg10State={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,history:[],selected:false,finished:false};
  renderSDGDecision();
 }
 $("#sdgGameNext").addEventListener("click",advanceSDGJourney);
+$("#sdgMapInsightClose").addEventListener("click",()=>{$("#sdgMapInsight").hidden=true;});
+
+
+/* Country and region problem locations shown directly on the map */
+let sdgMapMarkers=[];
+function showSDGMapInsight(index){
+ const item=sdgRegionStories[index];if(!item)return;
+ $("#sdgMapInsightPlace").textContent=item.place;
+ $("#sdgMapInsightIssue").textContent=item.issue;
+ $("#sdgMapInsightText").textContent=item.brief;
+ $("#sdgMapInsight").hidden=false;
+}
+function updateSDGMapHighlights(){
+ sdgMapMarkers.forEach((marker,index)=>{
+  const el=marker.getElement?.();const pin=el?.querySelector(".sdg-map-pin");
+  if(pin){pin.classList.toggle("is-current",index===sdg10State.index);pin.classList.toggle("is-visited",index<sdg10State.index);}
+ });
+ $(".sdg-fallback-pin").forEach((pin,index)=>{pin.classList.toggle("is-current",index===sdg10State.index);pin.classList.toggle("is-visited",index<sdg10State.index);});
+}
+function renderSDGMapPins(){
+ const fallback=$("#sdgMapFallbackPins");
+ if(fallback&&!fallback.dataset.ready){
+  fallback.dataset.ready="yes";
+  sdgRegionStories.forEach((item,index)=>{
+   const pin=document.createElement("button");pin.type="button";pin.className="sdg-fallback-pin";pin.title=item.place+" — "+item.issue;pin.setAttribute("aria-label","Show problem in "+item.place);
+   const x=(item.lng+180)/360*100;const y=(90-item.lat)/180*100;
+   pin.style.left=x+"%";pin.style.top=y+"%";pin.innerHTML="<span>"+String(index+1).padStart(2,"0")+"</span>";
+   pin.addEventListener("click",()=>showSDGMapInsight(index));fallback.appendChild(pin);
+  });
+ }
+ if(window.worldMapInstance&&window.L&&!sdgMapMarkers.length){
+  sdgRegionStories.forEach((item,index)=>{
+   const icon=L.divIcon({className:"",html:'<div class="sdg-map-pin '+(index===sdg10State.index?"is-current":"")+'"><span>'+String(index+1).padStart(2,"0")+'</span></div>',iconSize:[30,30],iconAnchor:[15,25]});
+   const marker=L.marker([item.lat,item.lng],{icon,keyboard:true,title:item.place+" — "+item.issue}).addTo(window.worldMapInstance);
+   marker.on("click",()=>showSDGMapInsight(index));
+   marker.bindTooltip(item.place,{direction:"top",offset:[0,-18]});
+   sdgMapMarkers.push(marker);
+  });
+  if(fallback)fallback.style.display="none";
+ }
+ updateSDGMapHighlights();
+}
 
 function initInteractiveEarth(){
  renderSDGDecision();
+ renderSDGMapPins();
  const el=$("#realWorldMap");if(!el||!window.L)return;
  if(!window.worldMapInstance){
   window.worldMapInstance=L.map(el,{center:[18,0],zoom:2,minZoom:2,maxZoom:2,zoomControl:false,attributionControl:false,dragging:false,scrollWheelZoom:false,doubleClickZoom:false,boxZoom:false,keyboard:false,touchZoom:false,zoomSnap:1,zoomDelta:1,worldCopyJump:false}).setView([18,0],2);
   L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{subdomains:"abcd",maxZoom:19,noWrap:true,attribution:"&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"https://carto.com/attributions\">CARTO</a>"}).addTo(window.worldMapInstance);
  }
- requestAnimationFrame(()=>window.worldMapInstance.invalidateSize());
+ requestAnimationFrame(()=>{window.worldMapInstance.invalidateSize();renderSDGMapPins();});
 }
 
 function openEarthView(){
