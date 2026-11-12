@@ -1730,8 +1730,8 @@ body.light .hero {background:
     </div>
 
     <section class="achievements" aria-labelledby="achievementsTitle">
-      <div class="achievements-head"><div><p class="kicker">Your progress</p><h3 id="achievementsTitle">Your <em>achievements.</em></h3></div><p id="achievementSummary">Unlock eight badges by reading stories, visiting every section, scoring well on the quiz and playing both games. Your progress is saved on this device.</p></div>
-      <div class="achievement-progress" role="progressbar" aria-label="Achievements unlocked" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"><span id="achievementProgressFill"></span></div>
+      <div class="achievements-head"><div><p class="kicker">Your progress</p><h3 id="achievementsTitle">Your <em>achievements.</em></h3></div><p id="achievementSummary">Unlock ten badges by exploring stories, learning about SDG 10 and playing the games. Your progress is saved on this device.</p></div>
+      <div class="achievement-progress" role="progressbar" aria-label="Achievements unlocked" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><span id="achievementProgressFill"></span></div>
       <div class="achievement-grid" id="achievementGrid">
         <article class="achievement-card" data-achievement="welcome"><span class="achievement-icon" aria-hidden="true">✦</span><h4>Welcome</h4><p>Visit the website for the first time.</p><span class="achievement-status">Locked</span></article>
         <article class="achievement-card" data-achievement="learner"><span class="achievement-icon" aria-hidden="true">⌕</span><h4>Learner</h4><p>Read five different Gallery stories for at least 20 seconds each.</p><span class="achievement-status">Locked</span></article>
@@ -1739,8 +1739,10 @@ body.light .hero {background:
         <article class="achievement-card" data-achievement="explorer"><span class="achievement-icon" aria-hidden="true">◎</span><h4>Explorer</h4><p>Visit all seven main sections of the website.</p><span class="achievement-status">Locked</span></article>
         <article class="achievement-card" data-achievement="scholar"><span class="achievement-icon" aria-hidden="true">?</span><h4>Quiz Scholar</h4><p>Finish the quiz with at least 8 correct answers.</p><span class="achievement-status">Locked</span></article>
         <article class="achievement-card" data-achievement="perfect"><span class="achievement-icon" aria-hidden="true">★</span><h4>Perfect Ten</h4><p>Answer all 10 quiz questions correctly.</p><span class="achievement-status">Locked</span></article>
-        <article class="achievement-card" data-achievement="memory"><span class="achievement-icon" aria-hidden="true">◈</span><h4>Memory Master</h4><p>Match all four pairs in the SDG 10 memory game.</p><span class="achievement-status">Locked</span></article>
+        <article class="achievement-card" data-achievement="policyMaker"><span class="achievement-icon" aria-hidden="true">⚖</span><h4>Policy Maker</h4><p>Make five policy decisions in the World Game.</p><span class="achievement-status">Locked</span></article>
         <article class="achievement-card" data-achievement="century"><span class="achievement-icon" aria-hidden="true">🌍</span><h4>Century Builder</h4><p>Complete all 20 decisions and reach the year 2126.</p><span class="achievement-status">Locked</span></article>
+        <article class="achievement-card" data-achievement="storyCollector"><span class="achievement-icon" aria-hidden="true">▤</span><h4>Story Collector</h4><p>Open ten different stories in the Gallery.</p><span class="achievement-status">Locked</span></article>
+        <article class="achievement-card" data-achievement="actionAdvocate"><span class="achievement-icon" aria-hidden="true">↗</span><h4>Action Advocate</h4><p>Open the United Nations resource from the Take Action page.</p><span class="achievement-status">Locked</span></article>
       </div>
     </section>
   </section>
@@ -1834,6 +1836,7 @@ let currentFilter = "all";
 const ACHIEVEMENT_STORAGE_KEY="sdg10-achievements-v2";
 const ACHIEVEMENT_PAGE_STORAGE_KEY="sdg10-achievement-pages-v1";
 const STORY_READING_STORAGE_KEY="sdg10-story-reading-v1";
+const STORY_VISITS_STORAGE_KEY="sdg10-story-visits-v1";
 const GAME_TIME_STORAGE_KEY="sdg10-game-time-v1";
 const achievementDefinitions=[
  {id:"welcome",title:"Welcome",description:"Visit the website for the first time.",icon:"✦"},
@@ -1842,8 +1845,10 @@ const achievementDefinitions=[
  {id:"explorer",title:"Explorer",description:"Visit all seven main sections of the website.",icon:"◎"},
  {id:"scholar",title:"Quiz Scholar",description:"Finish the quiz with at least 8 correct answers.",icon:"?"},
  {id:"perfect",title:"Perfect Ten",description:"Answer all 10 quiz questions correctly.",icon:"★"},
- {id:"memory",title:"Memory Master",description:"Match all four pairs in the SDG 10 memory game.",icon:"◈"},
- {id:"century",title:"Century Builder",description:"Complete all 20 decisions and reach the year 2126.",icon:"🌍"}
+ {id:"policyMaker",title:"Policy Maker",description:"Make five policy decisions in the World Game.",icon:"⚖"},
+ {id:"century",title:"Century Builder",description:"Complete all 20 decisions and reach the year 2126.",icon:"🌍"},
+ {id:"storyCollector",title:"Story Collector",description:"Open ten different stories in the Gallery.",icon:"▤"},
+ {id:"actionAdvocate",title:"Action Advocate",description:"Open the United Nations resource from the Take Action page.",icon:"↗"}
 ];
 function getUnlockedAchievements(){
  try{
@@ -1905,7 +1910,7 @@ function renderAchievements(){
  const fill=$("#achievementProgressFill"),bar=$(".achievement-progress"),summary=$("#achievementSummary");
  if(fill)fill.style.width=(count/achievementDefinitions.length*100)+"%";
  if(bar)bar.setAttribute("aria-valuenow",String(count));
- if(summary)summary.textContent=count+" of 8 achievements unlocked. "+(count===8?"Every badge collected — amazing work!":"Keep exploring. Your progress is saved on this device.");
+ if(summary)summary.textContent=count+" of 10 achievements unlocked. "+(count===10?"Every badge collected — amazing work!":"Keep exploring. Your progress is saved on this device.");
 }
 function recordAchievementPageVisit(pageId){
  if(!pageIds.includes(pageId))return;
@@ -1918,6 +1923,13 @@ function checkLearnerAchievement(){
  const progress=getAchievementObject(STORY_READING_STORAGE_KEY);
  const completed=Object.values(progress).filter(seconds=>Number(seconds)>=20).length;
  if(completed>=5)unlockAchievement("learner");
+}
+function recordStoryVisit(storyId){
+ if(!storyId)return;
+ const visits=getAchievementObject(STORY_VISITS_STORAGE_KEY);
+ visits[storyId]=true;
+ try{localStorage.setItem(STORY_VISITS_STORAGE_KEY,JSON.stringify(visits));}catch{}
+ if(Object.values(visits).filter(Boolean).length>=10)unlockAchievement("storyCollector");
 }
 function trackAchievementTime(){
  if(document.visibilityState!=="visible")return;
@@ -2062,6 +2074,7 @@ function showStory(id) {
   if (!story || !card) { showPage("gallery",false); return; }
   activeStoryId = id;
   recordAchievementPageVisit("gallery");
+  recordStoryVisit(id);
   mainPage.style.display = "none";
   detailPage.style.display = "block";
   $("#detailImage").src = $(".story-image img",card).src;
@@ -2759,6 +2772,7 @@ function chooseSDGDecision(choiceIndex){
  sdg10State.selectedChoice=choiceIndex;
  sdg10State.selected=true;
  sdg10State.history.push({year:2026+sdg10State.index*5,decision:decision.title,choice:choice.title});
+ if(sdg10State.history.length>=5)unlockAchievement("policyMaker");
  saveSDG10State();
  renderSDGMetrics();
  updateSDGMapHighlights();
@@ -3014,6 +3028,8 @@ try{
 }catch{unlockAchievement("welcome");}
 routeFromHash(false);
 try{if(location.hash==="#game"&&localStorage.getItem("coil-sdg10-earth-open")==="1"){localStorage.removeItem("coil-sdg10-earth-open");}}catch{}
+const actionResourceLink=document.querySelector('#action a[href="https://www.un.org/es/desa/habitat-iii-promoting-accessible-and-inclusive-cities-all"]');
+if(actionResourceLink)actionResourceLink.addEventListener("click",()=>unlockAchievement("actionAdvocate"));
 applyStoryFilters();
 </script>
 
