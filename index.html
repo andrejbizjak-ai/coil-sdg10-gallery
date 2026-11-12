@@ -1054,6 +1054,44 @@ body.light .hero {background:
 </div>
 
 <script>
+/* Restore the selected section independently of the main site script. */
+(function () {
+  const ids = ["home","gallery","targets","action","quiz","game","about"];
+  function restoreSection() {
+    let target = location.hash.slice(1);
+    if (!target) {
+      try { target = localStorage.getItem("sdg10-last-page") || "home"; } catch { target = "home"; }
+      if (!target) target = "home";
+      try { history.replaceState(null, "", "#" + target); } catch {}
+    }
+    const isStory = target.startsWith("story-");
+    const page = isStory ? "gallery" : (ids.includes(target) ? target : "home");
+    const main = document.getElementById("mainPage");
+    const detail = document.getElementById("detailPage");
+    if (main) {
+      main.style.display = isStory ? "none" : "";
+      ids.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) section.classList.toggle("active-page", !isStory && id === page);
+      });
+    }
+    if (detail && !isStory) detail.style.display = "none";
+    document.querySelectorAll("#navLinks [data-page]").forEach(link => {
+      if (link.dataset.page === page) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+    try { localStorage.setItem("sdg10-last-page", target); } catch {}
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", restoreSection, { once: true });
+  } else {
+    restoreSection();
+  }
+  window.addEventListener("pageshow", restoreSection);
+})();
+</script>
+
+<script>
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
