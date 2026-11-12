@@ -1382,7 +1382,7 @@ body.light .hero {background:
       <aside class="game-intro">
         <p class="kicker">How to play</p>
         <h3>Ten questions. One <em>fairer world.</em></h3>
-        <p>Answer 10 multiple-choice questions about SDG 10 and the inequality topics explored across this website. Choose one answer, read the explanation, and earn up to 100 points.</p>
+        <p>Answer 10 questions about SDG 10 and topics covered across this website. Every question has four choices, but only one is correct. Choose one answer, read the explanation, and earn up to 100 points.</p>
         <div class="game-note"><strong>Remember</strong><span>Reducing inequality means removing unfair barriers and making sure everyone can participate and have opportunities.</span></div>
       </aside>
       <div class="game-panel" id="quizPanel" aria-live="polite">
@@ -1977,72 +1977,122 @@ const quizQuestions = [
   {
     context:"SDG 10 · THE BIG IDEA",
     question:"What is the main aim of Sustainable Development Goal 10?",
-    options:["Reduce inequality within and among countries.","Make every country have exactly the same income.","Focus only on increasing international trade."],
+    options:[
+      "Reduce inequality within and among countries.",
+      "Make every person earn exactly the same salary.",
+      "Focus only on increasing the wealth of richer countries.",
+      "Replace national governments with one global government."
+    ],
     answer:0,
-    explanation:"SDG 10 is about reducing inequality within countries and between countries, so everyone has a fairer chance to participate and thrive."
+    explanation:"SDG 10 aims to reduce inequality within countries and between countries, so everyone has a fairer chance to participate and thrive."
   },
   {
     context:"INCOME INEQUALITY · TARGET 10.1",
-    question:"Target 10.1 focuses on the income growth of which group?",
-    options:["Only the highest-earning 10% of people.","The bottom 40% of the population, aiming for growth above the national average.","Only people who already own businesses."],
-    answer:1,
-    explanation:"Target 10.1 aims to progressively achieve and sustain income growth for the bottom 40% of the population at a rate higher than the national average."
+    question:"Which group does Target 10.1 specifically focus on when aiming for income growth?",
+    options:[
+      "The richest 10% of people in every country.",
+      "People who already own large businesses.",
+      "Only people who work in government.",
+      "The bottom 40% of the population."
+    ],
+    answer:3,
+    explanation:"Target 10.1 aims for the income of the bottom 40% of the population to grow at a rate higher than the national average."
   },
   {
     context:"INCLUSION · TARGET 10.2",
-    question:"What does SDG 10 mean by promoting inclusion?",
-    options:["Giving opportunities only to people with the same background.","Expecting everyone to overcome barriers without support.","Empowering and including everyone regardless of age, sex, disability, race, ethnicity, origin, religion, or income."],
-    answer:2,
-    explanation:"Target 10.2 calls for social, economic, and political inclusion for all, regardless of personal or social status."
-  },
-  {
-    context:"EDUCATION · EQUAL OPPORTUNITIES",
-    question:"A school has students who cannot afford devices or internet access. What would help reduce this inequality?",
-    options:["Provide affordable devices, connectivity, and support for students who need them.","Move all lessons online and ask families to solve access problems themselves.","Give extra digital resources only to students who already have the newest technology."],
-    answer:0,
-    explanation:"Access to learning should not depend on family income. Affordable devices, internet access, and practical support can reduce the digital and education divide."
-  },
-  {
-    context:"DISABILITY INCLUSION · ACCESS FOR ALL",
-    question:"Which action best supports the inclusion of people with disabilities?",
-    options:["Offer help only after someone has been excluded.","Make buildings, transport, information, and services accessible from the start, and involve disabled people in decisions.","Assume one solution will work for every person."],
+    question:"What does Target 10.2 ask countries to promote?",
+    options:[
+      "Opportunities only for people with the same background.",
+      "Social, economic, and political inclusion for everyone.",
+      "Access to decision-making only for high-income groups.",
+      "The removal of public services for minority communities."
+    ],
     answer:1,
-    explanation:"Removing physical, communication, and social barriers makes participation more equal. People affected by decisions should help shape them."
+    explanation:"Target 10.2 promotes the social, economic, and political inclusion of all, regardless of age, sex, disability, race, ethnicity, origin, religion, or economic status."
   },
   {
-    context:"GENDER EQUALITY · FAIR TREATMENT",
-    question:"A workplace finds that women are paid less on average for comparable work. What is a useful first step?",
-    options:["Ignore the difference because it may correct itself.","Stop collecting information about pay.","Review pay, roles, promotion, and working conditions to identify and address unfair patterns."],
-    answer:2,
-    explanation:"Checking evidence about pay and progression can reveal unequal treatment and help an organisation take meaningful action."
+    context:"EQUAL RIGHTS · TARGET 10.3",
+    question:"Which action best supports equal opportunity and reduces inequality of outcome?",
+    options:[
+      "Allowing discrimination when it is common practice.",
+      "Giving public services only to the largest groups.",
+      "Ignoring unfair treatment in laws and workplaces.",
+      "Removing discriminatory laws, policies, and practices."
+    ],
+    answer:3,
+    explanation:"Target 10.3 calls for equal opportunity and reduced inequalities of outcome, including by eliminating discriminatory laws, policies, and practices."
   },
   {
-    context:"LGBTQ+ EQUALITY · TARGET 10.3",
-    question:"Which statement best reflects equal opportunity and non-discrimination?",
-    options:["People should have equal rights and access to services regardless of sexual orientation or gender identity.","Some people should have fewer rights because they are different.","Discrimination is acceptable if it is based on tradition."],
+    context:"FAIR POLICIES · TARGET 10.4",
+    question:"Which policies does Target 10.4 highlight as ways to reduce inequality?",
+    options:[
+      "Fiscal, wage, and social protection policies.",
+      "Policies that remove all worker protections.",
+      "Policies that benefit only the highest earners.",
+      "Rules that limit access to education and healthcare."
+    ],
     answer:0,
-    explanation:"Target 10.3 promotes equal opportunity and seeks to reduce inequalities of outcome, including by eliminating discriminatory laws, policies, and practices."
+    explanation:"Target 10.4 promotes policies, especially fiscal, wage, and social protection policies, to progressively achieve greater equality."
   },
   {
-    context:"MIGRATION AND REFUGEES · TARGET 10.7",
-    question:"What kind of migration does Target 10.7 encourage countries to support?",
-    options:["Migration with no attention to safety or people's rights.","Safe, orderly, and regular migration, supported by well-managed policies.","Policies that prevent migrants from accessing basic services."],
-    answer:1,
+    context:"MIGRATION · TARGET 10.7",
+    question:"What kind of migration does Target 10.7 encourage?",
+    options:[
+      "Migration without any safety standards.",
+      "Migration that excludes people from basic rights.",
+      "Safe, orderly, regular, and responsible migration.",
+      "A complete ban on people moving between countries."
+    ],
+    answer:2,
     explanation:"Target 10.7 calls for orderly, safe, regular, and responsible migration and mobility of people through well-managed migration policies."
   },
   {
-    context:"HEALTHCARE AND HOUSING · ACCESS TO SERVICES",
-    question:"Why can equal access to healthcare and safe housing help reduce inequality?",
-    options:["They matter only to people who already have high incomes.","They do not affect people's opportunities.","They support health, safety, education, and the ability to take part in society, regardless of income."],
-    answer:2,
-    explanation:"Access to essential services and secure living conditions affects people's opportunities. Reducing barriers helps more people participate in society."
+    context:"DISABILITY INCLUSION · ACCESS FOR ALL",
+    question:"A public building has stairs but no step-free entrance. What is the best way to reduce this barrier?",
+    options:[
+      "Tell visitors who cannot use the stairs to stay home.",
+      "Provide an accessible entrance and involve disabled people in planning improvements.",
+      "Offer access only when someone complains.",
+      "Move all public services to a different town."
+    ],
+    answer:1,
+    explanation:"Accessible buildings and services help people participate equally. Involving disabled people helps ensure that solutions meet real needs."
   },
   {
-    context:"REDUCING INEQUALITY · TARGET 10.4",
-    question:"Which policy approach is named in Target 10.4 as a way to reduce inequality?",
-    options:["Use fiscal, wage, and social protection policies to work towards greater equality.","Remove all social protection programmes.","Give tax advantages only to the highest earners."],
+    context:"GENDER EQUALITY · FAIR WORK",
+    question:"A company discovers a gender pay gap. What should it do first?",
+    options:[
+      "Ignore the gap because it may disappear on its own.",
+      "Stop collecting information about salaries.",
+      "Assume all differences are caused by personal choices.",
+      "Review pay, roles, working hours, and promotion opportunities for unfair patterns."
+    ],
+    answer:3,
+    explanation:"Checking evidence about pay and progression can reveal unequal treatment and help an organisation take meaningful action."
+  },
+  {
+    context:"DIGITAL DIVIDE · EQUAL ACCESS",
+    question:"Some students cannot afford a device or reliable internet for school. Which response is fairest?",
+    options:[
+      "Provide affordable devices, internet access, and digital support to students who need them.",
+      "Move every lesson online and leave families to solve the problem.",
+      "Give extra technology only to students who already own new devices.",
+      "Exclude students without internet from online learning."
+    ],
     answer:0,
-    explanation:"Target 10.4 encourages policies, especially fiscal, wage, and social protection policies, to progressively achieve greater equality."
+    explanation:"Education opportunities should not depend on family income. Devices, connectivity, and digital skills support can reduce the digital divide."
+  },
+  {
+    context:"GLOBAL REPRESENTATION · TARGET 10.6",
+    question:"What does Target 10.6 seek to strengthen?",
+    options:[
+      "The influence of only the richest countries in global institutions.",
+      "The role of private companies in replacing public institutions.",
+      "The voice and representation of developing countries in international economic and financial institutions.",
+      "Restrictions on developing countries joining international organisations."
+    ],
+    answer:2,
+    explanation:"Target 10.6 aims to ensure enhanced representation and voice for developing countries in decision-making in international economic and financial institutions."
   }
 ];
 
