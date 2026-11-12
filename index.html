@@ -903,6 +903,31 @@ body.light .hero {background:
 .sdg-map-insight blockquote{display:block;margin-top:8px;padding:8px 10px;border-left:2px solid #edc064;background:rgba(255,255,255,.06);font:italic 11px/1.5 Georgia,serif;color:#f4e5c5}
 .sdg-map-insight{max-height:45%;overflow:auto}
 .sdg-map-note{font-weight:800}
+
+/* Interactive SDG 10 field notes */
+.home-field-notes {padding:clamp(64px,8vw,100px) 0;background:var(--bg)}
+.field-notes-head {display:grid;grid-template-columns:1fr .8fr;gap:35px;align-items:end;margin-bottom:30px}
+.field-notes-head h2 {max-width:650px;font:400 clamp(35px,4.8vw,58px)/1.04 Georgia,serif;letter-spacing:-.04em}
+.field-notes-head h2 em {color:var(--accent);font-style:normal}
+.field-notes-head>p {max-width:450px;color:var(--muted);font-size:13px;line-height:1.85}
+.field-slider {display:grid;grid-template-columns:1.05fr .95fr;min-height:420px;border:1px solid var(--line);background:var(--surface);overflow:hidden}
+.field-slider-visual {position:relative;min-height:420px;background:var(--surface-2);overflow:hidden}
+.field-slider-visual img {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .25s,transform .5s}
+.field-slider-visual:after {content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(5,12,16,.72));pointer-events:none}
+.field-image-label {position:absolute;z-index:1;left:20px;bottom:18px;color:#fff;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.field-slider-copy {display:flex;flex-direction:column;justify-content:center;padding:clamp(24px,4vw,48px)}
+.field-slider-index {color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.field-slider-copy h3 {margin-top:15px;font:400 clamp(28px,3.5vw,42px)/1.08 Georgia,serif}
+.field-slider-stat {display:block;margin-top:20px;color:var(--accent);font:400 clamp(35px,4vw,48px)/1 Georgia,serif}
+.field-slider-copy p {margin-top:12px;color:var(--muted);font-size:12px;line-height:1.85}
+.field-slider-source {margin-top:18px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:9px;line-height:1.7}
+.field-slider-source a {color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.field-slider-controls {display:flex;align-items:center;gap:14px;margin-top:25px}
+.field-slider-controls input {width:100%;accent-color:var(--accent);cursor:ew-resize}
+.field-slider-controls output {min-width:48px;color:var(--text);font:400 15px Georgia,serif;text-align:right}
+.field-slider-steps {display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:8px;letter-spacing:.08em;text-transform:uppercase}
+.field-slider-hint {margin-top:9px;color:var(--muted);font-size:9px}
+@media(max-width:760px){.field-notes-head,.field-slider{grid-template-columns:1fr}.field-slider-visual{min-height:270px}.field-slider-copy{padding:25px}.field-slider{min-height:0}}
 </style>
 </head>
 
@@ -1063,6 +1088,28 @@ body.light .hero {background:
           <p>Reducing inequality is not only about helping people who are left behind. It also means changing the systems that decide who gets income, opportunity, safety, and a voice.</p>
         </div>
         <p class="home-data-source">Figures are from the <a href="https://unstats.un.org/sdgs/report/2026/" target="_blank" rel="noopener noreferrer">United Nations Sustainable Development Goals Report 2026</a>, Goal 10. Each indicator has its own survey coverage and reference period; figures should not be treated as one combined dataset.</p>
+      </div>
+    </section>
+
+    <section class="home-field-notes" aria-labelledby="fieldNotesTitle">
+      <div class="container">
+        <div class="field-notes-head">
+          <div><p class="kicker">Look closer / Four connected realities</p><h2 id="fieldNotesTitle">Inequality is not one story. <em>It changes lives in different ways.</em></h2></div>
+          <p>Move the slider to explore four dimensions of SDG 10. Each image opens a different part of the picture, with a real finding from the United Nations behind it.</p>
+        </div>
+        <div class="field-slider" aria-live="polite">
+          <div class="field-slider-visual"><img id="fieldSlideImage" src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=88" alt="Colleagues working together around a table"><span class="field-image-label" id="fieldImageLabel">Work and income</span></div>
+          <div class="field-slider-copy">
+            <span class="field-slider-index" id="fieldSlideIndex">01 / 04 · TARGET 10.1</span>
+            <h3 id="fieldSlideTitle">Growth should reach the people with the least.</h3>
+            <strong class="field-slider-stat" id="fieldSlideStat">Nearly 6 in 10</strong>
+            <p id="fieldSlideText">Of 112 countries with comparable surveys since 2015, nearly 60% recorded faster income or consumption growth for the poorest 40% than for the national average. Progress is real, but it is not universal.</p>
+            <p class="field-slider-source" id="fieldSlideSource">Source: <a href="https://unstats.un.org/sdgs/report/2026/Goal-10/" target="_blank" rel="noopener noreferrer">United Nations SDG Report 2026 · Goal 10</a></p>
+            <div class="field-slider-controls"><input id="fieldSlideRange" type="range" min="0" max="3" step="1" value="0" aria-label="Explore the four dimensions of inequality"><output id="fieldSlideNumber" for="fieldSlideRange">01 / 04</output></div>
+            <div class="field-slider-steps" aria-hidden="true"><span>Income</span><span>Discrimination</span><span>Work</span><span>Displacement</span></div>
+            <p class="field-slider-hint">Drag the dot or use your arrow keys to change the story.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2573,6 +2620,22 @@ renderAchievements();
 routeFromHash(false);
 try{if(location.hash==="#game"&&localStorage.getItem("coil-sdg10-earth-open")==="1"){requestAnimationFrame(openEarthView);}}catch{}
 applyStoryFilters();
+</script>
+
+<script>
+(() => {
+  const range = document.getElementById("fieldSlideRange");
+  if (!range) return;
+  const slides = [
+    {label:"Work and income",tag:"01 / 04 · TARGET 10.1",title:"Growth should reach the people with the least.",stat:"Nearly 6 in 10",text:"Of 112 countries with comparable surveys since 2015, nearly 60% recorded faster income or consumption growth for the poorest 40% than for the national average. Progress is real, but it is not universal.",image:"https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=88",alt:"Colleagues working together around a table",source:"United Nations SDG Report 2026 · Goal 10",url:"https://unstats.un.org/sdgs/report/2026/Goal-10/"},
+    {label:"Discrimination",tag:"02 / 04 · TARGET 10.3",title:"Equal rights mean little when people face discrimination.",stat:"Nearly 1 in 5",text:"People worldwide reported experiencing discrimination in the previous 12 months. People with disabilities face some of the highest reported rates—up to two or three times the overall population rate.",image:"https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=88",alt:"A group taking part in a collaborative discussion",source:"United Nations SDG Report 2026 · Goal 10",url:"https://unstats.un.org/sdgs/report/2026/Goal-10/"},
+    {label:"Work and wages",tag:"03 / 04 · TARGET 10.4",title:"Economic growth does not automatically mean fairer pay.",stat:"52.6%",text:"Labour received 52.6% of global GDP in 2025, down from 53.0% in 2015. The UN estimates this decline is equivalent to about $196 (2021 PPP) less per worker each year.",image:"https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1400&q=88",alt:"Financial documents and calculations on a desk",source:"United Nations SDG Report 2026 · Goal 10",url:"https://unstats.un.org/sdgs/report/2026/Goal-10/"},
+    {label:"Forced displacement",tag:"04 / 04 · TARGET 10.7",title:"Where you are born can shape whether you are safe.",stat:"444 per 100,000",text:"By mid-2025, the global refugee population under UNHCR's mandate and other people needing international protection equalled 444 per 100,000 people worldwide—more than twice the 2015 rate.",image:"https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1400&q=88",alt:"Travel belongings prepared for a journey",source:"United Nations SDG Report 2026 · Goal 10",url:"https://unstats.un.org/sdgs/report/2026/Goal-10/"}
+  ];
+  const image=document.getElementById("fieldSlideImage"),label=document.getElementById("fieldImageLabel"),tag=document.getElementById("fieldSlideIndex"),title=document.getElementById("fieldSlideTitle"),stat=document.getElementById("fieldSlideStat"),copy=document.getElementById("fieldSlideText"),source=document.getElementById("fieldSlideSource"),number=document.getElementById("fieldSlideNumber");
+  function render(){const i=Number(range.value),d=slides[i];image.style.opacity="0.25";window.setTimeout(()=>{image.src=d.image;image.alt=d.alt;image.style.opacity="1";},100);label.textContent=d.label;tag.textContent=d.tag;title.textContent=d.title;stat.textContent=d.stat;copy.textContent=d.text;source.innerHTML='Source: <a href="'+d.url+'" target="_blank" rel="noopener noreferrer">'+d.source+'</a>';number.textContent=String(i+1).padStart(2,"0")+" / 04";}
+  range.addEventListener("input",render);render();
+})();
 </script>
 </body>
 </html>
