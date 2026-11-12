@@ -1000,6 +1000,72 @@ body.light .hero {background:
  .sdg-history li strong{grid-column:1/-1}
 }
 </style>
+<style id="sdg-flat-map-game-styles">
+.world-game-shell{position:relative;min-height:760px;overflow:hidden;background:linear-gradient(145deg,#0b202c,#153a45 58%,#10232f);border:1px solid rgba(218,231,225,.16)}
+.world-game-stars,.world-orbit,.world-earth,.world-screen{display:none!important}
+.world-menu-card{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(620px,calc(100% - 34px));padding:clamp(28px,5vw,54px);background:rgba(6,20,29,.91);border:1px solid rgba(233,211,159,.42);box-shadow:0 30px 90px rgba(0,0,0,.32);text-align:left;z-index:3}
+.world-menu-card h3{font:400 clamp(40px,7vw,66px)/.98 Georgia,serif;color:#f5f0e5;margin:18px 0}
+.world-menu-card h3 em{color:#e5bd70;font-style:normal}
+.world-menu-copy{max-width:500px;color:#bdcbd0;font-size:13px;line-height:1.8}
+.world-menu-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:27px}
+.world-menu-actions .button{min-height:46px}
+.world-save-status{margin-top:20px;color:#d9bc7a;font-size:9px;letter-spacing:.13em}
+.world-game-shell.earth-open .world-menu-card{display:none}
+.earth-view{position:absolute;inset:0;z-index:6;display:block;overflow:hidden;background:#46bce4;padding:0}
+.earth-view[hidden]{display:none}
+.world-map-stage{position:absolute!important;inset:0!important;display:block!important;overflow:hidden!important;z-index:1!important;background:#46bce4!important;border:0!important;box-shadow:none!important;pointer-events:auto!important}
+#realWorldMap{position:absolute;inset:0;width:100%;height:100%;background:#46bce4}
+#realWorldMap svg{display:block;width:100%;height:100%}
+.political-country,.political-borders{vector-effect:non-scaling-stroke}
+.political-country-labels text{font-family:Arial,Helvetica,sans-serif;pointer-events:none}
+.political-ocean-labels text{font:700 10px Arial,Helvetica,sans-serif;letter-spacing:1.4px;fill:#17688e;opacity:.72;pointer-events:none}
+#sdgMapFallbackPins{position:absolute;inset:0;z-index:8;pointer-events:none}
+.sdg-fallback-pin{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:28px;height:28px;border:2px solid #fff;border-radius:50%;rotate:0;background:#d95d58;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.38);font:bold 9px Arial,sans-serif;pointer-events:auto;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.sdg-fallback-pin span{rotate:0}
+.sdg-fallback-pin.severity-medium{background:#e59b3d}
+.sdg-fallback-pin.severity-low{background:#369b78}
+.sdg-fallback-pin.is-current{width:36px;height:36px;border:3px solid #1b3541;background:#f2ce62;color:#182d36;transform:translate(-50%,-50%) scale(1.12);box-shadow:0 0 0 5px rgba(242,206,98,.35),0 4px 14px rgba(0,0,0,.4)}
+.sdg-fallback-pin.is-visited{opacity:.63}
+.sdg-fallback-pin:hover{z-index:30;transform:translate(-50%,-50%) scale(1.22)}
+.map-attribution{position:absolute;z-index:9;left:8px;bottom:5px;padding:3px 6px;background:rgba(255,255,255,.8);color:#334d58;font:8px/1.3 Arial,sans-serif;pointer-events:none}
+.map-style-switch{display:none!important}
+.sdg-map-legend{z-index:12;bottom:8px;left:auto;right:8px;top:auto}
+.earth-view-top{position:absolute;z-index:30;top:10px;left:12px;right:12px;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+.earth-view-top span{padding:8px 10px;background:rgba(255,255,255,.84);color:#2b4a55;font-size:9px;letter-spacing:.14em;font-weight:800}
+.earth-view-top button{pointer-events:auto}
+.sdg-game-shell{position:absolute;inset:62px 14px 14px;z-index:20;pointer-events:none;color:#fff}
+.sdg-decision-panel{pointer-events:auto;max-height:calc(100% - 125px);max-width:min(590px,calc(100% - 12px))}
+.game-briefing[hidden]{display:none!important}
+.game-briefing{position:absolute;inset:0;z-index:900;display:grid;place-items:center;padding:22px;background:rgba(3,13,19,.74);backdrop-filter:blur(5px);pointer-events:auto}
+.game-briefing-card{width:min(650px,100%);max-height:calc(100% - 24px);overflow:auto;padding:clamp(25px,4vw,44px);background:#f5f0df;color:#20343a;border:1px solid #d7c89e;box-shadow:0 28px 90px rgba(0,0,0,.42)}
+.game-briefing-card h2{font:400 clamp(32px,5vw,48px)/1.06 Georgia,serif;margin:13px 0 18px;color:#1f333a}
+.game-briefing-card h2 em{font-style:normal;color:#9a6b29}
+.game-briefing-card>p:not(.world-menu-kicker){font-size:12px;line-height:1.8;color:#43585d;margin:13px 0}
+.game-briefing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0}
+.game-briefing-grid>div{padding:13px 14px;background:#e6e1ce;display:grid;gap:4px}
+.game-briefing-grid strong{font:400 30px Georgia,serif;color:#986b30}
+.game-briefing-grid span{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#526267}
+.game-briefing-start{margin-top:12px;min-height:48px}
+.political-map-error{position:absolute;inset:0;display:grid;place-items:center;padding:32px;background:#46bce4;color:#173b4b;font:600 14px Arial,sans-serif;text-align:center}
+@media(max-width:700px){
+ .world-game-shell{min-height:760px}
+ .world-menu-card{padding:27px 23px}
+ .world-menu-actions{display:grid}
+ .world-menu-actions .button{width:100%}
+ .earth-view-top{top:7px;left:7px;right:7px}
+ .earth-view-top span{font-size:7px;padding:7px}
+ .sdg-game-shell{inset:48px 7px 7px}
+ .sdg-fallback-pin{width:23px;height:23px;font-size:8px}
+ .sdg-fallback-pin.is-current{width:31px;height:31px}
+ .sdg-map-legend{display:none}
+ .map-attribution{font-size:6px}
+ .game-briefing{padding:10px}
+ .game-briefing-card{padding:23px 19px}
+ .game-briefing-card h2{font-size:32px}
+ .game-briefing-grid span{font-size:7px}
+ .game-briefing-grid strong{font-size:25px}
+}
+</style>
 </head>
 
 <body>
@@ -1467,94 +1533,37 @@ body.light .hero {background:
 
   <section class="page section container" id="game">
     <div class="world-game-shell" id="worldGame" aria-label="A World of Choices game menu">
-      <div class="world-game-stars" aria-hidden="true"></div>
-      <div class="world-orbit" aria-hidden="true"></div>
-      <div class="world-earth" aria-hidden="true">
-        <svg viewBox="0 0 400 400" role="presentation">
-          <defs>
-            <radialGradient id="earthOcean" cx="32%" cy="27%" r="75%">
-              <stop offset="0" stop-color="#5eb3b7"/><stop offset=".55" stop-color="#216477"/><stop offset="1" stop-color="#102d48"/>
-            </radialGradient>
-            <linearGradient id="earthShade" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".48" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#071522" stop-opacity=".62"/>
-            </linearGradient>
-            <clipPath id="earthClip"><circle cx="200" cy="200" r="184"/></clipPath>
-          </defs>
-          <circle cx="200" cy="200" r="184" fill="url(#earthOcean)" stroke="#a3d7d0" stroke-opacity=".5" stroke-width="2"/>
-          <g clip-path="url(#earthClip)">
-            <g class="earth-spin" fill="#8ab99a" stroke="#b7d2a0" stroke-width="2" stroke-linejoin="round">
-              <path d="M62 92l22-23 35-8 19 14 27 3 11 18-13 15-8 24-21 9-11 30-19 13-9 30-17-7-8-27-22-15-8-31-20-15 8-20z"/>
-              <path d="M135 213l25 5 21 20-2 31-13 22-5 35-18 30-15-14-8-39-17-30 8-31z"/>
-              <path d="M205 76l26-17 33 8 12 17 30 6 25 22-8 22-26 7-10 24-25 4-13 24-21-7-7-25-25-9-11-25-22-12 8-23z"/>
-              <path d="M224 184l30-11 27 13 17 29-10 30-19 13-5 31-25 25-17-14-8-35-18-25 8-31z"/>
-              <path d="M315 264l26-9 22 18-8 25-24 7-19-16z"/>
-              <path d="M47 260l19-9 18 14-4 19-21 7-16-13z"/>
-            </g>
-            <circle cx="200" cy="200" r="184" fill="url(#earthShade)"/>
-            <path d="M35 150Q190 55 365 140M28 240Q200 325 372 245" fill="none" stroke="#b7e1df" stroke-opacity=".16" stroke-width="1.5"/>
-          </g>
-          <circle cx="200" cy="200" r="184" fill="none" stroke="#a3d7d0" stroke-opacity=".45" stroke-width="1"/>
-        </svg>
-      </div>
-
       <div class="world-menu-card" id="worldMainMenu">
         <p class="world-menu-kicker">COIL INTERACTIVE EXPERIENCE · SDG 10</p>
         <h3>SHAPE THE NEXT<br><em>100 YEARS.</em></h3>
-        <p class="world-menu-copy">Start in 2026. Make choices about housing, education, work, health, migration and representation to help build a fairer world by 2126.</p>
+        <p class="world-menu-copy">Lead a global campaign from 2026 to 2126. Make decisions about housing, education, work, healthcare, migration, climate and equal rights. Your choices will shape the future.</p>
         <div class="world-menu-actions">
-          <button class="button world-play" id="worldPlay" type="button">START IN 2026 <span aria-hidden="true">▶</span></button>
-          <button class="button secondary" id="worldContinue" type="button">CONTINUE</button>
-          <button class="button secondary" id="worldSave" type="button">SAVE PROGRESS</button>
+          <button class="button world-play" id="worldPlay" type="button">START CAMPAIGN <span aria-hidden="true">▶</span></button>
+          <button class="button secondary" id="worldContinue" type="button">CONTINUE SAVED CAMPAIGN</button>
         </div>
-        <p class="world-save-status" id="worldSaveStatus" role="status" aria-live="polite">THE PLANET IS READY TO EXPLORE.</p>
-        <div class="world-menu-footer">
-          <button id="worldHowTo" type="button">HOW TO PLAY</button>
-          <button id="worldSettings" type="button">PAUSE GLOBE</button>
-        </div>
+        <p class="world-save-status" id="worldSaveStatus" role="status" aria-live="polite">10 POLICY DECISIONS · 3 WORLD EVENTS · 100 YEARS.</p>
       </div>
 
-      <div class="world-screen" id="worldPreview" hidden>
-        <div class="world-screen-top"><span>YOUR PLANET · YOUR DECISIONS</span><span id="worldChapter">WORLD OVERVIEW / 01</span></div>
-        <h3 id="worldScreenTitle">The world is in your hands.</h3>
-        <p id="worldScreenCopy">This is the beginning of your journey. Soon, you will face decisions about opportunity, resources, representation, and access—and see how each choice changes life around the world.</p>
-        <div class="world-preview-stats">
-          <div class="world-preview-stat"><strong id="worldOpportunity">50</strong><span>Equal opportunity</span></div>
-          <div class="world-preview-stat"><strong id="worldWellbeing">50</strong><span>Global wellbeing</span></div>
-          <div class="world-preview-stat"><strong id="worldInclusion">50</strong><span>Social inclusion</span></div>
-        </div>
-        <div class="world-howto" id="worldHowToText">Make choices for a fairer world. Each decision changes the planet's indicators. Think about who benefits and who might be left behind.</div>
-        <div id="worldDecisionArea" class="world-howto" style="margin-top:14px"></div>
-        <div class="world-screen-actions">
-          <button class="button" id="worldBackMenu" type="button">Main menu</button>
-          <button class="button secondary" id="worldSaveFromPlay" type="button">Save progress</button>
-        </div>
-        <p class="world-save-status" id="worldScreenStatus" role="status" aria-live="polite"></p>
-      </div>
       <div class="earth-view" id="earthView" hidden>
-        <div class="world-map-stage" id="worldMapStage" aria-label="World map with SDG 10 problem locations">
-          <div id="mapFallback" aria-hidden="true"><svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
-            <defs><linearGradient id="fallbackSea" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#75bfd8"/><stop offset="1" stop-color="#3188b0"/></linearGradient><linearGradient id="fallbackLand" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e4d7a6"/><stop offset=".5" stop-color="#abd0a0"/><stop offset="1" stop-color="#6fae98"/></linearGradient><pattern id="fallbackRelief" width="24" height="20" patternUnits="userSpaceOnUse"><path d="M1 16l7-10 7 10 6-8" fill="none" stroke="#5d947d" stroke-opacity=".35" stroke-width="1"/></pattern></defs>
-            <rect width="1200" height="600" fill="url(#fallbackSea)"/>
-            <g fill="url(#fallbackLand)" stroke="#668f7f" stroke-width="2" stroke-linejoin="round">
-              <path d="M75 112l20-30 35-6 28-24 43 7 27-13 35 17 42-2 28 23 41 3 25 24-13 26-34 9-10 29-27 13-9 33-20 13-14 31-20 7-16-20-24-3-11-21-26-6-12-22-25-7-12-18-30-6-13-21-30-13z"/>
-              <path d="M280 280l27-10 31 10 23 26-6 37-20 35-6 43-22 42-14 40-13-19-5-39-16-31 8-35-13-31 8-28-7-29z"/>
-              <path d="M520 107l25-18 28 8 15 20-17 17-33-5z"/>
-              <path d="M545 160l25-18 28 8 14 20-14 20-28-7z"/>
-              <path d="M555 218l32-17 40 9 34 19 38-5 23 22-12 27-33 8-23 24-24 9-11 31-25 27-19-15-8-41-19-29 1-33z"/>
-              <path d="M615 316l30-12 28 17 12 34-14 44-22 46-24 37-17-20-7-40-16-35 8-37z"/>
-              <path d="M650 108l24-27 38-9 36 14 38-7 39 17 38-1 26 21 42-3 37 19 30 27-15 24-34-2-26 18-34-6-25 19-27-7-21 22-25-8-15-28-31-3-16-22-34-2-17-22-35 0z"/>
-              <path d="M760 270l37-20 38 11 22 29-10 35-28 18-13 36-32 20-23-22-2-35-18-34z"/>
-              <path d="M920 403l32-17 41 10 27 26-14 36-29 20-36-12-26-33z"/>
-              <path d="M1070 450l22-9 25 14-9 22-28 1z"/>
-              <path d="M1044 185l33-12 41 18 22 31-20 24-38-5-24-23z"/>
-              <path d="M80 552l72-9 65 7 66-7 60 7 65-6 66 8 69-8 65 8 72-7 68 8 68-6 69 8 60-7 55 8 49-5-12 22H94z" fill="#e8e7d5"/>
-            </g>
-            <g fill="url(#fallbackRelief)" opacity=".65"><path d="M75 112h390v220H75zM540 90h470v330H540z"/></g>
-            <g fill="none" stroke="#fff4d7" stroke-width="1.1" stroke-dasharray="3 3" opacity=".7"><path d="M180 95l-8 65 18 60M245 108l-8 55 20 44M318 130l-18 64 10 54M575 120l14 50-12 48M630 110l-8 52 17 41M700 115l-5 55 18 42M770 117l-14 56 21 46M850 140l-15 55 20 49M920 162l-15 45 17 40M590 245l23 41-10 51M640 254l-15 47 16 38"/></g>
-            <g font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#315a65" opacity=".8" letter-spacing="2"><text x="210" y="205">NORTH AMERICA</text><text x="345" y="390">SOUTH AMERICA</text><text x="615" y="300">AFRICA</text><text x="620" y="140">EUROPE</text><text x="850" y="190">ASIA</text><text x="970" y="455">AUSTRALIA</text></g>
-          </svg></div>
-          <div id="realWorldMap"></div><div id="sdgMapFallbackPins"></div><div class="map-style-switch" role="group" aria-label="World map style"><button type="button" id="mapSatelliteButton" class="active" aria-pressed="true">SATELLITE</button><button type="button" id="mapStreetButton" aria-pressed="false">STREET MAP</button></div><div class="sdg-map-legend"><span><i class="red"></i> HIGH PRESSURE</span><span><i class="amber"></i> NEEDS ACTION</span><span><i class="green"></i> IMPROVING</span></div>
-          <div class="map-attribution" id="mapAttribution">Imagery: Esri, Maxar, Earthstar Geographics, and the GIS User Community</div>
+        <div class="game-briefing" id="gameBriefing" hidden>
+          <section class="game-briefing-card" role="dialog" aria-modal="true" aria-labelledby="gameBriefingTitle">
+            <p class="world-menu-kicker">YOUR MISSION · 2026—2126</p>
+            <h2 id="gameBriefingTitle">You are shaping the next <em>100 years.</em></h2>
+            <p>You are leading an international coalition working to reduce inequality. Across ten decades, you will choose policies that affect housing, education, work, healthcare, migration, representation, climate justice and digital access.</p>
+            <div class="game-briefing-grid">
+              <div><strong>10</strong><span>policy decisions</span></div>
+              <div><strong>3</strong><span>unexpected world events</span></div>
+              <div><strong>20</strong><span>global hotspots</span></div>
+            </div>
+            <p>Each choice changes opportunity, inclusion, wellbeing, equality, public support and inequality pressure. Click a hotspot to explore the local situation. There is no single perfect path — your goal is to build the fairest future you can.</p>
+            <button class="button game-briefing-start" id="gameBeginCampaign" type="button">ENTER THE WORLD MAP →</button>
+          </section>
+        </div>
+        <div class="world-map-stage" id="worldMapStage" aria-label="Political world map with clickable SDG 10 locations">
+          <div id="realWorldMap" aria-label="Flat political world map showing countries and boundaries"></div>
+          <div id="sdgMapFallbackPins" aria-label="Interactive SDG 10 world locations"></div>
+          <div class="sdg-map-legend"><span><i class="red"></i> HIGH PRESSURE</span><span><i class="amber"></i> NEEDS ACTION</span><span><i class="green"></i> IMPROVING</span></div>
+          <div class="map-attribution">Country boundaries: Natural Earth · Map rendering: D3</div>
         </div>
         <div class="earth-view-top"><span>COIL · SDG 10 — REDUCED INEQUALITIES</span><button class="button secondary" id="earthBack" type="button">← MENU</button></div>
         <div class="sdg-game-shell" id="sdgGame">
@@ -1737,8 +1746,8 @@ body.light .hero {background:
 })();
 </script>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
 <script>
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -2661,72 +2670,78 @@ function updateSDGMapHighlights(){
  });
 }
 function renderSDGMapPins(){
- const fallback=$("#sdgMapFallbackPins");
- if(fallback&&!fallback.dataset.ready){
-  fallback.dataset.ready="yes";
-  sdgRegionStories.forEach((item,index)=>{
-   const pin=document.createElement("button");pin.type="button";pin.className="sdg-fallback-pin";pin.title=item.place+" — "+item.issue;pin.setAttribute("aria-label","Show problem in "+item.place);
-   const x=(item.lng+180)/360*100;const lat=Math.max(-85,Math.min(85,item.lat))*Math.PI/180;const y=(1-Math.log(Math.tan(Math.PI/4+lat/2))/Math.PI)/2*100;
-   pin.style.left=x+"%";pin.style.top=y+"%";pin.classList.add(item.severity>=80?"severity-high":item.severity>=70?"severity-medium":"severity-low");pin.dataset.story=String(index);pin.innerHTML="<span>"+String(index+1).padStart(2,"0")+"</span>";pin.style.setProperty("--story-severity",item.severity);
-   pin.addEventListener("click",()=>showSDGMapInsight(index));fallback.appendChild(pin);
-  });
- }
-
+ const layer=$("#sdgMapFallbackPins"),projection=window.sdgWorldProjection;if(!layer||!projection)return;
+ layer.replaceChildren();
+ sdgRegionStories.forEach((item,index)=>{
+  const point=projection([item.lng,item.lat]);if(!point||!Number.isFinite(point[0])||!Number.isFinite(point[1]))return;
+  const pin=document.createElement("button");pin.type="button";pin.className="sdg-fallback-pin";pin.title=item.place+" — "+item.issue;
+  pin.setAttribute("aria-label","Open "+item.place+" hotspot: "+item.issue);pin.style.left=point[0]+"px";pin.style.top=point[1]+"px";
+  pin.classList.add(item.severity>=80?"severity-high":item.severity>=70?"severity-medium":"severity-low");
+  pin.dataset.story=String(index);pin.innerHTML="<span>"+String(index+1).padStart(2,"0")+"</span>";
+  pin.addEventListener("click",()=>showSDGMapInsight(index));layer.appendChild(pin);
+ });
  updateSDGMapHighlights();
 }
-
-function initInteractiveEarth(){
- renderSDGDecision();
+let sdgCountryFeatures=null;
+let sdgCountryTopology=null;
+const sdgCountryPalette=["#ffe68e","#f7b28e","#d5d99a","#f1d18e","#a9d4bc","#f3c1a5","#f8e7a1","#c8d6a0"];
+const sdgCountryLabelNames=new Set([
+ "Canada","United States of America","Mexico","Brazil","Argentina","Greenland","Russia","China","India","Australia","Japan","Indonesia","South Africa","Egypt","Kenya","Nigeria","Saudi Arabia","Kazakhstan","France","Germany","Spain","Norway","United Kingdom","Ukraine","Turkey","Mongolia","Iran","Pakistan","Sweden","Chile","New Zealand","Dem. Rep. Congo","Ethiopia","Algeria","Thailand","Philippines","Venezuela"
+]);
+function drawPoliticalWorldMap(){
+ const el=$("#realWorldMap");if(!el||!window.d3||!window.topojson||!sdgCountryFeatures)return;
+ const width=Math.max(320,el.clientWidth),height=Math.max(260,el.clientHeight);
+ const collection={type:"FeatureCollection",features:sdgCountryFeatures};
+ const projection=d3.geoNaturalEarth1().fitExtent([[8,8],[width-8,height-8]],collection),path=d3.geoPath(projection);
+ window.sdgWorldProjection=projection;
+ const svg=d3.select(el).html("").append("svg").attr("viewBox","0 0 "+width+" "+height).attr("preserveAspectRatio","xMidYMid meet").attr("role","img").attr("aria-label","Flat political world map with country boundaries and SDG 10 hotspots");
+ svg.append("rect").attr("width",width).attr("height",height).attr("fill","#46bce4");
+ svg.append("path").datum(d3.geoGraticule().step([30,30])()).attr("d",path).attr("fill","none").attr("stroke","#fff").attr("stroke-width",.55).attr("stroke-opacity",.22);
+ svg.append("g").attr("class","political-countries").selectAll("path").data(sdgCountryFeatures).join("path").attr("class","political-country").attr("d",path)
+  .attr("fill",feature=>{const value=String(feature.id||feature.properties?.name||"0");let hash=0;for(let i=0;i<value.length;i++)hash=(hash*31+value.charCodeAt(i))>>>0;return sdgCountryPalette[hash%sdgCountryPalette.length];})
+  .attr("stroke","#8b927c").attr("stroke-width",.48).append("title").text(feature=>feature.properties?.name||"Country");
+ const borders=topojson.mesh(sdgCountryTopology,sdgCountryTopology.objects.countries,(a,b)=>a!==b);
+ svg.append("path").datum(borders).attr("class","political-borders").attr("d",path).attr("fill","none").attr("stroke","#a48f6b").attr("stroke-width",.55).attr("stroke-opacity",.92);
+ const labels=sdgCountryFeatures.filter(feature=>sdgCountryLabelNames.has(feature.properties?.name));
+ svg.append("g").attr("class","political-country-labels").selectAll("text").data(labels).join("text")
+  .attr("x",feature=>projection(d3.geoCentroid(feature))[0]).attr("y",feature=>projection(d3.geoCentroid(feature))[1]).attr("text-anchor","middle")
+  .attr("font-size",feature=>["Russia","Canada","United States of America","China","Brazil","Australia","India"].includes(feature.properties?.name)?Math.max(10,Math.min(17,width/78)):Math.max(7,Math.min(11,width/115)))
+  .attr("font-weight",600).attr("fill","#293a36").attr("stroke","#fff0c7").attr("stroke-width",2.2).attr("paint-order","stroke")
+  .text(feature=>feature.properties.name==="United States of America"?"United States":feature.properties.name);
+ const oceans=[{name:"PACIFIC OCEAN",at:[-145,5]},{name:"ATLANTIC OCEAN",at:[-35,5]},{name:"INDIAN OCEAN",at:[82,-24]},{name:"ARCTIC OCEAN",at:[0,78]},{name:"SOUTHERN OCEAN",at:[20,-62]},{name:"PACIFIC OCEAN",at:[155,-5]}];
+ svg.append("g").attr("class","political-ocean-labels").selectAll("text").data(oceans).join("text").attr("x",item=>projection(item.at)[0]).attr("y",item=>projection(item.at)[1]).attr("text-anchor","middle").text(item=>item.name);
  renderSDGMapPins();
- const el=$("#realWorldMap");if(!el||!window.L)return;
- if(!window.worldMapInstance){
-  window.worldMapInstance=L.map(el,{center:[18,0],zoom:2,minZoom:2,maxZoom:2,zoomControl:false,attributionControl:false,dragging:false,scrollWheelZoom:false,doubleClickZoom:false,boxZoom:false,keyboard:false,touchZoom:false,zoomSnap:1,zoomDelta:1,worldCopyJump:false}).setView([18,0],2);
-  const imagery=L.tileLayer("https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",{maxZoom:19,noWrap:true,attribution:'Imagery sources: Esri, Maxar, Earthstar Geographics, and the GIS User Community'});
-  const labels=L.tileLayer("https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}",{maxZoom:19,noWrap:true,opacity:.95,attribution:'Place labels and boundaries: Esri'});
-  const street=L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{subdomains:"abc",maxZoom:19,noWrap:true,attribution:'&copy; OpenStreetMap contributors'});
-  window.worldMapLayers={imagery,labels,street};
-  imagery.addTo(window.worldMapInstance);labels.addTo(window.worldMapInstance);
-  window.setWorldMapStyle=function(style){
-   const map=window.worldMapInstance,layers=window.worldMapLayers;if(!map||!layers)return;
-   if(style==="street"){if(map.hasLayer(layers.imagery))map.removeLayer(layers.imagery);if(map.hasLayer(layers.labels))map.removeLayer(layers.labels);if(!map.hasLayer(layers.street))layers.street.addTo(map);}
-   else{if(map.hasLayer(layers.street))map.removeLayer(layers.street);if(!map.hasLayer(layers.imagery))layers.imagery.addTo(map);if(!map.hasLayer(layers.labels))layers.labels.addTo(map);}
-   const sat=$("#mapSatelliteButton"),road=$("#mapStreetButton");
-   if(sat&&road){sat.classList.toggle("active",style!=="street");road.classList.toggle("active",style==="street");sat.setAttribute("aria-pressed",String(style!=="street"));road.setAttribute("aria-pressed",String(style==="street"));}
-   const attribution=$("#mapAttribution");if(attribution)attribution.textContent=style==="street"?"© OpenStreetMap contributors":"Imagery: Esri, Maxar, Earthstar Geographics, and GIS User Community · Labels: Esri";
-  };
-  $("#mapSatelliteButton")?.addEventListener("click",()=>window.setWorldMapStyle("satellite"));
-  $("#mapStreetButton")?.addEventListener("click",()=>window.setWorldMapStyle("street"));
- }
- requestAnimationFrame(()=>{window.worldMapInstance.invalidateSize();renderSDGMapPins();});
+}
+async function initInteractiveEarth(){
+ renderSDGDecision();const el=$("#realWorldMap");if(!el)return;
+ try{
+  if(!window.d3||!window.topojson)throw new Error("Map libraries could not be loaded.");
+  if(!sdgCountryFeatures){sdgCountryTopology=await d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json");sdgCountryFeatures=topojson.feature(sdgCountryTopology,sdgCountryTopology.objects.countries).features;}
+  drawPoliticalWorldMap();
+  if(window.sdgPoliticalMapResize)window.removeEventListener("resize",window.sdgPoliticalMapResize);
+  window.sdgPoliticalMapResize=()=>{if($("#earthView")&&!$("#earthView").hidden)drawPoliticalWorldMap();};
+  window.addEventListener("resize",window.sdgPoliticalMapResize);
+ }catch(error){el.innerHTML='<div class="political-map-error">The world map could not load. Check your connection and refresh the page.</div>';console.error("SDG political map:",error);}
+}
+function openEarthView(showBriefing=true){
+ try{localStorage.setItem("coil-sdg10-earth-open","1");}catch{}
+ $("#worldMainMenu").hidden=true;$("#earthView").hidden=false;$("#worldGame").classList.add("earth-open");
+ $("#gameBriefing").hidden=!showBriefing;
+ requestAnimationFrame(()=>initInteractiveEarth());
 }
 
-function openEarthView(){
- try{localStorage.setItem("coil-sdg10-earth-open","1");}catch{}
- $("#worldMainMenu").hidden=true;
- $("#worldPreview").hidden=true;
- $("#earthView").hidden=false;
- $("#worldGame").classList.add("earth-open");
- requestAnimationFrame(initInteractiveEarth);
-}
 function closeEarthView(){
  try{localStorage.removeItem("coil-sdg10-earth-open");}catch{}
  $("#earthView").hidden=true;
+ $("#gameBriefing").hidden=true;
  $("#worldMainMenu").hidden=false;
  $("#worldGame").classList.remove("earth-open");
 }
 
-$("#worldPlay").addEventListener("click",openEarthView);
+$("#worldPlay").addEventListener("click",()=>{restartSDGJourney();openEarthView(true);});
 $("#earthBack").addEventListener("click",closeEarthView);
-$("#worldContinue").addEventListener("click",loadWorldProgress);
-$("#worldSave").addEventListener("click",saveWorldProgress);
-$("#worldSaveFromPlay").addEventListener("click",saveWorldProgress);
-$("#worldBackMenu").addEventListener("click",()=>setWorldScreen("menu"));
-$("#worldHowTo").addEventListener("click",()=>{$("#worldSaveStatus").textContent="Press Play, choose one of three responses to each situation, and watch the three world indicators change. Save to continue later.";});
-$("#worldSettings").addEventListener("click",()=>{
- worldMotionPaused=!worldMotionPaused;$("#worldGame").classList.toggle("motion-paused",worldMotionPaused);
- $("#worldSettings").textContent=worldMotionPaused?"Resume globe":"Pause globe";
- $("#worldSaveStatus").textContent=worldMotionPaused?"Globe rotation paused.":"Globe rotation resumed.";
-});
+$("#worldContinue").addEventListener("click",()=>openEarthView(false));
+$("#gameBeginCampaign").addEventListener("click",()=>{$("#gameBriefing").hidden=true;});
 
 const memoryDeck=[
  {pair:"inclusion",kind:"CONCEPT",face:"Inclusion"},{pair:"inclusion",kind:"WHAT IT MEANS",face:"Everyone can take part in social, economic, and political life."},
@@ -2781,7 +2796,7 @@ renderMemoryGame();
 renderQuiz();
 renderAchievements();
 routeFromHash(false);
-try{if(location.hash==="#game"&&localStorage.getItem("coil-sdg10-earth-open")==="1"){requestAnimationFrame(openEarthView);}}catch{}
+try{if(location.hash==="#game"&&localStorage.getItem("coil-sdg10-earth-open")==="1"){localStorage.removeItem("coil-sdg10-earth-open");}}catch{}
 applyStoryFilters();
 </script>
 
