@@ -2008,7 +2008,7 @@ function chooseSDGDecision(choiceIndex){
  $("#sdgGameOutcome").textContent=choice.impact+" Public support "+(publicMood>=0?"rose by ":"fell by ")+Math.abs(publicMood)+" points.";
  $("#sdgGameOutcome").classList.add("visible");
  $("#sdgGameHint").textContent="Your policy is now in effect. Public reaction and global indicators have changed.";
- $(".sdg-choice",$("#sdgGameChoices")).forEach((button,index)=>{button.disabled=true;if(index===choiceIndex)button.classList.add("selected");});
+ $$(".sdg-choice",$("#sdgGameChoices")).forEach((button,index)=>{button.disabled=true;if(index===choiceIndex)button.classList.add("selected");});
  $("#sdgGameNext").disabled=false;
  $("#sdgGameNext").textContent=sdg10State.index===9?"See your 2126 outcome →":"Continue to "+(2036+sdg10State.index*10)+" →";
 }
