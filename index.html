@@ -1113,6 +1113,36 @@ body.light .hero {background:
 @media(max-width:560px){.achievement-toast-region{right:12px;bottom:12px;width:calc(100vw - 24px)}.achievement-toast{padding:12px}.achievement-toast-copy strong{font-size:17px}}
 @media(prefers-reduced-motion:reduce){.achievement-toast{transition:none;transform:none}}
 </style>
+
+<style id="sdg-section-transitions">
+.section-transition{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at center,rgba(23,49,60,.96),rgba(3,10,16,.98));visibility:hidden;opacity:0;pointer-events:none;transition:opacity .18s ease,visibility .18s ease}
+.section-transition.is-active{visibility:visible;opacity:1;pointer-events:auto}
+.section-transition-card{width:min(300px,84vw);display:grid;justify-items:center;gap:13px;padding:26px 28px;border:1px solid rgba(221,195,143,.28);background:rgba(11,25,33,.88);box-shadow:0 22px 80px rgba(0,0,0,.38);transform:translateY(12px) scale(.97);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.section-transition.is-active .section-transition-card{transform:translateY(0) scale(1)}
+.section-transition-kicker{color:#d6b47a;font-size:8px;font-weight:700;letter-spacing:.22em}
+.section-transition-lens{position:relative;width:57px;height:57px;display:grid;place-items:center;border:1px solid rgba(214,180,122,.45);border-radius:50%;color:#f4e9d2}
+.section-transition-lens::before,.section-transition-lens::after{content:"";position:absolute;inset:6px;border:2px dashed rgba(214,180,122,.75);border-radius:50%}
+.section-transition-lens::after{inset:15px;border:1px solid rgba(145,183,166,.75);box-shadow:0 0 20px rgba(145,183,166,.2)}
+.section-transition.is-active .section-transition-lens::before{animation:section-lens-turn .72s cubic-bezier(.4,0,.2,1)}
+.section-transition-lens span{position:relative;z-index:1;font:400 20px Georgia,serif}
+.section-transition-label{max-width:240px;color:#f2f0e9;font:400 19px/1.2 Georgia,serif;text-align:center}
+.section-transition-track{width:100%;height:2px;overflow:hidden;background:rgba(242,240,233,.13)}
+.section-transition-track span{display:block;width:100%;height:100%;background:linear-gradient(90deg,#91b7a6,#d6b47a);transform:scaleX(0);transform-origin:left}
+.section-transition.is-active .section-transition-track span{animation:section-load-line .68s cubic-bezier(.2,.7,.25,1) forwards}
+@keyframes section-lens-turn{from{transform:rotate(-120deg) scale(.78);opacity:.25}to{transform:rotate(0) scale(1);opacity:1}}
+@keyframes section-load-line{to{transform:scaleX(1)}}
+@keyframes section-content-arrive{from{opacity:.55;transform:translateY(13px);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes section-photo-focus{from{opacity:.55;filter:blur(8px);transform:scale(1.025)}to{opacity:1;filter:blur(0);transform:scale(1)}}
+main#mainPage>.page.section-arriving,#detailPage.section-arriving{animation:section-content-arrive .72s cubic-bezier(.2,.75,.25,1) both}
+main#mainPage>.page.section-arriving img,#detailPage.section-arriving img{animation:section-photo-focus .8s cubic-bezier(.2,.75,.25,1) both}
+.sdg-panel-close{flex:0 0 auto;padding:6px 9px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.07);color:#fff;font:800 8px/1 Arial,Helvetica,sans-serif;letter-spacing:.1em;transition:background .18s,border-color .18s}
+.sdg-panel-close:hover{background:rgba(255,255,255,.16);border-color:#f1ca63}
+.sdg-panel-open{position:absolute;left:0;bottom:0;z-index:35;pointer-events:auto;display:inline-flex;align-items:center;gap:9px;min-height:42px;padding:0 15px;border:1px solid rgba(255,255,255,.65);background:rgba(6,22,33,.94);box-shadow:0 8px 26px rgba(0,0,0,.28);color:#fff;font:800 9px/1 Arial,Helvetica,sans-serif;letter-spacing:.12em;transition:background .18s,border-color .18s,transform .18s}
+.sdg-panel-open:hover{background:#153c4c;border-color:#f1ca63;transform:translateY(-2px)}
+.sdg-panel-open[hidden],.sdg-decision-panel[hidden]{display:none!important}
+@media(max-width:560px){.sdg-panel-close{font-size:7px;padding:6px 7px}.sdg-panel-open{min-height:38px;padding:0 12px;font-size:8px}}
+@media(prefers-reduced-motion:reduce){.section-transition,.section-transition-card{transition:none}.section-transition.is-active .section-transition-lens::before,.section-transition.is-active .section-transition-track span{animation:none}.section-transition-track span{transform:scaleX(1)}main#mainPage>.page.section-arriving,#detailPage.section-arriving,main#mainPage>.page.section-arriving img,#detailPage.section-arriving img{animation:none}}
+</style>
 </head>
 
 <body>
@@ -1656,8 +1686,8 @@ body.light .hero {background:
               <div class="sdg-metric metric-pressure"><span>INEQUALITY PRESSURE</span><strong id="sdgPressure">62</strong><i><b id="sdgPressureBar"></b></i><small id="sdgPressureLabel">GLOBAL ALERT</small></div>
             </div>
           </div>
-          <section class="sdg-decision-panel" aria-live="polite">
-            <div class="sdg-panel-heading"><span id="sdgGameTag">2026 · HOUSING & COST OF LIVING</span><span class="sdg-decision-counter" id="sdgGameCounter">01 / 20</span></div>
+          <section class="sdg-decision-panel" id="sdgDecisionPanel" aria-live="polite" aria-labelledby="sdgGameTitle" tabindex="-1">
+            <div class="sdg-panel-heading"><span id="sdgGameTag">2026 · HOUSING & COST OF LIVING</span><span class="sdg-decision-counter" id="sdgGameCounter">01 / 20</span><button class="sdg-panel-close" id="sdgPanelClose" type="button" aria-label="Hide decision panel" aria-expanded="true" aria-controls="sdgDecisionPanel">HIDE PANEL ×</button></div>
             <h2 id="sdgGameTitle">A home within reach</h2>
             <div class="sdg-region-line"><span id="sdgGamePlace">DHAKA, BANGLADESH</span><span id="sdgGameIssue">HOUSING & EQUAL ACCESS</span></div>
             <p class="sdg-scenario" id="sdgGameScenario"></p>
@@ -1669,6 +1699,7 @@ body.light .hero {background:
             <div class="sdg-panel-footer"><span id="sdgGameHint">Every choice has long-term consequences.</span><button class="button" id="sdgGameNext" type="button" disabled>Continue to 2031 →</button></div>
 
           </section>
+          <button class="sdg-panel-open" id="sdgPanelOpen" type="button" aria-label="Open decision panel" aria-expanded="false" aria-controls="sdgDecisionPanel" hidden>OPEN DECISIONS <span aria-hidden="true">＋</span></button>
 
 
         </div>
@@ -1742,7 +1773,7 @@ body.light .hero {background:
         <article class="achievement-card" data-achievement="policyMaker"><span class="achievement-icon" aria-hidden="true">⚖</span><h4>Policy Maker</h4><p>Make five policy decisions in the World Game.</p><span class="achievement-status">Locked</span></article>
         <article class="achievement-card" data-achievement="century"><span class="achievement-icon" aria-hidden="true">🌍</span><h4>Century Builder</h4><p>Complete all 20 decisions and reach the year 2126.</p><span class="achievement-status">Locked</span></article>
         <article class="achievement-card" data-achievement="storyCollector"><span class="achievement-icon" aria-hidden="true">▤</span><h4>Story Collector</h4><p>Open ten different stories in the Gallery.</p><span class="achievement-status">Locked</span></article>
-        <article class="achievement-card" data-achievement="actionAdvocate"><span class="achievement-icon" aria-hidden="true">↗</span><h4>Action Advocate</h4><p>Open the United Nations resource from the Take Action page.</p><span class="achievement-status">Locked</span></article>
+        <article class="achievement-card" data-achievement="mapViewer"><span class="achievement-icon" aria-hidden="true">⌖</span><h4>Map Viewer</h4><p>Hide the decision panel to reveal the full world map.</p><span class="achievement-status">Locked</span></article>
       </div>
     </section>
   </section>
@@ -1848,7 +1879,7 @@ const achievementDefinitions=[
  {id:"policyMaker",title:"Policy Maker",description:"Make five policy decisions in the World Game.",icon:"⚖"},
  {id:"century",title:"Century Builder",description:"Complete all 20 decisions and reach the year 2126.",icon:"🌍"},
  {id:"storyCollector",title:"Story Collector",description:"Open ten different stories in the Gallery.",icon:"▤"},
- {id:"actionAdvocate",title:"Action Advocate",description:"Open the United Nations resource from the Take Action page.",icon:"↗"}
+ {id:"mapViewer",title:"Map Viewer",description:"Hide the decision panel to reveal the full world map.",icon:"⌖"}
 ];
 function getUnlockedAchievements(){
  try{
@@ -2049,8 +2080,23 @@ function setCurrentNav(id) {
     else link.removeAttribute("aria-current");
   });
 }
+function playSectionTransition(label){
+  const overlay=document.getElementById("sectionTransition");
+  if(!overlay)return;
+  const labelElement=document.getElementById("sectionTransitionLabel");
+  if(labelElement)labelElement.textContent="Opening "+String(label||"section").replace(/\s+/g," ").trim();
+  window.clearTimeout(sectionTransitionTimer);
+  overlay.classList.remove("is-active");
+  void overlay.offsetWidth;
+  overlay.classList.add("is-active");
+  const reduceMotion=window.matchMedia?window.matchMedia("(prefers-reduced-motion: reduce)").matches:false;
+  sectionTransitionTimer=window.setTimeout(()=>overlay.classList.remove("is-active"),reduceMotion?90:720);
+}
+let sectionTransitionTimer=0;
 function showPage(id, updateHistory = true) {
   if (!pageIds.includes(id)) id = "home";
+  const previousPage=pageIds.find(pageId=>document.getElementById(pageId).classList.contains("active-page"));
+  const returningFromStory=detailPage.style.display==="block";
   try { localStorage.setItem("sdg10-last-page", id); } catch {}
   activeStoryId = null;
   detailPage.style.display = "none";
@@ -2059,11 +2105,20 @@ function showPage(id, updateHistory = true) {
     const page = document.getElementById(pageId);
     page.classList.toggle("active-page", pageId === id);
   });
+  const targetPage=document.getElementById(id);
+  if(previousPage!==id||returningFromStory){
+    const heading=targetPage.querySelector("h1,h2");
+    playSectionTransition(heading?heading.textContent.replace(/\s+/g," ").trim():id);
+    targetPage.classList.remove("section-arriving");
+    void targetPage.offsetWidth;
+    targetPage.classList.add("section-arriving");
+    window.setTimeout(()=>targetPage.classList.remove("section-arriving"),850);
+  }
   setCurrentNav(id);
   recordAchievementPageVisit(id);
   closeMobileMenu();
-  if (updateHistory && location.hash !== "#" + id) history.pushState(null,"","#" + id);
-  const heading = document.getElementById(id).querySelector("h1,h2");
+  if (updateHistory && location.hash !== "#" + id) history.pushState(null, "", "#" + id);
+  const heading = targetPage.querySelector("h1,h2");
   document.title = (id === "home" ? "SDG 10 — Reduced Inequalities" : heading.textContent.replace(/\s+/g," ").trim() + " | SDG 10");
   window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -2072,11 +2127,16 @@ function showStory(id) {
   const story = storyDetails[id];
   const card = cards.find(item => item.dataset.id === id);
   if (!story || !card) { showPage("gallery",false); return; }
+  playSectionTransition(story.title);
   activeStoryId = id;
   recordAchievementPageVisit("gallery");
   recordStoryVisit(id);
   mainPage.style.display = "none";
   detailPage.style.display = "block";
+  detailPage.classList.remove("section-arriving");
+  void detailPage.offsetWidth;
+  detailPage.classList.add("section-arriving");
+  window.setTimeout(()=>detailPage.classList.remove("section-arriving"),850);
   $("#detailImage").src = $(".story-image img",card).src;
   $("#detailImage").alt = $(".story-image img",card).alt;
   $("#detailCategory").textContent = story.category;
@@ -2924,10 +2984,33 @@ async function initInteractiveEarth(){
   window.addEventListener("resize",window.sdgPoliticalMapResize);
  }catch(error){el.innerHTML='<div class="political-map-error">The world map could not load. Check your connection and refresh the page.</div>';console.error("SDG political map:",error);}
 }
+function setSDGDecisionPanelOpen(open,focusAfterChange=false){
+ const panel=$("#sdgDecisionPanel"),openButton=$("#sdgPanelOpen"),closeButton=$("#sdgPanelClose");
+ if(!panel||!openButton)return;
+ panel.hidden=!open;
+ openButton.hidden=open;
+ openButton.setAttribute("aria-expanded",String(open));
+ if(closeButton)closeButton.setAttribute("aria-expanded",String(open));
+ if(!open&&typeof unlockAchievement==="function")unlockAchievement("mapViewer");
+ if(focusAfterChange){
+  if(open)panel.focus();
+  else openButton.focus();
+ }
+}
+const sdgPanelCloseButton=$("#sdgPanelClose"),sdgPanelOpenButton=$("#sdgPanelOpen");
+if(sdgPanelCloseButton)sdgPanelCloseButton.addEventListener("click",()=>setSDGDecisionPanelOpen(false,true));
+if(sdgPanelOpenButton)sdgPanelOpenButton.addEventListener("click",()=>setSDGDecisionPanelOpen(true,true));
+document.addEventListener("keydown",event=>{
+ if(event.key==="Escape"&&$("#sdgDecisionPanel")&&!$("#sdgDecisionPanel").hidden&&$("#earthView")&&!$("#earthView").hidden&&$("#gameBriefing").hidden){
+  event.preventDefault();
+  setSDGDecisionPanelOpen(false,true);
+ }
+});
 function openEarthView(showBriefing=true){
  try{localStorage.setItem("coil-sdg10-earth-open","1");}catch{}
  $("#worldMainMenu").hidden=true;$("#earthView").hidden=false;$("#worldGame").classList.add("earth-open");
  $("#gameBriefing").hidden=!showBriefing;
+ setSDGDecisionPanelOpen(true,false);
  requestAnimationFrame(()=>initInteractiveEarth());
 }
 
@@ -3028,8 +3111,6 @@ try{
 }catch{unlockAchievement("welcome");}
 routeFromHash(false);
 try{if(location.hash==="#game"&&localStorage.getItem("coil-sdg10-earth-open")==="1"){localStorage.removeItem("coil-sdg10-earth-open");}}catch{}
-const actionResourceLink=document.querySelector('#action a[href="https://www.un.org/es/desa/habitat-iii-promoting-accessible-and-inclusive-cities-all"]');
-if(actionResourceLink)actionResourceLink.addEventListener("click",()=>unlockAchievement("actionAdvocate"));
 applyStoryFilters();
 </script>
 
@@ -3293,5 +3374,14 @@ applyStoryFilters();
   render();
 })();
 </script>
+
+<div class="section-transition" id="sectionTransition" aria-hidden="true">
+  <div class="section-transition-card">
+    <span class="section-transition-kicker">COIL · SDG 10</span>
+    <div class="section-transition-lens" aria-hidden="true"><span>✦</span></div>
+    <strong class="section-transition-label" id="sectionTransitionLabel">Opening section</strong>
+    <div class="section-transition-track" aria-hidden="true"><span></span></div>
+  </div>
+</div>
 </body>
 </html>
