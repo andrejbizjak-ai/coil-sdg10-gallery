@@ -391,6 +391,63 @@ body:has(#game.active-page) {overflow:hidden}
 }
 @media(prefers-reduced-motion:reduce) {.world-earth .earth-spin {animation:none}}
 
+/* Cinematic title-screen treatment: inspired by atmospheric game launch menus */
+.world-game-shell {
+  min-height:0;
+  background:
+    linear-gradient(90deg,rgba(3,8,14,.96) 0%,rgba(3,8,14,.78) 34%,rgba(3,8,14,.18) 72%,rgba(3,8,14,.38) 100%),
+    radial-gradient(ellipse at 72% 50%,#174b60 0%,#0a1c2b 48%,#030810 100%);
+}
+.world-game-shell::after {
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(0deg,rgba(1,5,10,.58),transparent 28%,transparent 75%,rgba(1,5,10,.25));
+}
+.world-game-stars {opacity:.72}
+.world-orbit {width:min(76vw,790px);left:67%;top:50%;transform:translate(-50%,-50%) rotate(-24deg) scaleY(.48);border-color:rgba(116,204,220,.23)}
+.world-earth {
+  width:min(76vw,720px);left:69%;top:51%;opacity:.9;
+  filter:drop-shadow(0 0 42px rgba(50,173,205,.34)) drop-shadow(0 0 110px rgba(32,116,160,.2));
+}
+.world-menu-card {
+  position:absolute;left:clamp(24px,7vw,110px);top:50%;transform:translateY(-50%);
+  width:min(39%,470px);padding:0;text-align:left;border:0;background:transparent;
+  backdrop-filter:none;box-shadow:none;
+}
+.world-menu-kicker {font-size:10px;letter-spacing:.22em;color:#82d5e2}
+.world-menu-card h3 {
+  margin:22px 0 18px;font:900 clamp(43px,6.5vw,82px)/.88 Arial,Helvetica,sans-serif;
+  letter-spacing:-.065em;color:#fff;text-transform:uppercase;text-shadow:0 5px 28px rgba(0,0,0,.5)
+}
+.world-menu-card h3 em {display:inline-block;margin-top:7px;color:#7bd7e5;font-style:normal}
+.world-menu-copy {max-width:370px;margin:0;color:rgba(232,244,247,.78);font-size:13px;line-height:1.8}
+.world-menu-actions {display:flex;flex-direction:column;gap:9px;margin:29px 0 0;max-width:270px}
+.world-menu-actions .button,.world-menu-actions .world-play {width:100%;min-height:51px;grid-column:auto;text-align:left;padding:0 19px;display:flex;align-items:center;justify-content:space-between;letter-spacing:.12em;font-size:11px;font-weight:800}
+.world-menu-actions .world-play {background:#7bd7e5;border-color:#7bd7e5;color:#06131b;box-shadow:0 8px 30px rgba(69,188,210,.2)}
+.world-menu-actions .world-play:hover {background:#b2f0f4;border-color:#b2f0f4;transform:translateX(5px)}
+.world-menu-actions .button.secondary {background:rgba(5,16,25,.45);border-color:rgba(195,235,241,.35);color:#e9f7f8}
+.world-menu-actions .button.secondary:hover {border-color:#7bd7e5;color:#7bd7e5;transform:translateX(5px)}
+.world-save-status {text-align:left;margin-top:16px;color:rgba(190,223,228,.7);font-size:8px;letter-spacing:.16em}
+.world-menu-footer {justify-content:flex-start;gap:22px;margin-top:21px}
+.world-menu-footer button {color:#8bdbe5;border-color:rgba(139,219,229,.45);font-size:9px;letter-spacing:.12em}
+.world-screen {z-index:3;margin-left:auto;margin-right:auto}
+@media(max-width:760px) {
+  .world-menu-card {left:22px;top:auto;bottom:28px;transform:none;width:min(72%,430px)}
+  .world-menu-card h3 {font-size:clamp(39px,9vw,64px);margin:13px 0}
+  .world-menu-copy {font-size:11px;line-height:1.6}
+  .world-menu-actions {max-width:230px;margin-top:17px;gap:7px}
+  .world-menu-actions .button,.world-menu-actions .world-play {min-height:43px}
+  .world-earth {width:105vw;left:72%;top:34%;opacity:.67}
+  .world-orbit {width:110vw;left:72%;top:34%}
+  .world-menu-footer {margin-top:12px}
+}
+@media(max-width:420px) {
+  .world-menu-card {left:17px;bottom:19px;width:82%}
+  .world-menu-card h3 {font-size:39px}
+  .world-menu-copy {max-width:300px}
+  .world-menu-actions {max-width:205px}
+}
+@media(prefers-reduced-motion:reduce) {.world-earth .earth-spin {animation:none}}
+
 /* About us and student profiles */
 .about-intro {max-width:820px}
 .team-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:42px;align-items:start}
@@ -863,18 +920,18 @@ body.light .hero {background:
       </div>
 
       <div class="world-menu-card" id="worldMainMenu">
-        <p class="world-menu-kicker">A COIL SDG 10 WORLD-BUILDING GAME</p>
-        <h3>A world of<br><em>choices.</em></h3>
-        <p class="world-menu-copy">Every decision can move us closer to a fairer world. Explore the planet, consider the people affected, and shape what happens next.</p>
+        <p class="world-menu-kicker">COIL INTERACTIVE EXPERIENCE · SDG 10</p>
+        <h3>ONE WORLD.<br><em>FAIR CHOICES.</em></h3>
+        <p class="world-menu-copy">The future of this planet is in your hands. Make decisions, face their consequences, and build a world where everyone belongs.</p>
         <div class="world-menu-actions">
-          <button class="button world-play" id="worldPlay" type="button">Play <span aria-hidden="true">→</span></button>
-          <button class="button secondary" id="worldContinue" type="button">Continue</button>
-          <button class="button secondary" id="worldSave" type="button">Save</button>
+          <button class="button world-play" id="worldPlay" type="button">NEW GAME <span aria-hidden="true">▶</span></button>
+          <button class="button secondary" id="worldContinue" type="button">CONTINUE</button>
+          <button class="button secondary" id="worldSave" type="button">SAVE PROGRESS</button>
         </div>
-        <p class="world-save-status" id="worldSaveStatus" role="status" aria-live="polite">Your journey is ready when you are.</p>
+        <p class="world-save-status" id="worldSaveStatus" role="status" aria-live="polite">YOUR JOURNEY IS READY.</p>
         <div class="world-menu-footer">
-          <button id="worldHowTo" type="button">How to play</button>
-          <button id="worldSettings" type="button">Pause globe</button>
+          <button id="worldHowTo" type="button">HOW TO PLAY</button>
+          <button id="worldSettings" type="button">PAUSE EARTH</button>
         </div>
       </div>
 
