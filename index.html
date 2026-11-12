@@ -884,11 +884,12 @@ body.light .hero {background:
         <h3 id="worldScreenTitle">The world is in your hands.</h3>
         <p id="worldScreenCopy">This is the beginning of your journey. Soon, you will face decisions about opportunity, resources, representation, and access—and see how each choice changes life around the world.</p>
         <div class="world-preview-stats">
-          <div class="world-preview-stat"><strong>50</strong><span>Equal opportunity</span></div>
-          <div class="world-preview-stat"><strong>50</strong><span>Global wellbeing</span></div>
-          <div class="world-preview-stat"><strong>50</strong><span>Social inclusion</span></div>
+          <div class="world-preview-stat"><strong id="worldOpportunity">50</strong><span>Equal opportunity</span></div>
+          <div class="world-preview-stat"><strong id="worldWellbeing">50</strong><span>Global wellbeing</span></div>
+          <div class="world-preview-stat"><strong id="worldInclusion">50</strong><span>Social inclusion</span></div>
         </div>
-        <div class="world-howto" id="worldHowToText">Your decisions will affect more than one place. A policy that helps one group may leave another behind, so look at who benefits, who faces barriers, and whose voice is missing.</div>
+        <div class="world-howto" id="worldHowToText">Make choices for a fairer world. Each decision changes the planet's indicators. Think about who benefits and who might be left behind.</div>
+        <div id="worldDecisionArea" class="world-howto" style="margin-top:14px"></div>
         <div class="world-screen-actions">
           <button class="button" id="worldBackMenu" type="button">Main menu</button>
           <button class="button secondary" id="worldSaveFromPlay" type="button">Save progress</button>
@@ -1442,54 +1443,131 @@ $("#gameRestart").addEventListener("click",restartGame);
 $("#gameToAction").addEventListener("click",() => showPage("action"));
 
 
-/* Main menu and local save for A World of Choices */
-const WORLD_SAVE_KEY="coil-sdg10-world-save-v1";
-let worldCurrentScreen="menu";
+/* Playable world decision game */
+const WORLD_SAVE_KEY="coil-sdg10-world-save-v2";
+const worldScenarios=[
+ {place:"A town is redesigning its public transport.",question:"Where should the town invest first?",options:[
+  {label:"Make buses and stops accessible, and consult disabled passengers.",effect:[12,5,12],feedback:"Accessible transport connects more people to jobs, education, and community life."},
+  {label:"Add express routes only between the wealthiest districts.",effect:[-8,5,-10],feedback:"Faster travel for a few districts can deepen the gap for people already underserved."},
+  {label:"Keep the current routes and spend only on advertising.",effect:[-4,-2,-5],feedback:"Promotion cannot solve the practical barriers that stop people using a service."}
+ ]},
+ {place:"A region is deciding how to distribute education funding.",question:"Which plan gives learners a fairer chance?",options:[
+  {label:"Give every school exactly the same amount, regardless of need.",effect:[0,2,-2],feedback:"Identical funding can preserve unequal starting conditions when some schools face greater barriers."},
+  {label:"Direct additional support to under-resourced schools and learners who need it.",effect:[14,8,9],feedback:"Targeted support helps close gaps while making sure resources reach people facing the biggest barriers."},
+  {label:"Fund only schools with the highest current exam results.",effect:[-12,3,-8],feedback:"Rewarding only existing high performance can leave disadvantaged learners further behind."}
+ ]},
+ {place:"A national government is reviewing access to healthcare.",question:"What should be its priority?",options:[
+  {label:"Provide affordable local services, interpretation, and accessible information.",effect:[8,13,13],feedback:"Affordable, accessible care helps people benefit regardless of income, language, or disability."},
+  {label:"Move services to central locations to reduce operating costs.",effect:[-7,-9,-8],feedback:"Centralisation may make care harder to reach for rural communities and people with limited mobility."},
+  {label:"Offer digital-only appointments and information.",effect:[-5,-4,-7],feedback:"Digital access helps some people, but a digital-only system excludes people without devices, connectivity, or digital skills."}
+ ]},
+ {place:"Workers report unequal pay and promotion opportunities.",question:"How should the employer respond?",options:[
+  {label:"Review pay and promotion data, publish clear criteria, and address unjustified gaps.",effect:[13,8,10],feedback:"Transparent evidence and accountable processes help reveal and reduce structural inequality."},
+  {label:"Ask employees to negotiate individually in private.",effect:[-6,-2,-5],feedback:"Individual negotiation alone does not address systemic barriers or unequal bargaining power."},
+  {label:"Stop collecting information about workplace outcomes.",effect:[-9,-5,-8],feedback:"Without privacy-respecting data, unequal outcomes can remain invisible and unaddressed."}
+ ]},
+ {place:"Countries are negotiating a global development fund.",question:"Which approach best supports equality between countries?",options:[
+  {label:"Give developing countries a meaningful voice in decisions and fair access to funding.",effect:[12,12,9],feedback:"Representation and fair access help countries shape decisions that affect their futures."},
+  {label:"Let the largest economies make all funding decisions.",effect:[-10,-7,-8],feedback:"Concentrating decision-making power can reinforce existing global inequalities."},
+  {label:"Distribute funds without considering different levels of need.",effect:[-3,1,-3],feedback:"Equal amounts are not always equitable when countries face very different challenges."}
+ ]}
+];
+let worldState={index:0,opportunity:50,wellbeing:50,inclusion:50,answered:false,finished:false};
+let worldMotionPaused=false;
+function clampWorldScore(n){return Math.max(0,Math.min(100,n));}
+function updateWorldStats(){
+ $("#worldOpportunity").textContent=worldState.opportunity;
+ $("#worldWellbeing").textContent=worldState.wellbeing;
+ $("#worldInclusion").textContent=worldState.inclusion;
+}
 function setWorldScreen(screen){
-  worldCurrentScreen=screen;
-  $("#worldMainMenu").hidden=screen!=="menu";
-  $("#worldPreview").hidden=screen!=="world";
-  $("#worldSaveStatus").textContent=screen==="menu"?"Your journey is ready when you are.":"";
+ $("#worldMainMenu").hidden=screen!=="menu";
+ $("#worldPreview").hidden=screen!=="world";
+ if(screen==="world") renderWorldDecision();
+ else $("#worldSaveStatus").textContent="Your journey is ready when you are.";
+}
+function renderWorldDecision(){
+ updateWorldStats();
+ const area=$("#worldDecisionArea");
+ area.replaceChildren();
+ if(worldState.finished || worldState.index>=worldScenarios.length){
+  worldState.finished=true;
+  $("#worldChapter").textContent="JOURNEY COMPLETE";
+  $("#worldScreenTitle").textContent="A fairer world takes shared effort.";
+  const summary=document.createElement("p");
+  summary.textContent="You completed all five decisions. Your final indicators show how your choices shaped opportunity, wellbeing, and inclusion. There is no single perfect policy—fair decisions consider who benefits and who is still facing barriers.";
+  area.appendChild(summary);
+  const again=document.createElement("button");
+  again.type="button";again.className="button";again.textContent="Start a new journey";
+  again.addEventListener("click",()=>{worldState={index:0,opportunity:50,wellbeing:50,inclusion:50,answered:false,finished:false};renderWorldDecision();});
+  area.appendChild(again);
+  return;
+ }
+ const item=worldScenarios[worldState.index];
+ $("#worldChapter").textContent="DECISION "+(worldState.index+1)+" / "+worldScenarios.length;
+ $("#worldScreenTitle").textContent=item.place;
+ const question=document.createElement("p");
+ question.style.cssText="font:400 21px/1.4 Georgia,serif;color:#f5f2e9;margin:8px 0 14px";
+ question.textContent=item.question;
+ area.appendChild(question);
+ const choices=document.createElement("div");
+ choices.style.cssText="display:grid;gap:9px";
+ item.options.forEach((option,index)=>{
+  const button=document.createElement("button");
+  button.type="button";button.className="game-option";button.textContent=option.label;
+  button.style.cssText="color:#f5f2e9;border-color:rgba(235,239,232,.24)";
+  button.addEventListener("click",()=>chooseWorldOption(index));
+  choices.appendChild(button);
+ });
+ area.appendChild(choices);
+ const feedback=document.createElement("p");
+ feedback.id="worldDecisionFeedback";feedback.className="world-save-status";feedback.setAttribute("role","status");feedback.style.minHeight="45px";
+ area.appendChild(feedback);
+ const next=document.createElement("button");
+ next.id="worldDecisionNext";next.type="button";next.className="button";next.textContent="Next decision →";next.disabled=true;
+ next.addEventListener("click",()=>{
+  if(!worldState.answered)return;
+  worldState.index++;worldState.answered=false;renderWorldDecision();
+ });
+ area.appendChild(next);
+}
+function chooseWorldOption(choiceIndex){
+ if(worldState.answered||worldState.finished)return;
+ const item=worldScenarios[worldState.index],choice=item.options[choiceIndex];
+ worldState.opportunity=clampWorldScore(worldState.opportunity+choice.effect[0]);
+ worldState.wellbeing=clampWorldScore(worldState.wellbeing+choice.effect[1]);
+ worldState.inclusion=clampWorldScore(worldState.inclusion+choice.effect[2]);
+ worldState.answered=true;updateWorldStats();
+ $$("#worldDecisionArea .game-option").forEach((button,index)=>{button.disabled=true;if(index===choiceIndex)button.classList.add("correct");});
+ $("#worldDecisionFeedback").textContent=choice.feedback;
+ $("#worldDecisionNext").disabled=false;
+ if(worldState.index===worldScenarios.length-1)$("#worldDecisionNext").textContent="See world outcome →";
 }
 function saveWorldProgress(){
-  const save={screen:worldCurrentScreen,savedAt:new Date().toISOString(),version:1};
-  try {
-    localStorage.setItem(WORLD_SAVE_KEY,JSON.stringify(save));
-    $("#worldSaveStatus").textContent="Progress saved on this device.";
-    $("#worldScreenStatus").textContent="Progress saved on this device.";
-    return true;
-  } catch {
-    $("#worldSaveStatus").textContent="Save unavailable in this browser.";
-    $("#worldScreenStatus").textContent="Save unavailable in this browser.";
-    return false;
-  }
+ const save={...worldState,savedAt:new Date().toISOString(),version:2};
+ try{localStorage.setItem(WORLD_SAVE_KEY,JSON.stringify(save));$("#worldSaveStatus").textContent="Progress saved on this device.";$("#worldScreenStatus").textContent="Progress saved on this device.";return true;}
+ catch{$("#worldSaveStatus").textContent="Save unavailable in this browser.";$("#worldScreenStatus").textContent="Save unavailable in this browser.";return false;}
 }
 function loadWorldProgress(){
-  try {
-    const raw=localStorage.getItem(WORLD_SAVE_KEY);
-    if(!raw){$("#worldSaveStatus").textContent="No saved journey yet. Press Play to begin.";return;}
-    const save=JSON.parse(raw);
-    setWorldScreen(save.screen==="world"?"world":"menu");
-    $("#worldSaveStatus").textContent="Saved journey loaded.";
-    $("#worldScreenStatus").textContent="Saved journey loaded.";
-  } catch {
-    $("#worldSaveStatus").textContent="Could not read the saved journey.";
-  }
+ try{
+  const raw=localStorage.getItem(WORLD_SAVE_KEY);
+  if(!raw){$("#worldSaveStatus").textContent="No saved journey yet. Press Play to begin.";return;}
+  const save=JSON.parse(raw);
+  if(save.version!==2||!Number.isInteger(save.index)||save.index<0||save.index>worldScenarios.length)throw new Error("Invalid save");
+  worldState={index:save.index,opportunity:clampWorldScore(Number(save.opportunity)||50),wellbeing:clampWorldScore(Number(save.wellbeing)||50),inclusion:clampWorldScore(Number(save.inclusion)||50),answered:Boolean(save.answered),finished:Boolean(save.finished)};
+  setWorldScreen("world");$("#worldSaveStatus").textContent="Saved journey loaded.";
+ }catch{$("#worldSaveStatus").textContent="Could not read the saved journey. Press Play to start again.";}
 }
-$("#worldPlay").addEventListener("click",()=>setWorldScreen("world"));
+$("#worldPlay").addEventListener("click",()=>{worldState={index:0,opportunity:50,wellbeing:50,inclusion:50,answered:false,finished:false};setWorldScreen("world");});
 $("#worldContinue").addEventListener("click",loadWorldProgress);
 $("#worldSave").addEventListener("click",saveWorldProgress);
 $("#worldSaveFromPlay").addEventListener("click",saveWorldProgress);
 $("#worldBackMenu").addEventListener("click",()=>setWorldScreen("menu"));
-$("#worldHowTo").addEventListener("click",()=>{
-  $("#worldSaveStatus").textContent="Explore the world, weigh each decision, and try to make opportunity and participation fairer for everyone.";
-});
-let worldMotionPaused=false;
+$("#worldHowTo").addEventListener("click",()=>{$("#worldSaveStatus").textContent="Press Play, choose one of three responses to each situation, and watch the three world indicators change. Save to continue later.";});
 $("#worldSettings").addEventListener("click",()=>{
-  worldMotionPaused=!worldMotionPaused;
-  $("#worldGame").classList.toggle("motion-paused",worldMotionPaused);
-  $("#worldSettings").textContent=worldMotionPaused?"Resume globe":"Pause globe";
-  $("#worldSaveStatus").textContent=worldMotionPaused?"Globe rotation paused.":"Globe rotation resumed.";
+ worldMotionPaused=!worldMotionPaused;$("#worldGame").classList.toggle("motion-paused",worldMotionPaused);
+ $("#worldSettings").textContent=worldMotionPaused?"Resume globe":"Pause globe";
+ $("#worldSaveStatus").textContent=worldMotionPaused?"Globe rotation paused.":"Globe rotation resumed.";
 });
 
 const memoryDeck=[
