@@ -2118,12 +2118,15 @@ function showSDGMapInsight(index){
 }
 function updateSDGMapHighlights(){
  const current=sdg10State.index>=10?9:sdg10State.index;
- $(".sdg-fallback-pin").forEach((pin,index)=>{
+ document.querySelectorAll(".sdg-fallback-pin").forEach((pin,index)=>{
   const item=sdgRegionStories[index];if(!item)return;
   const step=item.decisionIndex??index;
   const severity=clampSDG(item.severity+(sdg10State.pressure-62)*.42);
-  pin.classList.toggle("is-current",step===current);pin.classList.toggle("is-visited",step<current);
-  pin.classList.toggle("severity-high",severity>=80);pin.classList.toggle("severity-medium",severity>=60&&severity<80);pin.classList.toggle("severity-low",severity<60);
+  pin.classList.toggle("is-current",step===current);
+  pin.classList.toggle("is-visited",step<current);
+  pin.classList.toggle("severity-high",severity>=80);
+  pin.classList.toggle("severity-medium",severity>=60&&severity<80);
+  pin.classList.toggle("severity-low",severity<60);
   pin.title=item.place+" — "+item.issue+" · inequality pressure "+Math.round(severity)+"/100";
  });
 }
@@ -2148,7 +2151,10 @@ function initInteractiveEarth(){
  const el=$("#realWorldMap");if(!el||!window.L)return;
  if(!window.worldMapInstance){
   window.worldMapInstance=L.map(el,{center:[18,0],zoom:2,minZoom:2,maxZoom:2,zoomControl:false,attributionControl:false,dragging:false,scrollWheelZoom:false,doubleClickZoom:false,boxZoom:false,keyboard:false,touchZoom:false,zoomSnap:1,zoomDelta:1,worldCopyJump:false}).setView([18,0],2);
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{subdomains:"abcd",maxZoom:19,noWrap:true,attribution:"&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"https://carto.com/attributions\">CARTO</a>"}).addTo(window.worldMapInstance);
+  const atlasTiles=L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{subdomains:"abcd",maxZoom:19,noWrap:true,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'});
+  let osmFallbackAdded=false;
+  atlasTiles.on("tileerror",()=>{if(osmFallbackAdded)return;osmFallbackAdded=true;L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{subdomains:"abc",maxZoom:19,noWrap:true,attribution:'&copy; OpenStreetMap contributors'}).addTo(window.worldMapInstance);});
+  atlasTiles.addTo(window.worldMapInstance);
  }
  requestAnimationFrame(()=>{window.worldMapInstance.invalidateSize();renderSDGMapPins();});
 }
