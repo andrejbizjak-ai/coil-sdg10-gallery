@@ -179,21 +179,21 @@ main#mainPage > .page.active-page {display:block}
   color:#172127;background:var(--accent);border-color:var(--accent)
 }
 .story-count {display:flex;justify-content:space-between;gap:12px;margin-bottom:18px;color:var(--muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
-.story-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.story-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:20px}
 .story-card {
   min-width:0;background:var(--surface);border:1px solid var(--line);
   transition:transform .25s,border-color .25s
 }
 .story-card:hover {transform:translateY(-4px);border-color:var(--accent)}
-.story-card a {display:block;height:100%}
+.story-card a {display:flex;flex-direction:column;height:100%}
 .story-image {height:245px;overflow:hidden;background:var(--surface-2)}
 .story-image img {height:100%;object-fit:cover;transition:transform .6s}
 .story-card:hover .story-image img {transform:scale(1.035)}
-.story-body {padding:20px}
+.story-body {display:flex;flex:1;flex-direction:column;padding:20px}
 .story-tag {color:var(--accent);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
 .story-body h3 {font:400 25px/1.15 Georgia,serif;margin:9px 0}
 .story-body p {color:var(--muted);font-size:12px;line-height:1.7}
-.story-meta {display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:19px;padding-top:13px;border-top:1px solid var(--line)}
+.story-meta {display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:auto;padding-top:13px;border-top:1px solid var(--line)}
 .story-meta span {font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 .story-meta strong {font-size:10px;color:var(--accent)}
 .stories-note {margin:-3px 0 20px;color:var(--muted);font-size:10px;letter-spacing:.025em}
@@ -979,7 +979,6 @@ body.light .hero {background:
           </div>
         </a>
       </article>
-    </div>
 
       <article class="story-card" data-id="health" data-category="inclusion" data-title="Care within reach">
         <a href="#story-health" class="story-link">
@@ -1017,6 +1016,7 @@ body.light .hero {background:
           <div class="story-body"><span class="story-tag">Tax · Fair economic systems</span><h3>The rules behind the money</h3><p>Fair tax and social protection systems help fund services and share economic gains.</p><div class="story-meta"><span>Targets 10.4 · 10.5</span><strong>Read gallery item ↗</strong></div></div>
         </a>
       </article>
+    </div>
     <p class="empty-state" id="emptyState">No gallery items match your search. Try another term or topic.</p>
   </section>
 
