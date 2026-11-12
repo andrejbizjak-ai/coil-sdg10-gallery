@@ -1381,32 +1381,32 @@ body.light .hero {background:
     <div class="game-layout">
       <aside class="game-intro">
         <p class="kicker">How to play</p>
-        <h3>Think about the <em>system,</em> not just the individual.</h3>
-        <p>Read the situation, choose the strongest response, and learn why it matters. Each question is worth 10 points. Read the feedback after every answer to understand why it matters.</p>
-        <div class="game-note"><strong>Remember</strong><span>Fairness is not always about treating everyone identically. It is about removing barriers so everyone can participate.</span></div>
+        <h3>Ten questions. One <em>fairer world.</em></h3>
+        <p>Answer 10 multiple-choice questions about SDG 10 and the inequality topics explored across this website. Choose one answer, read the explanation, and earn up to 100 points.</p>
+        <div class="game-note"><strong>Remember</strong><span>Reducing inequality means removing unfair barriers and making sure everyone can participate and have opportunities.</span></div>
       </aside>
-      <div class="game-panel" id="gamePanel" aria-live="polite">
+      <div class="game-panel" id="quizPanel" aria-live="polite">
         <div class="game-topline">
-          <span id="gameRound">QUESTION 01 / 10</span>
-          <span id="gameScore">0 POINTS</span>
+          <span id="quizRound">QUESTION 01 / 10</span>
+          <span id="quizScore">0 POINTS</span>
         </div>
-        <div class="game-progress" role="progressbar" aria-label="Game progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0">
-          <div id="gameProgress"></div>
+        <div class="game-progress" id="quizProgressBar" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0">
+          <div id="quizProgress"></div>
         </div>
-        <p class="game-context" id="gameContext">A public meeting is being planned.</p>
-        <h3 class="game-question" id="gameQuestion">How can the organisers make sure more people can take part?</h3>
-        <div class="game-options" id="gameOptions"></div>
-        <div class="game-feedback" id="gameFeedback" role="status" aria-live="polite"></div>
-        <button class="button game-next" id="gameNext" type="button" disabled>Choose an answer first</button>
+        <p class="game-context" id="quizContext">SDG 10 · THE BIG IDEA</p>
+        <h3 class="game-question" id="quizQuestion">What is the main aim of Sustainable Development Goal 10?</h3>
+        <div class="game-options" id="quizOptions"></div>
+        <div class="game-feedback" id="quizFeedback" role="status" aria-live="polite"></div>
+        <button class="button game-next" id="quizNext" type="button" disabled>Choose an answer first</button>
       </div>
-      <div class="game-result" id="gameResult" hidden>
+      <div class="game-result" id="quizResult" hidden>
         <p class="kicker">Your result</p>
-        <h3 id="gameResultTitle">A fairer way forward</h3>
-        <p id="gameResultText"></p>
-        <div class="game-result-score"><strong id="gameFinalScore">0 / 100</strong><span>YOUR FAIRNESS SCORE</span></div>
+        <h3 id="quizResultTitle">A fairer future starts with knowledge.</h3>
+        <p id="quizResultText"></p>
+        <div class="game-result-score"><strong id="quizFinalScore">0 / 100</strong><span>YOUR QUIZ SCORE</span></div>
         <div class="hero-actions">
-          <button class="button" id="gameRestart" type="button">Play again ↻</button>
-          <button class="button secondary" id="gameToAction" type="button">Explore ways to act ↗</button>
+          <button class="button" id="quizRestart" type="button">Try again ↻</button>
+          <button class="button secondary" id="quizToAction" type="button">Explore ways to act ↗</button>
         </div>
       </div>
     </div>
@@ -1973,148 +1973,170 @@ document.addEventListener("keydown",event => {
   if (event.key === "Escape" && $("#imageViewer").classList.contains("open")) closeImageViewer();
 });
 
-const gameScenarios = [
+const quizQuestions = [
   {
-    context:"A community meeting is being planned.",
-    question:"The venue has stairs and no lift. What is the fairest response?",
-    options:[
-      "Move the meeting to an accessible venue and ask participants what access arrangements they need.",
-      "Keep the venue and ask anyone who cannot use the stairs to send their comments afterwards.",
-      "Keep the venue because changing plans would be inconvenient."
-    ],
+    context:"SDG 10 · THE BIG IDEA",
+    question:"What is the main aim of Sustainable Development Goal 10?",
+    options:["Reduce inequality within and among countries.","Make every country have exactly the same income.","Focus only on increasing international trade."],
     answer:0,
-    explanation:"Accessibility should be built into participation. Changing the venue removes a barrier instead of placing the burden on excluded people."
+    explanation:"SDG 10 is about reducing inequality within countries and between countries, so everyone has a fairer chance to participate and thrive."
   },
   {
-    context:"An organisation is reviewing its recruitment process.",
-    question:"How can it make shortlisting fairer?",
-    options:[
-      "Use clear job-related criteria and remove unnecessary personal details from the first review where practical.",
-      "Choose applicants who seem like the current team because they may fit in more easily.",
-      "Rely mainly on informal recommendations from existing employees."
-    ],
-    answer:0,
-    explanation:"Transparent criteria focused on relevant skills reduce the influence of assumptions and informal networks."
-  },
-  {
-    context:"A city is deciding how to improve a neighbourhood.",
-    question:"Who should help shape the decision?",
-    options:[
-      "Only the people who attend the final public presentation.",
-      "Residents affected by the plans, including renters, young people, older people, and people with disabilities.",
-      "Only the groups that have the most time and resources to campaign."
-    ],
+    context:"INCOME INEQUALITY · TARGET 10.1",
+    question:"Target 10.1 focuses on the income growth of which group?",
+    options:["Only the highest-earning 10% of people.","The bottom 40% of the population, aiming for growth above the national average.","Only people who already own businesses."],
     answer:1,
-    explanation:"Meaningful participation requires reaching people who may not usually have access to decision-making spaces."
+    explanation:"Target 10.1 aims to progressively achieve and sustain income growth for the bottom 40% of the population at a rate higher than the national average."
   },
   {
-    context:"A public service is supporting people who have recently arrived in the country.",
-    question:"What is the most inclusive first step?",
-    options:[
-      "Provide clear information in accessible formats and arrange interpretation where needed.",
-      "Give everyone the same leaflet, regardless of language or access needs.",
-      "Ask people to return only after they have learned the main local language."
-    ],
-    answer:0,
-    explanation:"Accessible information helps people understand their rights and services. Equal access may require different forms of support."
-  },
-  {
-    context:"A workplace discovers a persistent pay gap.",
-    question:"What should it do before deciding on a response?",
-    options:[
-      "Assume the gap is explained by personal choices and take no further action.",
-      "Publish individual employees' salaries so everyone can compare them.",
-      "Examine pay, roles, hours, contracts, and progression patterns using privacy-respecting data."
-    ],
+    context:"INCLUSION · TARGET 10.2",
+    question:"What does SDG 10 mean by promoting inclusion?",
+    options:["Giving opportunities only to people with the same background.","Expecting everyone to overcome barriers without support.","Empowering and including everyone regardless of age, sex, disability, race, ethnicity, origin, religion, or income."],
     answer:2,
-    explanation:"Careful analysis can reveal structural patterns while protecting individual privacy. Evidence is the basis for an effective response."
+    explanation:"Target 10.2 calls for social, economic, and political inclusion for all, regardless of personal or social status."
   },
-  {context:"A school is reviewing how students take part in class activities.",question:"Which change best supports equal participation?",options:["Offer different accessible ways to contribute, such as speaking, writing, or using assistive technology.","Allow only the fastest students to answer.","Keep one fixed format even when it prevents some students from taking part."],answer:0,explanation:"Different ways to contribute remove barriers while keeping the learning goal consistent."},
-  {context:"TRUE OR FALSE · LOOK BEYOND AVERAGES",question:"A national average can hide major differences between population groups.",options:["True","False"],answer:0,explanation:"True. Disaggregated data can show whether progress is reaching people who are most likely to be left behind."},
-  {context:"A public service is supporting people who have recently arrived in the country.",question:"What is the most inclusive first step?",options:["Provide clear information in accessible formats and arrange interpretation where needed.","Give everyone the same leaflet, regardless of language or access needs.","Ask people to return only after they have learned the main local language."],answer:0,explanation:"Accessible information helps people understand their rights and services. Equal access may require different forms of support."},
-  {context:"A workplace discovers a persistent pay gap.",question:"What should it do before deciding on a response?",options:["Assume the gap is explained by personal choices and take no further action.","Publish individual employees’ salaries so everyone can compare them.","Examine pay, roles, hours, contracts, and progression patterns using privacy-respecting data."],answer:2,explanation:"Careful analysis can reveal structural patterns while protecting individual privacy."},
-  {context:"TRUE OR FALSE · GLOBAL EQUALITY",question:"SDG 10 includes a target to strengthen developing countries' representation in international economic and financial institutions.",options:["True","False"],answer:0,explanation:"True. Target 10.6 calls for stronger voice and representation of developing countries in international economic and financial institutions."}
+  {
+    context:"EDUCATION · EQUAL OPPORTUNITIES",
+    question:"A school has students who cannot afford devices or internet access. What would help reduce this inequality?",
+    options:["Provide affordable devices, connectivity, and support for students who need them.","Move all lessons online and ask families to solve access problems themselves.","Give extra digital resources only to students who already have the newest technology."],
+    answer:0,
+    explanation:"Access to learning should not depend on family income. Affordable devices, internet access, and practical support can reduce the digital and education divide."
+  },
+  {
+    context:"DISABILITY INCLUSION · ACCESS FOR ALL",
+    question:"Which action best supports the inclusion of people with disabilities?",
+    options:["Offer help only after someone has been excluded.","Make buildings, transport, information, and services accessible from the start, and involve disabled people in decisions.","Assume one solution will work for every person."],
+    answer:1,
+    explanation:"Removing physical, communication, and social barriers makes participation more equal. People affected by decisions should help shape them."
+  },
+  {
+    context:"GENDER EQUALITY · FAIR TREATMENT",
+    question:"A workplace finds that women are paid less on average for comparable work. What is a useful first step?",
+    options:["Ignore the difference because it may correct itself.","Stop collecting information about pay.","Review pay, roles, promotion, and working conditions to identify and address unfair patterns."],
+    answer:2,
+    explanation:"Checking evidence about pay and progression can reveal unequal treatment and help an organisation take meaningful action."
+  },
+  {
+    context:"LGBTQ+ EQUALITY · TARGET 10.3",
+    question:"Which statement best reflects equal opportunity and non-discrimination?",
+    options:["People should have equal rights and access to services regardless of sexual orientation or gender identity.","Some people should have fewer rights because they are different.","Discrimination is acceptable if it is based on tradition."],
+    answer:0,
+    explanation:"Target 10.3 promotes equal opportunity and seeks to reduce inequalities of outcome, including by eliminating discriminatory laws, policies, and practices."
+  },
+  {
+    context:"MIGRATION AND REFUGEES · TARGET 10.7",
+    question:"What kind of migration does Target 10.7 encourage countries to support?",
+    options:["Migration with no attention to safety or people's rights.","Safe, orderly, and regular migration, supported by well-managed policies.","Policies that prevent migrants from accessing basic services."],
+    answer:1,
+    explanation:"Target 10.7 calls for orderly, safe, regular, and responsible migration and mobility of people through well-managed migration policies."
+  },
+  {
+    context:"HEALTHCARE AND HOUSING · ACCESS TO SERVICES",
+    question:"Why can equal access to healthcare and safe housing help reduce inequality?",
+    options:["They matter only to people who already have high incomes.","They do not affect people's opportunities.","They support health, safety, education, and the ability to take part in society, regardless of income."],
+    answer:2,
+    explanation:"Access to essential services and secure living conditions affects people's opportunities. Reducing barriers helps more people participate in society."
+  },
+  {
+    context:"REDUCING INEQUALITY · TARGET 10.4",
+    question:"Which policy approach is named in Target 10.4 as a way to reduce inequality?",
+    options:["Use fiscal, wage, and social protection policies to work towards greater equality.","Remove all social protection programmes.","Give tax advantages only to the highest earners."],
+    answer:0,
+    explanation:"Target 10.4 encourages policies, especially fiscal, wage, and social protection policies, to progressively achieve greater equality."
+  }
 ];
-let gameIndex = 0;
-let gameScore = 0;
-let gameAnswered = false;
 
-function renderGame() {
-  const item = gameScenarios[gameIndex];
-  $("#gameRound").textContent = "QUESTION " + String(gameIndex+1).padStart(2,"0") + " / " + gameScenarios.length;
-  $("#gameScore").textContent = gameScore + " POINTS";
-  $("#gameContext").textContent = item.context;
-  $("#gameQuestion").textContent = item.question;
-  $("#gameProgress").style.width = (gameIndex/gameScenarios.length*100) + "%";
-  $(".game-progress").setAttribute("aria-valuenow",String(gameIndex));
-  $("#gameFeedback").textContent = "";
-  $("#gameNext").disabled = true;
-  $("#gameNext").textContent = "Choose an answer first";
-  $("#gameOptions").replaceChildren();
-  gameAnswered = false;
+let quizIndex = 0;
+let quizPoints = 0;
+let quizAnswered = false;
+
+function renderQuiz() {
+  const item = quizQuestions[quizIndex];
+  $("#quizRound").textContent = "QUESTION " + String(quizIndex + 1).padStart(2,"0") + " / " + quizQuestions.length;
+  $("#quizScore").textContent = quizPoints + " POINTS";
+  $("#quizContext").textContent = item.context;
+  $("#quizQuestion").textContent = item.question;
+  $("#quizProgress").style.width = (quizIndex / quizQuestions.length * 100) + "%";
+  $("#quizProgressBar").setAttribute("aria-valuenow",String(quizIndex));
+  $("#quizFeedback").textContent = "";
+  $("#quizNext").disabled = true;
+  $("#quizNext").textContent = "Choose an answer first";
+  $("#quizOptions").replaceChildren();
+  quizAnswered = false;
 
   item.options.forEach((option,index) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "game-option";
     button.textContent = option;
-    button.addEventListener("click",() => answerGame(index));
-    $("#gameOptions").appendChild(button);
+    button.addEventListener("click",() => answerQuiz(index));
+    $("#quizOptions").appendChild(button);
   });
 }
-function answerGame(choice) {
-  if (gameAnswered) return;
-  gameAnswered = true;
-  const item = gameScenarios[gameIndex];
+
+function answerQuiz(choice) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const item = quizQuestions[quizIndex];
   const correct = choice === item.answer;
-  if (correct) gameScore += 10;
-  $(".game-option").forEach((button,index) => {
+  if (correct) quizPoints += 10;
+
+  $("#quizOptions").querySelectorAll(".game-option").forEach((button,index) => {
     button.disabled = true;
     if (index === item.answer) button.classList.add("correct");
     else if (index === choice) button.classList.add("incorrect");
   });
+
   const heading = document.createElement("strong");
-  heading.textContent = correct ? "Good judgement · +10 points" : "A chance to learn · 0 points";
+  heading.textContent = correct ? "Correct · +10 points" : "Not quite · 0 points";
   const explanation = document.createElement("span");
   explanation.textContent = item.explanation;
-  $("#gameFeedback").replaceChildren(heading,explanation);
-  $("#gameScore").textContent = gameScore + " POINTS";
-  $("#gameNext").disabled = false;
-  $("#gameNext").textContent = gameIndex === gameScenarios.length-1 ? "See my result" : "Next scenario →";
+  $("#quizFeedback").replaceChildren(heading,explanation);
+  $("#quizScore").textContent = quizPoints + " POINTS";
+  $("#quizNext").disabled = false;
+  $("#quizNext").textContent = quizIndex === quizQuestions.length - 1 ? "See my result" : "Next question →";
 }
-function finishGame() {
+
+function finishQuiz() {
   unlockAchievement("quiz");
-  if (gameScore === 100) unlockAchievement("perfect");
-  $("#gamePanel").hidden = true;
-  $("#gameResult").hidden = false;
-  $("#gameProgress").style.width = "100%";
-  $(".game-progress").setAttribute("aria-valuenow",String(gameScenarios.length));
-  $("#gameFinalScore").textContent = gameScore + " / 100";
-  const title = gameScore === 100 ? "Excellent systems thinking." :
-    gameScore >= 60 ? "You are learning to spot barriers." :
-    "A fairer perspective starts with questions.";
-  const message = gameScore === 100
-    ? "You consistently chose responses that remove barriers and improve access. Keep applying that thinking to real decisions."
-    : gameScore >= 60
-      ? "You recognised several inclusive responses. Review the explanations and think about how policies and everyday systems can make participation fairer."
-      : "The scenarios show how easily barriers can be overlooked. Revisit the stories and targets, then try again with a focus on access, representation, and accountability.";
-  $("#gameResultTitle").textContent = title;
-  $("#gameResultText").textContent = message;
+  if (quizPoints === 100) unlockAchievement("perfect");
+  $("#quizPanel").hidden = true;
+  $("#quizResult").hidden = false;
+  $("#quizProgress").style.width = "100%";
+  $("#quizProgressBar").setAttribute("aria-valuenow",String(quizQuestions.length));
+  $("#quizFinalScore").textContent = quizPoints + " / 100";
+
+  $("#quizResultTitle").textContent = quizPoints === 100
+    ? "Outstanding SDG 10 knowledge!"
+    : quizPoints >= 70
+      ? "Great work — you know your SDG 10."
+      : quizPoints >= 40
+        ? "Good effort — keep learning."
+        : "Every answer is a chance to learn.";
+
+  $("#quizResultText").textContent = quizPoints === 100
+    ? "You answered every question correctly. Keep using what you know to recognise inequality and support fairer opportunities."
+    : "You got " + (quizPoints / 10) + " out of 10 questions correct. Review the explanations, explore the website topics, and try again to improve your score.";
 }
-function restartGame() {
-  gameIndex = 0;
-  gameScore = 0;
-  $("#gamePanel").hidden = false;
-  $("#gameResult").hidden = true;
-  renderGame();
+
+function restartQuiz() {
+  quizIndex = 0;
+  quizPoints = 0;
+  $("#quizPanel").hidden = false;
+  $("#quizResult").hidden = true;
+  renderQuiz();
 }
-$("#gameNext").addEventListener("click",() => {
-  if (!gameAnswered) return;
-  if (gameIndex === gameScenarios.length-1) finishGame();
-  else {gameIndex++;renderGame();}
+
+$("#quizNext").addEventListener("click",() => {
+  if (!quizAnswered) return;
+  if (quizIndex === quizQuestions.length - 1) finishQuiz();
+  else {
+    quizIndex++;
+    renderQuiz();
+  }
 });
-$("#gameRestart").addEventListener("click",restartGame);
-$("#gameToAction").addEventListener("click",() => showPage("action"));
+$("#quizRestart").addEventListener("click",restartQuiz);
+$("#quizToAction").addEventListener("click",() => showPage("action"));
 
 
 /* Playable world decision game */
@@ -2559,7 +2581,7 @@ $("#matchRestart").addEventListener("click",renderMemoryGame);
 $("#matchPlayAgain").addEventListener("click",renderMemoryGame);
 renderMemoryGame();
 
-renderGame();
+renderQuiz();
 renderAchievements();
 routeFromHash(false);
 try{if(location.hash==="#game"&&localStorage.getItem("coil-sdg10-earth-open")==="1"){requestAnimationFrame(openEarthView);}}catch{}
