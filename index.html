@@ -3000,7 +3000,7 @@ function revealMemoryCard(index,button){
   [firstButton,button].forEach(b=>{b.classList.remove("is-open");b.classList.add("is-matched");b.disabled=true;b.setAttribute("aria-label","Matched pair: "+first.pair);});
   matchFound++;$("#matchPairs").textContent=matchFound+" / 4";matchFirst=null;
   $("#matchStatus").textContent="A match! "+(4-matchFound)+" pair"+(4-matchFound===1?"":"s")+" left.";
-  if(matchFound===4){$("#matchStatus").textContent="All four pairs found in "+matchMoves+" moves.";$("#matchSuccess").hidden=false;unlockAchievement("memory");}
+  if(matchFound===4){$("#matchStatus").textContent="All four pairs found in "+matchMoves+" moves.";$("#matchSuccess").hidden=false;}
  }else{
   matchLocked=true;$("#matchStatus").textContent="Not a match. Remember these cards and try another pair.";
   const firstIndex=matchFirst;matchFirst=null;
