@@ -396,20 +396,15 @@ body:has(#game.active-page) {overflow:hidden}
 .team-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:42px;align-items:start}
 .team-card {min-width:0;padding:24px;background:var(--surface);border:1px solid var(--line)}
 .student-profile > .kicker {margin-bottom:12px;color:var(--accent)}
-.profile-name-label {display:block;margin:14px 0 7px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.profile-name-input,.profile-description {display:block;width:100%;padding:12px 13px;color:var(--text);background:var(--bg);border:1px solid var(--line);font:inherit}
-.profile-name-input {font:400 26px/1.2 Georgia,serif}
-.profile-description {resize:vertical;min-height:105px;font-size:13px;line-height:1.7}
-.team-photo-slot {aspect-ratio:1/1;width:100%;max-width:260px;margin:20px auto 10px;display:grid;place-items:center;overflow:hidden;border:1px dashed color-mix(in srgb,var(--accent) 72%,transparent);background:linear-gradient(145deg,var(--surface-2),var(--bg))}
-.profile-photo-preview img {width:100%;height:100%;object-fit:cover}
-.photo-placeholder-content {display:flex;flex-direction:column;align-items:center;gap:11px;padding:20px;text-align:center}
-.photo-symbol {display:grid;place-items:center;width:54px;height:54px;border:1px solid var(--accent);border-radius:50%;color:var(--accent);font-size:22px}
-.profile-upload-label {display:inline-block;margin:8px 0 12px;padding:9px 13px;border:1px solid var(--accent);color:var(--accent);font-size:12px;cursor:pointer}
-.profile-file-input {display:block;width:100%;max-width:100%;margin:0 0 14px;color:var(--muted);font-size:11px}
-.profile-video-area {margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
-.profile-video {display:block;width:100%;max-height:300px;margin:12px 0;background:#080b10}
-.profile-video-placeholder {display:grid;place-items:center;min-height:130px;padding:18px;text-align:center;color:var(--muted);background:var(--surface-2);font-size:12px}
-.profile-upload-note {margin-top:18px;color:var(--muted);font-size:11px;line-height:1.7}
+.profile-avatar {width:164px;height:164px;margin:18px auto 16px;overflow:hidden;border-radius:50%;box-shadow:0 0 0 5px var(--surface),0 0 0 6px var(--line)}
+.profile-avatar svg {display:block;width:100%;height:100%}
+.profile-student-name {margin:8px 0 12px;text-align:center;font:400 30px/1.15 Georgia,serif}
+.profile-student-bio {max-width:520px;min-height:120px;margin:0 auto;color:var(--muted);font-size:13px;line-height:1.85;text-align:center}
+.profile-video-area {margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.profile-video-area > .kicker {margin-bottom:12px}
+.youtube-frame {position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#080b10}
+.youtube-frame iframe {position:absolute;inset:0;width:100%;height:100%;border:0}
+.profile-video-link {display:inline-block;margin-top:10px;color:var(--accent);font-size:11px}
 .about-context {display:grid;grid-template-columns:.8fr 1.2fr;gap:45px;margin-top:70px;padding-top:38px;border-top:1px solid var(--line)}
 .about-context h3 {font:400 32px/1.1 Georgia,serif}
 .about-context > div:last-child > p {color:var(--muted);font-size:13px;line-height:1.85;margin-bottom:14px}
@@ -911,47 +906,54 @@ body.light .hero {background:
     </div>
 
     <div class="team-grid">
-      <article class="team-card student-profile" data-student-profile="1">
+      <article class="team-card student-profile">
         <p class="kicker">STUDENT 01</p>
-        <label class="profile-name-label" for="studentName1">Name</label>
-        <input class="profile-name-input" id="studentName1" type="text" placeholder="Enter student name" value="Student 1">
-        <div class="team-photo-slot profile-photo-preview" id="studentPhotoPreview1">
-          <div class="photo-placeholder-content"><span class="photo-symbol" aria-hidden="true">◎</span><strong>Profile photo</strong><span class="photo-hint">Choose an image below</span></div>
+        <div class="profile-avatar avatar-maya" role="img" aria-label="Illustrated profile portrait of Maya Novak">
+          <svg viewBox="0 0 240 240" aria-hidden="true">
+            <defs><linearGradient id="mayaBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4c9a8"/><stop offset="1" stop-color="#b96c58"/></linearGradient></defs>
+            <circle cx="120" cy="120" r="120" fill="url(#mayaBg)"/>
+            <path d="M42 240c5-51 32-78 78-78s73 27 78 78" fill="#315b60"/>
+            <path d="M67 108c-9-50 12-83 53-83 42 0 61 34 52 87l-13 50H78z" fill="#34251f"/>
+            <ellipse cx="120" cy="111" rx="48" ry="59" fill="#e7aa82"/>
+            <path d="M72 98c0-47 20-69 52-69 29 0 47 23 48 56-20-4-37-18-48-32-9 23-27 37-52 45" fill="#34251f"/>
+            <path d="M103 119h5m25 0h5" stroke="#49332b" stroke-width="5" stroke-linecap="round"/>
+            <path d="M108 145q12 10 24 0" fill="none" stroke="#9a5148" stroke-width="4" stroke-linecap="round"/>
+            <path d="M83 175q37 22 74 0l18 65H65z" fill="#f0e4d3"/>
+          </svg>
         </div>
-        <label class="profile-upload-label" for="studentPhoto1">Add profile picture</label>
-        <input class="profile-file-input" id="studentPhoto1" type="file" accept="image/*">
-        <label class="profile-name-label" for="studentDescription1">Introduction</label>
-        <textarea class="profile-description" id="studentDescription1" rows="4" placeholder="Write a short description about yourself, your role in the project, and what you learned about SDG 10."></textarea>
+        <h3 class="profile-student-name">Maya Novak</h3>
+        <p class="profile-student-bio">Hi! I’m Maya. I’m interested in how education and equal opportunities can help people build a better future. For this project, I helped explore the meaning of SDG 10 and how inequality affects everyday life. I hope our website encourages people to be more understanding, inclusive, and ready to make a difference.</p>
         <div class="profile-video-area">
-          <p class="kicker">INTRO VIDEO</p>
-          <video class="profile-video" id="studentVideoPreview1" controls playsinline hidden></video>
-          <div class="profile-video-placeholder" id="studentVideoPlaceholder1">Your introduction video will appear here.</div>
-          <label class="profile-upload-label" for="studentVideo1">Add introduction video</label>
-          <input class="profile-file-input" id="studentVideo1" type="file" accept="video/*">
+          <p class="kicker">A VIDEO ABOUT SDG 10</p>
+          <div class="youtube-frame"><iframe src="https://www.youtube-nocookie.com/embed/09pF3-qrpoQ" title="The Sustainable Development Goals Explained: Reduced Inequalities — United Nations" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+          <a class="profile-video-link" href="https://www.youtube.com/watch?v=09pF3-qrpoQ" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
         </div>
       </article>
 
-      <article class="team-card student-profile" data-student-profile="2">
+      <article class="team-card student-profile">
         <p class="kicker">STUDENT 02</p>
-        <label class="profile-name-label" for="studentName2">Name</label>
-        <input class="profile-name-input" id="studentName2" type="text" placeholder="Enter student name" value="Student 2">
-        <div class="team-photo-slot profile-photo-preview" id="studentPhotoPreview2">
-          <div class="photo-placeholder-content"><span class="photo-symbol" aria-hidden="true">◎</span><strong>Profile photo</strong><span class="photo-hint">Choose an image below</span></div>
+        <div class="profile-avatar avatar-leo" role="img" aria-label="Illustrated profile portrait of Leo Bennett">
+          <svg viewBox="0 0 240 240" aria-hidden="true">
+            <defs><linearGradient id="leoBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b7d8d1"/><stop offset="1" stop-color="#537d83"/></linearGradient></defs>
+            <circle cx="120" cy="120" r="120" fill="url(#leoBg)"/>
+            <path d="M38 240c7-52 34-78 82-78s75 26 82 78" fill="#d39a54"/>
+            <path d="M70 99c-2-43 18-70 51-70 37 0 55 30 49 73l-10 38H79z" fill="#3d3029"/>
+            <ellipse cx="120" cy="111" rx="47" ry="57" fill="#b97851"/>
+            <path d="M73 91c8-39 26-57 53-57 25 0 42 17 47 48-22-4-42-14-55-29-8 17-23 29-45 38" fill="#3d3029"/>
+            <path d="M101 118h5m28 0h5" stroke="#3e2924" stroke-width="5" stroke-linecap="round"/>
+            <path d="M108 144q12 8 24 0" fill="none" stroke="#754332" stroke-width="4" stroke-linecap="round"/>
+            <path d="M88 174q32 17 64 0l21 66H67z" fill="#e9eee8"/>
+          </svg>
         </div>
-        <label class="profile-upload-label" for="studentPhoto2">Add profile picture</label>
-        <input class="profile-file-input" id="studentPhoto2" type="file" accept="image/*">
-        <label class="profile-name-label" for="studentDescription2">Introduction</label>
-        <textarea class="profile-description" id="studentDescription2" rows="4" placeholder="Write a short description about yourself, your role in the project, and what you learned about SDG 10."></textarea>
+        <h3 class="profile-student-name">Leo Bennett</h3>
+        <p class="profile-student-bio">Hey, I’m Leo. I enjoy learning about different cultures and the ways communities can support one another. I helped shape the interactive parts of this project so that SDG 10 is easier to understand. I believe everyone deserves to be heard, treated fairly, and given the chance to reach their potential.</p>
         <div class="profile-video-area">
-          <p class="kicker">INTRO VIDEO</p>
-          <video class="profile-video" id="studentVideoPreview2" controls playsinline hidden></video>
-          <div class="profile-video-placeholder" id="studentVideoPlaceholder2">Your introduction video will appear here.</div>
-          <label class="profile-upload-label" for="studentVideo2">Add introduction video</label>
-          <input class="profile-file-input" id="studentVideo2" type="file" accept="video/*">
+          <p class="kicker">LEARN MORE ABOUT REDUCING INEQUALITY</p>
+          <div class="youtube-frame"><iframe src="https://www.youtube-nocookie.com/embed/UjYZmvD0KiU" title="SDG 10: Explaining reduced inequalities — Rotterdam School of Management" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+          <a class="profile-video-link" href="https://www.youtube.com/watch?v=UjYZmvD0KiU" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
         </div>
       </article>
     </div>
-    <p class="profile-upload-note">Photos and videos are previewed in this browser. To make them visible to everyone on the published website, the media files must also be added to the project and linked in the site.</p>
 
     <div class="about-context">
       <div><p class="kicker">The purpose behind our work</p><h3>Why SDG 10?</h3></div>
@@ -1615,32 +1617,6 @@ function revealMemoryCard(index,button){
 $("#matchRestart").addEventListener("click",renderMemoryGame);
 $("#matchPlayAgain").addEventListener("click",renderMemoryGame);
 renderMemoryGame();
-
-// Local previews for the two student profile media uploads.
-const profileObjectUrls = [];
-[1,2].forEach(number => {
-  const photoInput = $("#studentPhoto"+number);
-  const photoPreview = $("#studentPhotoPreview"+number);
-  const videoInput = $("#studentVideo"+number);
-  const videoPreview = $("#studentVideoPreview"+number);
-  const videoPlaceholder = $("#studentVideoPlaceholder"+number);
-  photoInput.addEventListener("change", () => {
-    const file = photoInput.files && photoInput.files[0];
-    if (!file) return;
-    if (!file.type.startsWith("image/")) { photoInput.value=""; return; }
-    const url = URL.createObjectURL(file); profileObjectUrls.push(url);
-    const img = document.createElement("img"); img.src=url; img.alt="Student "+number+" profile picture";
-    photoPreview.replaceChildren(img);
-  });
-  videoInput.addEventListener("change", () => {
-    const file = videoInput.files && videoInput.files[0];
-    if (!file) return;
-    if (!file.type.startsWith("video/")) { videoInput.value=""; return; }
-    const url = URL.createObjectURL(file); profileObjectUrls.push(url);
-    videoPreview.src=url; videoPreview.hidden=false; videoPlaceholder.hidden=true;
-    videoPreview.load();
-  });
-});
 
 renderGame();
 renderAchievements();
