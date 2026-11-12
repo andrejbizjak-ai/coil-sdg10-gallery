@@ -593,6 +593,27 @@ body.light .hero {background:
 .earth-view-caption h3{font:400 clamp(30px,5vw,52px)/1.05 Georgia,serif;margin:10px 0 20px}
 .earth-view-caption h3 em{font-style:normal;color:#e2c18b}
 
+
+/* Interactive 3D Earth viewer */
+.world-game-shell.earth-open .world-earth,.world-game-shell.earth-open .world-orbit,.world-game-shell.earth-open .world-game-stars{display:none}
+.world-game-shell.earth-open{background:#020811}
+.earth-view{position:absolute;inset:0;z-index:6;display:block;overflow:hidden;background:radial-gradient(ellipse at 50% 46%,#102b40 0%,#06111f 48%,#02060d 100%);pointer-events:auto}
+.earth-view[hidden]{display:none}
+#earth3dCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+#earth3dCanvas:active{cursor:grabbing}
+.earth-view-top{position:absolute;z-index:2;top:clamp(16px,3vw,30px);left:clamp(16px,3vw,34px);right:clamp(16px,3vw,34px);display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+.earth-view-top span{font-size:10px;letter-spacing:.2em;color:#b8d6df;font-weight:700}
+.earth-view-top button{pointer-events:auto}
+.earth-view-caption{position:absolute;z-index:2;bottom:clamp(20px,4vw,42px);left:50%;transform:translateX(-50%);width:min(90%,680px);padding:20px 24px;text-align:center;background:linear-gradient(180deg,transparent,rgba(2,8,16,.78));pointer-events:none}
+.earth-view-caption p{font-size:9px;letter-spacing:.22em;color:#9bd5e3;font-weight:700}
+.earth-view-caption h3{font:400 clamp(27px,4.8vw,48px)/1.04 Georgia,serif;margin:9px 0 12px;color:#f5f2e9}
+.earth-view-caption h3 em{font-style:normal;color:#9bd5e3}
+.earth-controls-hint{font-size:8px;letter-spacing:.14em;color:#b4c8d2}
+.earth-zoom-controls{position:absolute;z-index:3;right:clamp(16px,3vw,34px);bottom:clamp(22px,4vw,42px);display:grid;gap:7px}
+.earth-zoom-controls button{width:40px;height:40px;border:1px solid rgba(190,225,238,.42);background:rgba(5,18,29,.78);color:#e5f5fa;font-size:22px;backdrop-filter:blur(8px)}
+.earth-zoom-controls button:hover{background:#16445a;border-color:#9bd5e3}
+@media(max-width:600px){.earth-view-caption{bottom:18px;padding:14px 12px}.earth-controls-hint{font-size:7px}.earth-zoom-controls{right:12px;bottom:120px}.earth-zoom-controls button{width:36px;height:36px}}
+
 </style>
 </head>
 
@@ -964,7 +985,10 @@ body.light .hero {background:
         <p class="world-save-status" id="worldScreenStatus" role="status" aria-live="polite"></p>
       </div>
       <div class="earth-view" id="earthView" hidden>
-        <div class="earth-view-caption"><p>COIL · SUSTAINABLE DEVELOPMENT GOAL 10</p><h3>One world.<br><em>Equal possibilities.</em></h3><button class="button secondary" id="earthBack" type="button">BACK TO MENU</button></div>
+        <canvas id="earth3dCanvas" aria-label="Interactive three-dimensional Earth. Drag to rotate and scroll to zoom."></canvas>
+        <div class="earth-view-top"><span>COIL · SDG 10</span><button class="button secondary" id="earthBack" type="button">← MENU</button></div>
+        <div class="earth-view-caption"><p>OUR SHARED PLANET</p><h3>One world.<br><em>Equal possibilities.</em></h3><span class="earth-controls-hint">DRAG TO LOOK AROUND · SCROLL OR USE + / − TO ZOOM</span></div>
+        <div class="earth-zoom-controls" aria-label="Earth zoom controls"><button id="earthZoomIn" type="button" aria-label="Zoom in">+</button><button id="earthZoomOut" type="button" aria-label="Zoom out">−</button><button id="earthReset" type="button" aria-label="Reset Earth view">↺</button></div>
       </div>
     </div>
   </section>
@@ -1119,6 +1143,7 @@ body.light .hero {background:
 })();
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -1627,11 +1652,58 @@ function loadWorldProgress(){
   setWorldScreen("world");$("#worldSaveStatus").textContent="Saved journey loaded.";
  }catch{$("#worldSaveStatus").textContent="Could not read the saved journey. Press Play to start again.";}
 }
+
+let earthScene3D=null,earthRenderer3D=null,earthCamera3D=null,earthMesh3D=null,earthFrame3D=0,earthPointer=null,earthZoom=3.35;
+function initInteractiveEarth(){
+ const canvas=$("#earth3dCanvas");
+ if(!canvas||!window.THREE)return;
+ if(!earthRenderer3D){
+  earthScene3D=new THREE.Scene();
+  earthCamera3D=new THREE.PerspectiveCamera(38,1,.1,100);
+  earthCamera3D.position.set(0,0,earthZoom);
+  earthRenderer3D=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  earthRenderer3D.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  earthRenderer3D.outputEncoding=THREE.sRGBEncoding;
+  earthRenderer3D.toneMapping=THREE.ACESFilmicToneMapping;
+  earthRenderer3D.toneMappingExposure=1.15;
+  earthScene3D.add(new THREE.AmbientLight(0x8298ad,1.15));
+  const sun=new THREE.DirectionalLight(0xffffff,2.3);sun.position.set(5,3,5);earthScene3D.add(sun);
+  const fill=new THREE.DirectionalLight(0x367da8,.55);fill.position.set(-5,-1,-4);earthScene3D.add(fill);
+  const geometry=new THREE.SphereGeometry(1,96,96);
+  const loader=new THREE.TextureLoader();loader.setCrossOrigin("anonymous");
+  const material=new THREE.MeshPhongMaterial({color:0xffffff,specular:new THREE.Color(0x334455),shininess:12});
+  earthMesh3D=new THREE.Mesh(geometry,material);earthScene3D.add(earthMesh3D);
+  loader.load("https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg",texture=>{texture.encoding=THREE.sRGBEncoding;material.map=texture;material.needsUpdate=true;},undefined,()=>{material.color.set(0x286b88);});
+  loader.load("https://threejs.org/examples/textures/planets/earth_normal_2048.jpg",texture=>{material.normalMap=texture;material.normalScale.set(.45,.45);material.needsUpdate=true;});
+  const cloudsMat=new THREE.MeshPhongMaterial({color:0xffffff,transparent:true,opacity:.16,depthWrite:false});
+  loader.load("https://threejs.org/examples/textures/planets/earth_clouds_1024.png",texture=>{cloudsMat.map=texture;cloudsMat.alphaMap=texture;cloudsMat.needsUpdate=true;});
+  const clouds=new THREE.Mesh(new THREE.SphereGeometry(1.008,64,64),cloudsMat);earthScene3D.add(clouds);earthMesh3D.userData.clouds=clouds;
+  const atmosphere=new THREE.Mesh(new THREE.SphereGeometry(1.035,64,64),new THREE.MeshBasicMaterial({color:0x3d9ed0,transparent:true,opacity:.10,side:THREE.BackSide}));earthScene3D.add(atmosphere);
+  const starGeo=new THREE.BufferGeometry(),starPositions=[];
+  for(let i=0;i<1800;i++){const v=new THREE.Vector3().randomDirection().multiplyScalar(18+Math.random()*24);starPositions.push(v.x,v.y,v.z);}
+  starGeo.setAttribute("position",new THREE.Float32BufferAttribute(starPositions,3));
+  earthScene3D.add(new THREE.Points(starGeo,new THREE.PointsMaterial({color:0xd9edff,size:.055,transparent:true,opacity:.85})));
+  const resize=()=>{const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;earthRenderer3D.setSize(w,h,false);earthCamera3D.aspect=w/h;earthCamera3D.updateProjectionMatrix();};
+  window.addEventListener("resize",resize);resize();
+  canvas.addEventListener("pointerdown",e=>{earthPointer={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);});
+  canvas.addEventListener("pointermove",e=>{if(!earthPointer||!earthMesh3D)return;const dx=e.clientX-earthPointer.x,dy=e.clientY-earthPointer.y;earthMesh3D.rotation.y+=dx*.006;earthMesh3D.rotation.x=Math.max(-1.35,Math.min(1.35,earthMesh3D.rotation.x+dy*.006));earthPointer={x:e.clientX,y:e.clientY};});
+  const stopDrag=()=>{earthPointer=null;};canvas.addEventListener("pointerup",stopDrag);canvas.addEventListener("pointercancel",stopDrag);
+  canvas.addEventListener("wheel",e=>{e.preventDefault();setEarthZoom(earthZoom+e.deltaY*.004);},{passive:false});
+  $("#earthZoomIn").addEventListener("click",()=>setEarthZoom(earthZoom-.45));
+  $("#earthZoomOut").addEventListener("click",()=>setEarthZoom(earthZoom+.45));
+  $("#earthReset").addEventListener("click",()=>{earthMesh3D.rotation.set(0,-.45,0);setEarthZoom(3.35);});
+ }
+ if(!earthFrame3D){const animate=()=>{earthFrame3D=requestAnimationFrame(animate);if(earthMesh3D){earthMesh3D.userData.clouds.rotation.y+=.00012;}earthRenderer3D.render(earthScene3D,earthCamera3D);};animate();}
+ const w=canvas.clientWidth,h=canvas.clientHeight;if(w&&h){earthRenderer3D.setSize(w,h,false);earthCamera3D.aspect=w/h;earthCamera3D.updateProjectionMatrix();}
+}
+function setEarthZoom(distance){earthZoom=Math.max(1.55,Math.min(8,distance));if(earthCamera3D){earthCamera3D.position.z=earthZoom;}}
+
 function openEarthView(){
  $("#worldMainMenu").hidden=true;
  $("#worldPreview").hidden=true;
  $("#earthView").hidden=false;
  $("#worldGame").classList.add("earth-open");
+ requestAnimationFrame(initInteractiveEarth);
 }
 function closeEarthView(){
  $("#earthView").hidden=true;
