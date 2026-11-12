@@ -1634,7 +1634,7 @@ body.light .hero {background:
             </div>
           </div>
           <section class="sdg-decision-panel" aria-live="polite">
-            <div class="sdg-panel-heading"><span id="sdgGameTag">2026 · HOUSING & COST OF LIVING</span><span class="sdg-decision-counter" id="sdgGameCounter">01 / 10</span></div>
+            <div class="sdg-panel-heading"><span id="sdgGameTag">2026 · HOUSING & COST OF LIVING</span><span class="sdg-decision-counter" id="sdgGameCounter">01 / 20</span></div>
             <h2 id="sdgGameTitle">A home within reach</h2>
             <div class="sdg-region-line"><span id="sdgGamePlace">DHAKA, BANGLADESH</span><span id="sdgGameIssue">HOUSING & EQUAL ACCESS</span></div>
             <p class="sdg-scenario" id="sdgGameScenario"></p>
@@ -1642,8 +1642,8 @@ body.light .hero {background:
             <blockquote class="sdg-community-voice"><span>COMMUNITY VOICE · FICTIONAL SCENARIO</span><p id="sdgGameVoice"></p></blockquote>
             <div class="sdg-choice-intro"><strong>YOUR POLICY BRIEFING</strong><span>Choose a response, then follow what happens next.</span></div>
             <div class="sdg-choices" id="sdgGameChoices"></div>
-            <div class="sdg-outcome" id="sdgGameOutcome" role="status">Choose a policy. Your decision will shape the next decade.</div>
-            <div class="sdg-panel-footer"><span id="sdgGameHint">Every choice has long-term consequences.</span><button class="button" id="sdgGameNext" type="button" disabled>Continue to 2036 →</button></div>
+            <div class="sdg-outcome" id="sdgGameOutcome" role="status">Choose a policy. Your decision will shape the next five years.</div>
+            <div class="sdg-panel-footer"><span id="sdgGameHint">Every choice has long-term consequences.</span><button class="button" id="sdgGameNext" type="button" disabled>Continue to 2031 →</button></div>
             <section class="sdg-event-panel" id="sdgEventPanel" hidden aria-live="polite">
               <div class="sdg-panel-heading"><span id="sdgEventYear">WORLD EVENT · 2050</span><span>UNEXPECTED CHALLENGE</span></div>
               <h3 id="sdgEventTitle">A new challenge changes the plan.</h3>
@@ -2563,7 +2563,7 @@ function renderSDGMetrics(){
  $("#sdgPressure").textContent=state.pressure;
  $("#sdgPressureBar").style.width=state.pressure+"%";
  $("#sdgPressureLabel").textContent=state.pressure>=70?"CRISIS ESCALATING":state.pressure>=40?"GLOBAL ALERT":"PRESSURE FALLING";
- $("#sdgGameProgress").style.width=(Math.min(state.index,10)/10*100)+"%";
+ $("#sdgGameProgress").style.width=(Math.min(state.index,20)/20*100)+"%";
 }
 function renderSDGDecision(){
  if(sdg10State.finished){finishSDGJourney();return;}
@@ -2613,7 +2613,7 @@ function chooseSDGDecision(choiceIndex){
  $("#sdgGameHint").textContent="Your policy is now in effect. Public reaction and global indicators have changed.";
  $$(".sdg-choice",$("#sdgGameChoices")).forEach((button,index)=>{button.disabled=true;if(index===choiceIndex)button.classList.add("selected");});
  $("#sdgGameNext").disabled=false;
- $("#sdgGameNext").textContent=sdg10State.index===9?"See your 2126 outcome →":"Continue to "+(2036+sdg10State.index*10)+" →";
+ $("#sdgGameNext").textContent=sdg10State.index===19?"See your 2126 outcome →":"Continue to "+(2031+sdg10State.index*5)+" →";
 }
 function finishSDGJourney(){
  sdg10State.finished=true;sdg10State.index=20;saveSDG10State();
@@ -2629,7 +2629,7 @@ function finishSDGJourney(){
  else if(score>=55){tier="A fairer world is taking shape";message="Your decisions improved some parts of life, but progress was uneven. The next generation will need to focus on the groups and regions still facing the greatest barriers.";}
  else{tier="A world still fighting inequality";message="Many barriers survived the century. The result is not the end of the story: it shows why fair institutions, public investment and meaningful participation matter.";}
  $("#sdgGameTitle").textContent=tier;
- $("#sdgGameScenario").textContent="You guided the world from 2026 to 2126. Your legacy is shaped by 20 policy decisions and the crisis responses you made along the way.";
+ $("#sdgGameScenario").textContent="You guided the world from 2026 to 2126. Your legacy is shaped by 20 policy decisions made every five years.";
  const box=$("#sdgGameChoices");box.replaceChildren();
  const ending=document.createElement("div");ending.className="sdg-ending";
  const headline=document.createElement("strong");headline.textContent="100 years. 20 decisions. One shared planet.";
@@ -2643,7 +2643,7 @@ function finishSDGJourney(){
  const history=document.createElement("ol");history.className="sdg-history";
  sdg10State.history.forEach(entry=>{
   const li=document.createElement("li"),year=document.createElement("b"),kind=document.createElement("strong"),description=document.createElement("span");
-  year.textContent=entry.year+" · ";kind.textContent=entry.type==="event"?"WORLD EVENT: ":"POLICY: ";description.textContent=entry.decision+" — "+entry.choice;
+  year.textContent=entry.year+" · ";kind.textContent="POLICY: ";description.textContent=entry.decision+" — "+entry.choice;
   li.append(year,kind,description);history.appendChild(li);
  });
  ending.append(headline,summary,insight,stats,historyTitle,history);box.appendChild(ending);
