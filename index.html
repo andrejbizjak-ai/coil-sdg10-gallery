@@ -732,6 +732,66 @@ body.light .hero {background:
  .sdg-final-stats{grid-template-columns:repeat(2,1fr)}
 }
 
+
+/* Map problem pins, public support and narrative briefing */
+.world-map-stage{pointer-events:auto!important;background:#75b8d1!important}
+#mapFallback{position:absolute;inset:0;z-index:0}
+#mapFallback svg{width:100%;height:100%;display:block}
+#realWorldMap{z-index:1;background:transparent!important}
+#realWorldMap.leaflet-container{background:transparent!important}
+#realWorldMap .leaflet-pane{z-index:1}
+#realWorldMap .leaflet-tile-pane{z-index:1}
+#realWorldMap .leaflet-marker-pane{z-index:620}
+#realWorldMap .leaflet-tooltip-pane{z-index:650}
+#sdgMapFallbackPins{position:absolute;inset:0;z-index:8;pointer-events:none}
+.sdg-fallback-pin{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:27px;height:27px;border:2px solid #fff;border-radius:50% 50% 50% 0;rotate:-45deg;background:#e65b61;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.35);font:bold 9px Arial,sans-serif;pointer-events:auto;cursor:pointer}
+.sdg-fallback-pin span{rotate:45deg}
+.sdg-map-pin{display:grid;place-items:center;width:30px;height:30px;border:2px solid #fff;border-radius:50% 50% 50% 0;rotate:-45deg;background:#e75d62;color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.45);font:bold 10px Arial,sans-serif}
+.sdg-map-pin span{rotate:45deg}
+.sdg-map-pin.is-current{background:#f2b844;box-shadow:0 0 0 5px rgba(242,184,68,.28),0 2px 10px rgba(0,0,0,.45);scale:1.16}
+.sdg-map-pin.is-visited{background:#398a85}
+.leaflet-div-icon{background:transparent;border:0}
+.map-attribution{pointer-events:none!important}
+.sdg-metrics{grid-template-columns:repeat(5,minmax(85px,1fr));width:min(850px,calc(100% - 188px))}
+.sdg-metric small{display:block;color:#cae4e9;font-size:7px;line-height:1.2;margin-top:3px;white-space:nowrap}
+.metric-popularity i b{background:linear-gradient(90deg,#f3a45c,#f0d06c)}
+.sdg-region-line{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:8px 0}
+.sdg-region-line span{font-size:8px;letter-spacing:.1em;font-weight:800;padding:4px 7px;background:rgba(61,175,183,.18);border:1px solid rgba(99,207,201,.3);color:#a9efe4}
+.sdg-region-line span+span{background:rgba(239,163,92,.15);border-color:rgba(239,163,92,.32);color:#ffd29b}
+.sdg-story-brief{margin:9px 0;padding:10px 12px;background:rgba(49,126,151,.16);border-left:3px solid #57c6d0}
+.sdg-story-eyebrow{display:block;font-size:8px;letter-spacing:.15em;font-weight:800;color:#79dbd6;margin-bottom:5px}
+.sdg-story-brief p{font-size:10px;line-height:1.6;color:#e0edf0}
+.sdg-community-voice{margin:8px 0 12px;padding:9px 12px;background:rgba(226,177,93,.09);border-left:3px solid #e5b65d}
+.sdg-community-voice>span{font-size:7px;letter-spacing:.14em;font-weight:800;color:#f2c977}
+.sdg-community-voice p{margin-top:4px;font:italic 12px/1.5 Georgia,serif;color:#f4e8ca}
+.sdg-choice-intro{display:flex;justify-content:space-between;gap:9px;align-items:baseline;margin:9px 0 7px}
+.sdg-choice-intro strong{font-size:8px;letter-spacing:.14em;color:#fff}
+.sdg-choice-intro span{font-size:8px;color:#a9c3cb}
+.sdg-map-insight{position:absolute;z-index:28;right:20px;top:140px;width:min(310px,32vw);padding:14px 16px;background:rgba(5,24,37,.95);border:1px solid rgba(255,255,255,.3);border-top:3px solid #f0bb51;box-shadow:0 12px 30px rgba(0,0,0,.3);color:white;pointer-events:auto}
+.sdg-map-insight[hidden]{display:none}
+.sdg-map-insight>strong{display:block;font:400 19px Georgia,serif;margin:5px 22px 4px 0}
+.sdg-map-insight>small{display:block;color:#f1c773;font-size:8px;letter-spacing:.1em;text-transform:uppercase}
+.sdg-map-insight p{font-size:10px;line-height:1.6;color:#ccdde2;margin-top:8px}
+.sdg-map-insight-close{position:absolute;right:7px;top:5px;border:0;background:none;color:white;font-size:22px;cursor:pointer}
+@media(max-width:850px){
+ .sdg-metrics{grid-template-columns:repeat(3,minmax(75px,1fr));width:min(460px,calc(100% - 170px))}
+ .sdg-map-insight{top:170px;right:12px;width:250px}
+}
+@media(max-width:560px){
+ .sdg-metrics{grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+ .metric-popularity{grid-column:span 3;min-height:42px;display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:8px}
+ .metric-popularity strong{font-size:17px}
+ .metric-popularity i{min-width:45px}
+ .sdg-metric small{font-size:6px}
+ .sdg-map-insight{top:160px;right:8px;width:min(210px,62vw);padding:10px}
+ .sdg-map-insight>strong{font-size:15px}
+ .sdg-story-brief{padding:8px 9px;margin:7px 0}
+ .sdg-story-brief p{font-size:9px}
+ .sdg-community-voice{padding:7px 9px;margin:7px 0 9px}
+ .sdg-community-voice p{font-size:10px}
+ .sdg-choice-intro span{display:none}
+}
+
 </style>
 </head>
 
@@ -1103,7 +1163,31 @@ body.light .hero {background:
         <p class="world-save-status" id="worldScreenStatus" role="status" aria-live="polite"></p>
       </div>
       <div class="earth-view" id="earthView" hidden>
-        <div class="world-map-stage" id="worldMapStage" role="img" aria-label="A detailed, labelled world map without coordinate lines"><div id="realWorldMap"></div><div class="map-attribution">© OpenStreetMap contributors · © CARTO</div></div>
+        <div class="world-map-stage" id="worldMapStage" aria-label="World map with SDG 10 problem locations">
+          <div id="mapFallback" aria-hidden="true"><svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
+            <defs><linearGradient id="fallbackSea" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#75bfd8"/><stop offset="1" stop-color="#3188b0"/></linearGradient><linearGradient id="fallbackLand" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e4d7a6"/><stop offset=".5" stop-color="#abd0a0"/><stop offset="1" stop-color="#6fae98"/></linearGradient><pattern id="fallbackRelief" width="24" height="20" patternUnits="userSpaceOnUse"><path d="M1 16l7-10 7 10 6-8" fill="none" stroke="#5d947d" stroke-opacity=".35" stroke-width="1"/></pattern></defs>
+            <rect width="1200" height="600" fill="url(#fallbackSea)"/>
+            <g fill="url(#fallbackLand)" stroke="#668f7f" stroke-width="2" stroke-linejoin="round">
+              <path d="M75 112l20-30 35-6 28-24 43 7 27-13 35 17 42-2 28 23 41 3 25 24-13 26-34 9-10 29-27 13-9 33-20 13-14 31-20 7-16-20-24-3-11-21-26-6-12-22-25-7-12-18-30-6-13-21-30-13z"/>
+              <path d="M280 280l27-10 31 10 23 26-6 37-20 35-6 43-22 42-14 40-13-19-5-39-16-31 8-35-13-31 8-28-7-29z"/>
+              <path d="M520 107l25-18 28 8 15 20-17 17-33-5z"/>
+              <path d="M545 160l25-18 28 8 14 20-14 20-28-7z"/>
+              <path d="M555 218l32-17 40 9 34 19 38-5 23 22-12 27-33 8-23 24-24 9-11 31-25 27-19-15-8-41-19-29 1-33z"/>
+              <path d="M615 316l30-12 28 17 12 34-14 44-22 46-24 37-17-20-7-40-16-35 8-37z"/>
+              <path d="M650 108l24-27 38-9 36 14 38-7 39 17 38-1 26 21 42-3 37 19 30 27-15 24-34-2-26 18-34-6-25 19-27-7-21 22-25-8-15-28-31-3-16-22-34-2-17-22-35 0z"/>
+              <path d="M760 270l37-20 38 11 22 29-10 35-28 18-13 36-32 20-23-22-2-35-18-34z"/>
+              <path d="M920 403l32-17 41 10 27 26-14 36-29 20-36-12-26-33z"/>
+              <path d="M1070 450l22-9 25 14-9 22-28 1z"/>
+              <path d="M1044 185l33-12 41 18 22 31-20 24-38-5-24-23z"/>
+              <path d="M80 552l72-9 65 7 66-7 60 7 65-6 66 8 69-8 65 8 72-7 68 8 68-6 69 8 60-7 55 8 49-5-12 22H94z" fill="#e8e7d5"/>
+            </g>
+            <g fill="url(#fallbackRelief)" opacity=".65"><path d="M75 112h390v220H75zM540 90h470v330H540z"/></g>
+            <g fill="none" stroke="#fff4d7" stroke-width="1.1" stroke-dasharray="3 3" opacity=".7"><path d="M180 95l-8 65 18 60M245 108l-8 55 20 44M318 130l-18 64 10 54M575 120l14 50-12 48M630 110l-8 52 17 41M700 115l-5 55 18 42M770 117l-14 56 21 46M850 140l-15 55 20 49M920 162l-15 45 17 40M590 245l23 41-10 51M640 254l-15 47 16 38"/></g>
+            <g font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#315a65" opacity=".8" letter-spacing="2"><text x="210" y="205">NORTH AMERICA</text><text x="345" y="390">SOUTH AMERICA</text><text x="615" y="300">AFRICA</text><text x="620" y="140">EUROPE</text><text x="850" y="190">ASIA</text><text x="970" y="455">AUSTRALIA</text></g>
+          </svg></div>
+          <div id="realWorldMap"></div><div id="sdgMapFallbackPins"></div>
+          <div class="map-attribution">Map tiles © OpenStreetMap · CARTO</div>
+        </div>
         <div class="earth-view-top"><span>COIL · SDG 10 — REDUCED INEQUALITIES</span><button class="button secondary" id="earthBack" type="button">← MENU</button></div>
         <div class="sdg-game-shell" id="sdgGame">
           <div class="sdg-game-hud">
@@ -1113,17 +1197,27 @@ body.light .hero {background:
               <div class="sdg-metric metric-inclusion"><span>INCLUSION</span><strong id="sdgInclusion">44</strong><i><b id="sdgInclusionBar"></b></i></div>
               <div class="sdg-metric metric-wellbeing"><span>WELLBEING</span><strong id="sdgWellbeing">48</strong><i><b id="sdgWellbeingBar"></b></i></div>
               <div class="sdg-metric metric-equality"><span>EQUALITY</span><strong id="sdgEquality">38</strong><i><b id="sdgEqualityBar"></b></i></div>
+              <div class="sdg-metric metric-popularity"><span>PUBLIC SUPPORT</span><strong id="sdgPopularity">56%</strong><i><b id="sdgPopularityBar"></b></i><small id="sdgSupporters">4.6B backing your plan</small></div>
             </div>
           </div>
           <section class="sdg-decision-panel" aria-live="polite">
             <div class="sdg-panel-heading"><span id="sdgGameTag">2026 · HOUSING & COST OF LIVING</span><span class="sdg-decision-counter" id="sdgGameCounter">01 / 10</span></div>
             <h2 id="sdgGameTitle">A home within reach</h2>
+            <div class="sdg-region-line"><span id="sdgGamePlace">DHAKA, BANGLADESH</span><span id="sdgGameIssue">HOUSING & EQUAL ACCESS</span></div>
             <p class="sdg-scenario" id="sdgGameScenario"></p>
+            <div class="sdg-story-brief"><span class="sdg-story-eyebrow">THE SITUATION REPORT</span><p id="sdgGameBrief"></p></div>
+            <blockquote class="sdg-community-voice"><span>COMMUNITY VOICE · FICTIONAL SCENARIO</span><p id="sdgGameVoice"></p></blockquote>
+            <div class="sdg-choice-intro"><strong>YOUR POLICY BRIEFING</strong><span>Choose a response, then follow what happens next.</span></div>
             <div class="sdg-choices" id="sdgGameChoices"></div>
             <div class="sdg-outcome" id="sdgGameOutcome" role="status">Choose a policy. Your decision will shape the next decade.</div>
             <div class="sdg-panel-footer"><span id="sdgGameHint">Every choice has long-term consequences.</span><button class="button" id="sdgGameNext" type="button" disabled>Continue to 2036 →</button></div>
           </section>
-          <div class="sdg-map-note"><span class="sdg-map-pulse"></span> ONE PLANET · SHARED FUTURE</div>
+          <aside class="sdg-map-insight" id="sdgMapInsight" hidden aria-live="polite">
+            <button class="sdg-map-insight-close" id="sdgMapInsightClose" type="button" aria-label="Close map story">×</button>
+            <span class="sdg-story-eyebrow">PROBLEM ON THE MAP</span>
+            <strong id="sdgMapInsightPlace"></strong><small id="sdgMapInsightIssue"></small><p id="sdgMapInsightText"></p>
+          </aside>
+          <div class="sdg-map-note"><span class="sdg-map-pulse"></span> 10 STORIES · 1 SHARED WORLD</div>
         </div>
         
       </div>
