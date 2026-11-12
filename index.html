@@ -829,7 +829,7 @@ body.light .hero {background:
     <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
     <div class="nav-links" id="navLinks">
       <a href="#home" data-page="home">Home</a>
-      <a href="#gallery" data-page="gallery">Stories</a>
+      <a href="#gallery" data-page="gallery">Gallery</a>
       <a href="#targets" data-page="targets">The Goal</a>
       <a href="#action" data-page="action">Take Action</a>
       <a href="#quiz" data-page="quiz">Quiz</a>
@@ -849,7 +849,7 @@ body.light .hero {background:
           <h1>A fair chance should not<br>depend on <em>where you start.</em></h1>
           <p class="hero-copy">SDG 10 calls for reducing inequality within and among countries. That means widening opportunity, removing discrimination, sharing economic progress, and ensuring that people and countries have a meaningful voice.</p>
           <div class="hero-actions">
-            <a class="button" href="#gallery" data-page="gallery">Explore the stories <span>↗</span></a>
+            <a class="button" href="#gallery" data-page="gallery">Explore the gallery <span>↗</span></a>
             <a class="button secondary" href="#targets" data-page="targets">Understand Goal 10</a>
           </div>
         </div>
@@ -895,13 +895,13 @@ body.light .hero {background:
     <a class="page-home-link" href="#home" data-page="home"><span aria-hidden="true">←</span> Home</a>
     <div class="section-head">
       <div>
-        <p class="kicker">01 / Issues behind the numbers</p>
-        <h2>Stories of <em>inequality.</em></h2>
+        <p class="kicker">01 / THE GALLERY</p>
+        <h2>Gallery of <em>inequality.</em></h2>
       </div>
-      <p>Explore six perspectives on Goal 10. Each story connects a visual prompt to a structural issue and an official SDG 10 target. Look beyond individual circumstances to the rules, institutions, and barriers that shape people's choices.</p>
+      <p>Explore twelve visual stories about Goal 10. Each story connects a visual prompt to a structural issue and an official SDG 10 target. Look beyond individual circumstances to the rules, institutions, and barriers that shape people's choices.</p>
     </div>
     <div class="story-tools">
-      <input class="search-field" type="search" id="search" placeholder="Search stories or themes..." aria-label="Search stories">
+      <input class="search-field" type="search" id="search" placeholder="Search gallery or themes..." aria-label="Search gallery">
       <div class="filter-list" aria-label="Filter stories">
         <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">All</button>
         <button class="filter-button" type="button" data-filter="opportunity" aria-pressed="false">Opportunity</button>
@@ -910,8 +910,8 @@ body.light .hero {background:
         <button class="filter-button" type="button" data-filter="systems" aria-pressed="false">Fair systems</button>
       </div>
     </div>
-    <div class="story-count"><span id="resultCount">6 stories</span><span>Select a story to read more</span></div>
-    <p class="stories-note">These images are illustrative. The stories explain the issues; they are not evidence about the people or places shown.</p>
+    <div class="story-count"><span id="resultCount">12 gallery items</span><span>Select a story to read more</span></div>
+    <p class="stories-note">These images are illustrative. The gallery explains the issues; they are not evidence about the people or places shown.</p>
     <div class="story-grid" id="storyGrid">
       <article class="story-card" data-id="income" data-category="opportunity" data-title="A fair share">
         <a href="#story-income" class="story-link">
@@ -980,7 +980,44 @@ body.light .hero {background:
         </a>
       </article>
     </div>
-    <p class="empty-state" id="emptyState">No stories match your search. Try another term or topic.</p>
+
+      <article class="story-card" data-id="health" data-category="inclusion" data-title="Care within reach">
+        <a href="#story-health" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=85" alt="Healthcare professional speaking with a patient" loading="lazy"></div>
+          <div class="story-body"><span class="story-tag">Healthcare · Equal access</span><h3>Care within reach</h3><p>Where people live and what they earn should not decide whether they can receive essential healthcare.</p><div class="story-meta"><span>Target 10.2</span><strong>Read gallery item ↗</strong></div></div>
+        </a>
+      </article>
+      <article class="story-card" data-id="housing" data-category="opportunity" data-title="A place to call home">
+        <a href="#story-housing" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1000&q=85" alt="A residential neighbourhood" loading="lazy"></div>
+          <div class="story-body"><span class="story-tag">Housing · Economic opportunity</span><h3>A place to call home</h3><p>Affordable, secure housing helps people stay connected to work, education, transport, and community life.</p><div class="story-meta"><span>Targets 10.1 · 10.2</span><strong>Read gallery item ↗</strong></div></div>
+        </a>
+      </article>
+      <article class="story-card" data-id="digital" data-category="inclusion" data-title="The digital divide">
+        <a href="#story-digital" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=85" alt="People using computers and digital technology" loading="lazy"></div>
+          <div class="story-body"><span class="story-tag">Technology · Digital inclusion</span><h3>The digital divide</h3><p>Reliable internet, affordable devices, accessible design, and digital skills are essential to participation.</p><div class="story-meta"><span>Targets 10.2 · 10.3</span><strong>Read gallery item ↗</strong></div></div>
+        </a>
+      </article>
+      <article class="story-card" data-id="disability" data-category="inclusion" data-title="Designed for everyone">
+        <a href="#story-disability" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1000&q=85" alt="A diverse group of colleagues meeting" loading="lazy"></div>
+          <div class="story-body"><span class="story-tag">Disability · Accessibility</span><h3>Designed for everyone</h3><p>Inclusive design removes physical, digital, and social barriers so more people can participate.</p><div class="story-meta"><span>Targets 10.2 · 10.3</span><strong>Read gallery item ↗</strong></div></div>
+        </a>
+      </article>
+      <article class="story-card" data-id="climate" data-category="systems" data-title="Fairness in a changing climate">
+        <a href="#story-climate" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=85" alt="A green mountain landscape" loading="lazy"></div>
+          <div class="story-body"><span class="story-tag">Climate justice · Shared resilience</span><h3>Fairness in a changing climate</h3><p>Communities with fewer resources can face greater risks and have less ability to recover.</p><div class="story-meta"><span>Targets 10.2 · 10.3</span><strong>Read gallery item ↗</strong></div></div>
+        </a>
+      </article>
+      <article class="story-card" data-id="tax" data-category="systems" data-title="The rules behind the money">
+        <a href="#story-tax" class="story-link">
+          <div class="story-image"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1000&q=85" alt="Financial documents and calculations" loading="lazy"></div>
+          <div class="story-body"><span class="story-tag">Tax · Fair economic systems</span><h3>The rules behind the money</h3><p>Fair tax and social protection systems help fund services and share economic gains.</p><div class="story-meta"><span>Targets 10.4 · 10.5</span><strong>Read gallery item ↗</strong></div></div>
+        </a>
+      </article>
+    <p class="empty-state" id="emptyState">No gallery items match your search. Try another term or topic.</p>
   </section>
 
   <section class="page section container" id="targets">
@@ -1599,7 +1636,7 @@ function applyStoryFilters() {
     card.hidden = !show;
     if (show) visible++;
   });
-  $("#resultCount").textContent = visible + " of " + cards.length + " stories";
+  $("#resultCount").textContent = visible + " of " + cards.length + " gallery items";
   $("#emptyState").style.display = visible ? "none" : "block";
 }
 $("#search").addEventListener("input",applyStoryFilters);
