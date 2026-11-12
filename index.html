@@ -1521,7 +1521,7 @@ body.light .hero {background:
       </aside>
       <div class="game-panel" id="quizPanel" aria-live="polite">
         <div class="game-topline">
-          <span id="quizRound">QUESTION 01 / 10</span>
+          <span id="quizRound">QUESTION 01 / 20</span>
           <span id="quizScore">0 POINTS</span>
         </div>
         <div class="game-progress" id="quizProgressBar" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0">
@@ -1623,7 +1623,7 @@ body.light .hero {background:
         <div class="earth-view-top"><span>COIL · SDG 10 — REDUCED INEQUALITIES</span><button class="button secondary" id="earthBack" type="button">← MENU</button></div>
         <div class="sdg-game-shell" id="sdgGame">
           <div class="sdg-game-hud">
-            <div class="sdg-year-card"><span class="sdg-hud-label">YOUR CENTURY</span><strong id="sdgGameYear">2026</strong><span class="sdg-year-range">2026 — 2126</span><div class="sdg-year-track"><span id="sdgGameProgress"></span></div><small id="sdgGameStep">DECISION 1 OF 10</small></div>
+            <div class="sdg-year-card"><span class="sdg-hud-label">YOUR CENTURY</span><strong id="sdgGameYear">2026</strong><span class="sdg-year-range">2026 — 2126</span><div class="sdg-year-track"><span id="sdgGameProgress"></span></div><small id="sdgGameStep">DECISION 1 OF 20</small></div>
             <div class="sdg-metrics" aria-label="World progress indicators">
               <div class="sdg-metric metric-opportunity"><span>OPPORTUNITY</span><strong id="sdgOpportunity">42</strong><i><b id="sdgOpportunityBar"></b></i></div>
               <div class="sdg-metric metric-inclusion"><span>INCLUSION</span><strong id="sdgInclusion">44</strong><i><b id="sdgInclusionBar"></b></i></div>
@@ -2481,6 +2481,23 @@ const sdg10Decisions=[
   {title:"Keep the existing power structure",detail:"Preserve current arrangements and ask others to adapt.",effect:[-8,-7,-5,-8],impact:"Without reform, unequal influence remains embedded in global institutions."}
  ]}
 ];
+sdg10Decisions.push(...sdg10Decisions.slice(0,10).map((item,index)=>{
+ const titles=["A fair share of public resources","A city everyone can use","Equal chances at work","Learning throughout life","Protect workers in new industries","Skills, dignity and belonging","A voice in global decisions","A fair recovery after disaster","Keep essential services within reach","Measure progress by who benefits"];
+ const years=[2031,2041,2051,2061,2071,2081,2091,2101,2111,2121];
+ const scenarios=[
+ "It is 2031. Economic pressures are changing who benefits from public policy. How will you make sure resources and opportunities reach people who have been left behind?",
+ "It is 2041. Communities are redesigning public spaces and services. People facing barriers ask to be included from the start. What will you prioritise?",
+ "It is 2051. The world of work is changing again, but unequal pay and insecure conditions persist. What policy will you introduce?",
+ "It is 2061. New learning pathways are emerging, but cost and access still prevent many people from participating. What will you do?",
+ "It is 2071. New technology is transforming jobs and services. How will you ensure workers share in progress and are protected from unfair treatment?",
+ "It is 2081. People are moving to find safety and opportunity, but barriers to recognition and participation remain. What will you change?",
+ "It is 2091. International decisions affect every country, yet influence is not shared equally. How will you make cooperation fairer?",
+ "It is 2101. A major shock has widened the gap between wealthy and low-income communities. How will you organise a fair recovery?",
+ "It is 2111. Essential services are increasingly digital, but not everyone can use them. How will you protect equal access?",
+ "It is 2121. National income is growing, but the benefits are not reaching everyone. How will you measure and improve shared prosperity?"
+ ];
+ return {...item,tag:"FUTURE POLICY · SDG 10",title:titles[index],scenario:scenarios[index],year:years[index]};
+}));
 const sdgRegionStories=[
  {place:"Dhaka, Bangladesh",issue:"Affordable housing & access to services",lat:23.81,lng:90.41,brief:"A growing neighbourhood sits between busy transport routes and rising rents. Families are spending more of their income on housing, while safe transport, nearby schools and public spaces have not kept pace. The city must decide whether development will include the people who already live here.",voice:"“We do not want to be moved farther away. We want safe homes, good transport and a say in how our neighbourhood changes.” — A resident, in this fictional scenario"},
  {place:"Rural Guatemala",issue:"Digital learning & equal opportunity",lat:14.63,lng:-90.51,brief:"A group of rural schools is connected to the national learning network, but devices, reliable power, accessible materials and teacher support remain uneven. Children in remote communities risk being locked out of the same opportunities as children in larger towns.",voice:"“A connection is only useful when there is a device, electricity, accessible lessons and someone who can help us learn.” — A student, in this fictional scenario"},
@@ -2507,16 +2524,16 @@ const sdgWorldEvents=[
   {title:"Keep digital-only services",detail:"Require everyone to solve the problem through the platform.",effect:[0,-6,-3,-4],impact:"Administration remains cheaper, but people already facing digital and documentation barriers are excluded again."}
  ]}
 ];
-const SDG10_SAVE_KEY="coil-sdg10-world-rescue-v2";
+const SDG10_SAVE_KEY="coil-sdg10-world-rescue-v3";
 function loadSDG10State(){
  const fresh={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,pressure:62,history:[],selected:false,selectedChoice:null,lastPublicMood:0,eventPending:false,eventResolved:false,eventChoice:null,finished:false};
- try{const raw=localStorage.getItem(SDG10_SAVE_KEY);if(!raw)return fresh;const saved=JSON.parse(raw);if(saved.version!==2||!Number.isInteger(saved.index)||saved.index<0||saved.index>10)return fresh;
+ try{const raw=localStorage.getItem(SDG10_SAVE_KEY);if(!raw)return fresh;const saved=JSON.parse(raw);if(saved.version!==3||!Number.isInteger(saved.index)||saved.index<0||saved.index>20)return fresh;
  ["opportunity","inclusion","wellbeing","equality","popularity","pressure"].forEach(key=>{if(Number.isFinite(saved[key]))fresh[key]=Math.max(0,Math.min(100,saved[key]));});
- fresh.index=saved.index;fresh.history=Array.isArray(saved.history)?saved.history.slice(-10):[];fresh.selected=Boolean(saved.selected);fresh.selectedChoice=Number.isInteger(saved.selectedChoice)?saved.selectedChoice:null;fresh.lastPublicMood=Number(saved.lastPublicMood)||0;fresh.eventPending=Boolean(saved.eventPending);fresh.eventResolved=Boolean(saved.eventResolved);fresh.eventChoice=Number.isInteger(saved.eventChoice)?saved.eventChoice:null;fresh.finished=Boolean(saved.finished);return fresh;
+ fresh.index=saved.index;fresh.history=Array.isArray(saved.history)?saved.history.slice(-20):[];fresh.selected=Boolean(saved.selected);fresh.selectedChoice=Number.isInteger(saved.selectedChoice)?saved.selectedChoice:null;fresh.lastPublicMood=Number(saved.lastPublicMood)||0;fresh.eventPending=false;fresh.eventResolved=false;fresh.eventChoice=null;fresh.finished=Boolean(saved.finished);return fresh;
  }catch{return fresh;}
 }
 let sdg10State=loadSDG10State();
-function saveSDG10State(){try{localStorage.setItem(SDG10_SAVE_KEY,JSON.stringify({...sdg10State,version:2}));}catch(e){console.warn("Could not save progress.",e);}}
+function saveSDG10State(){try{localStorage.setItem(SDG10_SAVE_KEY,JSON.stringify({...sdg10State,version:3}));}catch(e){console.warn("Could not save progress.",e);}}
 
 const additionalMapStories=[
  {place:"Lagos, Nigeria",issue:"Housing, transport & informal work",lat:6.52,lng:3.38,decisionIndex:0,severity:88,brief:"Fast urban growth is putting pressure on affordable homes, safe transport and secure work. Neighbourhoods with fewer services are often farthest from reliable jobs and public facilities. A fair city plan must include residents in decisions and bring essential services closer.",voice:"“We need a city where the people who keep it running can afford to live in it.” — A market trader, fictional scenario"},
@@ -2551,42 +2568,32 @@ function renderSDGMetrics(){
 function renderSDGDecision(){
  if(sdg10State.finished){finishSDGJourney();return;}
  renderSDGMetrics();
- if(sdg10State.eventPending){renderSDGEvent();return;}
- $("#sdgEventPanel").hidden=true;$("#sdgEventPanel").closest(".sdg-decision-panel").classList.remove("event-mode");
- const year=2026+sdg10State.index*10;
+ const year=2026+sdg10State.index*5;
  $("#sdgGameYear").textContent=year;
- $("#sdgGameStep").textContent="DECISION "+(sdg10State.index+1)+" OF 10";
- $("#sdgGameCounter").textContent=String(sdg10State.index+1).padStart(2,"0")+" / 10";
+ $("#sdgGameStep").textContent="DECISION "+(sdg10State.index+1)+" OF 20";
+ $("#sdgGameCounter").textContent=String(sdg10State.index+1).padStart(2,"0")+" / 20";
  const event=sdg10Decisions[sdg10State.index];
- $("#sdgGameTag").textContent=event.tag;
- $("#sdgGameTitle").textContent=event.title;
- $("#sdgGameScenario").textContent=event.scenario;
- const region=sdgRegionStories[sdg10State.index];
- $("#sdgGamePlace").textContent=region.place.toUpperCase();
- $("#sdgGameIssue").textContent=region.issue.toUpperCase();
- $("#sdgGameBrief").textContent=region.brief;
- $("#sdgGameVoice").textContent=region.voice;
+ $("#sdgGameTag").textContent=event.tag;$("#sdgGameTitle").textContent=event.title;$("#sdgGameScenario").textContent=event.scenario;
+ const region=sdgRegionStories[sdg10State.index%sdgRegionStories.length];
+ $("#sdgGamePlace").textContent=region.place.toUpperCase();$("#sdgGameIssue").textContent=region.issue.toUpperCase();
+ $("#sdgGameBrief").textContent=region.brief;$("#sdgGameVoice").textContent=region.voice;
  if(typeof updateSDGMapHighlights==="function")updateSDGMapHighlights();
- $("#sdgGameOutcome").textContent="Choose a policy. Your decision will shape the next decade.";
- $("#sdgGameOutcome").classList.remove("visible");
- $("#sdgGameHint").textContent="Every choice has long-term consequences.";
- $("#sdgGameNext").disabled=true;
- $("#sdgGameNext").textContent="Continue to "+(year+10)+" →";
+ $("#sdgGameOutcome").textContent="Choose a policy. Your decision will shape the next five years.";
+ $("#sdgGameOutcome").classList.remove("visible");$("#sdgGameHint").textContent="Every choice has long-term consequences.";
+ $("#sdgGameNext").disabled=true;$("#sdgGameNext").textContent="Continue to "+(year+5)+" →";
  if(sdg10State.selected&&sdg10State.selectedChoice!==null){
   const savedChoice=event.choices[sdg10State.selectedChoice];
-  if(savedChoice){$("#sdgGameOutcome").textContent=savedChoice.impact+" Public support "+(sdg10State.lastPublicMood>=0?"rose by ":"fell by ")+Math.abs(sdg10State.lastPublicMood)+" points.";}
+  if(savedChoice)$("#sdgGameOutcome").textContent=savedChoice.impact+" Public support "+(sdg10State.lastPublicMood>=0?"rose by ":"fell by ")+Math.abs(sdg10State.lastPublicMood)+" points.";
   $("#sdgGameOutcome").classList.add("visible");$("#sdgGameHint").textContent="Your last decision is saved. Continue your campaign.";
-  $("#sdgGameNext").disabled=false;$("#sdgGameNext").textContent=sdg10State.index===9?"See your 2126 outcome →":"Continue to "+(year+10)+" →";
+  $("#sdgGameNext").disabled=false;$("#sdgGameNext").textContent=sdg10State.index===19?"See your 2126 outcome →":"Continue to "+(year+5)+" →";
  }
  $("#sdgGameChoices").replaceChildren();
  event.choices.forEach((choice,index)=>{
   const button=document.createElement("button");button.type="button";button.className="sdg-choice";
   button.innerHTML='<span class="sdg-choice-index">'+String.fromCharCode(65+index)+'</span><span class="sdg-choice-copy"><strong></strong><small></small></span>';
-  button.querySelector("strong").textContent=choice.title;
-  button.querySelector("small").textContent=choice.detail;
+  button.querySelector("strong").textContent=choice.title;button.querySelector("small").textContent=choice.detail;
   if(sdg10State.selected&&sdg10State.selectedChoice!==null){button.disabled=true;if(index===sdg10State.selectedChoice)button.classList.add("selected");}
-  button.addEventListener("click",()=>chooseSDGDecision(index));
-  $("#sdgGameChoices").appendChild(button);
+  button.addEventListener("click",()=>chooseSDGDecision(index));$("#sdgGameChoices").appendChild(button);
  });
 }
 function chooseSDGDecision(choiceIndex){
@@ -2598,7 +2605,7 @@ function chooseSDGDecision(choiceIndex){
  sdg10State.pressure=clampSDG(sdg10State.pressure-publicMood);
  sdg10State.lastPublicMood=publicMood;sdg10State.selectedChoice=choiceIndex;
  sdg10State.selected=true;
- sdg10State.history.push({year:2026+sdg10State.index*10,decision:event.title,choice:choice.title});
+ sdg10State.history.push({year:2026+sdg10State.index*5,decision:event.title,choice:choice.title});
  saveSDG10State();
  renderSDGMetrics();updateSDGMapHighlights();
  $("#sdgGameOutcome").textContent=choice.impact+" Public support "+(publicMood>=0?"rose by ":"fell by ")+Math.abs(publicMood)+" points. Global inequality pressure "+(publicMood>=0?"fell to ":"rose to ")+sdg10State.pressure+"/100.";
@@ -2609,9 +2616,9 @@ function chooseSDGDecision(choiceIndex){
  $("#sdgGameNext").textContent=sdg10State.index===9?"See your 2126 outcome →":"Continue to "+(2036+sdg10State.index*10)+" →";
 }
 function finishSDGJourney(){
- sdg10State.finished=true;sdg10State.index=10;saveSDG10State();
+ sdg10State.finished=true;sdg10State.index=20;saveSDG10State();
  renderSDGMetrics();$("#sdgGameYear").textContent="2126";$("#sdgGameStep").textContent="CENTURY COMPLETE";
- $("#sdgGameCounter").textContent="10 / 10";$("#sdgGameTag").textContent="THE WORLD IN 2126 · YOUR LEGACY";
+ $("#sdgGameCounter").textContent="20 / 20";$("#sdgGameTag").textContent="THE WORLD IN 2126 · YOUR LEGACY";
  const metrics=[["Opportunity",sdg10State.opportunity],["Inclusion",sdg10State.inclusion],["Wellbeing",sdg10State.wellbeing],["Equality",sdg10State.equality]];
  const score=Math.round(metrics.reduce((sum,item)=>sum+item[1],0)/metrics.length);
  const strongest=[...metrics].sort((a,b)=>b[1]-a[1])[0],weakest=[...metrics].sort((a,b)=>a[1]-b[1])[0];
@@ -2622,10 +2629,10 @@ function finishSDGJourney(){
  else if(score>=55){tier="A fairer world is taking shape";message="Your decisions improved some parts of life, but progress was uneven. The next generation will need to focus on the groups and regions still facing the greatest barriers.";}
  else{tier="A world still fighting inequality";message="Many barriers survived the century. The result is not the end of the story: it shows why fair institutions, public investment and meaningful participation matter.";}
  $("#sdgGameTitle").textContent=tier;
- $("#sdgGameScenario").textContent="You guided the world from 2026 to 2126. Your legacy is shaped by 10 policy decisions and the crisis responses you made along the way.";
+ $("#sdgGameScenario").textContent="You guided the world from 2026 to 2126. Your legacy is shaped by 20 policy decisions and the crisis responses you made along the way.";
  const box=$("#sdgGameChoices");box.replaceChildren();
  const ending=document.createElement("div");ending.className="sdg-ending";
- const headline=document.createElement("strong");headline.textContent="100 years. 10 decisions. One shared planet.";
+ const headline=document.createElement("strong");headline.textContent="100 years. 20 decisions. One shared planet.";
  const summary=document.createElement("p");summary.textContent=message;
  const insight=document.createElement("p");insight.textContent="Strongest indicator: "+strongest[0]+" ("+strongest[1]+"). Biggest remaining challenge: "+weakest[0]+" ("+weakest[1]+").";
  const stats=document.createElement("div");stats.className="sdg-final-stats";
@@ -2680,24 +2687,18 @@ function chooseSDGEvent(choiceIndex){
 function advanceSDGJourney(){
  if(sdg10State.finished){restartSDGJourney();return;}
  if(!sdg10State.selected)return;
- if(sdg10State.eventPending){
-  if(!sdg10State.eventResolved)return;
-  sdg10State.eventPending=false;sdg10State.eventResolved=false;sdg10State.eventChoice=null;
-  sdg10State.index++;sdg10State.selected=false;sdg10State.selectedChoice=null;sdg10State.lastPublicMood=0;
-  saveSDG10State();renderSDGDecision();return;
- }
- const event=sdgWorldEvents.find(item=>item.afterIndex===sdg10State.index);
- if(event){sdg10State.eventPending=true;sdg10State.eventResolved=false;sdg10State.eventChoice=null;saveSDG10State();renderSDGEvent();return;}
- if(sdg10State.index===9){finishSDGJourney();return;}
- sdg10State.index++;sdg10State.selected=false;sdg10State.selectedChoice=null;sdg10State.lastPublicMood=0;saveSDG10State();renderSDGDecision();
+ if(sdg10State.index===19){finishSDGJourney();return;}
+ sdg10State.index++;sdg10State.selected=false;sdg10State.selectedChoice=null;sdg10State.lastPublicMood=0;
+ saveSDG10State();renderSDGDecision();
 }
+
 function restartSDGJourney(){
  sdg10State={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,pressure:62,history:[],selected:false,selectedChoice:null,lastPublicMood:0,eventPending:false,eventResolved:false,eventChoice:null,finished:false};
  saveSDG10State();renderSDGDecision();
 }
 $("#sdgGameNext").addEventListener("click",advanceSDGJourney);
 $("#sdgEventNext").addEventListener("click",advanceSDGJourney);
-$("#sdgMapInsightClose").addEventListener("click",()=>{$("#sdgMapInsight").hidden=true;});
+
 
 
 /* Country and region problem locations shown directly on the map */
@@ -2711,10 +2712,10 @@ function showSDGMapInsight(index){
  $("#sdgMapInsight").hidden=false;
 }
 function updateSDGMapHighlights(){
- const current=sdg10State.index>=10?9:sdg10State.index;
+ const current=sdg10State.index>=20?19:sdg10State.index;
  document.querySelectorAll(".sdg-fallback-pin").forEach((pin,index)=>{
   const item=sdgRegionStories[index];if(!item)return;
-  const step=item.decisionIndex??index;
+  const step=(item.decisionIndex??index)*2;
   const severity=clampSDG(item.severity+(sdg10State.pressure-62)*.42);
   pin.classList.toggle("is-current",step===current);
   pin.classList.toggle("is-visited",step<current);
@@ -2733,7 +2734,7 @@ function renderSDGMapPins(){
   pin.setAttribute("aria-label","Open "+item.place+" hotspot: "+item.issue);pin.style.left=point[0]+"px";pin.style.top=point[1]+"px";
   pin.classList.add(item.severity>=80?"severity-high":item.severity>=70?"severity-medium":"severity-low");
   pin.dataset.story=String(index);pin.innerHTML="<span>"+String(index+1).padStart(2,"0")+"</span>";
-  pin.addEventListener("click",()=>showSDGMapInsight(index));layer.appendChild(pin);
+  pin.disabled=true;pin.tabIndex=-1;pin.removeAttribute("title");pin.setAttribute("aria-hidden","true");layer.appendChild(pin);
  });
  updateSDGMapHighlights();
 }
