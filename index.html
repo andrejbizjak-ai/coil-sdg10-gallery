@@ -772,8 +772,6 @@ body.light .hero {background:
 .sdg-panel-footer>span{color:#a9bec8;font-size:9px;line-height:1.4}
 .sdg-panel-footer .button{min-height:38px;padding:9px 13px;font-size:8px;white-space:nowrap}
 .sdg-panel-footer .button:disabled{opacity:.42;cursor:not-allowed}
-.sdg-map-note{position:absolute;right:8px;bottom:8px;padding:6px 9px;color:#fff;background:rgba(7,27,40,.76);font-size:8px;letter-spacing:.13em;backdrop-filter:blur(8px)}
-.sdg-map-pulse{display:inline-block;width:7px;height:7px;background:#62e2a7;border-radius:50%;margin-right:6px;box-shadow:0 0 10px #62e2a7}
 .sdg-ending{padding:14px;background:linear-gradient(110deg,rgba(56,159,139,.2),rgba(231,192,88,.12));border:1px solid rgba(150,226,195,.35);color:#e9f7f1;font-size:11px;line-height:1.7}
 .sdg-ending strong{display:block;font:400 21px Georgia,serif;margin-bottom:5px;color:#f5d678}
 .sdg-final-stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-top:12px}
@@ -957,22 +955,6 @@ body.light .hero {background:
 @media(prefers-reduced-motion:reduce){.field-slider-visual img{transition:none}.photo-compare-after{transition:none}}
 </style>
 <style id="sdg-game-upgrade-styles">
-.sdg-decision-panel.event-mode>*:not(#sdgEventPanel){display:none!important}
-.sdg-event-panel[hidden]{display:none!important}
-.sdg-event-panel{display:grid;gap:12px}
-.sdg-event-panel h3{font:400 clamp(27px,3.3vw,38px)/1.08 Georgia,serif;color:#fff;margin:0}
-.sdg-event-panel>p{font-size:12px;line-height:1.7;color:#d0dfe4;margin:0;max-width:560px}
-.sdg-event-options{display:grid;gap:9px}
-.sdg-event-choice{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:center;width:100%;text-align:left;padding:11px 12px;border:1px solid rgba(205,228,234,.25);background:rgba(255,255,255,.07);color:#fff;cursor:pointer}
-.sdg-event-choice:hover:not(:disabled){background:rgba(71,171,183,.2);border-color:#6ed3d4}
-.sdg-event-choice:disabled{cursor:default;opacity:.72}
-.sdg-event-choice.selected{border-color:#f1c85c;background:rgba(241,200,92,.16);opacity:1}
-.sdg-event-outcome{display:none;padding:12px 14px;border-left:3px solid #f1c85c;background:rgba(241,200,92,.1);color:#f2ead4;font-size:11px;line-height:1.65}
-.sdg-event-outcome.visible{display:block}
-.sdg-event-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:4px}
-.sdg-event-footer>span{color:#a9bec8;font-size:9px;line-height:1.5}
-.sdg-event-footer .button{min-height:38px;padding:9px 13px;font-size:8px;white-space:nowrap}
-.sdg-event-footer .button:disabled{opacity:.4;cursor:not-allowed}
 .map-style-switch{position:absolute;z-index:25;right:14px;top:14px;display:flex;gap:5px;padding:4px;border:1px solid rgba(255,255,255,.25);background:rgba(5,20,31,.86);box-shadow:0 5px 18px rgba(0,0,0,.28);pointer-events:auto}
 .map-style-switch button{border:0;padding:9px 11px;background:transparent;color:#dceaf0;font:800 8px/1 Arial,sans-serif;letter-spacing:.12em;cursor:pointer}
 .map-style-switch button.active{background:#f0c75b;color:#142936}
@@ -1627,7 +1609,7 @@ body.light .hero {background:
           <button class="button secondary" id="worldContinue" type="button">CONTINUE CAMPAIGN</button>
           
         </div>
-        <p class="world-save-status" id="worldSaveStatus" role="status" aria-live="polite">THE PLANET IS READY TO EXPLORE.</p>
+        <p class="world-save-status" id="worldSaveStatus" role="status" aria-live="polite">20 DECISIONS · 5-YEAR STEPS · YOUR WORLD IN 2126.</p>
       </div>
 
       <div class="earth-view" id="earthView" hidden>
@@ -1646,10 +1628,10 @@ body.light .hero {background:
           </section>
         </div>
         <div class="world-map-stage" id="worldMapStage" aria-label="Political world map with non-interactive regional inequality indicators">
-          <div id="realWorldMap" aria-label="Flat political world map showing countries and boundaries"></div>
+          <div id="realWorldMap" aria-label="Flat political world map showing country boundaries and simulated regional inequality indicators"></div>
           <div id="sdgMapFallbackPins" aria-hidden="true"></div>
-          <div class="sdg-map-legend" role="img" aria-label="Simulated regional pressure: red high, amber elevated, teal lower"><strong>REGIONAL PRESSURE · SIMULATED</strong><span><i class="red"></i> HIGH</span><span><i class="amber"></i> ELEVATED</span><span><i class="green"></i> LOWER</span></div>
-          <div class="map-attribution">Natural Earth boundaries · Regional indicators are simulated, not live country data</div>
+          <div class="sdg-map-legend" role="img" aria-label="Simulated regional inequality pressure: red high, amber elevated, teal lower. Not live country data."><strong>REGIONAL PRESSURE · SIMULATED</strong><span><i class="red"></i> HIGH</span><span><i class="amber"></i> ELEVATED</span><span><i class="green"></i> LOWER</span></div>
+          <div class="map-attribution">Natural Earth boundaries · Simulated regional indicators, not live country statistics</div>
         </div>
         <div class="earth-view-top"><span>COIL · SDG 10 — REDUCED INEQUALITIES</span><button class="button secondary" id="earthBack" type="button">← MENU</button></div>
         <div class="sdg-game-shell" id="sdgGame">
@@ -2552,51 +2534,7 @@ sdg10Decisions.push(
   {title:"Focus only on average national income",detail:"Treat rising GDP per person as proof that everyone is better off.",effect:[2,0,1,-2],impact:"Averages can rise while low-income households fall behind, so important inequalities remain hidden."},
   {title:"Prioritise gains at the top and wait for them to spread",detail:"Assume concentrated wealth will eventually benefit everyone without targeted action.",effect:[-7,-6,-4,-9],impact:"Without fair opportunities and shared gains, concentrated wealth can widen the distance between rich and poor."}
  ]},
- {tag:"CARE & WELLBEING · TARGET 10.4",title:"Recognise the value of care",scenario:"2081. An ageing population needs more childcare, disability support and elder care. Care workers are underpaid, and families with low incomes struggle to find reliable services. What will you change?",choices:[
-  {title:"Invest in public care services and fair wages",detail:"Expand affordable care, train staff and set decent pay and working conditions.",effect:[7,8,10,8],impact:"Reliable care supports families, improves wellbeing and recognises work that allows the rest of the economy to function."},
-  {title:"Give families small tax credits only",detail:"Offer limited financial help without expanding the supply of care services.",effect:[2,1,2,1],impact:"Some families receive support, but areas with too few care workers still face long waits and high prices."},
-  {title:"Shift care responsibilities back to unpaid households",detail:"Reduce public provision and expect families to fill the gaps.",effect:[-5,-6,-8,-6],impact:"People with the least time and money carry the greatest burden, limiting their ability to work and participate."}
- ]},
- {tag:"FAIR JUSTICE · TARGET 10.3",title:"Equal treatment under the law",scenario:"2086. An independent review finds that some communities face unequal treatment in policing, courts and access to legal help. How will you restore trust and equal rights?",choices:[
-  {title:"Fund independent oversight and accessible legal aid",detail:"Publish transparent data, investigate discrimination and support people who cannot afford legal advice.",effect:[5,9,6,10],impact:"Independent review and access to justice make rights more meaningful and help institutions earn public trust."},
-  {title:"Run a short public awareness campaign",detail:"Promote general messages about fairness without changing procedures or accountability.",effect:[1,2,0,1],impact:"Awareness can help, but people continue to face the same barriers when systems and practices remain unchanged."},
-  {title:"Keep complaints inside the same institutions",detail:"Allow agencies to investigate themselves without independent review.",effect:[0,-5,-1,-6],impact:"People who have experienced unfair treatment may not trust a process that lacks independence and transparency."}
- ]},
- {tag:"LIFELONG LEARNING · TARGET 10.2",title:"A second chance to qualify",scenario:"2091. Economic change has left many adults without the qualifications needed for secure work. Rural residents and people with disabilities face extra barriers to training. What is your response?",choices:[
-  {title:"Create flexible, accessible adult learning centres",detail:"Fund evening courses, recognition of prior learning, assistive technology and travel support.",effect:[9,8,7,8],impact:"Adults can build on their experience and gain new qualifications without needing to leave their communities."},
-  {title:"Fund only full-time campus courses",detail:"Concentrate resources on traditional programmes in major cities.",effect:[3,0,1,1],impact:"Some learners benefit, but people with care responsibilities, disabilities or long travel distances are left out."},
-  {title:"Require employers to provide training without support",detail:"Make each worker negotiate access to learning with their employer.",effect:[-2,-3,-2,-3],impact:"Workers in large organisations may gain training while people in insecure or low-paid jobs have fewer opportunities."}
- ]},
- {tag:"GLOBAL COOPERATION · TARGET 10.6",title:"Make international rules representative",scenario:"2096. A global agreement will shape access to finance, technology and natural resources. Developing countries want a meaningful voice and decisions that reflect the needs of their people. What will you support?",choices:[
-  {title:"Reform voting and representation in global institutions",detail:"Give under-represented countries a stronger role and publish clear reasons behind decisions.",effect:[8,8,7,9],impact:"More balanced representation helps ensure that international rules reflect a wider range of needs and experiences."},
-  {title:"Keep the current voting system and add observers",detail:"Invite more countries to watch meetings without giving them decision-making power.",effect:[1,2,0,1],impact:"Observers can share information, but they cannot change outcomes when they have no meaningful vote."},
-  {title:"Let the largest contributors decide",detail:"Give financial contributors the strongest control over the agreement.",effect:[-6,-5,-3,-8],impact:"The interests of powerful contributors dominate, while less wealthy countries have fewer ways to influence rules that affect them."}
- ]},
- {tag:"HOUSING & CLIMATE · TARGET 10.2",title:"Protect communities from displacement",scenario:"2101. New climate-safe infrastructure is planned along a coastline, but the project could displace long-standing low-income communities. How will you make the transition fair?",choices:[
-  {title:"Guarantee resident participation and nearby replacement homes",detail:"Offer secure tenure, fair compensation and a real vote in the relocation and design process.",effect:[7,9,8,9],impact:"Safety improvements proceed while communities retain dignity, connections and a meaningful role in decisions."},
-  {title:"Pay a one-time relocation grant",detail:"Move residents quickly and provide limited cash compensation.",effect:[2,-2,1,-1],impact:"Some households receive immediate help, but a one-time payment may not replace stable housing or community networks."},
-  {title:"Clear the area without resident consent",detail:"Prioritise project deadlines and property development over local voices.",effect:[-5,-9,-5,-8],impact:"People lose homes and influence, and the benefits of safer infrastructure are distributed unfairly."}
- ]},
- {tag:"AI & NON-DISCRIMINATION · TARGET 10.3",title:"Stop bias in automated decisions",scenario:"2106. Public agencies use automated systems to allocate benefits and assess applications. An audit finds that some groups are rejected more often for reasons they cannot understand or challenge. What will you do?",choices:[
-  {title:"Require independent audits and human appeals",detail:"Test systems for discrimination, explain decisions and let people challenge outcomes with human support.",effect:[6,9,6,10],impact:"Independent checks and human appeals make automated services more accountable and protect equal treatment."},
-  {title:"Ask technology companies to self-certify",detail:"Accept voluntary assurances and keep system details confidential.",effect:[2,0,1,0],impact:"Self-certification is inexpensive, but affected people cannot easily verify whether the system treats them fairly."},
-  {title:"Automate every decision to reduce costs",detail:"Remove human review and make automated outcomes final.",effect:[1,-8,-3,-9],impact:"Administration may become faster, but errors and hidden bias become harder to challenge."}
- ]},
- {tag:"HEALTH EQUITY · TARGET 10.2",title:"Care that reaches everyone",scenario:"2111. Medical advances are improving health, but remote communities and low-income households cannot afford new treatments or reach specialist care. How will you distribute access?",choices:[
-  {title:"Guarantee essential care and invest in local clinics",detail:"Fund primary care, accessible transport, medicine coverage and fair distribution of specialist staff.",effect:[7,8,10,8],impact:"People receive timely essential care closer to home, reducing the way income and location shape health outcomes."},
-  {title:"Subsidise private treatment for selected groups",detail:"Offer limited vouchers while relying mainly on private providers.",effect:[2,0,3,0],impact:"Some people access new treatments, but support remains uneven and those outside the selected groups wait longer."},
-  {title:"Concentrate services in wealthy urban centres",detail:"Place the newest facilities where demand and revenue are highest.",effect:[-4,-6,-5,-7],impact:"Advanced care expands for some while remote and low-income communities face longer journeys and fewer choices."}
- ]},
- {tag:"TRADE & WORKERS · TARGET 10.4",title:"Make global supply chains fairer",scenario:"2116. Global trade creates new wealth, but workers in lower-income regions report unsafe conditions and unstable wages. How will you make trade more inclusive?",choices:[
-  {title:"Require fair labour standards across supply chains",detail:"Set transparent standards, protect worker representation and monitor conditions independently.",effect:[7,7,8,9],impact:"Workers gain stronger protections and a greater share of the value created through international trade."},
-  {title:"Rely on voluntary company pledges",detail:"Encourage brands to publish commitments without independent checks.",effect:[1,1,1,0],impact:"Some companies improve, but weak accountability makes it difficult to identify or correct poor conditions."},
-  {title:"Compete by lowering wages and protections",detail:"Reduce labour standards to attract investment and keep prices low.",effect:[2,-5,-4,-8],impact:"Some investment may arrive, but workers bear the cost through lower security, unsafe conditions and weak bargaining power."}
- ]},
- {tag:"SHARED PROSPERITY · TARGET 10.1",title:"Make the next century fairer",scenario:"2121. National income is rising, but the lowest-income households are not seeing the same gains. What should governments measure and change before the century ends?",choices:[
-  {title:"Track the bottom 40% and publish progress every year",detail:"Use income data to shape fair wages, social protection and access to essential services.",effect:[9,8,8,10],impact:"Progress is judged by whether people with the lowest incomes actually benefit, not only by national averages."},
-  {title:"Measure only average national income",detail:"Treat rising GDP per person as proof that everyone is better off.",effect:[2,0,1,-2],impact:"Averages can rise while low-income households fall behind, leaving important inequalities hidden."},
-  {title:"Prioritise gains at the top and wait for them to spread",detail:"Assume concentrated wealth will eventually reach everyone without targeted action.",effect:[-7,-6,-4,-9],impact:"Without fair opportunities and shared gains, concentrated wealth can widen the distance between rich and poor."}
- ]}
+
 );
 const sdgRegionStories=[
  {place:"Dhaka, Bangladesh",issue:"Affordable housing & access to services",lat:23.81,lng:90.41,brief:"A growing neighbourhood sits between busy transport routes and rising rents. Families are spending more of their income on housing, while safe transport, nearby schools and public spaces have not kept pace. The city must decide whether development will include the people who already live here.",voice:"“We do not want to be moved farther away. We want safe homes, good transport and a say in how our neighbourhood changes.” — A resident, in this fictional scenario"},
@@ -2758,7 +2696,7 @@ function finishSDGJourney(){
  const metrics=[["Opportunity",sdg10State.opportunity],["Inclusion",sdg10State.inclusion],["Wellbeing",sdg10State.wellbeing],["Equality",sdg10State.equality]];
  const score=Math.round(metrics.reduce((sum,item)=>sum+item[1],0)/metrics.length);
  const legacyScore=Math.round((score+sdg10State.popularity+(100-sdg10State.pressure))/3);
- const legacyGrade=legacyScore>=85?"TRANSFORMATIVE LEGACY":legacyScore>=70?"STRONG SHARED PROGRESS":legacyScore>=55?"UNEven BUT MEANINGFUL":legacyScore>=40?"PROGRESS STILL FRAGILE":"A CENTURY OF UNFINISHED WORK";
+ const legacyGrade=legacyScore>=85?"TRANSFORMATIVE LEGACY":legacyScore>=70?"STRONG SHARED PROGRESS":legacyScore>=55?"UNEVEN BUT MEANINGFUL":legacyScore>=40?"PROGRESS STILL FRAGILE":"A CENTURY OF UNFINISHED WORK";
  const strongest=[...metrics].sort((a,b)=>b[1]-a[1])[0],weakest=[...metrics].sort((a,b)=>a[1]-b[1])[0];
  let tier,message;
  if(score>=78&&sdg10State.pressure<35){tier="A century of shared prosperity";message="Your century combined strong public services, fair representation and shared economic gains. Inequality pressure fell and more people could shape the decisions affecting their lives.";}
@@ -2908,6 +2846,7 @@ function updateContinueCampaignButton(){
  const available=hasSavedSDGCampaign();
  button.disabled=!available;
  button.textContent=available?"CONTINUE CAMPAIGN":"NO SAVED CAMPAIGN";
+ if(!available)button.setAttribute("aria-label","Continue campaign unavailable until you make and save a decision");else button.removeAttribute("aria-label");
 }
 function continueSDGCampaign(){
  if(!hasSavedSDGCampaign()){
