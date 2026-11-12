@@ -956,6 +956,50 @@ body.light .hero {background:
 @media(max-width:650px){.photo-compare-head,.photo-compare-caption{display:block}.photo-compare-head p{margin-top:10px}.photo-compare-caption span{display:block;margin-top:5px}}
 @media(prefers-reduced-motion:reduce){.field-slider-visual img{transition:none}.photo-compare-after{transition:none}}
 </style>
+<style id="sdg-game-upgrade-styles">
+.sdg-decision-panel.event-mode>*:not(#sdgEventPanel){display:none!important}
+.sdg-event-panel[hidden]{display:none!important}
+.sdg-event-panel{display:grid;gap:12px}
+.sdg-event-panel h3{font:400 clamp(27px,3.3vw,38px)/1.08 Georgia,serif;color:#fff;margin:0}
+.sdg-event-panel>p{font-size:12px;line-height:1.7;color:#d0dfe4;margin:0;max-width:560px}
+.sdg-event-options{display:grid;gap:9px}
+.sdg-event-choice{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:center;width:100%;text-align:left;padding:11px 12px;border:1px solid rgba(205,228,234,.25);background:rgba(255,255,255,.07);color:#fff;cursor:pointer}
+.sdg-event-choice:hover:not(:disabled){background:rgba(71,171,183,.2);border-color:#6ed3d4}
+.sdg-event-choice:disabled{cursor:default;opacity:.72}
+.sdg-event-choice.selected{border-color:#f1c85c;background:rgba(241,200,92,.16);opacity:1}
+.sdg-event-outcome{display:none;padding:12px 14px;border-left:3px solid #f1c85c;background:rgba(241,200,92,.1);color:#f2ead4;font-size:11px;line-height:1.65}
+.sdg-event-outcome.visible{display:block}
+.sdg-event-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:4px}
+.sdg-event-footer>span{color:#a9bec8;font-size:9px;line-height:1.5}
+.sdg-event-footer .button{min-height:38px;padding:9px 13px;font-size:8px;white-space:nowrap}
+.sdg-event-footer .button:disabled{opacity:.4;cursor:not-allowed}
+.map-style-switch{position:absolute;z-index:25;right:14px;top:14px;display:flex;gap:5px;padding:4px;border:1px solid rgba(255,255,255,.25);background:rgba(5,20,31,.86);box-shadow:0 5px 18px rgba(0,0,0,.28);pointer-events:auto}
+.map-style-switch button{border:0;padding:9px 11px;background:transparent;color:#dceaf0;font:800 8px/1 Arial,sans-serif;letter-spacing:.12em;cursor:pointer}
+.map-style-switch button.active{background:#f0c75b;color:#142936}
+.map-attribution{max-width:calc(100% - 24px);font-size:8px!important}
+.sdg-final-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:16px}
+.sdg-final-stats>span{display:flex;justify-content:space-between;gap:8px;padding:9px 10px;background:rgba(255,255,255,.08);color:#c4d8df;font-size:9px;line-height:1.4}
+.sdg-final-stats b{color:#f2cf6b;font-size:13px}
+.sdg-history-title{margin:22px 0 8px;color:#f2cf6b;font:800 9px Arial,sans-serif;letter-spacing:.16em}
+.sdg-history{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.sdg-history li{display:grid;grid-template-columns:auto auto 1fr;gap:5px;padding:8px 10px;background:rgba(255,255,255,.055);font-size:9px;line-height:1.5;color:#c6d8df}
+.sdg-history li>b{color:#f2cf6b;white-space:nowrap}
+.sdg-history li strong{color:#8fd9d0;white-space:nowrap}
+.sdg-ending>p{margin-top:10px;color:#d4e2e6;font-size:11px;line-height:1.7}
+.sdg-decision-panel{scrollbar-color:#487080 #0b2432}
+@media(max-width:650px){
+ .map-style-switch{top:8px;right:8px}
+ .map-style-switch button{padding:8px 9px;font-size:7px}
+ .sdg-event-panel h3{font-size:25px}
+ .sdg-event-panel>p{font-size:10px}
+ .sdg-event-choice{padding:8px;gap:7px}
+ .sdg-event-footer{align-items:stretch;flex-direction:column}
+ .sdg-event-footer .button{width:100%}
+ .sdg-final-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .sdg-history li{grid-template-columns:auto 1fr}
+ .sdg-history li strong{grid-column:1/-1}
+}
+</style>
 </head>
 
 <body>
@@ -1509,8 +1553,8 @@ body.light .hero {background:
             <g fill="none" stroke="#fff4d7" stroke-width="1.1" stroke-dasharray="3 3" opacity=".7"><path d="M180 95l-8 65 18 60M245 108l-8 55 20 44M318 130l-18 64 10 54M575 120l14 50-12 48M630 110l-8 52 17 41M700 115l-5 55 18 42M770 117l-14 56 21 46M850 140l-15 55 20 49M920 162l-15 45 17 40M590 245l23 41-10 51M640 254l-15 47 16 38"/></g>
             <g font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#315a65" opacity=".8" letter-spacing="2"><text x="210" y="205">NORTH AMERICA</text><text x="345" y="390">SOUTH AMERICA</text><text x="615" y="300">AFRICA</text><text x="620" y="140">EUROPE</text><text x="850" y="190">ASIA</text><text x="970" y="455">AUSTRALIA</text></g>
           </svg></div>
-          <div id="realWorldMap"></div><div id="sdgMapFallbackPins"></div><div class="sdg-map-legend"><span><i class="red"></i> HIGH PRESSURE</span><span><i class="amber"></i> NEEDS ACTION</span><span><i class="green"></i> IMPROVING</span></div>
-          <div class="map-attribution">20 GLOBAL HOTSPOTS · OPENSTREETMAP / CARTO</div>
+          <div id="realWorldMap"></div><div id="sdgMapFallbackPins"></div><div class="map-style-switch" role="group" aria-label="World map style"><button type="button" id="mapSatelliteButton" class="active" aria-pressed="true">SATELLITE</button><button type="button" id="mapStreetButton" aria-pressed="false">STREET MAP</button></div><div class="sdg-map-legend"><span><i class="red"></i> HIGH PRESSURE</span><span><i class="amber"></i> NEEDS ACTION</span><span><i class="green"></i> IMPROVING</span></div>
+          <div class="map-attribution" id="mapAttribution">Imagery: Esri, Maxar, Earthstar Geographics, and the GIS User Community</div>
         </div>
         <div class="earth-view-top"><span>COIL · SDG 10 — REDUCED INEQUALITIES</span><button class="button secondary" id="earthBack" type="button">← MENU</button></div>
         <div class="sdg-game-shell" id="sdgGame">
@@ -1536,6 +1580,14 @@ body.light .hero {background:
             <div class="sdg-choices" id="sdgGameChoices"></div>
             <div class="sdg-outcome" id="sdgGameOutcome" role="status">Choose a policy. Your decision will shape the next decade.</div>
             <div class="sdg-panel-footer"><span id="sdgGameHint">Every choice has long-term consequences.</span><button class="button" id="sdgGameNext" type="button" disabled>Continue to 2036 →</button></div>
+            <section class="sdg-event-panel" id="sdgEventPanel" hidden aria-live="polite">
+              <div class="sdg-panel-heading"><span id="sdgEventYear">WORLD EVENT · 2050</span><span>UNEXPECTED CHALLENGE</span></div>
+              <h3 id="sdgEventTitle">A new challenge changes the plan.</h3>
+              <p id="sdgEventCopy"></p>
+              <div class="sdg-event-options" id="sdgEventOptions"></div>
+              <div class="sdg-event-outcome" id="sdgEventOutcome" role="status">Choose how your government will respond.</div>
+              <div class="sdg-event-footer"><span id="sdgEventHint">Your response will affect the world's indicators.</span><button class="button" id="sdgEventNext" type="button" disabled>Continue to the next decade →</button></div>
+            </section>
           </section>
           <aside class="sdg-map-insight" id="sdgMapInsight" hidden aria-live="polite">
             <button class="sdg-map-insight-close" id="sdgMapInsightClose" type="button" aria-label="Close map story">×</button>
@@ -2377,16 +2429,30 @@ const sdgRegionStories=[
  {place:"Mumbai, India",issue:"Digital inclusion & access to services",lat:19.08,lng:72.88,brief:"Public services are moving onto digital platforms. People with older devices, limited connectivity, disabilities, language barriers or incomplete identity records struggle to access benefits. The city must decide whether technology becomes a bridge or another gate.",voice:"“A digital service is not modern if the people who need it most cannot use it.” — An accessibility advocate, in this fictional scenario"},
  {place:"Addis Ababa, Ethiopia",issue:"Global representation & shared decisions",lat:8.98,lng:38.76,brief:"Countries are preparing a century-defining agreement on trade, technology and shared resources. Developing countries want a meaningful voice, clear accountability and decisions that reflect the needs of communities, not only the influence of powerful institutions.",voice:"“Partnership means more than being in the room. It means being able to change the outcome.” — A youth delegate, in this fictional scenario"}
 ];
-const SDG10_SAVE_KEY="coil-sdg10-world-rescue-v1";
+const sdgWorldEvents=[
+ {afterIndex:2,year:2050,title:"A climate shock hits food and housing",copy:"A chain of severe storms disrupts crops, damages homes and pushes rents higher. The communities with the fewest savings are hit hardest. Your response will shape the recovery.",choices:[
+  {title:"Protect people first",detail:"Release emergency housing support, food assistance and locally led recovery funds.",effect:[4,5,7,5],impact:"Emergency support protects households from being pushed further into poverty. Local leadership helps recovery reach the people most affected."},
+  {title:"Wait for private investment",detail:"Offer incentives to developers and wait for the market to restore services.",effect:[1,-3,-2,-2],impact:"Investment may arrive, but families without savings face longer disruption and may lose their homes before recovery reaches them."}
+ ]},
+ {afterIndex:5,year:2080,title:"An automation boom leaves workers behind",copy:"A rapid wave of automation boosts productivity, but entire regions lose stable jobs. Public trust falls as people see the benefits concentrated among a small number of companies.",choices:[
+  {title:"Share the gains with workers",detail:"Create a transition fund for retraining, wage insurance and worker ownership.",effect:[5,5,4,7],impact:"Workers gain time and support to move into new jobs, while a share of new productivity reaches the communities that helped create it."},
+  {title:"Prioritise growth at any cost",detail:"Cut protections and let companies restructure without transition support.",effect:[2,-4,-3,-5],impact:"Some industries grow faster, but insecurity increases and more households carry the cost of technological change."}
+ ]},
+ {afterIndex:8,year:2110,title:"A digital identity failure locks people out",copy:"A global identity platform suffers a major failure. People without reliable documents, accessible devices or offline support cannot reach benefits and essential public services.",choices:[
+  {title:"Guarantee human help and offline access",detail:"Restore local service desks, accessible alternatives and privacy-safe appeals.",effect:[4,7,5,6],impact:"People regain access to essential services, and institutions rebuild trust by offering more than one way to participate."},
+  {title:"Keep digital-only services",detail:"Require everyone to solve the problem through the platform.",effect:[0,-6,-3,-4],impact:"Administration remains cheaper, but people already facing digital and documentation barriers are excluded again."}
+ ]}
+];
+const SDG10_SAVE_KEY="coil-sdg10-world-rescue-v2";
 function loadSDG10State(){
- const fresh={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,pressure:62,history:[],selected:false,selectedChoice:null,lastPublicMood:0,finished:false};
- try{const raw=localStorage.getItem(SDG10_SAVE_KEY);if(!raw)return fresh;const saved=JSON.parse(raw);if(saved.version!==1||!Number.isInteger(saved.index)||saved.index<0||saved.index>10)return fresh;
+ const fresh={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,pressure:62,history:[],selected:false,selectedChoice:null,lastPublicMood:0,eventPending:false,eventResolved:false,eventChoice:null,finished:false};
+ try{const raw=localStorage.getItem(SDG10_SAVE_KEY);if(!raw)return fresh;const saved=JSON.parse(raw);if(saved.version!==2||!Number.isInteger(saved.index)||saved.index<0||saved.index>10)return fresh;
  ["opportunity","inclusion","wellbeing","equality","popularity","pressure"].forEach(key=>{if(Number.isFinite(saved[key]))fresh[key]=Math.max(0,Math.min(100,saved[key]));});
- fresh.index=saved.index;fresh.history=Array.isArray(saved.history)?saved.history.slice(-10):[];fresh.selected=Boolean(saved.selected);fresh.selectedChoice=Number.isInteger(saved.selectedChoice)?saved.selectedChoice:null;fresh.lastPublicMood=Number(saved.lastPublicMood)||0;fresh.finished=Boolean(saved.finished);return fresh;
+ fresh.index=saved.index;fresh.history=Array.isArray(saved.history)?saved.history.slice(-10):[];fresh.selected=Boolean(saved.selected);fresh.selectedChoice=Number.isInteger(saved.selectedChoice)?saved.selectedChoice:null;fresh.lastPublicMood=Number(saved.lastPublicMood)||0;fresh.eventPending=Boolean(saved.eventPending);fresh.eventResolved=Boolean(saved.eventResolved);fresh.eventChoice=Number.isInteger(saved.eventChoice)?saved.eventChoice:null;fresh.finished=Boolean(saved.finished);return fresh;
  }catch{return fresh;}
 }
 let sdg10State=loadSDG10State();
-function saveSDG10State(){try{localStorage.setItem(SDG10_SAVE_KEY,JSON.stringify({...sdg10State,version:1}));}catch(e){console.warn("Could not save progress.",e);}}
+function saveSDG10State(){try{localStorage.setItem(SDG10_SAVE_KEY,JSON.stringify({...sdg10State,version:2}));}catch(e){console.warn("Could not save progress.",e);}}
 
 const additionalMapStories=[
  {place:"Lagos, Nigeria",issue:"Housing, transport & informal work",lat:6.52,lng:3.38,decisionIndex:0,severity:88,brief:"Fast urban growth is putting pressure on affordable homes, safe transport and secure work. Neighbourhoods with fewer services are often farthest from reliable jobs and public facilities. A fair city plan must include residents in decisions and bring essential services closer.",voice:"“We need a city where the people who keep it running can afford to live in it.” — A market trader, fictional scenario"},
@@ -2421,6 +2487,8 @@ function renderSDGMetrics(){
 function renderSDGDecision(){
  if(sdg10State.finished){finishSDGJourney();return;}
  renderSDGMetrics();
+ if(sdg10State.eventPending){renderSDGEvent();return;}
+ $("#sdgEventPanel").hidden=true;$("#sdgEventPanel").closest(".sdg-decision-panel").classList.remove("event-mode");
  const year=2026+sdg10State.index*10;
  $("#sdgGameYear").textContent=year;
  $("#sdgGameStep").textContent="DECISION "+(sdg10State.index+1)+" OF 10";
@@ -2480,28 +2548,91 @@ function finishSDGJourney(){
  sdg10State.finished=true;sdg10State.index=10;saveSDG10State();
  renderSDGMetrics();$("#sdgGameYear").textContent="2126";$("#sdgGameStep").textContent="CENTURY COMPLETE";
  $("#sdgGameCounter").textContent="10 / 10";$("#sdgGameTag").textContent="THE WORLD IN 2126 · YOUR LEGACY";
- const score=Math.round((sdg10State.opportunity+sdg10State.inclusion+sdg10State.wellbeing+sdg10State.equality)/4);
- const tier=score>=75?"A century of shared progress":score>=55?"A fairer world is taking shape":"A world still working towards equality";
- const message=score>=75?"Your decisions expanded access, opportunity and representation across generations. Many barriers were reduced because people and countries shared power and resources.":score>=55?"Your decisions helped improve lives, but some groups and regions still face barriers. The next step is to listen to those left behind and keep improving systems.":"The century brought difficult trade-offs and some inequalities remained. A fairer future needs stronger protections, inclusive institutions and decisions shaped by the people most affected.";
+ const metrics=[["Opportunity",sdg10State.opportunity],["Inclusion",sdg10State.inclusion],["Wellbeing",sdg10State.wellbeing],["Equality",sdg10State.equality]];
+ const score=Math.round(metrics.reduce((sum,item)=>sum+item[1],0)/metrics.length);
+ const strongest=[...metrics].sort((a,b)=>b[1]-a[1])[0],weakest=[...metrics].sort((a,b)=>a[1]-b[1])[0];
+ let tier,message;
+ if(score>=78&&sdg10State.pressure<35){tier="A century of shared prosperity";message="Your century combined strong public services, fair representation and shared economic gains. Inequality pressure fell and more people could shape the decisions affecting their lives.";}
+ else if(sdg10State.opportunity>=70&&sdg10State.equality<50){tier="Growth without enough fairness";message="Opportunity expanded, but equality did not keep pace. Your world created new possibilities while leaving gaps in power, pay or access that still need attention.";}
+ else if(sdg10State.inclusion>=70&&sdg10State.wellbeing>=60){tier="A more inclusive world";message="People gained a stronger voice and more communities could participate. Continued investment is needed to turn inclusion into lasting improvements in everyday wellbeing.";}
+ else if(score>=55){tier="A fairer world is taking shape";message="Your decisions improved some parts of life, but progress was uneven. The next generation will need to focus on the groups and regions still facing the greatest barriers.";}
+ else{tier="A world still fighting inequality";message="Many barriers survived the century. The result is not the end of the story: it shows why fair institutions, public investment and meaningful participation matter.";}
  $("#sdgGameTitle").textContent=tier;
- $("#sdgGameScenario").textContent="You guided the world from 2026 to 2126. Your final equality, opportunity, inclusion and wellbeing indicators reflect the choices made along the way.";
- $("#sdgGameChoices").innerHTML='<div class="sdg-ending"><strong>100 years. 10 decisions. One shared planet.</strong>'+message+'<div class="sdg-final-stats">'+[["Opportunity",sdg10State.opportunity],["Inclusion",sdg10State.inclusion],["Wellbeing",sdg10State.wellbeing],["Equality",sdg10State.equality],["Public support",sdg10State.popularity],["Inequality pressure",sdg10State.pressure],["Inequality pressure",sdg10State.pressure]].map(([name,value])=>'<span>'+name+'<b>'+value+'</b></span>').join("")+'</div></div>';
- $("#sdgGameOutcome").textContent="Your journey is complete. Final public support: "+sdg10State.popularity+"%. This approval score and supporter count are simulated game indicators.";
- $("#sdgGameOutcome").classList.add("visible");
- $("#sdgGameHint").textContent="Final public support: "+sdg10State.popularity+"% · "+(8.2*sdg10State.popularity/100).toFixed(1)+"B simulated supporters.";
+ $("#sdgGameScenario").textContent="You guided the world from 2026 to 2126. Your legacy is shaped by 10 policy decisions and the crisis responses you made along the way.";
+ const box=$("#sdgGameChoices");box.replaceChildren();
+ const ending=document.createElement("div");ending.className="sdg-ending";
+ const headline=document.createElement("strong");headline.textContent="100 years. 10 decisions. One shared planet.";
+ const summary=document.createElement("p");summary.textContent=message;
+ const insight=document.createElement("p");insight.textContent="Strongest indicator: "+strongest[0]+" ("+strongest[1]+"). Biggest remaining challenge: "+weakest[0]+" ("+weakest[1]+").";
+ const stats=document.createElement("div");stats.className="sdg-final-stats";
+ [...metrics,["Public support",sdg10State.popularity],["Inequality pressure",sdg10State.pressure]].forEach(([name,value])=>{
+  const item=document.createElement("span");item.textContent=name;const b=document.createElement("b");b.textContent=value+(name==="Public support"?"%":"");item.appendChild(b);stats.appendChild(item);
+ });
+ const historyTitle=document.createElement("h3");historyTitle.className="sdg-history-title";historyTitle.textContent="YOUR CENTURY IN REVIEW";
+ const history=document.createElement("ol");history.className="sdg-history";
+ sdg10State.history.forEach(entry=>{
+  const li=document.createElement("li"),year=document.createElement("b"),kind=document.createElement("strong"),description=document.createElement("span");
+  year.textContent=entry.year+" · ";kind.textContent=entry.type==="event"?"WORLD EVENT: ":"POLICY: ";description.textContent=entry.decision+" — "+entry.choice;
+  li.append(year,kind,description);history.appendChild(li);
+ });
+ ending.append(headline,summary,insight,stats,historyTitle,history);box.appendChild(ending);
+ $("#sdgGameOutcome").textContent="Final legacy: "+tier+". Public support and all indicator values are simulated game values.";
+ $("#sdgGameOutcome").classList.add("visible");$("#sdgGameHint").textContent="Your century is complete. Replay to test a different strategy.";
  $("#sdgGameNext").disabled=false;$("#sdgGameNext").textContent="Play again from 2026 ↻";
+}
+function renderSDGEvent(){
+ const event=sdgWorldEvents.find(item=>item.afterIndex===sdg10State.index);if(!event)return;
+ const panel=$("#sdgEventPanel");panel.hidden=false;panel.closest(".sdg-decision-panel").classList.add("event-mode");
+ $("#sdgEventYear").textContent="WORLD EVENT · "+event.year;
+ $("#sdgEventTitle").textContent=event.title;$("#sdgEventCopy").textContent=event.copy;
+ $("#sdgEventOptions").replaceChildren();
+ event.choices.forEach((choice,index)=>{
+  const button=document.createElement("button");button.type="button";button.className="sdg-event-choice";
+  button.innerHTML='<span class="sdg-choice-index">'+String.fromCharCode(65+index)+'</span><span class="sdg-choice-copy"><strong></strong><small></small></span>';
+  button.querySelector("strong").textContent=choice.title;button.querySelector("small").textContent=choice.detail;
+  if(sdg10State.eventResolved){button.disabled=true;if(index===sdg10State.eventChoice)button.classList.add("selected");}
+  button.addEventListener("click",()=>chooseSDGEvent(index));$("#sdgEventOptions").appendChild(button);
+ });
+ $("#sdgEventOutcome").classList.toggle("visible",sdg10State.eventResolved);
+ $("#sdgEventOutcome").textContent=sdg10State.eventResolved&&sdg10State.eventChoice!==null?event.choices[sdg10State.eventChoice].impact+" Your indicators and public support have changed.":"Choose how to respond to this unexpected challenge.";
+ $("#sdgEventHint").textContent=sdg10State.eventResolved?"Your response is saved. Continue the campaign.":"Your response will affect the world's indicators.";
+ $("#sdgEventNext").disabled=!sdg10State.eventResolved;
+ $("#sdgEventNext").textContent="Continue to "+(2036+sdg10State.index*10)+" →";
+}
+function chooseSDGEvent(choiceIndex){
+ if(!sdg10State.eventPending||sdg10State.eventResolved)return;
+ const event=sdgWorldEvents.find(item=>item.afterIndex===sdg10State.index),choice=event?.choices[choiceIndex];if(!choice)return;
+ ["opportunity","inclusion","wellbeing","equality"].forEach((key,i)=>sdg10State[key]=clampSDG(sdg10State[key]+choice.effect[i]));
+ const mood=Math.round(choice.effect.reduce((sum,value)=>sum+value,0)/4);
+ sdg10State.popularity=clampSDG(sdg10State.popularity+mood);sdg10State.pressure=clampSDG(sdg10State.pressure-mood);
+ sdg10State.eventResolved=true;sdg10State.eventChoice=choiceIndex;sdg10State.lastPublicMood=mood;
+ sdg10State.history.push({type:"event",year:event.year,decision:event.title,choice:choice.title});
+ saveSDG10State();renderSDGMetrics();
+ $(".sdg-event-choice",$("#sdgEventOptions")).forEach((button,index)=>{button.disabled=true;if(index===choiceIndex)button.classList.add("selected");});
+ $("#sdgEventOutcome").textContent=choice.impact+" Public support "+(mood>=0?"rose by ":"fell by ")+Math.abs(mood)+" points. Inequality pressure is now "+sdg10State.pressure+"/100.";
+ $("#sdgEventOutcome").classList.add("visible");$("#sdgEventHint").textContent="Your crisis response is now part of the century's history.";
+ $("#sdgEventNext").disabled=false;
 }
 function advanceSDGJourney(){
  if(sdg10State.finished){restartSDGJourney();return;}
  if(!sdg10State.selected)return;
+ if(sdg10State.eventPending){
+  if(!sdg10State.eventResolved)return;
+  sdg10State.eventPending=false;sdg10State.eventResolved=false;sdg10State.eventChoice=null;
+  sdg10State.index++;sdg10State.selected=false;sdg10State.selectedChoice=null;sdg10State.lastPublicMood=0;
+  saveSDG10State();renderSDGDecision();return;
+ }
+ const event=sdgWorldEvents.find(item=>item.afterIndex===sdg10State.index);
+ if(event){sdg10State.eventPending=true;sdg10State.eventResolved=false;sdg10State.eventChoice=null;saveSDG10State();renderSDGEvent();return;}
  if(sdg10State.index===9){finishSDGJourney();return;}
  sdg10State.index++;sdg10State.selected=false;sdg10State.selectedChoice=null;sdg10State.lastPublicMood=0;saveSDG10State();renderSDGDecision();
 }
 function restartSDGJourney(){
- sdg10State={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,pressure:62,history:[],selected:false,selectedChoice:null,lastPublicMood:0,finished:false};
+ sdg10State={index:0,opportunity:42,inclusion:44,wellbeing:48,equality:38,popularity:56,pressure:62,history:[],selected:false,selectedChoice:null,lastPublicMood:0,eventPending:false,eventResolved:false,eventChoice:null,finished:false};
  saveSDG10State();renderSDGDecision();
 }
 $("#sdgGameNext").addEventListener("click",advanceSDGJourney);
+$("#sdgEventNext").addEventListener("click",advanceSDGJourney);
 $("#sdgMapInsightClose").addEventListener("click",()=>{$("#sdgMapInsight").hidden=true;});
 
 
@@ -2550,10 +2681,21 @@ function initInteractiveEarth(){
  const el=$("#realWorldMap");if(!el||!window.L)return;
  if(!window.worldMapInstance){
   window.worldMapInstance=L.map(el,{center:[18,0],zoom:2,minZoom:2,maxZoom:2,zoomControl:false,attributionControl:false,dragging:false,scrollWheelZoom:false,doubleClickZoom:false,boxZoom:false,keyboard:false,touchZoom:false,zoomSnap:1,zoomDelta:1,worldCopyJump:false}).setView([18,0],2);
-  const atlasTiles=L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{subdomains:"abcd",maxZoom:19,noWrap:true,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'});
-  let osmFallbackAdded=false;
-  atlasTiles.on("tileerror",()=>{if(osmFallbackAdded)return;osmFallbackAdded=true;L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{subdomains:"abc",maxZoom:19,noWrap:true,attribution:'&copy; OpenStreetMap contributors'}).addTo(window.worldMapInstance);});
-  atlasTiles.addTo(window.worldMapInstance);
+  const imagery=L.tileLayer("https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",{maxZoom:19,noWrap:true,attribution:'Imagery sources: Esri, Maxar, Earthstar Geographics, and the GIS User Community'});
+  const labels=L.tileLayer("https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}",{maxZoom:19,noWrap:true,opacity:.95,attribution:'Place labels and boundaries: Esri'});
+  const street=L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{subdomains:"abc",maxZoom:19,noWrap:true,attribution:'&copy; OpenStreetMap contributors'});
+  window.worldMapLayers={imagery,labels,street};
+  imagery.addTo(window.worldMapInstance);labels.addTo(window.worldMapInstance);
+  window.setWorldMapStyle=function(style){
+   const map=window.worldMapInstance,layers=window.worldMapLayers;if(!map||!layers)return;
+   if(style==="street"){if(map.hasLayer(layers.imagery))map.removeLayer(layers.imagery);if(map.hasLayer(layers.labels))map.removeLayer(layers.labels);if(!map.hasLayer(layers.street))layers.street.addTo(map);}
+   else{if(map.hasLayer(layers.street))map.removeLayer(layers.street);if(!map.hasLayer(layers.imagery))layers.imagery.addTo(map);if(!map.hasLayer(layers.labels))layers.labels.addTo(map);}
+   const sat=$("#mapSatelliteButton"),road=$("#mapStreetButton");
+   if(sat&&road){sat.classList.toggle("active",style!=="street");road.classList.toggle("active",style==="street");sat.setAttribute("aria-pressed",String(style!=="street"));road.setAttribute("aria-pressed",String(style==="street"));}
+   const attribution=$("#mapAttribution");if(attribution)attribution.textContent=style==="street"?"© OpenStreetMap contributors":"Imagery: Esri, Maxar, Earthstar Geographics, and GIS User Community · Labels: Esri";
+  };
+  $("#mapSatelliteButton")?.addEventListener("click",()=>window.setWorldMapStyle("satellite"));
+  $("#mapStreetButton")?.addEventListener("click",()=>window.setWorldMapStyle("street"));
  }
  requestAnimationFrame(()=>{window.worldMapInstance.invalidateSize();renderSDGMapPins();});
 }
