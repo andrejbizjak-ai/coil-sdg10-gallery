@@ -1161,6 +1161,7 @@ function setCurrentNav(id) {
 }
 function showPage(id, updateHistory = true) {
   if (!pageIds.includes(id)) id = "home";
+  try { sessionStorage.setItem("sdg10-last-page", id); } catch {}
   activeStoryId = null;
   detailPage.style.display = "none";
   mainPage.style.display = "";
@@ -1178,6 +1179,7 @@ function showPage(id, updateHistory = true) {
   window.scrollTo({top:0,behavior:"smooth"});
 }
 function showStory(id) {
+  try { sessionStorage.setItem("sdg10-last-page", "story-" + id); } catch {}
   const story = storyDetails[id];
   const card = cards.find(item => item.dataset.id === id);
   if (!story || !card) { showPage("gallery",false); return; }
@@ -1197,7 +1199,10 @@ function showStory(id) {
   window.scrollTo({top:0,behavior:"smooth"});
 }
 function routeFromHash(updateHistory = false) {
-  const hash = location.hash.slice(1);
+  let hash = location.hash.slice(1);
+  if (!hash) {
+    try { hash = sessionStorage.getItem("sdg10-last-page") || ""; } catch {}
+  }
   if (hash.startsWith("story-")) showStory(hash.slice(6));
   else showPage(pageIds.includes(hash) ? hash : "home",updateHistory);
 }
