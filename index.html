@@ -1764,7 +1764,7 @@ main#mainPage>.page.section-arriving img,#detailPage.section-arriving img{animat
       <div class="achievements-head"><div><p class="kicker">Your progress</p><h3 id="achievementsTitle">Your <em>achievements.</em></h3></div><p id="achievementSummary">Unlock ten badges by exploring stories, learning about SDG 10 and playing the games. Your progress is saved on this device.</p></div>
       <div class="achievement-progress" role="progressbar" aria-label="Achievements unlocked" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><span id="achievementProgressFill"></span></div>
       <div class="achievement-grid" id="achievementGrid">
-        <article class="achievement-card" data-achievement="welcome"><span class="achievement-icon" aria-hidden="true">✦</span><h4>Welcome</h4><p>Visit the website for the first time.</p><span class="achievement-status">Locked</span></article>
+        <article class="achievement-card" data-achievement="welcome"><span class="achievement-icon" aria-hidden="true">✦</span><h4>Welcome</h4><p>Open the Home section.</p><span class="achievement-status">Locked</span></article>
         <article class="achievement-card" data-achievement="learner"><span class="achievement-icon" aria-hidden="true">⌕</span><h4>Learner</h4><p>Read five different Gallery stories for at least 20 seconds each.</p><span class="achievement-status">Locked</span></article>
         <article class="achievement-card" data-achievement="gamer"><span class="achievement-icon" aria-hidden="true">◷</span><h4>Gamer</h4><p>Spend 30 seconds playing the World Game after entering the map.</p><span class="achievement-status">Locked</span></article>
         <article class="achievement-card" data-achievement="explorer"><span class="achievement-icon" aria-hidden="true">◎</span><h4>Explorer</h4><p>Visit all seven main sections of the website.</p><span class="achievement-status">Locked</span></article>
@@ -1877,8 +1877,12 @@ const ACHIEVEMENT_PAGE_STORAGE_KEY="sdg10-achievement-pages-v1";
 const STORY_READING_STORAGE_KEY="sdg10-story-reading-v1";
 const STORY_VISITS_STORAGE_KEY="sdg10-story-visits-v1";
 const GAME_TIME_STORAGE_KEY="sdg10-game-time-v1";
+const QUIZ_BEST_SCORE_KEY="sdg10-quiz-best-score-v1";
+const MAP_VIEWER_USED_KEY="sdg10-map-viewer-used-v1";
+let achievementSessionCache=null;
+let achievementStorageAvailable=true;
 const achievementDefinitions=[
- {id:"welcome",title:"Welcome",description:"Visit the website for the first time.",icon:"✦"},
+ {id:"welcome",title:"Welcome",description:"Open the Home section.",icon:"✦"},
  {id:"learner",title:"Learner",description:"Read five different Gallery stories for at least 20 seconds each.",icon:"⌕"},
  {id:"gamer",title:"Gamer",description:"Spend 30 seconds playing the World Game after entering the map.",icon:"◷"},
  {id:"explorer",title:"Explorer",description:"Visit all seven main sections of the website.",icon:"◎"},
@@ -1891,10 +1895,33 @@ const achievementDefinitions=[
 ];
 function getUnlockedAchievements(){
  try{
-  const saved=JSON.parse(localStorage.getItem(ACHIEVEMENT_STORAGE_KEY)||"[]");
-  return Array.isArray(saved)?saved.filter(id=>achievementDefinitions.some(item=>item.id===id)):[];
- }catch{return [];}
+  const raw=localStorage.getItem(ACHIEVEMENT_STORAGE_KEY);
+  const saved=raw?JSON.parse(raw):[];
+  achievementStorageAvailable=true;
+  if(Array.isArray(saved)){
+   achievementSessionCache=saved.filter(id=>achievementDefinitions.some(item=>item.id===id));
+   return [...achievementSessionCache];
+  }
+ }catch(error){achievementStorageAvailable=false;}
+ return [...(achievementSessionCache||[])];
 }
+function saveUnlockedAchievements(ids){
+ const valid=[...new Set(ids)].filter(id=>achievementDefinitions.some(item=>item.id===id));
+ achievementSessionCache=valid;
+ try{
+  const payload=JSON.stringify(valid);
+  localStorage.setItem(ACHIEVEMENT_STORAGE_KEY,payload);
+  const verified=JSON.parse(localStorage.getItem(ACHIEVEMENT_STORAGE_KEY)||"null");
+  achievementStorageAvailable=Array.isArray(verified)&&valid.every(id=>verified.includes(id));
+ }catch(error){achievementStorageAvailable=false;}
+ return achievementStorageAvailable;
+}
+window.addEventListener("storage",event=>{
+ if(event.key===ACHIEVEMENT_STORAGE_KEY){
+  achievementSessionCache=null;
+  renderAchievements();
+ }
+});
 function getAchievementObject(key){
  try{const value=JSON.parse(localStorage.getItem(key)||"{}");return value&&typeof value==="object"&&!Array.isArray(value)?value:{};}
  catch{return {};}
@@ -1930,8 +1957,7 @@ function unlockAchievement(id){
  const unlocked=getUnlockedAchievements();
  if(unlocked.includes(id))return false;
  unlocked.push(id);
- try{localStorage.setItem(ACHIEVEMENT_STORAGE_KEY,JSON.stringify(unlocked));}
- catch(e){console.warn("Could not save achievement.",e);}
+ saveUnlockedAchievements(unlocked);
  renderAchievements();
  showAchievementToast(achievement);
  return true;
@@ -1949,7 +1975,10 @@ function renderAchievements(){
  const fill=$("#achievementProgressFill"),bar=$(".achievement-progress"),summary=$("#achievementSummary");
  if(fill)fill.style.width=(count/achievementDefinitions.length*100)+"%";
  if(bar)bar.setAttribute("aria-valuenow",String(count));
- if(summary)summary.textContent=count+" of 10 achievements unlocked. "+(count===10?"Every badge collected — amazing work!":"Keep exploring. Your progress is saved on this device.");
+ if(summary){
+  const saveNote=achievementStorageAvailable?"Your progress is saved on this device.":"Browser storage is blocked; progress may not survive a refresh.";
+  summary.textContent=count+" of 10 achievements unlocked. "+(count===10?"Every badge collected — amazing work! ":"Keep exploring. ")+saveNote;
+ }
 }
 function recordAchievementPageVisit(pageId){
  if(!pageIds.includes(pageId))return;
@@ -1970,6 +1999,42 @@ function recordStoryVisit(storyId){
  try{localStorage.setItem(STORY_VISITS_STORAGE_KEY,JSON.stringify(visits));}catch{}
  if(Object.values(visits).filter(Boolean).length>=10)unlockAchievement("storyCollector");
 }
+function recordQuizAchievementScore(score){
+ const value=Math.max(0,Math.min(100,Number(score)||0));
+ let best=value;
+ try{
+  best=Math.max(value,Number(localStorage.getItem(QUIZ_BEST_SCORE_KEY))||0);
+  localStorage.setItem(QUIZ_BEST_SCORE_KEY,String(best));
+ }catch{}
+ if(best>=80)unlockAchievement("scholar");
+ if(best===100)unlockAchievement("perfect");
+}
+function checkSavedAchievementProgress(){
+ const pages=getAchievementObject(ACHIEVEMENT_PAGE_STORAGE_KEY);
+ if(pageIds.every(id=>pages[id]))unlockAchievement("explorer");
+ const visits=getAchievementObject(STORY_VISITS_STORAGE_KEY);
+ if(Object.values(visits).filter(Boolean).length>=10)unlockAchievement("storyCollector");
+ const reading=getAchievementObject(STORY_READING_STORAGE_KEY);
+ if(Object.values(reading).filter(seconds=>Number(seconds)>=20).length>=5)unlockAchievement("learner");
+ let gameSeconds=0,bestQuiz=0,mapViewed=false;
+ try{
+  gameSeconds=Number(localStorage.getItem(GAME_TIME_STORAGE_KEY))||0;
+  bestQuiz=Number(localStorage.getItem(QUIZ_BEST_SCORE_KEY))||0;
+  mapViewed=localStorage.getItem(MAP_VIEWER_USED_KEY)==="1";
+ }catch{}
+ if(gameSeconds>=30)unlockAchievement("gamer");
+ if(bestQuiz>=80)unlockAchievement("scholar");
+ if(bestQuiz>=100)unlockAchievement("perfect");
+ if(mapViewed)unlockAchievement("mapViewer");
+ if(typeof sdg10State!=="undefined"&&sdg10State){
+  if(Array.isArray(sdg10State.history)&&sdg10State.history.length>=5)unlockAchievement("policyMaker");
+  if(sdg10State.finished||sdg10State.index>=20)unlockAchievement("century");
+ }
+}
+window.addEventListener("pageshow",()=>{
+ renderAchievements();
+ checkSavedAchievementProgress();
+});
 function trackAchievementTime(){
  if(document.visibilityState!=="visible")return;
  if(activeStoryId&&detailPage.style.display!=="none"){
@@ -2124,6 +2189,7 @@ function showPage(id, updateHistory = true) {
   }
   setCurrentNav(id);
   recordAchievementPageVisit(id);
+  if(id==="home")unlockAchievement("welcome");
   closeMobileMenu();
   if (updateHistory && location.hash !== "#" + id) history.pushState(null, "", "#" + id);
   const heading = targetPage.querySelector("h1,h2");
@@ -2436,8 +2502,7 @@ function answerQuiz(choice) {
 }
 
 function finishQuiz() {
-  if (quizPoints >= 80) unlockAchievement("scholar");
-  if (quizPoints === 100) unlockAchievement("perfect");
+  recordQuizAchievementScore(quizPoints);
   $("#quizPanel").hidden = true;
   $("#quizResult").hidden = false;
   $("#quizProgress").style.width = "100%";
@@ -2999,7 +3064,10 @@ function setSDGDecisionPanelOpen(open,focusAfterChange=false){
  openButton.hidden=open;
  openButton.setAttribute("aria-expanded",String(open));
  if(closeButton)closeButton.setAttribute("aria-expanded",String(open));
- if(!open&&typeof unlockAchievement==="function")unlockAchievement("mapViewer");
+ if(!open&&typeof unlockAchievement==="function"){
+  try{localStorage.setItem(MAP_VIEWER_USED_KEY,"1");}catch{}
+  unlockAchievement("mapViewer");
+ }
  if(focusAfterChange){
   if(open)panel.focus();
   else openButton.focus();
@@ -3111,13 +3179,8 @@ renderMemoryGame();
 
 renderQuiz();
 renderAchievements();
-try{
- if(!localStorage.getItem("sdg10-first-visit-v2")){
-  localStorage.setItem("sdg10-first-visit-v2","1");
-  unlockAchievement("welcome");
- }
-}catch{unlockAchievement("welcome");}
 routeFromHash(false);
+checkSavedAchievementProgress();
 try{if(location.hash==="#game"&&localStorage.getItem("coil-sdg10-earth-open")==="1"){localStorage.removeItem("coil-sdg10-earth-open");}}catch{}
 applyStoryFilters();
 </script>
@@ -3357,10 +3420,7 @@ applyStoryFilters();
           : "Every answer is a chance to learn.";
     get("quizResultText").textContent = "You got " + (score / 10) + " out of 10 questions correct. Review the explanations, explore the website topics, and try again to improve your score.";
 
-    if (typeof unlockAchievement === "function") {
-      if (score >= 80) unlockAchievement("scholar");
-      if (score === 100) unlockAchievement("perfect");
-    }
+    if (typeof recordQuizAchievementScore === "function") recordQuizAchievementScore(score);
   }
 
   function restart() {
