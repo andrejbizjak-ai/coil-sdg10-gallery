@@ -1046,8 +1046,8 @@ body.light .hero {background:
           </svg>
         </div>
         <div class="earth-view-top"><span>COIL · SDG 10</span><button class="button secondary" id="earthBack" type="button">← MENU</button></div>
-        <div class="earth-view-caption"><p>OUR SHARED PLANET</p><h3>One world.<br><em>Equal possibilities.</em></h3><span class="earth-controls-hint">DRAG TO MOVE AROUND · SCROLL OR USE + / − TO ZOOM</span></div>
-        <div class="earth-zoom-controls" aria-label="Earth zoom controls"><button id="earthZoomIn" type="button" aria-label="Zoom in">+</button><button id="earthZoomOut" type="button" aria-label="Zoom out">−</button><button id="earthReset" type="button" aria-label="Reset Earth view">↺</button></div>
+        <div class="earth-view-caption"><p>OUR SHARED PLANET</p><h3>One world.<br><em>Equal possibilities.</em></h3><span class="earth-controls-hint">DRAG TO MOVE AROUND</span></div>
+        <div class="earth-zoom-controls" aria-label="Map controls"><button id="earthReset" type="button" aria-label="Reset map position">↺</button></div>
       </div>
     </div>
   </section>
@@ -1712,18 +1712,14 @@ function loadWorldProgress(){
 }
 
 
-let mapScale=1,mapX=0,mapY=0,mapDrag=null;
-function renderWorldMap(){const layer=$("#worldMapLayer");if(layer)layer.setAttribute("transform","translate("+mapX+" "+mapY+") translate(600 300) scale("+mapScale+") translate(-600 -300)");}
-function changeMapZoom(amount){mapScale=Math.max(.85,Math.min(4.5,mapScale+amount));renderWorldMap();}
+let mapX=0,mapY=0,mapDrag=null;
+function renderWorldMap(){const layer=$("#worldMapLayer");if(layer)layer.setAttribute("transform","translate("+mapX+" "+mapY+")");}
 function initInteractiveEarth(){
  const stage=$("#worldMapStage");if(!stage||stage.dataset.ready==="yes")return;stage.dataset.ready="yes";
  stage.addEventListener("pointerdown",e=>{mapDrag={x:e.clientX,y:e.clientY,startX:mapX,startY:mapY};stage.setPointerCapture(e.pointerId);});
  stage.addEventListener("pointermove",e=>{if(!mapDrag)return;mapX=mapDrag.startX+(e.clientX-mapDrag.x)*1.2;mapY=mapDrag.startY+(e.clientY-mapDrag.y)*1.2;renderWorldMap();});
  const stop=()=>{mapDrag=null;};stage.addEventListener("pointerup",stop);stage.addEventListener("pointercancel",stop);
- stage.addEventListener("wheel",e=>{e.preventDefault();changeMapZoom(e.deltaY<0?.16:-.16);},{passive:false});
- $("#earthZoomIn").addEventListener("click",()=>changeMapZoom(.25));
- $("#earthZoomOut").addEventListener("click",()=>changeMapZoom(-.25));
- $("#earthReset").addEventListener("click",()=>{mapScale=1;mapX=0;mapY=0;renderWorldMap();});
+ $("#earthReset").addEventListener("click",()=>{mapX=0;mapY=0;renderWorldMap();});
  renderWorldMap();
 }
 
