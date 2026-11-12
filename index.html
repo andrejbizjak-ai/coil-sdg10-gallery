@@ -690,7 +690,7 @@ body.light .hero {background:
 .sdg-map-pulse{display:inline-block;width:7px;height:7px;background:#62e2a7;border-radius:50%;margin-right:6px;box-shadow:0 0 10px #62e2a7}
 .sdg-ending{padding:14px;background:linear-gradient(110deg,rgba(56,159,139,.2),rgba(231,192,88,.12));border:1px solid rgba(150,226,195,.35);color:#e9f7f1;font-size:11px;line-height:1.7}
 .sdg-ending strong{display:block;font:400 21px Georgia,serif;margin-bottom:5px;color:#f5d678}
-.sdg-final-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}
+.sdg-final-stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-top:12px}
 .sdg-final-stats span{padding:8px 5px;background:rgba(255,255,255,.08);text-align:center;font-size:8px;color:#d7e7eb}
 .sdg-final-stats b{display:block;font-size:17px;color:#fff}
 @media(max-width:850px){
@@ -1222,7 +1222,7 @@ body.light .hero {background:
               <div class="sdg-metric metric-inclusion"><span>INCLUSION</span><strong id="sdgInclusion">44</strong><i><b id="sdgInclusionBar"></b></i></div>
               <div class="sdg-metric metric-wellbeing"><span>WELLBEING</span><strong id="sdgWellbeing">48</strong><i><b id="sdgWellbeingBar"></b></i></div>
               <div class="sdg-metric metric-equality"><span>EQUALITY</span><strong id="sdgEquality">38</strong><i><b id="sdgEqualityBar"></b></i></div>
-              <div class="sdg-metric metric-popularity"><span>PUBLIC SUPPORT</span><strong id="sdgPopularity">56%</strong><i><b id="sdgPopularityBar"></b></i><small id="sdgSupporters">4.6B backing your plan</small></div>
+              <div class="sdg-metric metric-popularity"><span>PUBLIC SUPPORT · SIMULATED</span><strong id="sdgPopularity">56%</strong><i><b id="sdgPopularityBar"></b></i><small id="sdgSupporters">4.6B simulated supporters</small></div>
               <div class="sdg-metric metric-pressure"><span>INEQUALITY PRESSURE</span><strong id="sdgPressure">62</strong><i><b id="sdgPressureBar"></b></i><small id="sdgPressureLabel">GLOBAL ALERT</small></div>
             </div>
           </div>
@@ -2086,7 +2086,7 @@ function finishSDGJourney(){
  const message=score>=75?"Your decisions expanded access, opportunity and representation across generations. Many barriers were reduced because people and countries shared power and resources.":score>=55?"Your decisions helped improve lives, but some groups and regions still face barriers. The next step is to listen to those left behind and keep improving systems.":"The century brought difficult trade-offs and some inequalities remained. A fairer future needs stronger protections, inclusive institutions and decisions shaped by the people most affected.";
  $("#sdgGameTitle").textContent=tier;
  $("#sdgGameScenario").textContent="You guided the world from 2026 to 2126. Your final equality, opportunity, inclusion and wellbeing indicators reflect the choices made along the way.";
- $("#sdgGameChoices").innerHTML='<div class="sdg-ending"><strong>100 years. 10 decisions. One shared planet.</strong>'+message+'<div class="sdg-final-stats">'+[["Opportunity",sdg10State.opportunity],["Inclusion",sdg10State.inclusion],["Wellbeing",sdg10State.wellbeing],["Equality",sdg10State.equality],["Public support",sdg10State.popularity]].map(([name,value])=>'<span>'+name+'<b>'+value+'</b></span>').join("")+'</div></div>';
+ $("#sdgGameChoices").innerHTML='<div class="sdg-ending"><strong>100 years. 10 decisions. One shared planet.</strong>'+message+'<div class="sdg-final-stats">'+[["Opportunity",sdg10State.opportunity],["Inclusion",sdg10State.inclusion],["Wellbeing",sdg10State.wellbeing],["Equality",sdg10State.equality],["Public support",sdg10State.popularity],["Inequality pressure",sdg10State.pressure]].map(([name,value])=>'<span>'+name+'<b>'+value+'</b></span>').join("")+'</div></div>';
  $("#sdgGameOutcome").textContent="Your journey is complete. Final public support: "+sdg10State.popularity+"%. This approval score and supporter count are simulated game indicators.";
  $("#sdgGameOutcome").classList.add("visible");
  $("#sdgGameHint").textContent="Final public support: "+sdg10State.popularity+"% · "+(8.2*sdg10State.popularity/100).toFixed(1)+"B simulated supporters.";
