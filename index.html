@@ -614,6 +614,11 @@ body.light .hero {background:
 .earth-zoom-controls button:hover{background:#16445a;border-color:#9bd5e3}
 @media(max-width:600px){.earth-view-caption{bottom:18px;padding:14px 12px}.earth-controls-hint{font-size:7px}.earth-zoom-controls{right:12px;bottom:120px}.earth-zoom-controls button{width:36px;height:36px}}
 
+
+/* Keep the Earth experience focused on globe exploration, not game saves */
+#worldContinue,#worldSave,#worldHowTo{display:none}
+.world-menu-actions{grid-template-columns:1fr}
+.world-menu-actions .world-play{grid-column:1}
 </style>
 </head>
 
@@ -953,17 +958,17 @@ body.light .hero {background:
 
       <div class="world-menu-card" id="worldMainMenu">
         <p class="world-menu-kicker">COIL INTERACTIVE EXPERIENCE · SDG 10</p>
-        <h3>ONE WORLD.<br><em>FAIR CHOICES.</em></h3>
-        <p class="world-menu-copy">The future of this planet is in your hands. Make decisions, face their consequences, and build a world where everyone belongs.</p>
+        <h3>EXPLORE THE<br><em>EARTH.</em></h3>
+        <p class="world-menu-copy">Explore a detailed 3D globe. Rotate the planet, look around, and zoom from a view of the whole world to a closer look.</p>
         <div class="world-menu-actions">
-          <button class="button world-play" id="worldPlay" type="button">NEW GAME <span aria-hidden="true">▶</span></button>
+          <button class="button world-play" id="worldPlay" type="button">EXPLORE EARTH <span aria-hidden="true">↗</span></button>
           <button class="button secondary" id="worldContinue" type="button">CONTINUE</button>
           <button class="button secondary" id="worldSave" type="button">SAVE PROGRESS</button>
         </div>
-        <p class="world-save-status" id="worldSaveStatus" role="status" aria-live="polite">YOUR JOURNEY IS READY.</p>
+        <p class="world-save-status" id="worldSaveStatus" role="status" aria-live="polite">THE PLANET IS READY TO EXPLORE.</p>
         <div class="world-menu-footer">
           <button id="worldHowTo" type="button">HOW TO PLAY</button>
-          <button id="worldSettings" type="button">PAUSE EARTH</button>
+          <button id="worldSettings" type="button">PAUSE GLOBE</button>
         </div>
       </div>
 
