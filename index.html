@@ -1395,7 +1395,12 @@ body.light .hero {background:
         </div>
         <p class="game-context" id="quizContext">SDG 10 · THE BIG IDEA</p>
         <h3 class="game-question" id="quizQuestion">What is the main aim of Sustainable Development Goal 10?</h3>
-        <div class="game-options" id="quizOptions"></div>
+        <div class="game-options" id="quizOptions">
+          <button class="game-option" type="button">Reduce inequality within and among countries.</button>
+          <button class="game-option" type="button">Make every person earn exactly the same salary.</button>
+          <button class="game-option" type="button">Focus only on increasing the wealth of richer countries.</button>
+          <button class="game-option" type="button">Replace national governments with one global government.</button>
+        </div>
         <div class="game-feedback" id="quizFeedback" role="status" aria-live="polite"></div>
         <button class="button game-next" id="quizNext" type="button" disabled>Choose an answer first</button>
       </div>
@@ -2662,6 +2667,243 @@ applyStoryFilters();
   function animate(){current+=(target-current)*.22;if(Math.abs(target-current)<.08)current=target;stage.style.setProperty("--split",current+"%");if(current!==target)frame=requestAnimationFrame(animate);else frame=0;}
   range.addEventListener("input",()=>{target=Number(range.value);if(!frame)frame=requestAnimationFrame(animate);});
 })();
+})();
+</script>
+<script>
+/* Standalone quiz controller: keeps the SDG 10 quiz working even if another site script fails. */
+(() => {
+  const questions = [
+    {
+      context:"SDG 10 · THE BIG IDEA",
+      question:"What is the main aim of Sustainable Development Goal 10?",
+      options:[
+        "Reduce inequality within and among countries.",
+        "Make every person earn exactly the same salary.",
+        "Focus only on increasing the wealth of richer countries.",
+        "Replace national governments with one global government."
+      ],
+      answer:0,
+      explanation:"SDG 10 aims to reduce inequality within countries and between countries, so everyone has a fairer chance to participate and thrive."
+    },
+    {
+      context:"INCOME INEQUALITY · TARGET 10.1",
+      question:"Which group does Target 10.1 specifically focus on when aiming for income growth?",
+      options:[
+        "The richest 10% of people in every country.",
+        "People who already own large businesses.",
+        "Only people who work in government.",
+        "The bottom 40% of the population."
+      ],
+      answer:3,
+      explanation:"Target 10.1 aims for the income of the bottom 40% of the population to grow at a rate higher than the national average."
+    },
+    {
+      context:"INCLUSION · TARGET 10.2",
+      question:"What does Target 10.2 ask countries to promote?",
+      options:[
+        "Opportunities only for people with the same background.",
+        "Social, economic, and political inclusion for everyone.",
+        "Access to decision-making only for high-income groups.",
+        "The removal of public services for minority communities."
+      ],
+      answer:1,
+      explanation:"Target 10.2 promotes the social, economic, and political inclusion of all, regardless of age, sex, disability, race, ethnicity, origin, religion, or economic status."
+    },
+    {
+      context:"EQUAL RIGHTS · TARGET 10.3",
+      question:"Which action best supports equal opportunity and reduces inequality of outcome?",
+      options:[
+        "Allowing discrimination when it is common practice.",
+        "Giving public services only to the largest groups.",
+        "Ignoring unfair treatment in laws and workplaces.",
+        "Removing discriminatory laws, policies, and practices."
+      ],
+      answer:3,
+      explanation:"Target 10.3 calls for equal opportunity and reduced inequalities of outcome, including by eliminating discriminatory laws, policies, and practices."
+    },
+    {
+      context:"FAIR POLICIES · TARGET 10.4",
+      question:"Which policies does Target 10.4 highlight as ways to reduce inequality?",
+      options:[
+        "Fiscal, wage, and social protection policies.",
+        "Policies that remove all worker protections.",
+        "Policies that benefit only the highest earners.",
+        "Rules that limit access to education and healthcare."
+      ],
+      answer:0,
+      explanation:"Target 10.4 promotes policies, especially fiscal, wage, and social protection policies, to progressively achieve greater equality."
+    },
+    {
+      context:"MIGRATION · TARGET 10.7",
+      question:"What kind of migration does Target 10.7 encourage?",
+      options:[
+        "Migration without any safety standards.",
+        "Migration that excludes people from basic rights.",
+        "Safe, orderly, regular, and responsible migration.",
+        "A complete ban on people moving between countries."
+      ],
+      answer:2,
+      explanation:"Target 10.7 calls for orderly, safe, regular, and responsible migration and mobility of people through well-managed migration policies."
+    },
+    {
+      context:"DISABILITY INCLUSION · ACCESS FOR ALL",
+      question:"A public building has stairs but no step-free entrance. What is the best way to reduce this barrier?",
+      options:[
+        "Tell visitors who cannot use the stairs to stay home.",
+        "Provide an accessible entrance and involve disabled people in planning improvements.",
+        "Offer access only when someone complains.",
+        "Move all public services to a different town."
+      ],
+      answer:1,
+      explanation:"Accessible buildings and services help people participate equally. Involving disabled people helps ensure that solutions meet real needs."
+    },
+    {
+      context:"GENDER EQUALITY · FAIR WORK",
+      question:"A company discovers a gender pay gap. What should it do first?",
+      options:[
+        "Ignore the gap because it may disappear on its own.",
+        "Stop collecting information about salaries.",
+        "Assume all differences are caused by personal choices.",
+        "Review pay, roles, working hours, and promotion opportunities for unfair patterns."
+      ],
+      answer:3,
+      explanation:"Checking evidence about pay and progression can reveal unequal treatment and help an organisation take meaningful action."
+    },
+    {
+      context:"DIGITAL DIVIDE · EQUAL ACCESS",
+      question:"Some students cannot afford a device or reliable internet for school. Which response is fairest?",
+      options:[
+        "Provide affordable devices, internet access, and digital support to students who need them.",
+        "Move every lesson online and leave families to solve the problem.",
+        "Give extra technology only to students who already own new devices.",
+        "Exclude students without internet from online learning."
+      ],
+      answer:0,
+      explanation:"Education opportunities should not depend on family income. Devices, connectivity, and digital skills support can reduce the digital divide."
+    },
+    {
+      context:"GLOBAL REPRESENTATION · TARGET 10.6",
+      question:"What does Target 10.6 seek to strengthen?",
+      options:[
+        "The influence of only the richest countries in global institutions.",
+        "The role of private companies in replacing public institutions.",
+        "The voice and representation of developing countries in international economic and financial institutions.",
+        "Restrictions on developing countries joining international organisations."
+      ],
+      answer:2,
+      explanation:"Target 10.6 aims to ensure enhanced representation and voice for developing countries in decision-making in international economic and financial institutions."
+    }
+  ];
+
+  const get = id => document.getElementById(id);
+  const panel = get("quizPanel");
+  const optionsBox = get("quizOptions");
+  if (!panel || !optionsBox) return;
+
+  // Replace controls to remove any stale handlers from earlier quiz versions.
+  function freshButton(id) {
+    const original = get(id);
+    if (!original) return null;
+    const clone = original.cloneNode(true);
+    original.replaceWith(clone);
+    return clone;
+  }
+  const nextButton = freshButton("quizNext");
+  const restartButton = freshButton("quizRestart");
+  const actionButton = freshButton("quizToAction");
+
+  let index = 0;
+  let score = 0;
+  let answered = false;
+
+  function render() {
+    const item = questions[index];
+    get("quizRound").textContent = "QUESTION " + String(index + 1).padStart(2,"0") + " / " + questions.length;
+    get("quizScore").textContent = score + " POINTS";
+    get("quizContext").textContent = item.context;
+    get("quizQuestion").textContent = item.question;
+    get("quizProgress").style.width = (index / questions.length * 100) + "%";
+    get("quizProgressBar").setAttribute("aria-valuenow",String(index));
+    get("quizFeedback").replaceChildren();
+    nextButton.disabled = true;
+    nextButton.textContent = "Choose an answer first";
+    optionsBox.replaceChildren();
+    answered = false;
+
+    item.options.forEach((label,choice) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "game-option";
+      button.textContent = label;
+      button.addEventListener("click",() => choose(choice));
+      optionsBox.appendChild(button);
+    });
+  }
+
+  function choose(choice) {
+    if (answered) return;
+    answered = true;
+    const item = questions[index];
+    const isCorrect = choice === item.answer;
+    if (isCorrect) score += 10;
+
+    optionsBox.querySelectorAll(".game-option").forEach((button,position) => {
+      button.disabled = true;
+      if (position === item.answer) button.classList.add("correct");
+      if (position === choice && !isCorrect) button.classList.add("incorrect");
+    });
+
+    const heading = document.createElement("strong");
+    heading.textContent = isCorrect ? "Correct · +10 points" : "Not quite · 0 points";
+    const detail = document.createElement("span");
+    detail.textContent = item.explanation;
+    get("quizFeedback").replaceChildren(heading,detail);
+    get("quizScore").textContent = score + " POINTS";
+    nextButton.disabled = false;
+    nextButton.textContent = index === questions.length - 1 ? "See my result" : "Next question →";
+  }
+
+  function finish() {
+    panel.hidden = true;
+    get("quizResult").hidden = false;
+    get("quizProgress").style.width = "100%";
+    get("quizProgressBar").setAttribute("aria-valuenow",String(questions.length));
+    get("quizFinalScore").textContent = score + " / 100";
+    get("quizResultTitle").textContent = score === 100
+      ? "Outstanding SDG 10 knowledge!"
+      : score >= 70
+        ? "Great work — you know your SDG 10."
+        : score >= 40
+          ? "Good effort — keep learning."
+          : "Every answer is a chance to learn.";
+    get("quizResultText").textContent = "You got " + (score / 10) + " out of 10 questions correct. Review the explanations, explore the website topics, and try again to improve your score.";
+
+    try {
+      const key = "sdg10-achievements";
+      const earned = JSON.parse(localStorage.getItem(key) || "[]");
+      if (!earned.includes("quiz")) earned.push("quiz");
+      if (score === 100 && !earned.includes("perfect")) earned.push("perfect");
+      localStorage.setItem(key,JSON.stringify(earned));
+    } catch {}
+  }
+
+  function restart() {
+    index = 0;
+    score = 0;
+    panel.hidden = false;
+    get("quizResult").hidden = true;
+    render();
+  }
+
+  nextButton.addEventListener("click",() => {
+    if (!answered) return;
+    if (index === questions.length - 1) finish();
+    else { index++; render(); }
+  });
+  restartButton.addEventListener("click",restart);
+  actionButton.addEventListener("click",() => { window.location.hash = "action"; });
+
+  render();
 })();
 </script>
 </body>
