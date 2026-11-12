@@ -312,6 +312,21 @@ main#mainPage > .page.active-page {display:block}
 @media(max-width:760px) {.memory-intro {grid-template-columns:1fr;gap:15px}.match-grid {grid-template-columns:repeat(2,minmax(0,1fr))}.match-card {min-height:135px}}
 
 
+/* Game page: fill the viewport below the navigation bar */
+body:has(#game.active-page) {overflow:hidden}
+#game.active-page {
+  width:100%;max-width:none;height:calc(100dvh - 72px);min-height:0;
+  margin:0;padding:0;overflow:hidden;
+}
+#game.active-page .world-game-shell {
+  width:100%;height:100%;min-height:0;margin:0;padding:24px;
+  border:0;
+}
+@media(max-width:760px) {
+  #game.active-page {height:calc(100dvh - 64px)}
+  #game.active-page .world-game-shell {padding:14px}
+}
+
 /* World decision game — main menu */
 .world-game-shell {
   position:relative;isolation:isolate;overflow:hidden;min-height:570px;
