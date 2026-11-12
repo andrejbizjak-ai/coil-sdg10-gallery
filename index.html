@@ -160,6 +160,19 @@ main#mainPage > .page.active-page {display:block}
 .principle-list span {color:var(--accent);font:400 18px Georgia,serif}
 .principle-list h3 {font:400 21px Georgia,serif;margin:12px 0 7px}
 .principle-list p {color:var(--muted);font-size:11px;line-height:1.75}
+.home-explore {padding:clamp(65px,8vw,100px) 0}
+.home-explore-head {display:flex;align-items:end;justify-content:space-between;gap:35px;margin-bottom:32px}
+.home-explore-head h2 {max-width:620px;font:400 clamp(34px,4.5vw,54px)/1.06 Georgia,serif;letter-spacing:-.035em}
+.home-explore-head h2 em {color:var(--accent);font-style:normal}
+.home-explore-head > p {max-width:390px;color:var(--muted);font-size:13px;line-height:1.8}
+.home-explore-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.home-explore-card {display:flex;min-height:190px;flex-direction:column;padding:22px 23px;border:1px solid var(--line);background:var(--surface);transition:transform .22s,border-color .22s,background .22s}
+.home-explore-card:hover {transform:translateY(-4px);border-color:var(--accent);background:var(--surface-2)}
+.home-explore-top {display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.16em}
+.home-explore-arrow {font-size:19px;line-height:1;transition:transform .2s}
+.home-explore-card:hover .home-explore-arrow {transform:translate(3px,-3px)}
+.home-explore-card h3 {font:400 25px/1.15 Georgia,serif;margin:22px 0 9px}
+.home-explore-card p {color:var(--muted);font-size:12px;line-height:1.75;max-width:360px}
 
 /* Stories */
 .story-tools {display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
@@ -544,6 +557,9 @@ body.light .hero {background:
 @media(max-width:760px) {
   .section-head,.goal-intro {display:block}
   .section-head > p {margin-top:18px}
+  .home-explore-head {display:block}
+  .home-explore-head > p {margin-top:16px}
+  .home-explore-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
   .goal-aside {margin-top:25px}
   .story-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
   .action-grid {grid-template-columns:1fr}
@@ -564,6 +580,9 @@ body.light .hero {background:
   .intro-strip {grid-template-columns:1fr}
   .intro-point {padding:22px 5%}
   .principles-inner {gap:25px}
+  .home-explore-grid {grid-template-columns:1fr}
+  .home-explore-card {min-height:0;padding:21px}
+  .home-explore-card h3 {margin-top:16px}
   .principle-list,.target-lenses {grid-template-columns:1fr}
   .principle-list article {border-left:0;border-top:1px solid var(--line);padding:16px 0}
   .equity-check {padding:22px;gap:20px}
@@ -889,6 +908,50 @@ body.light .hero {background:
         </div>
       </div>
     </div>
+
+    <section class="home-explore" aria-labelledby="homeExploreTitle">
+      <div class="container">
+        <div class="home-explore-head">
+          <div>
+            <p class="kicker">Discover the website</p>
+            <h2 id="homeExploreTitle">Explore the project, <em>one step at a time.</em></h2>
+          </div>
+          <p>There is more to Goal 10 than a definition. Visit the sections below to see real-world themes, understand the global targets, test your knowledge, and explore possible ways forward.</p>
+        </div>
+        <div class="home-explore-grid">
+          <a class="home-explore-card" href="#gallery" data-page="gallery">
+            <span class="home-explore-top"><span>01 / VISUAL STORIES</span><span class="home-explore-arrow" aria-hidden="true">↗</span></span>
+            <h3>Gallery</h3>
+            <p>Explore twelve visual stories about inequality, from healthcare and housing to migration, digital access, and fairer economic systems.</p>
+          </a>
+          <a class="home-explore-card" href="#targets" data-page="targets">
+            <span class="home-explore-top"><span>02 / UNDERSTAND THE GOAL</span><span class="home-explore-arrow" aria-hidden="true">↗</span></span>
+            <h3>The Goal</h3>
+            <p>Discover what the United Nations means by Reduced Inequalities and explore all ten official SDG 10 targets in clear language.</p>
+          </a>
+          <a class="home-explore-card" href="#action" data-page="action">
+            <span class="home-explore-top"><span>03 / MAKE A DIFFERENCE</span><span class="home-explore-arrow" aria-hidden="true">↗</span></span>
+            <h3>Take Action</h3>
+            <p>Find practical ways to challenge barriers, make spaces more accessible, include different voices, and support fairer systems.</p>
+          </a>
+          <a class="home-explore-card" href="#quiz" data-page="quiz">
+            <span class="home-explore-top"><span>04 / TEST YOUR KNOWLEDGE</span><span class="home-explore-arrow" aria-hidden="true">↗</span></span>
+            <h3>Quiz</h3>
+            <p>Try ten questions about equality and inclusion. Get instant explanations, see your score, and play again to improve it.</p>
+          </a>
+          <a class="home-explore-card" href="#game" data-page="game">
+            <span class="home-explore-top"><span>05 / INTERACTIVE JOURNEY</span><span class="home-explore-arrow" aria-hidden="true">↗</span></span>
+            <h3>Game</h3>
+            <p>Step into a global decision-making journey from 2026 to 2126 and see how different choices can shape a more equal future.</p>
+          </a>
+          <a class="home-explore-card" href="#about" data-page="about">
+            <span class="home-explore-top"><span>06 / THE PEOPLE BEHIND IT</span><span class="home-explore-arrow" aria-hidden="true">↗</span></span>
+            <h3>About us</h3>
+            <p>Meet the students behind this project, read why they chose SDG 10, and watch short videos that introduce the goal.</p>
+          </a>
+        </div>
+      </div>
+    </section>
   </section>
 
   <section class="page section container" id="gallery">
